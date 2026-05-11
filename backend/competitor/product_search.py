@@ -48,17 +48,42 @@ def _domain(url: str) -> str:
         return ''
 
 
+def _clean_title_for_search(title: str) -> str:
+    """Strip noise from product titles to produce clean search queries."""
+    title = re.sub(r'\([^)]*\)', '', title)
+    title = re.sub(r'\b\d+[/\-]\d+[/\-]?\d*\s*[Vv]?[Hh][Zz]?\S*', '', title)
+    title = re.sub(r'\b\d+\s*(?:V|v|Hz|hz|Ph|ph|KW|kW)\b', '', title)
+    title = re.sub(r'^(?:Small|Medium|Large)?\s*\d+\.\d+[-\s]', '', title, flags=re.I)
+    title = re.sub(r'\b[A-Z0-9]{2,}-[A-Z0-9\-]{3,}\b', '', title)
+    title = re.sub(r'[,;:/]', ' ', title)
+    title = re.sub(r'\s[-–]\s', ' ', title)
+    title = ' '.join(title.split())
+    if len(title) > 60:
+        words = title.split()
+        result = []
+        length = 0
+        for word in words:
+            if length + len(word) + (1 if result else 0) > 60:
+                break
+            result.append(word)
+            length += len(word) + (1 if len(result) > 1 else 0)
+        title = ' '.join(result)
+    return title.strip()
+
+
 def _build_query(product: Any, override: Optional[str]) -> str:
     if override:
         return override
     parts: List[str] = []
     if product.manufacturer and product.model_number:
+        model = re.sub(r'[^\w\-]', '', product.model_number)
         parts.append(product.manufacturer)
-        parts.append(f'"{product.model_number}"')
+        parts.append(f'"{model}"')
     elif product.model_number:
-        parts.append(f'"{product.model_number}"')
+        model = re.sub(r'[^\w\-]', '', product.model_number)
+        parts.append(f'"{model}"')
     else:
-        title = (product.canonical_title or '')[:80]
+        title = _clean_title_for_search(product.canonical_title or '')
         parts.append(title)
     parts.append('buy')
     return ' '.join(parts)

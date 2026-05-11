@@ -68,18 +68,47 @@ def _domain(url: str) -> str:
         return ''
 
 
+def _clean_title_for_search(title: str) -> str:
+    """Strip noise from product titles to produce clean search queries."""
+    # Remove parenthetical groups: (0079957904), (APPROX- 226 DOZEN/HR), (4) deck
+    title = re.sub(r'\([^)]*\)', '', title)
+    # Remove electrical/voltage specs: 208/240/60Hz/1 Ph, 480/60/3-ph, 208v, 60Hz
+    title = re.sub(r'\b\d+[/\-]\d+[/\-]?\d*\s*[Vv]?[Hh][Zz]?\S*', '', title)
+    title = re.sub(r'\b\d+\s*(?:V|v|Hz|hz|Ph|ph|KW|kW)\b', '', title)
+    # Remove leading package/size codes like "Small 5.1 ", "Small 4.1-", "3.1-"
+    title = re.sub(r'^(?:Small|Medium|Large)?\s*\d+\.\d+[-\s]', '', title, flags=re.I)
+    # Remove standalone part numbers (all-caps/digits with dashes, 6+ chars)
+    title = re.sub(r'\b[A-Z0-9]{2,}-[A-Z0-9\-]{3,}\b', '', title)
+    # Strip punctuation noise: commas, standalone dashes, slashes, colons
+    title = re.sub(r'[,;:/]', ' ', title)
+    title = re.sub(r'\s[-–]\s', ' ', title)
+    # Collapse whitespace
+    title = ' '.join(title.split())
+    # Cut at word boundary within ~60 chars
+    if len(title) > 60:
+        words = title.split()
+        result = []
+        length = 0
+        for word in words:
+            if length + len(word) + (1 if result else 0) > 60:
+                break
+            result.append(word)
+            length += len(word) + (1 if len(result) > 1 else 0)
+        title = ' '.join(result)
+    return title.strip()
+
+
 def _build_query(product: Product) -> str:
-    """Build a search query that identifies this specific product."""
     parts: List[str] = []
     if product.manufacturer and product.model_number:
-        # Quoted model keeps it specific without over-constraining
+        model = re.sub(r'[^\w\-]', '', product.model_number)
         parts.append(product.manufacturer)
-        parts.append(f'"{product.model_number}"')
+        parts.append(f'"{model}"')
     elif product.model_number:
-        parts.append(f'"{product.model_number}"')
+        model = re.sub(r'[^\w\-]', '', product.model_number)
+        parts.append(f'"{model}"')
     else:
-        # Unquoted title — more flexible, avoids "no results" on long exact-match queries
-        title = (product.canonical_title or '')[:60]
+        title = _clean_title_for_search(product.canonical_title or '')
         parts.append(title)
     parts.append('buy')
     return ' '.join(parts)
