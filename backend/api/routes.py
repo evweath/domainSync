@@ -152,6 +152,7 @@ def list_products(
     source_site: Optional[str] = None,
     min_price: Optional[float] = None,
     max_price: Optional[float] = None,
+    unique_by_title: bool = True,
     page: int = 1,
     per_page: int = 50,
     db: Session = Depends(get_db_session),
@@ -176,6 +177,9 @@ def list_products(
         query = query.filter(Product.price_canonical >= min_price)
     if max_price is not None:
         query = query.filter(Product.price_canonical <= max_price)
+    if unique_by_title:
+        min_ids = [row[0] for row in query.with_entities(func.min(Product.id)).group_by(Product.canonical_title).all()]
+        query = db.query(Product).filter(Product.id.in_(min_ids))
     total = query.count()
     products = query.order_by(Product.canonical_title).offset((page - 1) * per_page).limit(per_page).all()
     return {
@@ -786,6 +790,38 @@ async def start_web_search_scan(req: WebSearchScanRequest):
 
     asyncio.create_task(_run())
     return {"status": "scan_started", "session_name": session_name, "max_results": max_results}
+
+
+class ProductCompetitorSearchRequest(BaseModel):
+    product_ids: List[int]
+    search_query: Optional[str] = None  # override; None = use product title
+    max_competitors: int = 5            # stop per product when this many NEW domains with matches found
+    max_urls: int = 30                  # max URLs to visit per product before giving up
+
+
+@router.post("/api/products/competitor-search")
+async def start_product_competitor_search(req: ProductCompetitorSearchRequest):
+    """Search for competitors for specific products sequentially."""
+    if not req.product_ids:
+        raise HTTPException(status_code=400, detail="product_ids required")
+
+    async def _run():
+        from backend.competitor.product_search import run_product_competitor_search
+        try:
+            result = await run_product_competitor_search(
+                product_ids=req.product_ids,
+                search_query=req.search_query,
+                max_competitors=max(1, min(50, req.max_competitors)),
+                max_urls=max(5, min(100, req.max_urls)),
+                callbacks=[lambda e, d: manager.broadcast({"event": e, **d})],
+            )
+            await manager.broadcast({"event": "product_competitor_search_complete", **result})
+        except Exception as exc:
+            logger.exception("Product competitor search failed: %s", exc)
+            await manager.broadcast({"event": "product_competitor_search_error", "error": str(exc)})
+
+    asyncio.create_task(_run())
+    return {"status": "started", "product_ids": req.product_ids}
 
 
 @router.delete("/api/competitors/{competitor_id}")

@@ -45,6 +45,10 @@ function app() {
     productFilters: { search: '', manufacturer: '', category: '', source_site: '', min_price: '', max_price: '' },
     filterOptions: { manufacturers: [], categories: [], source_sites: [] },
     loadingProducts: false,
+    productSelected: {},          // { product_id: true/false }
+    productCompMax: 5,
+    productCompRunning: false,
+    productCompProgress: null,    // { product_title, found, max, phase, current_domain }
     priceComparison: null,
     priceHistory: null,
     loadingPriceComp: false,
@@ -296,6 +300,34 @@ function app() {
     async openProduct(product) {
       try { this.selectedProduct = await this.api(`/api/products/${product.id}`) || product; }
       catch { this.selectedProduct = product; }
+    },
+
+    async runProductCompSearch() {
+      const ids = Object.keys(this.productSelected).filter(k => this.productSelected[k]).map(Number);
+      if (!ids.length) { this.toast('Select at least one product', 'warning'); return; }
+      if (this.productCompRunning) return;
+      this.productCompRunning = true;
+      this.productCompProgress = null;
+      try {
+        await this.api('/api/products/competitor-search', {
+          method: 'POST',
+          body: JSON.stringify({
+            product_ids: ids,
+            max_competitors: Math.max(1, parseInt(this.productCompMax) || 5),
+            max_urls: 30,
+          }),
+        });
+        this.toast(`Competitor search started for ${ids.length} product${ids.length !== 1 ? 's' : ''}`, 'info');
+      } catch (e) {
+        this.productCompRunning = false;
+        this.toast('Failed to start competitor search: ' + e.message, 'error');
+      }
+    },
+
+    toggleAllProducts() {
+      const all = this.sortedProducts();
+      const allSelected = all.every(p => this.productSelected[p.id]);
+      all.forEach(p => { this.productSelected[p.id] = !allSelected; });
     },
 
     async loadPriceComparison(productId) {
@@ -1257,6 +1289,21 @@ function app() {
         case 'web_search_scan_error':
           this.webSearchRunning = false;
           this.toast(`Web search scan error: ${msg.error}`, 'error'); break;
+        case 'product_comp_search_progress':
+          this.productCompProgress = msg;
+          break;
+        case 'product_competitor_search_complete':
+        case 'product_competitor_search_error':
+          this.productCompRunning = false;
+          this.productCompProgress = null;
+          this.loadCompetitors(1);
+          this.loadPriceMatrix(1);
+          if (msg.event === 'product_competitor_search_error') {
+            this.toast('Competitor search error: ' + msg.error, 'error');
+          } else {
+            this.toast(`Competitor search complete — ${msg.total_found || 0} matches found`, 'success');
+          }
+          break;
         case 'ai_categorize_complete':
           this.toast(`AI categorized ${msg.categorized}/${msg.total} products`, 'success');
           this.loadProducts(); break;

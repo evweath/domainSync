@@ -165,6 +165,21 @@ async def run_competitor_scan(
                     "cooldown_until": cooldown_until.isoformat(),
                 }
 
+        # Skip sites that have failed too many times consecutively
+        if (profile.consecutive_failures or 0) >= 10:
+            logger.info(
+                "Skipping %s — %d consecutive failures (site may be blocking)",
+                competitor.domain, profile.consecutive_failures
+            )
+            return {
+                "scan_id": None,
+                "competitor": competitor.domain,
+                "products_scraped": 0,
+                "matches_found": 0,
+                "skipped": True,
+                "skipped_reason": "too_many_failures",
+            }
+
         # Apply profile overrides
         effective_max_pages = profile.max_pages_per_scan or max_pages
         effective_delay_ms = profile.request_delay_ms if profile.request_delay_ms is not None else 0
@@ -351,13 +366,18 @@ async def run_competitor_scan(
 
         except Exception as exc:
             logger.exception(f"Competitor scan failed for {competitor.domain}: {exc}")
-            comp_scan.status = "failed"
-            comp_scan.completed_at = datetime.utcnow()
-            comp_scan.errors = 1
-            # Update profile failure tracking
-            profile.last_error_at = datetime.utcnow()
-            profile.last_error_message = str(exc)[:500]
-            profile.consecutive_failures = (profile.consecutive_failures or 0) + 1
+            # Commit failure tracking in its own session so it survives the rollback
+            with session_scope() as _fail_db:
+                _fail_comp_scan = _fail_db.get(CompetitorScan, scan_id)
+                if _fail_comp_scan:
+                    _fail_comp_scan.status = "failed"
+                    _fail_comp_scan.completed_at = datetime.utcnow()
+                    _fail_comp_scan.errors = 1
+                _fail_profile = _fail_db.query(CompetitorScrapingProfile).filter_by(competitor_id=competitor_id).first()
+                if _fail_profile:
+                    _fail_profile.last_error_at = datetime.utcnow()
+                    _fail_profile.last_error_message = str(exc)[:500]
+                    _fail_profile.consecutive_failures = (_fail_profile.consecutive_failures or 0) + 1
             await emit("competitor_scan_error", {
                 "competitor": competitor.domain,
                 "error": str(exc),
