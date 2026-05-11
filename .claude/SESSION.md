@@ -1,28 +1,22 @@
-# Session State — 2026-05-11T14:30:00
+# Session State — 2026-05-11T17:30:00
 
 ## Accomplished This Session
 
-- Fixed competitor deletion bug (missing `db.commit()`, missing `is_active` filter)
-- Added checkboxes + Select All + Delete Selected to duplicate review screen
-- Added domain filter checkboxes to dedup Run button
-- Added "Select All on All Pages" for duplicates and source products
-- Added Source Products browser with bulk deactivation
-- Ensured all 3 source domains appear consistently on all screens
-- Added 4 new features: enhanced dashboard (scan phase + log tail), Find This Product, Beat This Price, Find Me New Customers
-- Fixed ddgs package rename (`duckduckgo-search` → `ddgs`), pinned `backend='duckduckgo'` to avoid failing fallback engines
-- Suppressed noisy ddgs INFO logs in app.py
-- Added "Scan All Competitors" and per-row "Scan" buttons to price comparison matrix
-- Fixed log-tail poll timer to stop on 401 (session expiry) instead of flooding
-- Tightened monitor filter to only catch `[ERROR]`/`[WARNING]` structured log lines
-- Deleted unreachable competitor `actionsales.com` (ID 11)
-- Added per-competitor scraping profile with auto-learning:
-  - Platform detection (Shopify API vs Playwright)
-  - 429/rate-limit tracking (timestamp + count)
-  - Failure tracking (consecutive failures + last error message)
-  - Success tracking (last success date + best product count)
-  - Editable rules: min crawl interval, request delay ms, max pages, scraper method, notes
-  - UI panel in competitor detail modal (`frontend/index.html:1980+`)
-- Fixed uvicorn binding from `0.0.0.0` to `127.0.0.1` (localhost only)
+- Restarted service (was not running)
+- Fixed `donutequipment.com` (ID 28) base_url from `/d_en/` path → `https://www.donutequipment.com/`
+- Deactivated `bakeryequipment.com` (ID 26) — completely blocked, all requests fail
+- Fixed `session_scope()` rollback bug in `run_competitor_scan`: consecutive_failures now properly increments in a separate inner session
+- Added skip threshold: competitors with ≥10 consecutive failures are skipped with INFO log (not ERROR spam)
+- Added per-product competitor search feature:
+  - Products page now shows 1 entry per unique canonical title (4815 → 1931 unique)
+  - Checkboxes on every product row + select-all header
+  - "Competitor Search" bar with "find up to N competitors per product" input
+  - Sequential search: visits result URLs one at a time, stops when N unique competitor domains with matches found
+  - Real-time progress via WebSocket (shows current domain being visited)
+  - On completion: refreshes Competitors + Price Comparison screens
+  - New API: `POST /api/products/competitor-search`
+  - New file: `backend/competitor/product_search.py`
+- All changes committed: `4edd75a`
 
 ## In Progress
 
@@ -30,21 +24,23 @@
 
 ## Next Steps
 
-- Restart service: `nohup uvicorn backend.app:app --host 127.0.0.1 --port 8743 --ssl-keyfile certs/key.pem --ssl-certfile certs/cert.pem >> logs/uvicorn.log 2>&1 &`
-- Restart monitor: `tail -f logs/uvicorn.log | grep --line-buffered -E "\[ERROR\]|\[WARNING\]|\[CRITICAL\]|Traceback|Exception"`
-- Consider setting `request_delay_ms` on `restaurantsupply.com` scraping profile (hit 429 at page 36 during this session)
-- rfbakery.com and chefstore.com fail on sitemap fetches — investigate or delete if consistently unreachable
+- Test Competitor Search feature end-to-end from the UI (Products page → check boxes → Competitor Search button)
+- Watch logs for new ERROR patterns post-restart
+- Consider manually setting consecutive_failures for `restaurantware.com` to trigger the skip threshold (old session bug kept it at 0; will auto-increment on next failed scan now)
+- rfbakery.com and chefstore.com still fail on sitemap fetches — deactivate if consistently unreachable
 
 ## Key Context
 
-- Service: `https://127.0.0.1:8743` (self-signed cert, localhost only)
+- Service: `https://127.0.0.1:8743` (PID 54118, self-signed cert, localhost only)
 - Auth: admin / changeme (session-based cookies)
 - DB: `data/donut_intel.db` (SQLite WAL mode)
 - Source domains: donut-supplies.com, donut-equipment.com, bakerywholesalers.com
-- Active competitors: ald.kitchen, bakemark.com, bakesupplyplus.com, chefstore.com, chefstoys.com, ckitchen.com, discountbakeryequip.com, katom.com, restaurantsupply.com, restaurantware.com, rfbakery.com
+- Active competitors: ald.kitchen, bakemark.com, bakesupplyplus.com, chefstore.com, chefstoys.com, ckitchen.com, discountbakeryequip.com, donutequipment.com, katom.com, restaurantsupply.com, restaurantware.com, rfbakery.com
 - ddgs package (not duckduckgo-search) — always pass `backend='duckduckgo'`
-- Monitor task ID changes each session — always start a fresh Monitor
 - git remote: github.com:evweath/donut-intel.git, branch: main
-- All changes committed and pushed at `947cd47`
+- Products page dedup: `unique_by_title=True` (default) in `list_products` API — `backend/api/routes.py:155`
+- New competitor search endpoint: `POST /api/products/competitor-search` — `{product_ids, max_competitors, max_urls}`
+- Product search file: `backend/competitor/product_search.py`
+- Product search progress events: `product_comp_search_progress`, `product_competitor_search_complete`, `product_competitor_search_error`
 - Scraping profile model: `backend/database/models.py:CompetitorScrapingProfile`
 - Scraping profile API: `GET/PUT /api/competitors/{id}/profile` (`backend/api/routes.py:~765`)
