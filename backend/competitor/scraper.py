@@ -227,10 +227,12 @@ async def run_competitor_scan(
                 if effective_delay_ms:
                     scraper.delay = effective_delay_ms / 1000.0
                 async with scraper:
+                    logger.info("[SCRAPE] Discovering product URLs on %s  (max_pages=%d)", competitor.domain, effective_max_pages)
                     product_urls = await scraper.discover_product_urls(
                         base_url=base_url,
                         max_pages=effective_max_pages,
                     )
+                    logger.info("[SCRAPE] Found %d product URLs on %s", len(product_urls), competitor.domain)
                     await emit("competitor_urls_discovered", {
                         "competitor": competitor.domain,
                         "count": len(product_urls),
@@ -242,7 +244,7 @@ async def run_competitor_scan(
                             if sp and sp.is_valid():
                                 scraped_products.append(sp)
                         except Exception:
-                            logger.debug("Failed to extract product from %s", url)
+                            logger.debug("[SCRAPE] Failed to extract product from %s", url)
                             continue
 
             await emit("competitor_products_found", {
@@ -271,6 +273,10 @@ async def run_competitor_scan(
 
                 if result is None:
                     continue
+
+                price_str = f"${sp.price:.2f}" if sp.price else "no price"
+                logger.info("[SCRAPE] Match  domain=%s  product=%r  page=%r  price=%s  confidence=%d%%",
+                            competitor.domain, sp.title[:60], sp.url, price_str, int(result.confidence or 0))
 
                 # Check if match already exists
                 existing = (

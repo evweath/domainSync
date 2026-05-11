@@ -317,6 +317,8 @@ async def run_web_search_scan(
 
         query = _build_query(fake)
 
+        logger.info("[WEB-SCAN] Searching: product=%r  query=%r", snap['title'], query)
+
         async with search_sem:
             search_results = await multi_engine_search(
                 query=query,
@@ -324,7 +326,10 @@ async def run_web_search_scan(
                 exclude_domains=source_domains,
             )
 
+        logger.info("[WEB-SCAN] Search returned %d results for %r", len(search_results), snap['title'])
+
         if not search_results:
+            logger.info("[WEB-SCAN] No search results for %r — skipping", snap['title'])
             return 0, 0
 
         urls_visited = 0
@@ -348,12 +353,14 @@ async def run_web_search_scan(
                             logger.debug("[WEB-SCAN] Skipping %s (3-day cooldown)", domain)
                             return
 
+                logger.info("[WEB-SCAN] Visiting %s  (product=%r)", domain, snap['title'])
                 async with fetch_sem:
                     page_data = await _fetch_product_data(url, client)
 
                 urls_visited += 1
 
                 if not page_data or not page_data.get('title'):
+                    logger.debug("[WEB-SCAN] No product data extracted from %s", domain)
                     # Use snippet data as fallback
                     page_data = {
                         'title': item.get('title', ''),
@@ -383,6 +390,7 @@ async def run_web_search_scan(
                     if result is None:
                         result = match_similar_product(comp_dict, master_products)
                     if result is None:
+                        logger.debug("[WEB-SCAN] No match on %s for product=%r  page_title=%r", domain, snap['title'], comp_dict.get('title', '')[:60])
                         return
 
                     # Get or create competitor
@@ -413,12 +421,17 @@ async def run_web_search_scan(
                     price = page_data.get('price')
                     in_stock = page_data.get('in_stock', True)
 
+                    price_str = f"${price:.2f}" if price else "no price"
                     if existing:
                         if price and existing.competitor_price != price:
+                            logger.info("[WEB-SCAN] Price update  domain=%s  product=%r  price=%s", domain, snap['title'], price_str)
                             existing.competitor_price = price
                             existing.scanned_at = datetime.utcnow()
                             db.add(PriceHistory(match_id=existing.id, price=price, in_stock=in_stock))
+                        else:
+                            logger.debug("[WEB-SCAN] Match already stored  domain=%s  product=%r", domain, snap['title'])
                     else:
+                        logger.info("[WEB-SCAN] Match found  domain=%s  product=%r  price=%s  confidence=%d%%", domain, snap['title'], price_str, int(result.confidence or 0))
                         import json as _json
                         match = CompetitorProductMatch(
                             master_product_id=result.master_product_id,

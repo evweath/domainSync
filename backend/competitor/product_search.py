@@ -218,6 +218,8 @@ async def run_product_competitor_search(
     for snap in product_snapshots:
         query_str = _build_query(_P(snap), search_query)
 
+        logger.info("[PROD-SEARCH] Searching: product=%r  query=%r", snap['title'], query_str)
+
         await emit('product_comp_search_progress', {
             'product_id': snap['id'],
             'product_title': snap['title'],
@@ -232,6 +234,8 @@ async def run_product_competitor_search(
             max_results=max_urls,
             exclude_domains=source_domains,
         )
+
+        logger.info("[PROD-SEARCH] Search returned %d results for %r", len(search_results), snap['title'])
 
         visited_domains: set = set()
         found_count = 0
@@ -250,6 +254,8 @@ async def run_product_competitor_search(
 
                 visited_domains.add(domain)
 
+                logger.info("[PROD-SEARCH] Visiting %s  (product=%r  found=%d/%d)", domain, snap['title'], found_count, max_competitors)
+
                 await emit('product_comp_search_progress', {
                     'product_id': snap['id'],
                     'product_title': snap['title'],
@@ -264,6 +270,7 @@ async def run_product_competitor_search(
                 try:
                     r = await client.get(url)
                     if r.status_code not in (200, 206):
+                        logger.debug("[PROD-SEARCH] %s returned HTTP %d — skipping", domain, r.status_code)
                         continue
                     html = r.text
                     page_data = _parse_jsonld(html) or _parse_meta(html)
@@ -300,6 +307,7 @@ async def run_product_competitor_search(
                         result = match_similar_product(comp_dict, master_products)
 
                     if result is None:
+                        logger.debug("[PROD-SEARCH] No match on %s for product=%r  page_title=%r", domain, snap['title'], comp_dict.get('title', '')[:60])
                         continue
 
                     competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
@@ -328,13 +336,16 @@ async def run_product_competitor_search(
 
                     price = page_data.get('price')
                     in_stock = page_data.get('in_stock', True)
+                    price_str = f"${price:.2f}" if price else "no price"
 
                     if existing:
                         if price and existing.competitor_price != price:
+                            logger.info("[PROD-SEARCH] Price update  domain=%s  product=%r  price=%s", domain, snap['title'], price_str)
                             existing.competitor_price = price
                             existing.scanned_at = datetime.utcnow()
                             db.add(PriceHistory(match_id=existing.id, price=price, in_stock=in_stock))
                     else:
+                        logger.info("[PROD-SEARCH] Match found  domain=%s  product=%r  price=%s  confidence=%d%%", domain, snap['title'], price_str, int(result.confidence or 0))
                         match = CompetitorProductMatch(
                             master_product_id=result.master_product_id,
                             competitor_id=competitor_id,
