@@ -39,17 +39,8 @@ from backend.search.engine import multi_engine_search
 logger = logging.getLogger(__name__)
 
 COOLDOWN_DAYS = 3
-_FETCH_CONCURRENCY = 10  # max concurrent httpx page fetches
-_SEARCH_CONCURRENCY = 5  # max concurrent per-product searches
-
-_FETCH_HEADERS = {
-    'User-Agent': (
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) '
-        'AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15'
-    ),
-    'Accept': 'text/html,application/xhtml+xml,*/*;q=0.9',
-    'Accept-Language': 'en-US,en;q=0.9',
-}
+_FETCH_CONCURRENCY = 10
+_SEARCH_CONCURRENCY = 5
 
 _PRICE_RE = re.compile(r'\$\s*([\d,]+(?:\.\d{1,2})?)')
 _MODEL_RE = re.compile(r'(?:model|part|item)[#\s:]+([A-Z0-9][\w\-]{2,})', re.I)
@@ -216,21 +207,40 @@ def _parse_meta(html: str) -> Dict[str, Any]:
     }
 
 
-async def _fetch_product_data(url: str, client: httpx.AsyncClient) -> Optional[Dict[str, Any]]:
-    """Fetch a product page and extract structured data. Returns None on failure."""
+async def _curl_fetch(url: str, timeout: int = 15) -> str:
+    """Fetch a URL via subprocess curl — bypasses Python TLS fingerprint filtering."""
+    cmd = [
+        'curl', '-s', '-L',
+        '--max-time', str(timeout),
+        '--compressed',
+        '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15',
+        '-H', 'Accept: text/html,application/xhtml+xml,*/*;q=0.9',
+        '-H', 'Accept-Language: en-US,en;q=0.9',
+        url,
+    ]
     try:
-        r = await client.get(url, timeout=12, follow_redirects=True)
-        if r.status_code not in (200, 206):
-            return None
-        html = r.text
-        data = _parse_jsonld(html) or _parse_meta(html)
-        if data:
-            data['url'] = str(r.url)
-            data['source_site'] = _domain(str(r.url))
-        return data
+        proc = await asyncio.create_subprocess_exec(
+            *cmd,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.DEVNULL,
+        )
+        stdout, _ = await asyncio.wait_for(proc.communicate(), timeout=timeout + 2)
+        return stdout.decode('utf-8', errors='replace')
     except Exception as exc:
-        logger.debug("Failed to fetch %s: %s", url, exc)
+        logger.debug("curl fetch failed for %s: %s", url, exc)
+        return ''
+
+
+async def _fetch_product_data(url: str) -> Optional[Dict[str, Any]]:
+    """Fetch a product page and extract structured data. Returns None on failure."""
+    html = await _curl_fetch(url)
+    if not html:
         return None
+    data = _parse_jsonld(html) or _parse_meta(html)
+    if data:
+        data['url'] = url
+        data['source_site'] = _domain(url)
+    return data
 
 
 def _is_in_cooldown(profile: Optional[CompetitorScrapingProfile], force: bool = False) -> bool:
@@ -362,142 +372,135 @@ async def run_web_search_scan(
         urls_visited = 0
         matches = 0
 
-        async with httpx.AsyncClient(headers=_FETCH_HEADERS) as client:
-            async def visit_url(item: dict) -> None:
-                nonlocal urls_visited, matches
-                url = item.get('href') or item.get('url', '')
-                if not url:
-                    return
-                domain = _domain(url)
-                if not domain:
-                    return
+        async def visit_url(item: dict) -> None:
+            nonlocal urls_visited, matches
+            url = item.get('href') or item.get('url', '')
+            if not url:
+                return
+            domain = _domain(url)
+            if not domain:
+                return
 
-                # Check cooldown for this competitor domain
-                with session_scope() as db:
-                    competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
-                    if competitor and competitor.scraping_profile:
-                        if _is_in_cooldown(competitor.scraping_profile, force=force):
-                            logger.debug("[WEB-SCAN] Skipping %s (3-day cooldown)", domain)
-                            return
-
-                logger.info("[WEB-SCAN] Visiting %s  (product=%r)", domain, snap['title'])
-                async with fetch_sem:
-                    page_data = await _fetch_product_data(url, client)
-
-                urls_visited += 1
-
-                if not page_data or not page_data.get('title'):
-                    logger.debug("[WEB-SCAN] No product data extracted from %s", domain)
-                    # Use snippet data as fallback
-                    page_data = {
-                        'title': item.get('title', ''),
-                        'price': _extract_price(item.get('body', '')),
-                        'model_number': _extract_model(item.get('body', '')),
-                        'manufacturer': None,
-                        'sku': None,
-                        'in_stock': True,
-                        'url': url,
-                        'source_site': domain,
-                    }
-
-                comp_dict = {
-                    'title': page_data.get('title', ''),
-                    'price': page_data.get('price'),
-                    'model_number': page_data.get('model_number'),
-                    'manufacturer': page_data.get('manufacturer'),
-                    'sku': page_data.get('sku'),
-                    'description': item.get('body', ''),
-                    'image_hash': None,
-                }
-
-                # Reload all active products for matching (cached in closure scope is unsafe across sessions)
-                with session_scope() as db:
-                    master_products = db.query(Product).filter(Product.is_active == True).all()
-                    result = match_competitor_product(comp_dict, master_products, criteria)
-                    if result is None:
-                        result = match_similar_product(comp_dict, master_products)
-                    if result is None:
-                        logger.debug("[WEB-SCAN] No match on %s for product=%r  page_title=%r", domain, snap['title'], comp_dict.get('title', '')[:60])
+            with session_scope() as db:
+                competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
+                if competitor and competitor.scraping_profile:
+                    if _is_in_cooldown(competitor.scraping_profile, force=force):
+                        logger.debug("[WEB-SCAN] Skipping %s (3-day cooldown)", domain)
                         return
 
-                    # Get or create competitor
-                    competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
-                    if competitor is None:
-                        competitor = Competitor(
-                            domain=domain,
-                            name=domain,
-                            base_url=f"https://{domain}",
-                            is_active=True,
-                        )
-                        db.add(competitor)
-                        db.flush()
-                        logger.info("[WEB-SCAN] Auto-created competitor: %s", domain)
+            logger.info("[WEB-SCAN] Visiting %s  (product=%r)", domain, snap['title'])
+            async with fetch_sem:
+                page_data = await _fetch_product_data(url)
 
-                    competitor_id = competitor.id
+            urls_visited += 1
 
-                    existing = (
-                        db.query(CompetitorProductMatch)
-                        .filter(
-                            CompetitorProductMatch.master_product_id == result.master_product_id,
-                            CompetitorProductMatch.competitor_id == competitor_id,
-                            CompetitorProductMatch.competitor_url == url,
-                        )
-                        .first()
+            if not page_data or not page_data.get('title'):
+                logger.debug("[WEB-SCAN] No product data extracted from %s", domain)
+                page_data = {
+                    'title': item.get('title', ''),
+                    'price': _extract_price(item.get('body', '')),
+                    'model_number': _extract_model(item.get('body', '')),
+                    'manufacturer': None,
+                    'sku': None,
+                    'in_stock': True,
+                    'url': url,
+                    'source_site': domain,
+                }
+
+            comp_dict = {
+                'title': page_data.get('title', ''),
+                'price': page_data.get('price'),
+                'model_number': page_data.get('model_number'),
+                'manufacturer': page_data.get('manufacturer'),
+                'sku': page_data.get('sku'),
+                'description': item.get('body', ''),
+                'image_hash': None,
+            }
+
+            with session_scope() as db:
+                master_products = db.query(Product).filter(Product.is_active == True).all()
+                result = match_competitor_product(comp_dict, master_products, criteria)
+                if result is None:
+                    result = match_similar_product(comp_dict, master_products)
+                if result is None:
+                    logger.debug("[WEB-SCAN] No match on %s for product=%r  page_title=%r", domain, snap['title'], comp_dict.get('title', '')[:60])
+                    return
+
+                competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
+                if competitor is None:
+                    competitor = Competitor(
+                        domain=domain,
+                        name=domain,
+                        base_url=f"https://{domain}",
+                        is_active=True,
                     )
+                    db.add(competitor)
+                    db.flush()
+                    logger.info("[WEB-SCAN] Auto-created competitor: %s", domain)
 
-                    price = page_data.get('price')
-                    in_stock = page_data.get('in_stock', True)
+                competitor_id = competitor.id
 
-                    price_str = f"${price:.2f}" if price else "no price"
-                    if existing:
-                        if price and existing.competitor_price != price:
-                            logger.info("[WEB-SCAN] Price update  domain=%s  product=%r  price=%s", domain, snap['title'], price_str)
-                            existing.competitor_price = price
-                            existing.scanned_at = datetime.utcnow()
-                            db.add(PriceHistory(match_id=existing.id, price=price, in_stock=in_stock))
-                        else:
-                            logger.debug("[WEB-SCAN] Match already stored  domain=%s  product=%r", domain, snap['title'])
+                existing = (
+                    db.query(CompetitorProductMatch)
+                    .filter(
+                        CompetitorProductMatch.master_product_id == result.master_product_id,
+                        CompetitorProductMatch.competitor_id == competitor_id,
+                        CompetitorProductMatch.competitor_url == url,
+                    )
+                    .first()
+                )
+
+                price = page_data.get('price')
+                in_stock = page_data.get('in_stock', True)
+                price_str = f"${price:.2f}" if price else "no price"
+
+                if existing:
+                    if price and existing.competitor_price != price:
+                        logger.info("[WEB-SCAN] Price update  domain=%s  product=%r  price=%s", domain, snap['title'], price_str)
+                        existing.competitor_price = price
+                        existing.scanned_at = datetime.utcnow()
+                        db.add(PriceHistory(match_id=existing.id, price=price, in_stock=in_stock))
                     else:
-                        logger.info("[WEB-SCAN] Match found  domain=%s  product=%r  price=%s  confidence=%d%%", domain, snap['title'], price_str, int(result.confidence or 0))
-                        import json as _json
-                        match = CompetitorProductMatch(
-                            master_product_id=result.master_product_id,
-                            competitor_id=competitor_id,
-                            competitor_url=url,
-                            competitor_title=page_data.get('title', '')[:500],
-                            competitor_price=price,
-                            match_type='|'.join(result.match_types),
-                            match_confidence=result.confidence,
-                            match_reasons_json=_json.dumps(result.reasons),
-                            in_stock=in_stock,
-                            is_similar=result.is_similar,
-                            similarity_reason=result.similarity_reason,
-                            scanned_at=datetime.utcnow(),
-                        )
-                        db.add(match)
-                        db.flush()
-                        if price:
-                            db.add(PriceHistory(match_id=match.id, price=price, in_stock=in_stock))
-
-                    # Update competitor stats
-                    total_matches_count = (
-                        db.query(CompetitorProductMatch)
-                        .filter(
-                            CompetitorProductMatch.competitor_id == competitor_id,
-                            CompetitorProductMatch.is_active == True,
-                        )
-                        .count()
+                        logger.debug("[WEB-SCAN] Match already stored  domain=%s  product=%r", domain, snap['title'])
+                else:
+                    logger.info("[WEB-SCAN] Match found  domain=%s  product=%r  price=%s  confidence=%d%%", domain, snap['title'], price_str, int(result.confidence or 0))
+                    match = CompetitorProductMatch(
+                        master_product_id=result.master_product_id,
+                        competitor_id=competitor_id,
+                        competitor_url=url,
+                        competitor_title=page_data.get('title', '')[:500],
+                        competitor_price=price,
+                        match_type='|'.join(result.match_types),
+                        match_confidence=result.confidence,
+                        match_reasons_json=json.dumps(result.reasons),
+                        in_stock=in_stock,
+                        is_similar=result.is_similar,
+                        similarity_reason=result.similarity_reason,
+                        scanned_at=datetime.utcnow(),
                     )
-                    competitor.total_matching_products = total_matches_count
-                    competitor.last_scanned_at = datetime.utcnow()
-                    if not competitor.first_scanned_at:
-                        competitor.first_scanned_at = datetime.utcnow()
-                    competitor.scan_session_name = session_name
+                    db.add(match)
+                    db.flush()
+                    if price:
+                        db.add(PriceHistory(match_id=match.id, price=price, in_stock=in_stock))
 
-                    matches += 1
+                total_matches_count = (
+                    db.query(CompetitorProductMatch)
+                    .filter(
+                        CompetitorProductMatch.competitor_id == competitor_id,
+                        CompetitorProductMatch.is_active == True,
+                    )
+                    .count()
+                )
+                competitor.total_matching_products = total_matches_count
+                competitor.last_scanned_at = datetime.utcnow()
+                if not competitor.first_scanned_at:
+                    competitor.first_scanned_at = datetime.utcnow()
+                competitor.scan_session_name = session_name
 
-            # Visit all URLs for this product concurrently
-            await asyncio.gather(*[visit_url(item) for item in search_results])
+                matches += 1
+
+        # Visit all URLs for this product concurrently
+        await asyncio.gather(*[visit_url(item) for item in search_results])
 
         return urls_visited, matches
 

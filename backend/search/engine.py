@@ -111,8 +111,21 @@ _SEARCH_HEADERS = {
 _DDG_SEARCH_LOCK = asyncio.Lock()  # serialize DDG calls to avoid rate-limit bans
 
 
+_BING_SKIP_DOMAINS = frozenset({'bing.com', 'r.bing.com', 'go.microsoft.com', 'microsoft.com',
+                                  'facebook.com', 'youtube.com'})
+
+
+def _cite_to_url(cite_html: str) -> str:
+    """Convert a Bing display URL (with › separators) into a real URL."""
+    text = re.sub(r'<[^>]+>', '', cite_html).strip()
+    text = text.replace(' › ', '/').replace('› ', '/').replace(' ›', '/')
+    if not text.startswith('http'):
+        text = 'https://' + text
+    return text
+
+
 async def _bing_search(query: str, max_results: int) -> List[Dict[str, Any]]:
-    """Scrape Bing SERP via curl (bypasses Python TLS fingerprint blocking)."""
+    """Scrape Bing SERP via curl and reconstruct URLs from cite display tags."""
     try:
         q = quote_plus(query)
         url = f"https://www.bing.com/search?q={q}&count={min(max_results * 2, 50)}&mkt=en-US&setlang=en-US&cc=US"
@@ -121,31 +134,26 @@ async def _bing_search(query: str, max_results: int) -> List[Dict[str, Any]]:
             return []
         results = []
         seen: set = set()
-        # Primary: URLs inside <h2> result headings
-        for m in re.finditer(
-            r'<h2[^>]*>.*?<a[^>]+href="(https?://(?!www\.bing\.com|go\.microsoft\.com)[^"]+)"',
-            html, re.DOTALL
-        ):
-            href = m.group(1).split('"')[0]
+
+        # Extract (h2-title, cite-url) pairs from b_algo result blocks
+        for block in re.finditer(r'class="b_algo[^"]*"(.*?)</li>', html, re.DOTALL):
+            b = block.group(1)
+            cite_m = re.search(r'<cite[^>]*>(.*?)</cite>', b, re.DOTALL)
+            h2_m = re.search(r'<h2[^>]*>(.*?)</h2>', b, re.DOTALL)
+            if not cite_m:
+                continue
+            href = _cite_to_url(cite_m.group(1))
+            title = re.sub(r'<[^>]+>', '', h2_m.group(1)).strip() if h2_m else ''
             d = _domain(href)
-            if d and d not in seen:
-                seen.add(d)
-                results.append({'href': href, 'title': '', 'body': ''})
+            if not d or any(skip in d for skip in _BING_SKIP_DOMAINS):
+                continue
+            if d in seen:
+                continue
+            seen.add(d)
+            results.append({'href': href, 'title': title, 'body': ''})
             if len(results) >= max_results:
                 break
-        # Fallback: b_algo result blocks
-        if not results:
-            for m in re.finditer(
-                r'class="b_algo".*?href="(https?://(?!www\.bing\.com|go\.microsoft\.com|bing\.com)[^"]+)"',
-                html, re.DOTALL
-            ):
-                href = m.group(1).split('"')[0]
-                d = _domain(href)
-                if d and d not in seen:
-                    seen.add(d)
-                    results.append({'href': href, 'title': '', 'body': ''})
-                if len(results) >= max_results:
-                    break
+
         logger.debug("Bing returned %d results for %r", len(results), query[:60])
         return results
     except Exception as exc:
