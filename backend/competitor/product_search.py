@@ -1,7 +1,7 @@
 """
 Per-product sequential competitor search.
-Searches for competitors for specific products one URL at a time,
-stopping when the desired number of competitor domains are found.
+Searches for a product, then visits result URLs one at a time (skipping already-seen
+domains) until the desired number of competitor matches are found.
 """
 from __future__ import annotations
 
@@ -12,8 +12,6 @@ import re
 from datetime import datetime
 from typing import Any, Callable, Dict, List, Optional
 from urllib.parse import urlparse
-
-import httpx
 
 from backend.competitor.matcher import MatchCriteria, match_competitor_product, match_similar_product
 from backend.database.db import session_scope
@@ -28,15 +26,6 @@ from backend.search.engine import multi_engine_search
 
 logger = logging.getLogger(__name__)
 
-_FETCH_HEADERS = {
-    'User-Agent': (
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) '
-        'AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15'
-    ),
-    'Accept': 'text/html,application/xhtml+xml,*/*;q=0.9',
-    'Accept-Language': 'en-US,en;q=0.9',
-}
-
 _PRICE_RE = re.compile(r'\$\s*([\d,]+(?:\.\d{1,2})?)')
 _MODEL_RE = re.compile(r'(?:model|part|item)[#\s:]+([A-Z0-9][\w\-]{2,})', re.I)
 
@@ -48,8 +37,31 @@ def _domain(url: str) -> str:
         return ''
 
 
+async def _curl_fetch(url: str, timeout: int = 15) -> str:
+    """Fetch a URL via subprocess curl — bypasses Python TLS fingerprint filtering."""
+    cmd = [
+        'curl', '-s', '-L',
+        '--max-time', str(timeout),
+        '--compressed',
+        '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15',
+        '-H', 'Accept: text/html,application/xhtml+xml,*/*;q=0.9',
+        '-H', 'Accept-Language: en-US,en;q=0.9',
+        url,
+    ]
+    try:
+        proc = await asyncio.create_subprocess_exec(
+            *cmd,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.DEVNULL,
+        )
+        stdout, _ = await asyncio.wait_for(proc.communicate(), timeout=timeout + 2)
+        return stdout.decode('utf-8', errors='replace')
+    except Exception as exc:
+        logger.debug("curl fetch failed for %s: %s", url, exc)
+        return ''
+
+
 def _clean_title_for_search(title: str) -> str:
-    """Strip noise from product titles to produce clean search queries."""
     title = re.sub(r'\([^)]*\)', '', title)
     title = re.sub(r'\b\d+[/\-]\d+[/\-]?\d*\s*[Vv]?[Hh][Zz]?\S*', '', title)
     title = re.sub(r'\b\d+\s*(?:V|v|Hz|hz|Ph|ph|KW|kW)\b', '', title)
@@ -131,6 +143,19 @@ def _parse_jsonld(html: str) -> Optional[Dict[str, Any]]:
             brand = item.get('brand', {})
             manufacturer = brand.get('name') if isinstance(brand, dict) else (brand or None)
             in_stock = 'InStock' in json.dumps(item.get('offers', ''))
+
+            image_raw = item.get('image')
+            if isinstance(image_raw, list):
+                image_raw = image_raw[0] if image_raw else None
+            if isinstance(image_raw, dict):
+                image_url = image_raw.get('url') or image_raw.get('contentUrl')
+            else:
+                image_url = image_raw
+
+            desc = item.get('description', '')
+            if isinstance(desc, str) and len(desc) > 2000:
+                desc = desc[:2000]
+
             return {
                 'title': item.get('name', ''),
                 'price': price,
@@ -138,6 +163,8 @@ def _parse_jsonld(html: str) -> Optional[Dict[str, Any]]:
                 'manufacturer': manufacturer,
                 'sku': item.get('sku'),
                 'in_stock': in_stock,
+                'image': image_url or None,
+                'description': desc or None,
             }
     return None
 
@@ -178,6 +205,8 @@ def _parse_meta(html: str) -> Dict[str, Any]:
         'manufacturer': _meta_val(html, 'og:brand') or _meta_val(html, 'brand'),
         'sku': _meta_val(html, 'sku') or _meta_val(html, 'product:retailer_item_id'),
         'in_stock': True,
+        'image': _meta_val(html, 'og:image') or _meta_val(html, 'twitter:image'),
+        'description': _meta_val(html, 'og:description') or _meta_val(html, 'description'),
     }
 
 
@@ -201,8 +230,8 @@ class _P:
 async def run_product_competitor_search(
     product_ids: List[int],
     search_query: Optional[str] = None,
-    max_competitors: int = 5,
-    max_urls: int = 30,
+    max_competitors: int = 10,
+    max_urls: int = 50,
     callbacks: Optional[List[Callable]] = None,
 ) -> dict:
     cbs = callbacks or []
@@ -243,7 +272,8 @@ async def run_product_competitor_search(
     for snap in product_snapshots:
         query_str = _build_query(_P(snap), search_query)
 
-        logger.info("[PROD-SEARCH] Searching: product=%r  query=%r", snap['title'], query_str)
+        logger.info("[PROD-SEARCH] ── Product: %r  (id=%d)", snap['title'], snap['id'])
+        logger.info("[PROD-SEARCH]    Query:   %r", query_str)
 
         await emit('product_comp_search_progress', {
             'product_id': snap['id'],
@@ -253,177 +283,203 @@ async def run_product_competitor_search(
             'max': max_competitors,
         })
 
-        # Fetch search results
         search_results = await multi_engine_search(
             query=query_str,
             max_results=max_urls,
             exclude_domains=source_domains,
         )
 
-        logger.info("[PROD-SEARCH] Search returned %d results for %r", len(search_results), snap['title'])
+        logger.info("[PROD-SEARCH]    Search returned %d result URLs", len(search_results))
+
+        if not search_results:
+            logger.info("[PROD-SEARCH]    No search results — skipping this product")
+            await emit('product_comp_search_product_done', {
+                'product_id': snap['id'],
+                'product_title': snap['title'],
+                'found': 0,
+                'visited': 0,
+            })
+            continue
 
         visited_domains: set = set()
         found_count = 0
+        visited_count = 0
 
-        async with httpx.AsyncClient(headers=_FETCH_HEADERS, timeout=12, follow_redirects=True) as client:
-            for item in search_results:
-                if found_count >= max_competitors:
-                    break
+        for idx, item in enumerate(search_results):
+            if found_count >= max_competitors:
+                break
 
-                url = item.get('href') or item.get('url', '')
-                if not url:
-                    continue
-                domain = _domain(url)
-                if not domain or domain in source_domains or domain in visited_domains:
-                    continue
+            url = item.get('href') or item.get('url', '')
+            if not url:
+                continue
+            domain = _domain(url)
+            if not domain or domain in source_domains or domain in visited_domains:
+                continue
 
-                visited_domains.add(domain)
+            visited_domains.add(domain)
+            visited_count += 1
 
-                logger.info("[PROD-SEARCH] Visiting %s  (product=%r  found=%d/%d)", domain, snap['title'], found_count, max_competitors)
+            logger.info("[PROD-SEARCH]    [%d] Visiting: %s", visited_count, url)
 
-                await emit('product_comp_search_progress', {
-                    'product_id': snap['id'],
-                    'product_title': snap['title'],
-                    'phase': 'visiting',
-                    'current_url': url,
-                    'current_domain': domain,
-                    'found': found_count,
-                    'max': max_competitors,
-                })
+            await emit('product_comp_search_progress', {
+                'product_id': snap['id'],
+                'product_title': snap['title'],
+                'phase': 'visiting',
+                'current_url': url,
+                'current_domain': domain,
+                'found': found_count,
+                'max': max_competitors,
+            })
 
-                # Fetch and parse the page
-                try:
-                    r = await client.get(url)
-                    if r.status_code not in (200, 206):
-                        logger.debug("[PROD-SEARCH] %s returned HTTP %d — skipping", domain, r.status_code)
-                        continue
-                    html = r.text
-                    page_data = _parse_jsonld(html) or _parse_meta(html)
-                    if not page_data:
-                        page_data = {
-                            'title': item.get('title', ''),
-                            'price': _extract_price(item.get('body', '')),
-                            'model_number': None,
-                            'manufacturer': None,
-                            'sku': None,
-                            'in_stock': True,
-                        }
-                    else:
-                        page_data.setdefault('in_stock', True)
-                except Exception as exc:
-                    logger.debug("Failed to fetch %s: %s", url, exc)
-                    continue
+            html = await _curl_fetch(url)
+            if not html:
+                logger.info("[PROD-SEARCH]       Fetch failed — skipping")
+                continue
 
-                comp_dict = {
-                    'title': page_data.get('title', ''),
-                    'price': page_data.get('price'),
-                    'model_number': page_data.get('model_number'),
-                    'manufacturer': page_data.get('manufacturer'),
-                    'sku': page_data.get('sku'),
-                    'description': item.get('body', ''),
-                    'image_hash': None,
+            page_data = _parse_jsonld(html) or _parse_meta(html)
+            if not page_data:
+                page_data = {
+                    'title': item.get('title', ''),
+                    'price': _extract_price(item.get('body', '')),
+                    'model_number': None,
+                    'manufacturer': None,
+                    'sku': None,
+                    'in_stock': True,
+                    'image': None,
+                    'description': item.get('body', '') or None,
                 }
+            else:
+                page_data.setdefault('in_stock', True)
+                page_data.setdefault('image', None)
+                page_data.setdefault('description', None)
 
-                # Match against all active products, focus on the target product
-                with session_scope() as db:
-                    master_products = db.query(Product).filter(Product.is_active == True).all()
-                    result = match_competitor_product(comp_dict, master_products, criteria)
-                    if result is None:
-                        result = match_similar_product(comp_dict, master_products)
+            comp_dict = {
+                'title': page_data.get('title', ''),
+                'price': page_data.get('price'),
+                'model_number': page_data.get('model_number'),
+                'manufacturer': page_data.get('manufacturer'),
+                'sku': page_data.get('sku'),
+                'description': page_data.get('description', '') or item.get('body', ''),
+                'image_hash': None,
+            }
 
-                    if result is None:
-                        logger.debug("[PROD-SEARCH] No match on %s for product=%r  page_title=%r", domain, snap['title'], comp_dict.get('title', '')[:60])
-                        continue
+            with session_scope() as db:
+                master_products = db.query(Product).filter(Product.is_active == True).all()
+                result = match_competitor_product(comp_dict, master_products, criteria)
+                if result is None:
+                    result = match_similar_product(comp_dict, master_products)
 
-                    competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
-                    if competitor is None:
-                        competitor = Competitor(
-                            domain=domain,
-                            name=domain,
-                            base_url=f'https://{domain}',
-                            is_active=True,
-                        )
-                        db.add(competitor)
-                        db.flush()
-                        logger.info('[PROD-SEARCH] Auto-created competitor: %s', domain)
-
-                    competitor_id = competitor.id
-
-                    existing = (
-                        db.query(CompetitorProductMatch)
-                        .filter(
-                            CompetitorProductMatch.master_product_id == result.master_product_id,
-                            CompetitorProductMatch.competitor_id == competitor_id,
-                            CompetitorProductMatch.competitor_url == url,
-                        )
-                        .first()
+                if result is None:
+                    logger.info(
+                        "[PROD-SEARCH]       No match  (page title: %r)",
+                        comp_dict.get('title', '')[:60],
                     )
+                    continue
 
-                    price = page_data.get('price')
-                    in_stock = page_data.get('in_stock', True)
-                    price_str = f"${price:.2f}" if price else "no price"
+                competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
+                if competitor is None:
+                    competitor = Competitor(
+                        domain=domain,
+                        name=domain,
+                        base_url=f'https://{domain}',
+                        is_active=True,
+                    )
+                    db.add(competitor)
+                    db.flush()
+                    logger.info('[PROD-SEARCH]       Auto-created competitor: %s', domain)
 
-                    if existing:
-                        if price and existing.competitor_price != price:
-                            logger.info("[PROD-SEARCH] Price update  domain=%s  product=%r  price=%s", domain, snap['title'], price_str)
-                            existing.competitor_price = price
-                            existing.scanned_at = datetime.utcnow()
-                            db.add(PriceHistory(match_id=existing.id, price=price, in_stock=in_stock))
+                competitor_id = competitor.id
+
+                existing = (
+                    db.query(CompetitorProductMatch)
+                    .filter(
+                        CompetitorProductMatch.master_product_id == result.master_product_id,
+                        CompetitorProductMatch.competitor_id == competitor_id,
+                        CompetitorProductMatch.competitor_url == url,
+                    )
+                    .first()
+                )
+
+                price = page_data.get('price')
+                in_stock = page_data.get('in_stock', True)
+                image_url = page_data.get('image')
+                price_str = f"${price:.2f}" if price else "no price"
+
+                if existing:
+                    if price and existing.competitor_price != price:
+                        logger.info(
+                            "[PROD-SEARCH]       Price update  domain=%s  %s → %s",
+                            domain, existing.competitor_price, price_str,
+                        )
+                        existing.competitor_price = price
+                        existing.scanned_at = datetime.utcnow()
+                        db.add(PriceHistory(match_id=existing.id, price=price, in_stock=in_stock))
                     else:
-                        logger.info("[PROD-SEARCH] Match found  domain=%s  product=%r  price=%s  confidence=%d%%", domain, snap['title'], price_str, int(result.confidence or 0))
-                        match = CompetitorProductMatch(
-                            master_product_id=result.master_product_id,
-                            competitor_id=competitor_id,
-                            competitor_url=url,
-                            competitor_title=page_data.get('title', '')[:500],
-                            competitor_price=price,
-                            match_type='|'.join(result.match_types),
-                            match_confidence=result.confidence,
-                            match_reasons_json=json.dumps(result.reasons),
-                            in_stock=in_stock,
-                            is_similar=result.is_similar,
-                            similarity_reason=result.similarity_reason,
-                            scanned_at=datetime.utcnow(),
-                        )
-                        db.add(match)
-                        db.flush()
-                        if price:
-                            db.add(PriceHistory(match_id=match.id, price=price, in_stock=in_stock))
-
-                    total_matching = (
-                        db.query(CompetitorProductMatch)
-                        .filter(
-                            CompetitorProductMatch.competitor_id == competitor_id,
-                            CompetitorProductMatch.is_active == True,
-                        )
-                        .count()
+                        logger.info("[PROD-SEARCH]       Already stored  domain=%s", domain)
+                else:
+                    logger.info(
+                        "[PROD-SEARCH]       MATCH  domain=%s  price=%s  confidence=%d%%",
+                        domain, price_str, int(result.confidence or 0),
                     )
-                    competitor.total_matching_products = total_matching
-                    competitor.last_scanned_at = datetime.utcnow()
-                    if not competitor.first_scanned_at:
-                        competitor.first_scanned_at = datetime.utcnow()
+                    match = CompetitorProductMatch(
+                        master_product_id=result.master_product_id,
+                        competitor_id=competitor_id,
+                        competitor_url=url,
+                        competitor_title=page_data.get('title', '')[:500],
+                        competitor_price=price,
+                        competitor_image_url=(image_url or '')[:2000] or None,
+                        match_type='|'.join(result.match_types),
+                        match_confidence=result.confidence,
+                        match_reasons_json=json.dumps(result.reasons),
+                        in_stock=in_stock,
+                        is_similar=result.is_similar,
+                        similarity_reason=result.similarity_reason,
+                        scanned_at=datetime.utcnow(),
+                    )
+                    db.add(match)
+                    db.flush()
+                    if price:
+                        db.add(PriceHistory(match_id=match.id, price=price, in_stock=in_stock))
 
-                found_count += 1
-                total_found += 1
+                total_matching = (
+                    db.query(CompetitorProductMatch)
+                    .filter(
+                        CompetitorProductMatch.competitor_id == competitor_id,
+                        CompetitorProductMatch.is_active == True,
+                    )
+                    .count()
+                )
+                competitor.total_matching_products = total_matching
+                competitor.last_scanned_at = datetime.utcnow()
+                if not competitor.first_scanned_at:
+                    competitor.first_scanned_at = datetime.utcnow()
 
-                await emit('product_comp_search_progress', {
-                    'product_id': snap['id'],
-                    'product_title': snap['title'],
-                    'phase': 'found',
-                    'found': found_count,
-                    'max': max_competitors,
-                    'domain': domain,
-                    'url': url,
-                    'price': page_data.get('price'),
-                })
+            found_count += 1
+            total_found += 1
 
-                await asyncio.sleep(0.5)  # brief pause between requests
+            await emit('product_comp_search_progress', {
+                'product_id': snap['id'],
+                'product_title': snap['title'],
+                'phase': 'found',
+                'found': found_count,
+                'max': max_competitors,
+                'domain': domain,
+                'url': url,
+                'price': page_data.get('price'),
+            })
+
+            await asyncio.sleep(0.5)
+
+        logger.info(
+            "[PROD-SEARCH] ── Done: product=%r  visited=%d  found=%d/%d",
+            snap['title'], visited_count, found_count, max_competitors,
+        )
 
         await emit('product_comp_search_product_done', {
             'product_id': snap['id'],
             'product_title': snap['title'],
             'found': found_count,
-            'visited': len(visited_domains),
+            'visited': visited_count,
         })
 
     return {

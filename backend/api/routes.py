@@ -795,8 +795,8 @@ async def start_web_search_scan(req: WebSearchScanRequest):
 class ProductCompetitorSearchRequest(BaseModel):
     product_ids: List[int]
     search_query: Optional[str] = None  # override; None = use product title
-    max_competitors: int = 5            # stop per product when this many NEW domains with matches found
-    max_urls: int = 30                  # max URLs to visit per product before giving up
+    max_competitors: int = 10           # stop per product when this many NEW domains with matches found
+    max_urls: int = 50                  # max URLs to visit per product before giving up
 
 
 @router.post("/api/products/competitor-search")

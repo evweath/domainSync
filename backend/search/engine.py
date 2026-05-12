@@ -7,7 +7,7 @@ import asyncio
 import logging
 import re
 from typing import Any, Dict, List, Optional
-from urllib.parse import urlparse, unquote
+from urllib.parse import urlparse, unquote, quote_plus
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +36,32 @@ def _extract_model(text: str) -> Optional[str]:
 
 async def _run_sync(fn):
     return await asyncio.get_event_loop().run_in_executor(None, fn)
+
+
+async def _curl_get(url: str, extra_headers: Optional[List[str]] = None, timeout: int = 15) -> str:
+    """Fetch a URL via subprocess curl — bypasses Python TLS fingerprint filtering."""
+    cmd = [
+        'curl', '-s', '-L',
+        '--max-time', str(timeout),
+        '--compressed',
+        '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15',
+        '-H', 'Accept: text/html,application/xhtml+xml,*/*;q=0.9',
+        '-H', 'Accept-Language: en-US,en;q=0.9',
+    ]
+    for h in (extra_headers or []):
+        cmd += ['-H', h]
+    cmd.append(url)
+    try:
+        proc = await asyncio.create_subprocess_exec(
+            *cmd,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.DEVNULL,
+        )
+        stdout, _ = await asyncio.wait_for(proc.communicate(), timeout=timeout + 2)
+        return stdout.decode('utf-8', errors='replace')
+    except Exception as exc:
+        logger.debug("curl_get failed for %s: %s", url, exc)
+        return ''
 
 
 async def _text_search(query: str, max_results: int) -> List[Dict[str, Any]]:
@@ -86,28 +112,41 @@ _DDG_SEARCH_LOCK = asyncio.Lock()  # serialize DDG calls to avoid rate-limit ban
 
 
 async def _bing_search(query: str, max_results: int) -> List[Dict[str, Any]]:
-    """Scrape Bing SERP for result URLs."""
+    """Scrape Bing SERP via curl (bypasses Python TLS fingerprint blocking)."""
     try:
-        import httpx
-        url = f"https://www.bing.com/search?q={query}&count={min(max_results * 2, 50)}"
-        async with httpx.AsyncClient(headers=_SEARCH_HEADERS, timeout=15, follow_redirects=True) as client:
-            r = await client.get(url)
-        html = r.text
+        q = quote_plus(query)
+        url = f"https://www.bing.com/search?q={q}&count={min(max_results * 2, 50)}&mkt=en-US&setlang=en-US&cc=US"
+        html = await _curl_get(url)
+        if not html:
+            return []
         results = []
         seen: set = set()
-        # Bing result links are in <a href="https://..."> inside <li class="b_algo">
+        # Primary: URLs inside <h2> result headings
         for m in re.finditer(
             r'<h2[^>]*>.*?<a[^>]+href="(https?://(?!www\.bing\.com|go\.microsoft\.com)[^"]+)"',
             html, re.DOTALL
         ):
-            href = m.group(1)
+            href = m.group(1).split('"')[0]
             d = _domain(href)
             if d and d not in seen:
                 seen.add(d)
-                # Try to extract snippet near this match
                 results.append({'href': href, 'title': '', 'body': ''})
             if len(results) >= max_results:
                 break
+        # Fallback: b_algo result blocks
+        if not results:
+            for m in re.finditer(
+                r'class="b_algo".*?href="(https?://(?!www\.bing\.com|go\.microsoft\.com|bing\.com)[^"]+)"',
+                html, re.DOTALL
+            ):
+                href = m.group(1).split('"')[0]
+                d = _domain(href)
+                if d and d not in seen:
+                    seen.add(d)
+                    results.append({'href': href, 'title': '', 'body': ''})
+                if len(results) >= max_results:
+                    break
+        logger.debug("Bing returned %d results for %r", len(results), query[:60])
         return results
     except Exception as exc:
         logger.debug("Bing search failed: %s", exc)
@@ -115,18 +154,15 @@ async def _bing_search(query: str, max_results: int) -> List[Dict[str, Any]]:
 
 
 async def _google_search(query: str, max_results: int) -> List[Dict[str, Any]]:
-    """Scrape Google SERP for result URLs (best-effort — may be blocked)."""
+    """Scrape Google SERP via curl (best-effort — may be blocked)."""
     try:
-        import httpx
-        url = f"https://www.google.com/search?q={query}&num={min(max_results * 2, 50)}"
-        async with httpx.AsyncClient(headers=_SEARCH_HEADERS, timeout=15, follow_redirects=True) as client:
-            r = await client.get(url)
-        if r.status_code != 200:
+        q = quote_plus(query)
+        url = f"https://www.google.com/search?q={q}&num={min(max_results * 2, 50)}&hl=en&gl=us"
+        html = await _curl_get(url)
+        if not html:
             return []
-        html = r.text
         results = []
         seen: set = set()
-        # Google encodes external URLs as /url?q=https://...
         for m in re.finditer(r'href="/url\?q=(https?://(?!www\.google\.com)[^&"]+)&', html):
             href = unquote(m.group(1))
             d = _domain(href)
@@ -135,20 +171,21 @@ async def _google_search(query: str, max_results: int) -> List[Dict[str, Any]]:
                 results.append({'href': href, 'title': '', 'body': ''})
             if len(results) >= max_results:
                 break
+        logger.debug("Google returned %d results for %r", len(results), query[:60])
         return results
     except Exception as exc:
-        logger.debug("Google search failed (expected if bot-blocked): %s", exc)
+        logger.debug("Google search failed: %s", exc)
         return []
 
 
 async def _yahoo_search(query: str, max_results: int) -> List[Dict[str, Any]]:
-    """Scrape Yahoo SERP for result URLs."""
+    """Scrape Yahoo SERP via curl."""
     try:
-        import httpx
-        url = f"https://search.yahoo.com/search?p={query}&n={min(max_results * 2, 50)}"
-        async with httpx.AsyncClient(headers=_SEARCH_HEADERS, timeout=15, follow_redirects=True) as client:
-            r = await client.get(url)
-        html = r.text
+        q = quote_plus(query)
+        url = f"https://search.yahoo.com/search?p={q}&n={min(max_results * 2, 50)}"
+        html = await _curl_get(url)
+        if not html:
+            return []
         results = []
         seen: set = set()
         # Yahoo encodes real URLs in RU=... query param

@@ -25,8 +25,6 @@ from datetime import datetime, timedelta
 from typing import Any, Callable, Dict, List, Optional
 from urllib.parse import urlparse
 
-import httpx
-
 from backend.competitor.matcher import MatchCriteria, MatchResult, match_competitor_product, match_similar_product
 from backend.database.db import session_scope
 from backend.database.models import (
