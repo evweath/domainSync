@@ -241,6 +241,19 @@ async def on_startup():
     init_db()
     logger.info(f"Database ready at: {config.db_path()}")
 
+    # Mark any sessions left in 'running'/'pending' state as 'failed' —
+    # they're orphans from a previous process that never completed.
+    from backend.database.db import session_scope
+    from backend.database.models import ScanSession
+    from datetime import datetime
+    with session_scope() as db:
+        orphans = db.query(ScanSession).filter(ScanSession.status.in_(["running", "pending"])).all()
+        for s in orphans:
+            s.status = "failed"
+            s.completed_at = datetime.utcnow()
+        if orphans:
+            logger.info(f"Marked {len(orphans)} orphaned scan session(s) as failed on startup")
+
     # Start APScheduler
     try:
         from backend.scheduler.scheduler import start_scheduler
