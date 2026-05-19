@@ -79,6 +79,11 @@ _task_manager.set_broadcast(manager.broadcast)
 async def websocket_endpoint(websocket: WebSocket):
     await manager.connect(websocket)
     try:
+        from backend.log_tail import get_recent_lines
+        await websocket.send_json({"event": "log_tail", "lines": get_recent_lines(7)})
+    except Exception:
+        pass
+    try:
         while True:
             await websocket.receive_text()
     except WebSocketDisconnect:
@@ -826,12 +831,49 @@ async def start_product_competitor_search(req: ProductCompetitorSearchRequest):
 
 @router.delete("/api/competitors/{competitor_id}")
 def delete_competitor(competitor_id: int, db: Session = Depends(get_db_session)):
+    """Hard-delete a competitor and all its dependent rows.
+
+    Schema has no FK CASCADE rules, so children are removed explicitly in
+    dependency order: price_history → competitor_product_matches →
+    competitor_scans → competitor_scraping_profiles → competitors.
+    """
     comp = db.get(Competitor, competitor_id)
     if not comp:
         raise HTTPException(status_code=404, detail="Competitor not found")
-    comp.is_active = False
-    db.commit()
-    return {"status": "deactivated"}
+    match_ids = [
+        row[0] for row in
+        db.query(CompetitorProductMatch.id)
+          .filter(CompetitorProductMatch.competitor_id == competitor_id).all()
+    ]
+    deleted_prices = 0
+    if match_ids:
+        deleted_prices = db.query(PriceHistory).filter(
+            PriceHistory.match_id.in_(match_ids)
+        ).delete(synchronize_session=False)
+    deleted_matches = db.query(CompetitorProductMatch).filter(
+        CompetitorProductMatch.competitor_id == competitor_id
+    ).delete(synchronize_session=False)
+    deleted_scans = db.query(CompetitorScan).filter(
+        CompetitorScan.competitor_id == competitor_id
+    ).delete(synchronize_session=False)
+    deleted_profiles = db.query(CompetitorScrapingProfile).filter(
+        CompetitorScrapingProfile.competitor_id == competitor_id
+    ).delete(synchronize_session=False)
+    db.delete(comp)
+    logger.info(
+        "Deleted competitor id=%s domain=%s (matches=%d, prices=%d, scans=%d, profiles=%d)",
+        competitor_id, comp.domain, deleted_matches, deleted_prices, deleted_scans, deleted_profiles,
+    )
+    return {
+        "status": "deleted",
+        "id": competitor_id,
+        "removed": {
+            "matches": deleted_matches,
+            "price_history": deleted_prices,
+            "scans": deleted_scans,
+            "profiles": deleted_profiles,
+        },
+    }
 
 
 @router.put("/api/competitors/{competitor_id}")

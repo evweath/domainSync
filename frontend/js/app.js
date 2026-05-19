@@ -193,7 +193,13 @@ function app() {
       this.loadDuplicates();
       this.loadSourceSites();
       this.connectWebSocket();
-      this._logPollTimer = setInterval(() => { this.loadLogTail(); }, 3000);
+      // Initial population; subsequent updates arrive via the WebSocket
+      // 'log_tail' event (see handleWsMessage). The setInterval poll is a
+      // safety net in case the WS disconnects and the reconnect lags.
+      this.loadLogTail();
+      this._logPollTimer = setInterval(() => {
+        if (!this.wsConnected) this.loadLogTail();
+      }, 5000);
     },
 
     // -----------------------------------------------------------------------
@@ -542,6 +548,14 @@ function app() {
         }
         this.logTail = r.lines || [];
       } catch {}
+    },
+
+    logLineClass(line) {
+      if (!line) return 'text-gray-400';
+      if (/\[ERROR\]|\bTraceback\b/.test(line)) return 'text-red-400';
+      if (/\[WARNING\]|\[WARN\]/.test(line)) return 'text-yellow-300';
+      if (/\[DEBUG\]/.test(line)) return 'text-gray-500';
+      return 'text-gray-200';
     },
 
     cycleStatusLabel() {
@@ -1040,12 +1054,19 @@ function app() {
     },
 
     async deleteCompetitor(id) {
+      const c = (this.competitors?.competitors || []).find(x => x.id === id)
+                || this.competitorDetail
+                || { domain: `id ${id}` };
+      if (!confirm(`Permanently delete competitor "${c.domain}" and all its scans, matches, and price history? This cannot be undone.`)) return;
       try {
-        await this.api(`/api/competitors/${id}`, { method: 'DELETE' });
-        this.toast('Competitor deactivated', 'success');
+        const r = await this.api(`/api/competitors/${id}`, { method: 'DELETE' });
+        const rm = r?.removed || {};
+        const detail = `matches=${rm.matches || 0}, prices=${rm.price_history || 0}, scans=${rm.scans || 0}`;
+        this.toast(`Competitor deleted (${detail})`, 'success');
         this.competitorEditId = null;
-        await this.loadCompetitors();
         this.competitorDetail = null;
+        await this.loadCompetitors();
+        this.loadStats();
       } catch (e) { this.toast('Failed to delete: ' + e.message, 'error'); }
     },
 
@@ -1238,6 +1259,9 @@ function app() {
 
     handleWsMessage(msg) {
       switch (msg.event) {
+        case 'log_tail':
+          this.logTail = msg.lines || [];
+          break;
         case 'site_start':
           this.scanStatus.message = `Scanning ${msg.site}...`; break;
         case 'urls_found':

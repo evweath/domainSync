@@ -3,6 +3,7 @@ Donut Intel Platform — Main FastAPI application.
 HTTPS via self-signed cert (F31), session auth (F38), static frontend serving.
 Scheduler (F43), Webhooks (F72) wired at startup.
 """
+import asyncio
 import json
 import logging
 import logging.handlers
@@ -58,6 +59,10 @@ def setup_logging():
         fh.setLevel(level)
         fh.setFormatter(formatter)
         root.addHandler(fh)
+
+    # In-memory tail for the dashboard log viewer (WS broadcast).
+    from backend.log_tail import install_log_tail_handler
+    install_log_tail_handler(formatter, level=level)
 
     for noisy in ["playwright", "urllib3", "httpx", "asyncio", "apscheduler", "ddgs"]:
         logging.getLogger(noisy).setLevel(logging.WARNING)
@@ -262,6 +267,17 @@ async def on_startup():
     except Exception as exc:
         logger.warning(f"Scheduler failed to start: {exc}")
 
+    # Start log-tail broadcaster (pushes recent log lines to WS clients).
+    try:
+        from backend.log_tail import watch_and_broadcast
+        from backend.api.routes import manager as _ws_manager
+        app.state.log_tail_task = asyncio.create_task(
+            watch_and_broadcast(_ws_manager.broadcast)
+        )
+        logger.info("Log-tail broadcaster started")
+    except Exception as exc:
+        logger.warning(f"Log-tail broadcaster failed to start: {exc}")
+
     port = config.get("app", "port", default=8743)
     logger.info(f"Dashboard: https://localhost:{port}")
     logger.info(f"API docs:  https://localhost:{port}/api/docs")
@@ -274,4 +290,7 @@ async def on_shutdown():
         stop_scheduler()
     except Exception:
         pass
+    task = getattr(app.state, "log_tail_task", None)
+    if task is not None:
+        task.cancel()
     logger.info("Donut Intel Platform shut down.")
