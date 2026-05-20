@@ -8,6 +8,7 @@ import logging
 import re
 from datetime import datetime
 from typing import Any, Callable, Dict, List, Optional
+from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
 from sqlalchemy.orm import Session
 
@@ -24,6 +25,56 @@ from backend.competitor.scraper import _is_shopify_store, scrape_shopify_store
 from backend.scrapers.base_scraper import BaseScraper, ScrapedProduct
 
 logger = logging.getLogger(__name__)
+
+
+# Query-string parameters that are pure tracking / collection-position context
+# and never identify a distinct product. Stripping them before persisting
+# `ProductSource.source_url` prevents the same page (e.g. a Shopify product hit
+# from different collection scrolls) from being treated as N different products.
+# Values are matched case-insensitively against the parameter name.
+_TRACKING_PARAM_PREFIXES = ("utm_",)
+_TRACKING_PARAM_NAMES = {
+    # Shopify collection-position telemetry
+    "_pos", "_fid", "_ss", "_psq", "_v", "_q",
+    # Generic ad/social trackers
+    "gclid", "fbclid", "msclkid", "mc_cid", "mc_eid", "yclid",
+    "ref", "ref_src", "ref_url",
+}
+
+
+def normalize_source_url(url: str) -> str:
+    """Canonicalize a product URL for storage + dedupe.
+
+    - Strip tracking query params (`_pos`, `_fid`, `_ss`, `utm_*`, etc.)
+    - Strip the URL fragment (`#…`)
+    - Drop the leading `www.` so `www.donut-supplies.com` and
+      `donut-supplies.com` hash to the same row.
+    - Strip a trailing slash on the path so `/products/foo` and `/products/foo/`
+      compare equal.
+    Real variant params (e.g. `variant=12345`) are preserved.
+    """
+    if not url:
+        return url
+    try:
+        u = urlparse(url)
+    except Exception:
+        return url
+    netloc = u.netloc.lower()
+    if netloc.startswith("www."):
+        netloc = netloc[4:]
+    path = u.path
+    if path.endswith("/") and len(path) > 1:
+        path = path.rstrip("/")
+    kept = []
+    for k, v in parse_qsl(u.query, keep_blank_values=False):
+        kl = k.lower()
+        if kl in _TRACKING_PARAM_NAMES:
+            continue
+        if any(kl.startswith(p) for p in _TRACKING_PARAM_PREFIXES):
+            continue
+        kept.append((k, v))
+    query = urlencode(kept)
+    return urlunparse((u.scheme, netloc, path, "", query, ""))
 
 
 class SourceScraper:
@@ -239,25 +290,25 @@ class SourceScraper:
         Persist a scraped product. Returns "new", "updated", or "skipped".
         Uses content hash for incremental scraping (F05).
         """
+        # Canonicalize the URL up front so query-string noise (`?_pos=…&_fid=…&_ss=c`,
+        # `utm_*`, `www.` prefix, trailing `/`) doesn't masquerade as a new product.
+        canonical = normalize_source_url(scraped.url)
+
         with session_scope() as db:
-            # Check if this exact URL was already scraped
+            # Check if this canonical URL was already scraped
             existing_source = (
                 db.query(ProductSource)
                 .filter(
                     ProductSource.source_site == source_site,
-                    ProductSource.source_url == scraped.url,
+                    ProductSource.source_url == canonical,
                 )
                 .first()
             )
 
-            # Shopify handle fallback: pre-Shopify scans persisted URLs with
-            # collection-context query strings or with a 'www.' prefix; the
-            # Shopify fast path emits the canonical `/products/<handle>` form
-            # with neither. Without this fallback, every Shopify-path scan
-            # would create a new ProductSource (and Product) for products
-            # that were already in the catalog under a different URL spelling.
+            # Shopify handle fallback: legacy rows may still hold the un-normalized
+            # URL form. Match on `/products/<handle>` and migrate to canonical.
             if not existing_source:
-                handle_match = re.search(r'/products/([^/?#]+)', scraped.url)
+                handle_match = re.search(r'/products/([^/?#]+)', canonical)
                 if handle_match:
                     handle = handle_match.group(1)
                     candidates = (
@@ -272,9 +323,7 @@ class SourceScraper:
                         cand_m = re.search(r'/products/([^/?#]+)', cand.source_url or '')
                         if cand_m and cand_m.group(1) == handle:
                             existing_source = cand
-                            # Migrate stored URL to the canonical form so future
-                            # exact-match lookups succeed without the fallback.
-                            cand.source_url = scraped.url
+                            cand.source_url = canonical  # migrate to canonical
                             break
 
             if existing_source:
@@ -331,7 +380,7 @@ class SourceScraper:
                     product_id=product.id,
                     scan_session_id=self.scan_session_id,
                     source_site=source_site,
-                    source_url=scraped.url,
+                    source_url=canonical,
                     source_title=scraped.title,
                     source_description=scraped.description,
                     source_price=scraped.price,
