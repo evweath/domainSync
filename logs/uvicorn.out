@@ -2,29 +2,12 @@
    API docs: https://localhost:8743/api/docs
    Press Ctrl+C to stop
 
-2026-05-20 13:04:57 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
-2026-05-20 13:04:57 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
-2026-05-20 13:04:57 [INFO] backend.database.db: Database initialized
-2026-05-20 13:04:57 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
-2026-05-20 13:04:57 [INFO] backend.scheduler.scheduler: Scheduler started
-2026-05-20 13:04:57 [INFO] backend.app: Scheduler started
-2026-05-20 13:04:57 [INFO] backend.app: Log-tail broadcaster started
-2026-05-20 13:04:57 [INFO] backend.app: Dashboard: https://localhost:8743
-2026-05-20 13:04:57 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
-2026-05-20 13:12:08 [INFO] backend.scrapers.source_scraper: Starting scrape of Donut Supplies (https://donut-supplies.com)
-2026-05-20 13:12:08 [INFO] backend.scrapers.source_scraper: [SCRAPE] Donut Supplies is a Shopify store — using fast /products.json path
-2026-05-20 13:12:09 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 1 → 250 products so far
-2026-05-20 13:12:11 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 2 → 500 products so far
-2026-05-20 13:12:11 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 3 → 750 products so far
-2026-05-20 13:12:12 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 4 → 1000 products so far
-2026-05-20 13:12:13 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 5 → 1250 products so far
-2026-05-20 13:12:14 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 6 → 1500 products so far
-2026-05-20 13:12:15 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 7 → 1750 products so far
-2026-05-20 13:12:16 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 8 → 1974 products so far
-2026-05-20 13:12:16 [INFO] backend.scrapers.source_scraper: [SCRAPE] Donut Supplies: Shopify returned 1974 products
-2026-05-20 13:12:16 [INFO] backend.scrapers.source_scraper: Completed Donut Supplies via Shopify API: {'scraped': 1974, 'new': 0, 'updated': 0, 'errors': 0, 'skipped': 0}
-2026-05-20 13:13:41 [INFO] primp: response: https://duckduckgo.com/?q=Edhard+%282%29+Edhard+Donut+Filler+Spouts-+Berliner+Slanted+Tip+%28F-3081%29-+Only+for+Double+Outlet+buy+price 200
-2026-05-20 13:13:41 [INFO] primp: response: https://duckduckgo.com/i.js?o=json&q=Edhard+%282%29+Edhard+Donut+Filler+Spouts-+Berliner+Slanted+Tip+%28F-3081%29-+Only+for+Double+Outlet+buy+price&l=us-en&vqd=4-194548692374383780777522864846148946401&p=1&ct=AT 403
-2026-05-20 13:13:41 [WARNING] backend.search.engine: DDG image search failed (images will be missing): No results found.
-2026-05-20 13:15:48 [INFO] primp: response: https://duckduckgo.com/?q=Rios+1%2F2+Sheet+Cake+Boards+Double+Wall+18-3%2F8+X+14+buy+price 200
-2026-05-20 13:15:48 [INFO] primp: response: https://duckduckgo.com/i.js?o=json&q=Rios+1%2F2+Sheet+Cake+Boards+Double+Wall+18-3%2F8+X+14+buy+price&l=us-en&vqd=4-179793511822444210258578938443915209784&p=1&ct=AT 200
+2026-05-20 13:35:17 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-20 13:35:17 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-20 13:35:17 [INFO] backend.database.db: Database initialized
+2026-05-20 13:35:17 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-20 13:35:17 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-20 13:35:17 [INFO] backend.app: Scheduler started
+2026-05-20 13:35:17 [INFO] backend.app: Log-tail broadcaster started
+2026-05-20 13:35:17 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-20 13:35:17 [INFO] backend.app: API docs:  https://localhost:8743/api/docs

@@ -169,11 +169,13 @@ def competitor_report(competitor_id: int) -> str:
             ph_count = len(m.price_history)
 
             link = f'<a href="{m.competitor_url}" target="_blank" style="color:#d35400">{m.competitor_title or "View"}</a>' if m.competitor_url else (m.competitor_title or "")
+            comp_price_str = f"${m.competitor_price:.2f}" if m.competitor_price else "N/A"
+            our_price_str = f"${our_price:.2f}" if our_price else "N/A"
             table_rows += f"""<tr>
                 <td>{product.canonical_title if product else '?'}</td>
                 <td>{link}</td>
-                <td>${m.competitor_price:.2f if m.competitor_price else 'N/A'}</td>
-                <td>${our_price:.2f if our_price else 'N/A'}</td>
+                <td>{comp_price_str}</td>
+                <td>{our_price_str}</td>
                 <td>{diff} {badge}</td>
                 <td>{'Yes' if m.in_stock else 'No'}</td>
                 <td>{m.match_type or ''}</td>
@@ -350,9 +352,10 @@ def price_comparison_report(product_id: int) -> str:
                 <td>{scanned}</td>
             </tr>"""
 
+        our_price_str = f"${product.price_canonical:.2f}" if product.price_canonical else "N/A"
         body = f"""
 <h2>Price Comparison: {product.canonical_title}</h2>
-<p class="meta">Manufacturer: {product.manufacturer or 'N/A'} | Model: {product.model_number or 'N/A'} | Our Price: ${product.price_canonical:.2f if product.price_canonical else 'N/A'}</p>
+<p class="meta">Manufacturer: {product.manufacturer or 'N/A'} | Model: {product.model_number or 'N/A'} | Our Price: {our_price_str}</p>
 {stat_grid}
 <table>
   <thead><tr><th>Rank</th><th>Website</th><th>Price</th><th>Last Checked</th></tr></thead>

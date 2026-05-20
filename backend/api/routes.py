@@ -4,12 +4,31 @@ Covers: scraping, dedup, products, competitors, price comparison,
         scheduler, export, reports, AI categorization, webhooks, bulk import.
 """
 import asyncio
+import html
 import json
 import logging
+import re
 from collections import deque
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+
+# Scraped product descriptions arrive with raw HTML (paragraphs, lists,
+# entities, even inline styles). The dashboard renders these via x-text, so
+# any tags display literally to the user. Strip tags + decode entities +
+# collapse whitespace so the modal shows readable English sentences.
+_TAG_RE = re.compile(r"<[^>]+>")
+_WHITESPACE_RE = re.compile(r"\s+")
+
+
+def _strip_html(text_value: Optional[str]) -> Optional[str]:
+    if not text_value:
+        return text_value
+    no_tags = _TAG_RE.sub(" ", text_value)
+    decoded = html.unescape(no_tags)
+    collapsed = _WHITESPACE_RE.sub(" ", decoded).strip()
+    return collapsed or None
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse, Response, StreamingResponse
@@ -384,14 +403,14 @@ def _serialize_product(p: Product, full: bool = False) -> dict:
     }
     if full:
         result.update({
-            "description": p.canonical_description,
+            "description": _strip_html(p.canonical_description),
             "dimensions": json.loads(p.dimensions_json) if p.dimensions_json else None,
             "specs": json.loads(p.specs_json) if p.specs_json else None,
             "weight": p.weight, "country_of_origin": p.country_of_origin,
             "images": images,
             "options": [{"group": o.option_group, "value": o.option_value, "price_modifier": o.price_modifier} for o in p.options],
             "tags": [t.tag for t in p.tags],
-            "notes": [{"text": n.note_text, "created_at": n.created_at.isoformat(), "by": n.created_by} for n in p.notes_list],
+            "notes": [{"text": _strip_html(n.note_text), "created_at": n.created_at.isoformat(), "by": n.created_by} for n in p.notes_list],
             "version": p.version,
         })
     return result
