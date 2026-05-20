@@ -161,3 +161,22 @@
 2026-05-20 14:08:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://yahoo.uservoice.com/forums/193847-search/RK=2/RS=HpKh7P3OHnX9S1qlFxOsFTgXAqU-
 2026-05-20 14:08:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Error 404: Page Not Found')
 2026-05-20 14:08:14 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='140 Quart Thunderbird Planetary Mixer ARM-140'  visited=8  found=4/9
+2026-05-20 14:18:59 [INFO] primp: response: https://duckduckgo.com/?q=Belshaw+Adamatic+724CG+Donut+Fryer+%28Natural+Gas%2C+Electronic+Controller%2C+120V%29+Belshaw+Adamatic+buy+price 200
+2026-05-20 14:19:00 [INFO] primp: response: https://duckduckgo.com/i.js?o=json&q=Belshaw+Adamatic+724CG+Donut+Fryer+%28Natural+Gas%2C+Electronic+Controller%2C+120V%29+Belshaw+Adamatic+buy+price&l=us-en&vqd=4-229987682781575382778219008896384278459&p=1&ct=AT 403
+2026-05-20 14:19:00 [WARNING] backend.search.engine: DDG image search failed (images will be missing): No results found.
+2026-05-20 14:23:03 [INFO] backend.dedup.engine: Starting deduplication run
+2026-05-20 14:23:03 [INFO] backend.dedup.engine: Comparing 7652 products for duplicates
+2026-05-20 14:24:34 [INFO] backend.competitor.discovery: Query '"18609124577" buy price': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:34 [INFO] backend.competitor.discovery: Query '"18609124270" buy price': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:34 [INFO] backend.competitor.discovery: Query '"00684766317819" buy price': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:35 [INFO] backend.competitor.discovery: Query '"Turbo Air" donut equipment dealer': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:35 [INFO] backend.competitor.discovery: Query '"Belshaw Adamatic" donut equipment dealer': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:36 [INFO] backend.competitor.discovery: Query '"Winco" donut equipment dealer': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:36 [INFO] backend.competitor.discovery: Query '"Avalon" donut equipment dealer': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:37 [INFO] backend.competitor.discovery: Query '"Arctic Air" donut equipment dealer': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:37 [INFO] backend.competitor.discovery: Query 'donut equipment wholesale': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:37 [INFO] backend.competitor.discovery: Query 'bakery supply wholesale': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:38 [INFO] backend.competitor.discovery: Query 'commercial donut fryer': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:38 [INFO] backend.competitor.discovery: Query 'commercial donut fryer': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:39 [INFO] backend.competitor.discovery: Query 'bakery equipment dealer': 0 hits from Bing, 0 total competitors so far
+2026-05-20 14:24:40 [INFO] backend.competitor.discovery: Query 'donut equipment wholesale': 0 hits from Bing, 0 total competitors so far

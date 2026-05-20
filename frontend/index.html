@@ -7,10 +7,10 @@
   <!-- Vendor JS/CSS served locally so the dashboard works offline.
        Bumping the ?v= query string on any change forces a fresh fetch even
        through stubborn browser caches; pair with no-cache server headers. -->
-  <script src="/static/vendor/alpine.min.js?v=20260520-5" defer></script>
-  <script src="/static/vendor/chart.umd.min.js?v=20260520-5"></script>
-  <link href="/static/vendor/tailwind.min.css?v=20260520-5" rel="stylesheet" />
-  <link href="/static/css/style.css?v=20260520-5" rel="stylesheet" />
+  <script src="/static/vendor/alpine.min.js?v=20260520-6" defer></script>
+  <script src="/static/vendor/chart.umd.min.js?v=20260520-6"></script>
+  <link href="/static/vendor/tailwind.min.css?v=20260520-6" rel="stylesheet" />
+  <link href="/static/css/style.css?v=20260520-6" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-200">
 
@@ -1617,52 +1617,63 @@
       <div x-show="priceMatrix.competitors && priceMatrix.competitors.length > 0">
         <div x-show="loadingMatrix" class="text-center py-8 text-gray-400">Loading price matrix...</div>
         <div x-show="!loadingMatrix" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
-          <!-- Per-product single-line rows: product info | our price | competitor
-               chips listed horizontally (cheapest-first by default) | actions.
-               The chip strip scrolls horizontally if there are more competitors
-               than fit, so every row stays on ONE line. -->
-          <div class="divide-y divide-gray-100 dark:divide-gray-700">
-            <template x-for="row in priceMatrix.rows" :key="row.product_id">
-              <div class="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                <div class="flex items-center gap-4 cols-divided">
-                  <!-- Product title (left) -->
-                  <div class="min-w-0 w-72 flex-shrink-0">
+          <!-- Real <table> so the column-resize logic in app.js (_initColumnResize)
+               and the table-divider CSS both apply automatically. Each row stays
+               on one line; the Competitors cell scrolls horizontally on overflow. -->
+          <table class="w-full text-sm">
+            <thead class="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wide">
+              <tr>
+                <th class="text-left px-4 py-2 font-semibold" style="width: 18rem;">Product</th>
+                <th class="text-right px-4 py-2 font-semibold" style="width: 7rem;">Our Price</th>
+                <th class="text-left px-4 py-2 font-semibold">Competitor Prices
+                  <span class="ml-2 normal-case text-[10px] text-gray-400 font-normal"
+                    x-text="priceMatrixSortDir === 'desc' ? '(most expensive first)' : '(cheapest first)'"></span>
+                </th>
+                <th class="px-4 py-2" style="width: 5rem;"></th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+              <template x-for="row in priceMatrix.rows" :key="row.product_id">
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 align-middle">
+                  <!-- Product title -->
+                  <td class="px-4 py-3">
                     <div class="font-medium text-sm truncate" x-text="row.title" :title="row.title"></div>
-                  </div>
+                  </td>
                   <!-- Our price -->
-                  <div class="w-28 flex-shrink-0 text-right">
-                    <div class="text-[10px] text-gray-400 uppercase tracking-wide">Our Price</div>
+                  <td class="px-4 py-3 text-right">
                     <div class="font-bold text-orange-600 text-sm" x-text="fmtPrice(row.our_price)"></div>
-                  </div>
-                  <!-- Competitor chips, all on one horizontal line, scroll on overflow -->
-                  <div class="flex-1 min-w-0 overflow-x-auto">
-                    <div class="flex items-center gap-2 whitespace-nowrap text-xs">
-                      <template x-for="comp in matchedCompetitors(row)" :key="comp.domain">
-                        <a :href="comp.url || '#'"
-                           :target="comp.url ? '_blank' : ''"
-                           class="inline-flex items-baseline gap-1 px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition flex-shrink-0"
-                           :class="!comp.url && 'pointer-events-none'">
-                          <span class="text-gray-500 dark:text-gray-300" x-text="compShortName(comp.domain)"></span>
-                          <span class="font-semibold"
-                                :class="priceDiffClass(priceDiff(row.our_price, comp.price))"
-                                x-text="fmtPrice(comp.price)"></span>
-                          <span class="text-gray-400 text-[10px]"
-                                x-show="priceDiff(row.our_price, comp.price) !== null"
-                                x-text="(priceDiff(row.our_price, comp.price) > 0 ? '+' : '') + priceDiff(row.our_price, comp.price) + '%'"></span>
-                        </a>
-                      </template>
-                      <span x-show="matchedCompetitors(row).length === 0" class="text-gray-400 italic">No competitor matches yet</span>
+                  </td>
+                  <!-- Competitor chips - horizontal scroll on overflow -->
+                  <td class="px-4 py-3">
+                    <div class="overflow-x-auto">
+                      <div class="flex items-center gap-2 whitespace-nowrap text-xs">
+                        <template x-for="comp in matchedCompetitors(row)" :key="comp.domain">
+                          <a :href="comp.url || '#'"
+                             :target="comp.url ? '_blank' : ''"
+                             class="inline-flex items-baseline gap-1 px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition flex-shrink-0"
+                             :class="!comp.url && 'pointer-events-none'">
+                            <span class="text-gray-500 dark:text-gray-300" x-text="compShortName(comp.domain)"></span>
+                            <span class="font-semibold"
+                                  :class="priceDiffClass(priceDiff(row.our_price, comp.price))"
+                                  x-text="fmtPrice(comp.price)"></span>
+                            <span class="text-gray-400 text-[10px]"
+                                  x-show="priceDiff(row.our_price, comp.price) !== null"
+                                  x-text="(priceDiff(row.our_price, comp.price) > 0 ? '+' : '') + priceDiff(row.our_price, comp.price) + '%'"></span>
+                          </a>
+                        </template>
+                        <span x-show="matchedCompetitors(row).length === 0" class="text-gray-400 italic">No competitor matches yet</span>
+                      </div>
                     </div>
-                  </div>
-                  <!-- Per-row actions -->
-                  <div class="flex items-center gap-2 flex-shrink-0">
+                  </td>
+                  <!-- Actions -->
+                  <td class="px-4 py-3 text-right">
                     <button @click="window.open(`/api/reports/price-comparison/${row.product_id}`, '_blank')"
                       class="text-xs text-gray-400 hover:text-blue-700">Report</button>
-                  </div>
-                </div>
-              </div>
-            </template>
-          </div>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
           <!-- Pagination -->
           <div class="flex items-center justify-between px-4 py-3 border-t dark:border-gray-700">
             <span class="text-sm text-gray-500">
@@ -2392,6 +2403,6 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260520-5"></script>
+<script src="/static/js/app.js?v=20260520-6"></script>
 </body>
 </html>
