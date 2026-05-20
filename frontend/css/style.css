@@ -76,6 +76,26 @@ table tr > td:last-child {
   border-right: none;
 }
 
+/* Vertical dividers for flex-based "table" layouts (Competitors page,
+   Price Comparison Matrix). Apply `cols-divided` to the flex row container
+   and every direct child gets a right border. The rightmost cell's border
+   sits flush with the container edge, which is hidden by `overflow-hidden`
+   on the wrapping card, so no last-child exclusion is needed (and that
+   matters because the Competitors page reorders cells via CSS `order:`,
+   so DOM `:last-child` may not be the visual rightmost). */
+.cols-divided > * {
+  border-right: 1px solid rgb(229, 231, 235);  /* gray-200 */
+}
+.dark .cols-divided > * {
+  border-right-color: rgb(75, 85, 99);  /* gray-600 */
+}
+.cols-divided.cols-divided-header > * {
+  border-right: 1px solid rgb(209, 213, 219);  /* gray-300 — heavier on headers */
+}
+.dark .cols-divided.cols-divided-header > * {
+  border-right-color: rgb(107, 114, 128);  /* gray-500 */
+}
+
 /* Resizable table columns. JS in app.js (_initColumnResize) appends a
    span.col-resize-grip to each <th> except the last. Drag the grip to
    resize; double-click to reset. Width is persisted to localStorage.

@@ -7,10 +7,10 @@
   <!-- Vendor JS/CSS served locally so the dashboard works offline.
        Bumping the ?v= query string on any change forces a fresh fetch even
        through stubborn browser caches; pair with no-cache server headers. -->
-  <script src="/static/vendor/alpine.min.js?v=20260520-3" defer></script>
-  <script src="/static/vendor/chart.umd.min.js?v=20260520-3"></script>
-  <link href="/static/vendor/tailwind.min.css?v=20260520-3" rel="stylesheet" />
-  <link href="/static/css/style.css?v=20260520-3" rel="stylesheet" />
+  <script src="/static/vendor/alpine.min.js?v=20260520-4" defer></script>
+  <script src="/static/vendor/chart.umd.min.js?v=20260520-4"></script>
+  <link href="/static/vendor/tailwind.min.css?v=20260520-4" rel="stylesheet" />
+  <link href="/static/css/style.css?v=20260520-4" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-200">
 
@@ -1458,7 +1458,7 @@
         <!-- Competitor list as flex rows to support drag-to-reorder columns -->
         <div class="text-sm">
           <!-- Header row -->
-          <div class="flex items-center bg-gray-50 dark:bg-gray-700 text-gray-500 text-xs border-b border-gray-200 dark:border-gray-600">
+          <div class="flex items-center bg-gray-50 dark:bg-gray-700 text-gray-500 text-xs border-b border-gray-200 dark:border-gray-600 cols-divided cols-divided-header">
             <div :style="{ order: competitorCols.indexOf('domain') }"
               class="flex-1 min-w-0 px-4 py-2 font-semibold cursor-pointer select-none hover:text-orange-500 transition-colors"
               :class="competitorDragFrom === 'domain' ? 'opacity-40' : ''"
@@ -1520,7 +1520,7 @@
                   </div>
                 </div>
                 <!-- Normal row -->
-                <div x-show="competitorEditId !== c.id" class="flex items-center">
+                <div x-show="competitorEditId !== c.id" class="flex items-center cols-divided">
                   <div :style="{ order: competitorCols.indexOf('domain') }" class="flex-1 min-w-0 px-4 py-2">
                     <div class="font-medium" x-text="c.domain"></div>
                     <div class="text-xs text-gray-400" x-text="c.name || ''"></div>
@@ -1612,7 +1612,7 @@
           <div class="divide-y divide-gray-100 dark:divide-gray-700">
             <template x-for="row in priceMatrix.rows" :key="row.product_id">
               <div class="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                <div class="flex items-start gap-4">
+                <div class="flex items-start gap-4 cols-divided">
                   <div class="flex-1 min-w-0">
                     <div class="font-medium text-sm truncate" x-text="row.title"></div>
                     <!-- Competitor chips, sorted ascending by price, wrap to 1-2 lines -->
@@ -2381,6 +2381,6 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260520-3"></script>
+<script src="/static/js/app.js?v=20260520-4"></script>
 </body>
 </html>

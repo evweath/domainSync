@@ -11,3 +11,48 @@
 2026-05-20 13:50:42 [INFO] backend.app: Log-tail broadcaster started
 2026-05-20 13:50:42 [INFO] backend.app: Dashboard: https://localhost:8743
 2026-05-20 13:50:42 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+/Users/evw/dev/productComparison/donut-intel/backend/api/routes.py:1506: SAWarning: Coercing Subquery object into a select() for use in IN(); please pass a select() construct explicitly
+  .filter(Product.id.in_(multi_domain_ids), Product.is_active == True)
+2026-05-20 13:58:17 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '140 Quart Thunderbird Planetary Mixer ARM-140'  (id=4147)
+2026-05-20 13:58:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '140 Quart Thunderbird Planetary Mixer buy'
+2026-05-20 13:58:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 25 result URLs
+2026-05-20 13:58:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.restaurantsupply.com/products/thunderbird-arm-140-planetary-mixer-floor-model-140-quart-capacity
+2026-05-20 13:58:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$40707.88  confidence=48%
+2026-05-20 13:58:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.ebay.com/p/1004509864
+2026-05-20 13:58:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: ebay.com
+2026-05-20 13:58:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebay.com  price=no price  confidence=30%
+2026-05-20 13:58:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://directkitchenequip.com/products/thunderbird-food-machinery-arm-140-mixer-planetary
+2026-05-20 13:58:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: directkitchenequip.com
+2026-05-20 13:58:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=directkitchenequip.com  price=$61580.00  confidence=28%
+2026-05-20 13:58:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.foodservex.com/product/140-quart-thunderbird-planetary-mixer-arm-140/
+2026-05-20 13:58:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-20 13:58:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://officeequipmentmachineshop.com/products/Preferred-Pack-ARM-140-Planetary-Mixers
+2026-05-20 13:58:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Food Processing Equipment | Thunderbird ARM-140 Planetary Mi')
+2026-05-20 13:58:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.toprestaurantsupplies.com/products/thunderbird-arm-140-planetary-mixer-140-qt-capacity-1
+2026-05-20 13:58:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: toprestaurantsupplies.com
+2026-05-20 13:58:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=toprestaurantsupplies.com  price=$33000.00  confidence=85%
+2026-05-20 13:58:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.thunderbirdfm.com/ARM-140.html
+2026-05-20 13:58:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Thunderbird Food Machinery')
+2026-05-20 13:58:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.uscis.gov
+2026-05-20 13:58:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Home')
+2026-05-20 13:58:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://legalclarity.org
+2026-05-20 13:59:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'LegalClarity - Your Source for Legal News, Analysis &amp; In')
+2026-05-20 13:59:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.reginfo.gov/public/do/DownloadDocument
+2026-05-20 13:59:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 13:59:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.visaverge.com/guides
+2026-05-20 13:59:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Guides | VisaVerge')
+2026-05-20 13:59:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://en.wikipedia.org/wiki
+2026-05-20 13:59:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-20 13:59:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.trackmyi140.com
+2026-05-20 13:59:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'TrackMyI140 — USCIS I-140 Case Tracker')
+2026-05-20 13:59:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.usimmigrationadvisor.com
+2026-05-20 13:59:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Immigration Lawyers for U.S., UK & Italy | Davies & Associat')
+2026-05-20 13:59:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://www.boundless.com/immigration-resources
+2026-05-20 13:59:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Attention Required! | Cloudflare')
+2026-05-20 13:59:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://manifestlaw.com/blog
+2026-05-20 13:59:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Modern Immigration and employment blog Manifest Law')
+2026-05-20 13:59:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [17] Visiting: https://www.deel.com/blog
+2026-05-20 13:59:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Resource Hub | Deel')
+2026-05-20 13:59:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [18] Visiting: https://yahoo.uservoice.com/forums/193847-search/RK=2/RS=fSAz5MEfUre47zU7Toh1Jx37_7o-
+2026-05-20 13:59:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Error 404: Page Not Found')
+2026-05-20 13:59:37 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='140 Quart Thunderbird Planetary Mixer ARM-140'  visited=18  found=4/5
