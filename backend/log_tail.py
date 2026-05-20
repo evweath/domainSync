@@ -41,7 +41,7 @@ def install_log_tail_handler(formatter: logging.Formatter, level: int = logging.
     root.addHandler(handler)
 
 
-def get_recent_lines(n: int = 7) -> List[str]:
+def get_recent_lines(n: int = 8) -> List[str]:
     if n >= len(_BUFFER):
         return list(_BUFFER)
     return list(_BUFFER)[-n:]
@@ -54,7 +54,7 @@ def current_revision() -> int:
 async def watch_and_broadcast(
     broadcast: Callable[[dict], Awaitable[None]],
     interval: float = 0.5,
-    lines_per_push: int = 7,
+    lines_per_push: int = 8,
 ) -> None:
     """Poll the buffer; when new lines arrive, push a snapshot."""
     last_rev = -1

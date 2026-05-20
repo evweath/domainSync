@@ -540,7 +540,7 @@ function app() {
     // -----------------------------------------------------------------------
     async loadLogTail() {
       try {
-        const r = await this.api('/api/logs/tail?lines=7');
+        const r = await this.api('/api/logs/tail?lines=8');
         if (r === null) {
           // 401 — session expired, stop polling
           if (this._logPollTimer) { clearInterval(this._logPollTimer); this._logPollTimer = null; }

@@ -27,7 +27,7 @@
 </div>
 
 <!-- Main App -->
-<div x-show="authenticated" class="flex h-screen overflow-hidden pb-28">
+<div x-show="authenticated" class="flex h-screen overflow-hidden">
 
   <!-- Sidebar -->
   <aside class="w-64 bg-gray-900 dark:bg-gray-950 flex-shrink-0 flex flex-col shadow-xl">
@@ -232,6 +232,28 @@
               <div x-show="stats.db?.on_network_drive" class="text-yellow-600 font-semibold">⚠ Network drive — WAL mode active</div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- ===== LIVE LOG PANEL ===== -->
+      <div class="bg-gray-900 rounded-lg shadow-md mt-6 overflow-hidden border border-gray-700">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-gray-800">
+          <div class="flex items-center gap-2 text-gray-200">
+            <span class="text-sm font-semibold">Live Log</span>
+            <span class="w-2 h-2 rounded-full" :class="wsConnected ? 'bg-green-400' : 'bg-red-400'"></span>
+            <span class="text-xs text-gray-500" x-text="wsConnected ? 'streaming' : 'reconnecting...'"></span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-gray-500">
+            <span x-text="`tail -${(logTail || []).length}  donut_intel.log`"></span>
+            <a href="/api/logs/tail?lines=200" target="_blank"
+               class="text-blue-400 hover:text-blue-300">Open full tail</a>
+          </div>
+        </div>
+        <div class="font-mono text-xs leading-relaxed px-4 py-3 bg-gray-900 overflow-x-auto">
+          <template x-for="(line, i) in (logTail || [])" :key="i">
+            <div class="whitespace-pre" :class="logLineClass(line)" x-text="line"></div>
+          </template>
+          <div x-show="!(logTail && logTail.length)" class="text-gray-500 italic">Waiting for log lines...</div>
         </div>
       </div>
     </div>
@@ -2181,26 +2203,6 @@
         <span x-text="competitorProfileSaving ? 'Saving...' : 'Save Profile'"></span>
       </button>
     </div>
-  </div>
-</div>
-
-<!-- Live log tail (always-visible footer strip) -->
-<div x-show="authenticated"
-     class="fixed bottom-0 left-0 right-0 z-40 bg-gray-900 border-t border-gray-700 text-xs"
-     style="height: 7rem;">
-  <div class="px-3 py-1 flex items-center justify-between border-b border-gray-800">
-    <div class="flex items-center gap-2 text-gray-300">
-      <span class="font-semibold">Live log</span>
-      <span class="w-1.5 h-1.5 rounded-full" :class="wsConnected ? 'bg-green-400' : 'bg-red-400'"></span>
-      <span class="text-gray-500" x-text="wsConnected ? 'streaming' : 'reconnecting...'"></span>
-    </div>
-    <div class="text-gray-500" x-text="`${(logTail || []).length} lines`"></div>
-  </div>
-  <div class="overflow-hidden font-mono leading-snug px-3 py-1" style="height: calc(7rem - 1.75rem);">
-    <template x-for="(line, i) in (logTail || [])" :key="i">
-      <div class="truncate" :class="logLineClass(line)" x-text="line"></div>
-    </template>
-    <div x-show="!(logTail && logTail.length)" class="text-gray-500 italic">Waiting for log lines...</div>
   </div>
 </div>
 

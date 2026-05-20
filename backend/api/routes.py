@@ -80,7 +80,7 @@ async def websocket_endpoint(websocket: WebSocket):
     await manager.connect(websocket)
     try:
         from backend.log_tail import get_recent_lines
-        await websocket.send_json({"event": "log_tail", "lines": get_recent_lines(7)})
+        await websocket.send_json({"event": "log_tail", "lines": get_recent_lines(8)})
     except Exception:
         pass
     try:
@@ -1454,7 +1454,7 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
 
 @router.get("/api/logs/tail")
-def tail_log(lines: int = 7):
+def tail_log(lines: int = 8):
     log_path = _PROJECT_ROOT / "logs" / "donut_intel.log"
     if not log_path.exists():
         return {"lines": []}
