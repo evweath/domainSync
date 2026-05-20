@@ -201,6 +201,129 @@ function app() {
       this._logPollTimer = setInterval(() => {
         if (!this.wsConnected) this.loadLogTail();
       }, 5000);
+      // Wire up column resizers for every current and future table.
+      this._initColumnResize();
+    },
+
+    // -----------------------------------------------------------------------
+    // Resizable table columns
+    // Drag the right edge of any <th> to resize. Widths persist per
+    // (table-key, column-index) in localStorage so reloads keep user choices.
+    // -----------------------------------------------------------------------
+    _initColumnResize() {
+      if (this._colResizeInit) return;
+      this._colResizeInit = true;
+      const wire = () => document.querySelectorAll('table').forEach(t => this._wireTableResize(t));
+      wire();
+      // Re-wire when new tables/rows appear from x-for templates.
+      const obs = new MutationObserver(muts => {
+        let touched = false;
+        for (const m of muts) {
+          for (const n of m.addedNodes) {
+            if (n.nodeType !== 1) continue;
+            if (n.tagName === 'TABLE' || n.querySelector?.('table')) { touched = true; break; }
+          }
+          if (touched) break;
+        }
+        if (touched) wire();
+      });
+      obs.observe(document.body, { childList: true, subtree: true });
+    },
+
+    _tableKey(table) {
+      // Identify a table by its closest view container (x-show="currentView === '...'")
+      // plus its position within that container, so persisted widths survive re-renders.
+      let view = 'global';
+      let el = table.parentElement;
+      while (el) {
+        const m = (el.getAttribute?.('x-show') || '').match(/currentView\s*===\s*'([^']+)'/);
+        if (m) { view = m[1]; break; }
+        el = el.parentElement;
+      }
+      const sameViewTables = Array.from(document.querySelectorAll(`[x-show*="${view}"] table, [x-show*="'${view}'"] table`));
+      const idx = sameViewTables.indexOf(table);
+      return `colw:${view}:${idx >= 0 ? idx : 0}`;
+    },
+
+    _wireTableResize(table) {
+      if (table.__colResizeWired) return;
+      const ths = table.querySelectorAll(':scope > thead > tr > th');
+      if (!ths.length) return;
+      table.__colResizeWired = true;
+
+      const key = this._tableKey(table);
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch {}
+      const hasSaved = Object.keys(saved).length > 0;
+
+      // Pin the table to fixed layout (using either saved widths or each
+      // column's current natural width). Called once, before the first
+      // resize event or immediately if there are persisted widths.
+      const pinTable = () => {
+        if (table.__pinned) return;
+        ths.forEach((th, i) => {
+          const w = saved[i] || th.offsetWidth;
+          if (w > 0) {
+            th.style.width = w + 'px';
+            th.style.minWidth = w + 'px';
+          }
+        });
+        table.style.tableLayout = 'fixed';
+        table.classList.add('col-resize-active');
+        table.__pinned = true;
+      };
+      if (hasSaved) pinTable();
+
+      ths.forEach((th, i) => {
+        const cs = getComputedStyle(th);
+        if (cs.position === 'static') th.style.position = 'relative';
+        if (i === ths.length - 1) return;  // skip grip on last column
+        const grip = document.createElement('span');
+        grip.className = 'col-resize-grip';
+        grip.title = 'Drag to resize · double-click to reset';
+        th.appendChild(grip);
+
+        let startX = 0, startW = 0;
+        const onMove = e => {
+          const dx = e.pageX - startX;
+          const w = Math.max(40, startW + dx);
+          th.style.width = w + 'px';
+          th.style.minWidth = w + 'px';
+        };
+        const onUp = () => {
+          document.removeEventListener('mousemove', onMove);
+          document.removeEventListener('mouseup', onUp);
+          document.body.style.cursor = '';
+          document.body.classList.remove('col-resizing');
+          try {
+            const cur = JSON.parse(localStorage.getItem(key) || '{}');
+            cur[i] = Math.round(th.offsetWidth);
+            localStorage.setItem(key, JSON.stringify(cur));
+          } catch {}
+        };
+        grip.addEventListener('mousedown', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          pinTable();
+          startX = e.pageX;
+          startW = th.offsetWidth;
+          document.body.style.cursor = 'col-resize';
+          document.body.classList.add('col-resizing');
+          document.addEventListener('mousemove', onMove);
+          document.addEventListener('mouseup', onUp);
+        });
+        grip.addEventListener('dblclick', e => {
+          e.preventDefault();
+          e.stopPropagation();
+          th.style.width = '';
+          th.style.minWidth = '';
+          try {
+            const cur = JSON.parse(localStorage.getItem(key) || '{}');
+            delete cur[i];
+            localStorage.setItem(key, JSON.stringify(cur));
+          } catch {}
+        });
+      });
     },
 
     // -----------------------------------------------------------------------
@@ -312,6 +435,29 @@ function app() {
     async runProductCompSearch() {
       const ids = Object.keys(this.productSelected).filter(k => this.productSelected[k]).map(Number);
       if (!ids.length) { this.toast('Select at least one product', 'warning'); return; }
+      if (this.productCompRunning) return;
+      this.productCompRunning = true;
+      this.productCompProgress = null;
+      try {
+        await this.api('/api/products/competitor-search', {
+          method: 'POST',
+          body: JSON.stringify({
+            product_ids: ids,
+            max_competitors: Math.max(1, parseInt(this.productCompMax) || 5),
+            max_urls: 30,
+          }),
+        });
+        this.toast(`Competitor search started for ${ids.length} product${ids.length !== 1 ? 's' : ''}`, 'info');
+      } catch (e) {
+        this.productCompRunning = false;
+        this.toast('Failed to start competitor search: ' + e.message, 'error');
+      }
+    },
+
+    // Triggered from the Find This Product page using its own selection model.
+    async runFindProductCompSearch() {
+      const ids = (this.findProductIds || []).map(Number);
+      if (!ids.length) { this.toast('Select at least one product from the catalog', 'warning'); return; }
       if (this.productCompRunning) return;
       this.productCompRunning = true;
       this.productCompProgress = null;

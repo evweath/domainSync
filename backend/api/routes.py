@@ -724,6 +724,17 @@ def get_competitor(competitor_id: int, db: Session = Depends(get_db_session)):
         .filter(CompetitorProductMatch.competitor_id == competitor_id, CompetitorProductMatch.is_active == True)
         .order_by(CompetitorProductMatch.competitor_price).all()
     )
+    # Resolve master product titles + prices in one round-trip.
+    master_ids = {m.master_product_id for m in matches if m.master_product_id}
+    masters = {}
+    if master_ids:
+        for p in db.query(Product).filter(Product.id.in_(master_ids)).all():
+            masters[p.id] = {
+                "title": p.canonical_title,
+                "our_price": p.price_canonical,
+                "manufacturer": p.manufacturer,
+                "model_number": p.model_number,
+            }
     return {
         "id": comp.id, "domain": comp.domain, "name": comp.name, "base_url": comp.base_url,
         "first_scanned_at": comp.first_scanned_at.isoformat() if comp.first_scanned_at else None,
@@ -741,7 +752,11 @@ def get_competitor(competitor_id: int, db: Session = Depends(get_db_session)):
              "title": m.competitor_title, "price": m.competitor_price,
              "match_type": m.match_type, "confidence": m.match_confidence,
              "in_stock": m.in_stock, "is_similar": m.is_similar,
-             "scanned_at": m.scanned_at.isoformat() if m.scanned_at else None}
+             "scanned_at": m.scanned_at.isoformat() if m.scanned_at else None,
+             "master_title": masters.get(m.master_product_id, {}).get("title"),
+             "our_price": masters.get(m.master_product_id, {}).get("our_price"),
+             "master_manufacturer": masters.get(m.master_product_id, {}).get("manufacturer"),
+             "master_model_number": masters.get(m.master_product_id, {}).get("model_number")}
             for m in matches
         ],
     }

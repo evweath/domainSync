@@ -52,3 +52,29 @@ aside::-webkit-scrollbar { width: 3px; }
 .overflow-y-auto { overflow-y: auto; }
 .flex-shrink-0 { flex-shrink: 0; }
 .transition-colors { transition: color 0.15s, background-color 0.15s; }
+
+/* Resizable table columns. JS in app.js (_initColumnResize) appends a
+   span.col-resize-grip to each <th> except the last. Drag the grip to
+   resize; double-click to reset. Width is persisted to localStorage. */
+.col-resize-grip {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 7px;
+  height: 100%;
+  cursor: col-resize;
+  user-select: none;
+  z-index: 5;
+  background: transparent;
+  border-right: 1px solid transparent;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.col-resize-grip:hover {
+  border-right-color: #f59e0b;  /* orange-500 */
+  background: rgba(245, 158, 11, 0.15);
+}
+body.col-resizing { user-select: none !important; }
+body.col-resizing .col-resize-grip { border-right-color: #f59e0b; }
+/* Once table-layout: fixed is applied by JS, cells must honor pinned widths. */
+table.col-resize-active td,
+table.col-resize-active th { overflow: hidden; text-overflow: ellipsis; word-break: break-word; }
