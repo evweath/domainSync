@@ -10,11 +10,25 @@ from __future__ import annotations
 import asyncio
 import logging
 from collections import deque
+from pathlib import Path
 from typing import Awaitable, Callable, List
 
 _MAX_LINES = 200
 _BUFFER: "deque[str]" = deque(maxlen=_MAX_LINES)
 _revision = 0
+
+_LOG_FILE_PATH = Path(__file__).resolve().parent.parent / "logs" / "donut_intel.log"
+
+
+def _read_tail_from_disk(n: int) -> List[str]:
+    if not _LOG_FILE_PATH.exists():
+        return []
+    try:
+        with open(_LOG_FILE_PATH, "r", errors="replace") as f:
+            tail = list(deque(f, maxlen=n))
+    except OSError:
+        return []
+    return [ln.rstrip("\n") for ln in tail]
 
 
 class LogTailHandler(logging.Handler):
@@ -42,6 +56,8 @@ def install_log_tail_handler(formatter: logging.Formatter, level: int = logging.
 
 
 def get_recent_lines(n: int = 8) -> List[str]:
+    if not _BUFFER:
+        return _read_tail_from_disk(n)
     if n >= len(_BUFFER):
         return list(_BUFFER)
     return list(_BUFFER)[-n:]
@@ -54,7 +70,7 @@ def current_revision() -> int:
 async def watch_and_broadcast(
     broadcast: Callable[[dict], Awaitable[None]],
     interval: float = 0.5,
-    lines_per_push: int = 8,
+    lines_per_push: int = 50,
 ) -> None:
     """Poll the buffer; when new lines arrive, push a snapshot."""
     last_rev = -1

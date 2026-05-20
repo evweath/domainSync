@@ -80,7 +80,7 @@ async def websocket_endpoint(websocket: WebSocket):
     await manager.connect(websocket)
     try:
         from backend.log_tail import get_recent_lines
-        await websocket.send_json({"event": "log_tail", "lines": get_recent_lines(8)})
+        await websocket.send_json({"event": "log_tail", "lines": get_recent_lines(50)})
     except Exception:
         pass
     try:

@@ -74,6 +74,7 @@ function app() {
 
     // Dashboard live log tail
     logTail: [],
+    logLevelFilter: 'all',  // 'all' | 'INFO' | 'WARNING' | 'CRITICAL'
     _logPollTimer: null,
 
     // Find This Product
@@ -540,7 +541,7 @@ function app() {
     // -----------------------------------------------------------------------
     async loadLogTail() {
       try {
-        const r = await this.api('/api/logs/tail?lines=8');
+        const r = await this.api('/api/logs/tail?lines=50');
         if (r === null) {
           // 401 — session expired, stop polling
           if (this._logPollTimer) { clearInterval(this._logPollTimer); this._logPollTimer = null; }
@@ -559,6 +560,32 @@ function app() {
       if (/\[DEBUG\]/.test(line)) return 'text-gray-500';
       if (/\[INFO\]/.test(line)) return 'text-sky-300';
       return 'text-gray-200';
+    },
+
+    // Detect a log level token at the start of a record line. Continuation
+    // lines (no timestamp) return null and inherit the previous record's level.
+    _lineLevel(line) {
+      if (!line) return null;
+      if (/\[CRITICAL\]/.test(line)) return 'CRITICAL';
+      if (/\[ERROR\]|\bTraceback\b/.test(line)) return 'ERROR';
+      if (/\[WARNING\]|\[WARN\]/.test(line)) return 'WARNING';
+      if (/\[INFO\]/.test(line)) return 'INFO';
+      if (/\[DEBUG\]/.test(line)) return 'DEBUG';
+      return null;
+    },
+
+    get filteredLogTail() {
+      const lines = this.logTail || [];
+      if (this.logLevelFilter === 'all') return lines;
+      const target = this.logLevelFilter;
+      const out = [];
+      let currentLevel = null;
+      for (const ln of lines) {
+        const lvl = this._lineLevel(ln);
+        if (lvl) currentLevel = lvl;
+        if (currentLevel === target) out.push(ln);
+      }
+      return out;
     },
 
     cycleStatusLabel() {
@@ -1115,6 +1142,23 @@ function app() {
     priceDiffClass(diff) {
       if (diff === null) return '';
       return parseFloat(diff) < 0 ? 'text-green-600 font-bold' : 'text-red-600 font-bold';
+    },
+
+    // Return matched competitors for a row, sorted ascending by price.
+    matchedCompetitors(row) {
+      const by = row?.by_competitor || {};
+      const out = [];
+      for (const [domain, info] of Object.entries(by)) {
+        if (info && info.price != null) {
+          out.push({ domain, price: info.price, url: info.url, in_stock: info.in_stock });
+        }
+      }
+      out.sort((a, b) => a.price - b.price);
+      return out;
+    },
+
+    compShortName(domain) {
+      return (domain || '').split('.')[0];
     },
 
     // -----------------------------------------------------------------------

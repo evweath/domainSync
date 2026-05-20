@@ -249,11 +249,32 @@
                class="text-blue-400 hover:text-blue-300">Open full tail</a>
           </div>
         </div>
-        <div class="font-mono text-xs leading-relaxed px-4 py-3 bg-gray-900 overflow-x-auto">
-          <template x-for="(line, i) in (logTail || [])" :key="i">
+        <!-- Level filter buttons -->
+        <div class="flex items-center gap-1 px-4 py-2 border-b border-gray-800 bg-gray-900/60 text-xs">
+          <span class="text-gray-500 mr-2">Filter:</span>
+          <button @click="logLevelFilter='all'"
+            :class="logLevelFilter==='all' ? 'bg-gray-700 text-gray-100' : 'bg-gray-800 text-gray-400 hover:text-gray-200'"
+            class="px-2 py-1 rounded transition">All messages</button>
+          <button @click="logLevelFilter='INFO'"
+            :class="logLevelFilter==='INFO' ? 'bg-sky-700 text-sky-100' : 'bg-gray-800 text-sky-400 hover:text-sky-200'"
+            class="px-2 py-1 rounded transition">Only info</button>
+          <button @click="logLevelFilter='WARNING'"
+            :class="logLevelFilter==='WARNING' ? 'bg-amber-700 text-amber-100' : 'bg-gray-800 text-amber-400 hover:text-amber-200'"
+            class="px-2 py-1 rounded transition">Only warning</button>
+          <button @click="logLevelFilter='CRITICAL'"
+            :class="logLevelFilter==='CRITICAL' ? 'bg-red-700 text-red-100' : 'bg-gray-800 text-red-400 hover:text-red-200'"
+            class="px-2 py-1 rounded transition">Only critical</button>
+          <span class="ml-auto text-gray-500"
+            x-text="logLevelFilter==='all' ? '' : `${filteredLogTail.length} of ${(logTail||[]).length} lines`"></span>
+        </div>
+        <div class="font-mono text-xs leading-relaxed px-4 py-3 bg-gray-900 overflow-x-auto max-h-96 overflow-y-auto">
+          <template x-for="(line, i) in filteredLogTail" :key="i">
             <div class="whitespace-pre" :class="logLineClass(line)" x-text="line"></div>
           </template>
           <div x-show="!(logTail && logTail.length)" class="text-gray-500 italic">Waiting for log lines...</div>
+          <div x-show="(logTail && logTail.length) && filteredLogTail.length === 0" class="text-gray-500 italic">
+            No <span x-text="logLevelFilter.toLowerCase()"></span> messages in current tail.
+          </div>
         </div>
       </div>
     </div>
@@ -1454,40 +1475,39 @@
 
       <div x-show="priceMatrix.competitors && priceMatrix.competitors.length > 0">
         <div x-show="loadingMatrix" class="text-center py-8 text-gray-400">Loading price matrix...</div>
-        <div x-show="!loadingMatrix" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-x-auto">
-          <table class="text-xs" style="min-width: max-content; width: 100%;">
-            <thead class="bg-gray-50 dark:bg-gray-700 text-gray-500">
-              <tr>
-                <th class="text-left px-3 py-2 sticky left-0 bg-gray-50 dark:bg-gray-700 min-w-48">Product</th>
-                <th class="text-right px-3 py-2 text-orange-600">Our Price</th>
-                <template x-for="comp in priceMatrix.competitors" :key="comp.id">
-                  <th class="text-right px-3 py-2" x-text="comp.domain.split('.')[0]"></th>
-                </template>
-                <th class="px-3 py-2"></th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
-              <template x-for="row in priceMatrix.rows" :key="row.product_id">
-                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                  <td class="px-3 py-2 sticky left-0 bg-white dark:bg-gray-800">
-                    <div class="font-medium line-clamp-1 max-w-xs" x-text="row.title"></div>
-                  </td>
-                  <td class="px-3 py-2 text-right font-bold text-orange-600" x-text="fmtPrice(row.our_price)"></td>
-                  <template x-for="comp in priceMatrix.competitors" :key="comp.id">
-                    <td class="px-3 py-2 text-right">
-                      <template x-if="row.by_competitor[comp.domain]?.price">
-                        <div>
-                          <div :class="priceDiffClass(priceDiff(row.our_price, row.by_competitor[comp.domain].price))"
-                            x-text="fmtPrice(row.by_competitor[comp.domain].price)"></div>
-                          <div class="text-gray-400 text-xs"
-                            x-text="priceDiff(row.our_price, row.by_competitor[comp.domain].price) ? (priceDiff(row.our_price, row.by_competitor[comp.domain].price) > 0 ? '+' : '') + priceDiff(row.our_price, row.by_competitor[comp.domain].price) + '%' : ''">
-                          </div>
-                        </div>
+        <div x-show="!loadingMatrix" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+          <!-- Per-product compact rows: title + our price, then matched competitors as
+               chips sorted cheapest-first (wraps onto 1-2 extra lines if needed). -->
+          <div class="divide-y divide-gray-100 dark:divide-gray-700">
+            <template x-for="row in priceMatrix.rows" :key="row.product_id">
+              <div class="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                <div class="flex items-start gap-4">
+                  <div class="flex-1 min-w-0">
+                    <div class="font-medium text-sm truncate" x-text="row.title"></div>
+                    <!-- Competitor chips, sorted ascending by price, wrap to 1-2 lines -->
+                    <div class="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-xs">
+                      <template x-for="comp in matchedCompetitors(row)" :key="comp.domain">
+                        <a :href="comp.url || '#'"
+                           :target="comp.url ? '_blank' : ''"
+                           class="inline-flex items-baseline gap-1 px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+                           :class="!comp.url && 'pointer-events-none'">
+                          <span class="text-gray-500 dark:text-gray-300" x-text="compShortName(comp.domain)"></span>
+                          <span class="font-semibold"
+                                :class="priceDiffClass(priceDiff(row.our_price, comp.price))"
+                                x-text="fmtPrice(comp.price)"></span>
+                          <span class="text-gray-400 text-[10px]"
+                                x-show="priceDiff(row.our_price, comp.price) !== null"
+                                x-text="(priceDiff(row.our_price, comp.price) > 0 ? '+' : '') + priceDiff(row.our_price, comp.price) + '%'"></span>
+                        </a>
                       </template>
-                      <span x-show="!row.by_competitor[comp.domain]?.price" class="text-gray-300">—</span>
-                    </td>
-                  </template>
-                  <td class="px-3 py-2 flex items-center gap-2">
+                      <span x-show="matchedCompetitors(row).length === 0" class="text-gray-400 italic">No competitor matches yet</span>
+                    </div>
+                  </div>
+                  <div class="text-right shrink-0">
+                    <div class="text-[10px] text-gray-400 uppercase tracking-wide">Our Price</div>
+                    <div class="font-bold text-orange-600 text-base" x-text="fmtPrice(row.our_price)"></div>
+                  </div>
+                  <div class="flex flex-col items-end gap-1 shrink-0">
                     <button @click="scanAllCompetitors()" :disabled="competitorScanRunning"
                       class="text-xs text-blue-500 hover:text-blue-700 disabled:opacity-40"
                       title="Scan all competitors for updated prices">
@@ -1496,11 +1516,11 @@
                     </button>
                     <button @click="window.open(`/api/reports/price-comparison/${row.product_id}`, '_blank')"
                       class="text-xs text-gray-400 hover:text-blue-700">Report</button>
-                  </td>
-                </tr>
-              </template>
-            </tbody>
-          </table>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
           <!-- Pagination -->
           <div class="flex items-center justify-between px-4 py-3 border-t dark:border-gray-700">
             <span class="text-sm text-gray-500">
