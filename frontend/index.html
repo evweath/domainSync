@@ -7,10 +7,10 @@
   <!-- Vendor JS/CSS served locally so the dashboard works offline.
        Bumping the ?v= query string on any change forces a fresh fetch even
        through stubborn browser caches; pair with no-cache server headers. -->
-  <script src="/static/vendor/alpine.min.js?v=20260520-6" defer></script>
-  <script src="/static/vendor/chart.umd.min.js?v=20260520-6"></script>
-  <link href="/static/vendor/tailwind.min.css?v=20260520-6" rel="stylesheet" />
-  <link href="/static/css/style.css?v=20260520-6" rel="stylesheet" />
+  <script src="/static/vendor/alpine.min.js?v=20260520-7" defer></script>
+  <script src="/static/vendor/chart.umd.min.js?v=20260520-7"></script>
+  <link href="/static/vendor/tailwind.min.css?v=20260520-7" rel="stylesheet" />
+  <link href="/static/css/style.css?v=20260520-7" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-200">
 
@@ -1618,9 +1618,12 @@
         <div x-show="loadingMatrix" class="text-center py-8 text-gray-400">Loading price matrix...</div>
         <div x-show="!loadingMatrix" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
           <!-- Real <table> so the column-resize logic in app.js (_initColumnResize)
-               and the table-divider CSS both apply automatically. Each row stays
-               on one line; the Competitors cell scrolls horizontally on overflow. -->
-          <table class="w-full text-sm">
+               and the table-divider CSS both apply automatically. `price-matrix`
+               class on <table> enforces single-line rows: table-layout fixed +
+               every cell clips overflow. The Competitor Prices cell holds an
+               inner overflow-x-auto strip so extra chips scroll horizontally
+               instead of wrapping. -->
+          <table class="w-full text-sm price-matrix">
             <thead class="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wide">
               <tr>
                 <th class="text-left px-4 py-2 font-semibold" style="width: 18rem;">Product</th>
@@ -1634,23 +1637,23 @@
             </thead>
             <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
               <template x-for="row in priceMatrix.rows" :key="row.product_id">
-                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 align-middle">
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                   <!-- Product title -->
-                  <td class="px-4 py-3">
+                  <td class="px-4 py-2">
                     <div class="font-medium text-sm truncate" x-text="row.title" :title="row.title"></div>
                   </td>
                   <!-- Our price -->
-                  <td class="px-4 py-3 text-right">
-                    <div class="font-bold text-orange-600 text-sm" x-text="fmtPrice(row.our_price)"></div>
+                  <td class="px-4 py-2 text-right whitespace-nowrap">
+                    <span class="font-bold text-orange-600 text-sm" x-text="fmtPrice(row.our_price)"></span>
                   </td>
-                  <!-- Competitor chips - horizontal scroll on overflow -->
-                  <td class="px-4 py-3">
+                  <!-- Competitor chips - inner scroller keeps the row to one line -->
+                  <td class="px-4 py-2">
                     <div class="overflow-x-auto">
                       <div class="flex items-center gap-2 whitespace-nowrap text-xs">
                         <template x-for="comp in matchedCompetitors(row)" :key="comp.domain">
                           <a :href="comp.url || '#'"
                              :target="comp.url ? '_blank' : ''"
-                             class="inline-flex items-baseline gap-1 px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition flex-shrink-0"
+                             class="inline-flex items-baseline gap-1 px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition flex-shrink-0"
                              :class="!comp.url && 'pointer-events-none'">
                             <span class="text-gray-500 dark:text-gray-300" x-text="compShortName(comp.domain)"></span>
                             <span class="font-semibold"
@@ -1666,7 +1669,7 @@
                     </div>
                   </td>
                   <!-- Actions -->
-                  <td class="px-4 py-3 text-right">
+                  <td class="px-4 py-2 text-right whitespace-nowrap">
                     <button @click="window.open(`/api/reports/price-comparison/${row.product_id}`, '_blank')"
                       class="text-xs text-gray-400 hover:text-blue-700">Report</button>
                   </td>
@@ -2403,6 +2406,6 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260520-6"></script>
+<script src="/static/js/app.js?v=20260520-7"></script>
 </body>
 </html>

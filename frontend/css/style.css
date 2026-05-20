@@ -139,3 +139,20 @@ body.col-resizing .col-resize-grip::after {
 /* Once table-layout: fixed is applied by JS, cells must honor pinned widths. */
 table.col-resize-active td,
 table.col-resize-active th { overflow: hidden; text-overflow: ellipsis; word-break: break-word; }
+
+/* Price Comparison Matrix — one and only one line per product variant.
+   Fixed table layout so column widths are honored from the start; every
+   cell clips overflow so long titles/wide chip strips can't push a row
+   to a second line. The chip cell has its own inner overflow-x-auto. */
+table.price-matrix {
+  table-layout: fixed;
+}
+table.price-matrix > tbody > tr > td,
+table.price-matrix > thead > tr > th {
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+/* The competitor chip cell's inner scroller is the ONLY place chips can
+   exceed the cell width; keep its scrollbar slim. */
+table.price-matrix .overflow-x-auto::-webkit-scrollbar { height: 4px; }
