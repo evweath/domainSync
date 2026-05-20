@@ -1665,9 +1665,11 @@ def system_of_record(
     }
 
     missing_ids = primary_pids - compare_pids
+    extra_ids = compare_pids - primary_pids
     both_ids = primary_pids & compare_pids
 
     missing = []
+    extra = []
     differing = []
 
     if missing_ids:
@@ -1685,6 +1687,23 @@ def system_of_record(
                 "model_number": p.model_number,
                 "category": p.category,
                 "primary": _source_payload(src),
+            })
+
+    if extra_ids:
+        for p in (
+            db.query(Product)
+            .filter(Product.id.in_(extra_ids), Product.is_active == True)
+            .order_by(Product.canonical_title)
+            .all()
+        ):
+            src = _latest_active_source_for_site(p, compare_to)
+            extra.append({
+                "product_id": p.id,
+                "canonical_title": p.canonical_title,
+                "manufacturer": p.manufacturer,
+                "model_number": p.model_number,
+                "category": p.category,
+                "compare": _source_payload(src),
             })
 
     matching = []
@@ -1723,9 +1742,11 @@ def system_of_record(
         "primary_count": len(primary_pids),
         "compare_to_count": len(compare_pids),
         "missing": missing,
+        "extra": extra,
         "differing": differing,
         "matching": matching,
         "missing_count": len(missing),
+        "extra_count": len(extra),
         "differing_count": len(differing),
         "matching_count": len(matching),
         "both_count": len(both_ids),

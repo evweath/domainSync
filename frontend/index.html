@@ -7,10 +7,10 @@
   <!-- Vendor JS/CSS served locally so the dashboard works offline.
        Bumping the ?v= query string on any change forces a fresh fetch even
        through stubborn browser caches; pair with no-cache server headers. -->
-  <script src="/static/vendor/alpine.min.js?v=20260520-9" defer></script>
-  <script src="/static/vendor/chart.umd.min.js?v=20260520-9"></script>
-  <link href="/static/vendor/tailwind.min.css?v=20260520-9" rel="stylesheet" />
-  <link href="/static/css/style.css?v=20260520-9" rel="stylesheet" />
+  <script src="/static/vendor/alpine.min.js?v=20260520-10" defer></script>
+  <script src="/static/vendor/chart.umd.min.js?v=20260520-10"></script>
+  <link href="/static/vendor/tailwind.min.css?v=20260520-10" rel="stylesheet" />
+  <link href="/static/css/style.css?v=20260520-10" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-200">
 
@@ -1343,7 +1343,7 @@
       </div>
 
       <!-- Summary -->
-      <div x-show="sorData" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
+      <div x-show="sorData" class="grid grid-cols-2 md:grid-cols-6 gap-3 mb-4">
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-3">
           <div class="text-xs text-gray-500" x-text="`On ${sorData?.primary || ''}`"></div>
           <div class="text-xl font-bold text-orange-600" x-text="sorData?.primary_count || 0"></div>
@@ -1353,8 +1353,12 @@
           <div class="text-xl font-bold text-blue-600" x-text="sorData?.compare_to_count || 0"></div>
         </div>
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-3">
-          <div class="text-xs text-gray-500">Missing from compare-to</div>
+          <div class="text-xs text-gray-500" x-text="`Missing from ${sorData?.compare_to || ''}`"></div>
           <div class="text-xl font-bold text-red-600" x-text="sorData?.missing_count || 0"></div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-3">
+          <div class="text-xs text-gray-500" x-text="`Only on ${sorData?.compare_to || ''}`"></div>
+          <div class="text-xl font-bold text-rose-600" x-text="sorData?.extra_count || 0"></div>
         </div>
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-3">
           <div class="text-xs text-gray-500">Differ</div>
@@ -1401,6 +1405,12 @@
           class="px-4 py-1.5 rounded">
           Match exactly (<span x-text="sorData?.matching_count || 0"></span>)
         </button>
+        <button @click="sorTab='extra'"
+          :class="sorTab==='extra' ? 'bg-orange-500 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'"
+          class="px-4 py-1.5 rounded">
+          Only on <span x-text="sorData?.compare_to"></span>
+          (<span x-text="sorData?.extra_count || 0"></span>)
+        </button>
         <button @click="sorTab='fuzzy'"
           :class="sorTab==='fuzzy' ? 'bg-violet-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'"
           class="px-4 py-1.5 rounded">
@@ -1435,6 +1445,41 @@
                   x-text="p.primary?.price ? '$' + Number(p.primary.price).toFixed(2) : '—'"></td>
                 <td class="px-4 py-2 text-right">
                   <a x-show="p.primary?.url" :href="p.primary?.url" target="_blank"
+                    class="text-xs text-blue-500 hover:text-blue-700">View ↗</a>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Extra tab — products on the compare-to domain that aren't on the primary -->
+      <div x-show="sorData && sorTab === 'extra'" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+        <div x-show="!sorData?.extra?.length" class="p-8 text-center text-gray-400">
+          Every product on <span x-text="sorData?.compare_to"></span> is also on <span x-text="sorData?.primary"></span>.
+        </div>
+        <table x-show="sorData?.extra?.length" class="w-full text-sm">
+          <thead class="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wide">
+            <tr>
+              <th class="text-left px-4 py-2 font-semibold">Product (on <span x-text="sorData?.compare_to"></span> only)</th>
+              <th class="text-left px-4 py-2 font-semibold" style="width: 12rem;">Manufacturer</th>
+              <th class="text-left px-4 py-2 font-semibold" style="width: 10rem;">Model #</th>
+              <th class="text-right px-4 py-2 font-semibold" style="width: 8rem;">Price</th>
+              <th class="px-4 py-2 font-semibold" style="width: 5rem;"></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+            <template x-for="p in sorData?.extra || []" :key="p.product_id">
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                <td class="px-4 py-2">
+                  <div class="font-medium text-sm truncate" x-text="p.canonical_title" :title="p.canonical_title"></div>
+                </td>
+                <td class="px-4 py-2 text-gray-600 dark:text-gray-300" x-text="p.manufacturer || '—'"></td>
+                <td class="px-4 py-2 font-mono text-xs text-gray-600 dark:text-gray-300" x-text="p.model_number || '—'"></td>
+                <td class="px-4 py-2 text-right font-semibold"
+                  x-text="p.compare?.price ? '$' + Number(p.compare.price).toFixed(2) : '—'"></td>
+                <td class="px-4 py-2 text-right">
+                  <a x-show="p.compare?.url" :href="p.compare?.url" target="_blank"
                     class="text-xs text-blue-500 hover:text-blue-700">View ↗</a>
                 </td>
               </tr>
@@ -2689,6 +2734,6 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260520-9"></script>
+<script src="/static/js/app.js?v=20260520-10"></script>
 </body>
 </html>
