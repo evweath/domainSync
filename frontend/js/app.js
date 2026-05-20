@@ -101,9 +101,12 @@ function app() {
     // System of Record (primary = donut-equipment.com vs other source domains)
     sorPrimary: 'donut-equipment.com',
     sorCompareTo: 'donut-supplies.com',
-    sorTab: 'missing',  // 'missing' | 'differing'
+    sorTab: 'missing',  // 'missing' | 'differing' | 'matching' | 'fuzzy'
     sorData: null,
     sorLoading: false,
+    sorFuzzyData: null,
+    sorFuzzyLoading: false,
+    sorFuzzyThreshold: 60,
 
     // Find Me Customers
     findCustForm: { business_type: '', location: '', radius_miles: '', max_results: 20 },
@@ -1058,6 +1061,7 @@ function app() {
     // -----------------------------------------------------------------------
     async loadSystemOfRecord() {
       this.sorLoading = true;
+      this.sorFuzzyData = null;  // invalidate fuzzy results when the pair changes
       try {
         const params = new URLSearchParams({
           primary: this.sorPrimary,
@@ -1069,6 +1073,25 @@ function app() {
         this.sorData = null;
       } finally {
         this.sorLoading = false;
+      }
+    },
+
+    async loadSystemOfRecordFuzzy() {
+      this.sorFuzzyLoading = true;
+      try {
+        const params = new URLSearchParams({
+          primary: this.sorPrimary,
+          compare_to: this.sorCompareTo,
+          threshold: this.sorFuzzyThreshold,
+          limit: 200,
+        });
+        this.sorFuzzyData = await this.api(`/api/system-of-record/fuzzy?${params}`);
+        this.sorTab = 'fuzzy';
+      } catch (e) {
+        this.toast('Fuzzy match query failed: ' + e.message, 'error');
+        this.sorFuzzyData = null;
+      } finally {
+        this.sorFuzzyLoading = false;
       }
     },
 

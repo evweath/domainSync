@@ -1687,6 +1687,7 @@ def system_of_record(
                 "primary": _source_payload(src),
             })
 
+    matching = []
     if both_ids:
         for p in (
             db.query(Product)
@@ -1702,16 +1703,19 @@ def system_of_record(
                 f for f in _SOR_COMPARE_FIELDS
                 if _norm(p_data.get(f)) != _norm(c_data.get(f))
             ]
+            entry = {
+                "product_id": p.id,
+                "canonical_title": p.canonical_title,
+                "manufacturer": p.manufacturer,
+                "model_number": p.model_number,
+                "primary": p_data,
+                "compare": c_data,
+                "diff_fields": diff_fields,
+            }
             if diff_fields:
-                differing.append({
-                    "product_id": p.id,
-                    "canonical_title": p.canonical_title,
-                    "manufacturer": p.manufacturer,
-                    "model_number": p.model_number,
-                    "primary": p_data,
-                    "compare": c_data,
-                    "diff_fields": diff_fields,
-                })
+                differing.append(entry)
+            else:
+                matching.append(entry)
 
     return {
         "primary": primary,
@@ -1720,9 +1724,159 @@ def system_of_record(
         "compare_to_count": len(compare_pids),
         "missing": missing,
         "differing": differing,
+        "matching": matching,
         "missing_count": len(missing),
         "differing_count": len(differing),
+        "matching_count": len(matching),
         "both_count": len(both_ids),
+    }
+
+
+_FUZZY_TOKEN_RE = re.compile(r"[a-z0-9]+")
+_FUZZY_STOPWORDS = {
+    "the", "a", "an", "and", "or", "for", "with", "of", "to", "in", "on", "by",
+    "pack", "case", "set", "ct", "count", "size", "model", "new", "used",
+    "donut", "bakery", "commercial",  # site-wide noise on this catalog
+}
+
+
+def _fuzzy_tokens(text: str) -> set:
+    if not text:
+        return set()
+    return {t for t in _FUZZY_TOKEN_RE.findall(text.lower())
+            if t not in _FUZZY_STOPWORDS and len(t) > 2}
+
+
+@router.get("/api/system-of-record/fuzzy")
+def system_of_record_fuzzy(
+    primary: str = "donut-equipment.com",
+    compare_to: str = "donut-supplies.com",
+    threshold: float = 60.0,
+    limit: int = 200,
+    db: Session = Depends(get_db_session),
+):
+    """Find next-closest cross-domain product pairs that aren't linked yet.
+
+    For each product whose master only has a source on `primary`, score every
+    candidate whose master only has a source on `compare_to`. Return the best
+    match per primary product if it's >= threshold. Helps the user spot
+    almost-duplicates the dedup engine missed.
+
+    To stay tractable on ~2k×~2k catalogs we prefilter candidates by
+    overlapping significant-word tokens before running compute_confidence.
+    """
+    from backend.dedup.matchers import compute_confidence
+
+    primary_only_ids = {
+        pid for (pid,) in
+        db.query(ProductSource.product_id)
+        .filter(ProductSource.source_site == primary, ProductSource.is_active == True)
+        .distinct().all()
+    } - {
+        pid for (pid,) in
+        db.query(ProductSource.product_id)
+        .filter(ProductSource.source_site == compare_to, ProductSource.is_active == True)
+        .distinct().all()
+    }
+    compare_only_ids = {
+        pid for (pid,) in
+        db.query(ProductSource.product_id)
+        .filter(ProductSource.source_site == compare_to, ProductSource.is_active == True)
+        .distinct().all()
+    } - {
+        pid for (pid,) in
+        db.query(ProductSource.product_id)
+        .filter(ProductSource.source_site == primary, ProductSource.is_active == True)
+        .distinct().all()
+    }
+
+    if not primary_only_ids or not compare_only_ids:
+        return {
+            "primary": primary, "compare_to": compare_to,
+            "threshold": threshold, "limit": limit,
+            "pairs": [], "pairs_count": 0,
+            "primary_only_count": len(primary_only_ids),
+            "compare_only_count": len(compare_only_ids),
+        }
+
+    primary_products = (
+        db.query(Product).filter(Product.id.in_(primary_only_ids), Product.is_active == True).all()
+    )
+    compare_products = (
+        db.query(Product).filter(Product.id.in_(compare_only_ids), Product.is_active == True).all()
+    )
+
+    # Token index for compare-side candidates to keep the comparison tractable.
+    compare_index: Dict[str, List[Product]] = {}
+    compare_tokens: Dict[int, set] = {}
+    for cp in compare_products:
+        toks = _fuzzy_tokens(cp.canonical_title)
+        compare_tokens[cp.id] = toks
+        for t in toks:
+            compare_index.setdefault(t, []).append(cp)
+
+    pairs = []
+    for pp in primary_products:
+        p_toks = _fuzzy_tokens(pp.canonical_title)
+        if not p_toks:
+            continue
+        # Candidates = compare-side products that share ≥2 tokens with this title
+        # (or ≥1 if the title is very short)
+        candidate_scores: Dict[int, int] = {}
+        for t in p_toks:
+            for cp in compare_index.get(t, []):
+                candidate_scores[cp.id] = candidate_scores.get(cp.id, 0) + 1
+        min_overlap = 2 if len(p_toks) >= 3 else 1
+        candidate_ids = [cid for cid, n in candidate_scores.items() if n >= min_overlap]
+        if not candidate_ids:
+            continue
+
+        best = None
+        for cid in candidate_ids:
+            cp = next(c for c in compare_products if c.id == cid)
+            confidence, factors = compute_confidence(
+                price_a=pp.price_canonical, price_b=cp.price_canonical,
+                model_a=pp.model_number, model_b=cp.model_number,
+                manufacturer_a=pp.manufacturer, manufacturer_b=cp.manufacturer,
+                title_a=pp.canonical_title, title_b=cp.canonical_title,
+                desc_a=pp.canonical_description, desc_b=cp.canonical_description,
+                sku_a=pp.sku, sku_b=cp.sku,
+            )
+            if confidence < threshold:
+                continue
+            if best is None or confidence > best["confidence"]:
+                p_src = _latest_active_source_for_site(pp, primary)
+                c_src = _latest_active_source_for_site(cp, compare_to)
+                p_data = _source_payload(p_src) or {}
+                c_data = _source_payload(c_src) or {}
+                diff_fields = [
+                    f for f in _SOR_COMPARE_FIELDS
+                    if _norm(p_data.get(f)) != _norm(c_data.get(f))
+                ]
+                best = {
+                    "confidence": confidence,
+                    "factor_scores": factors,
+                    "primary_product_id": pp.id,
+                    "compare_product_id": cp.id,
+                    "primary_title": pp.canonical_title,
+                    "compare_title": cp.canonical_title,
+                    "primary": p_data,
+                    "compare": c_data,
+                    "diff_fields": diff_fields,
+                }
+        if best:
+            pairs.append(best)
+
+    pairs.sort(key=lambda p: -p["confidence"])
+    pairs = pairs[:limit]
+
+    return {
+        "primary": primary, "compare_to": compare_to,
+        "threshold": threshold, "limit": limit,
+        "pairs": pairs,
+        "pairs_count": len(pairs),
+        "primary_only_count": len(primary_only_ids),
+        "compare_only_count": len(compare_only_ids),
     }
 
 

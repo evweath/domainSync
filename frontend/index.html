@@ -7,10 +7,10 @@
   <!-- Vendor JS/CSS served locally so the dashboard works offline.
        Bumping the ?v= query string on any change forces a fresh fetch even
        through stubborn browser caches; pair with no-cache server headers. -->
-  <script src="/static/vendor/alpine.min.js?v=20260520-8" defer></script>
-  <script src="/static/vendor/chart.umd.min.js?v=20260520-8"></script>
-  <link href="/static/vendor/tailwind.min.css?v=20260520-8" rel="stylesheet" />
-  <link href="/static/css/style.css?v=20260520-8" rel="stylesheet" />
+  <script src="/static/vendor/alpine.min.js?v=20260520-9" defer></script>
+  <script src="/static/vendor/chart.umd.min.js?v=20260520-9"></script>
+  <link href="/static/vendor/tailwind.min.css?v=20260520-9" rel="stylesheet" />
+  <link href="/static/css/style.css?v=20260520-9" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-200">
 
@@ -1343,7 +1343,7 @@
       </div>
 
       <!-- Summary -->
-      <div x-show="sorData" class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+      <div x-show="sorData" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-3">
           <div class="text-xs text-gray-500" x-text="`On ${sorData?.primary || ''}`"></div>
           <div class="text-xl font-bold text-orange-600" x-text="sorData?.primary_count || 0"></div>
@@ -1357,13 +1357,34 @@
           <div class="text-xl font-bold text-red-600" x-text="sorData?.missing_count || 0"></div>
         </div>
         <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-3">
-          <div class="text-xs text-gray-500">On both — data differs</div>
+          <div class="text-xs text-gray-500">Differ</div>
           <div class="text-xl font-bold text-amber-600" x-text="sorData?.differing_count || 0"></div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-3">
+          <div class="text-xs text-gray-500">Match exactly</div>
+          <div class="text-xl font-bold text-green-600" x-text="sorData?.matching_count || 0"></div>
         </div>
       </div>
 
+      <!-- Fuzzy-match controls -->
+      <div x-show="sorData" class="bg-white dark:bg-gray-800 rounded-lg shadow p-3 mb-3 flex items-center gap-3 flex-wrap text-sm">
+        <span class="font-medium">Fuzzy match (find unlinked near-duplicates):</span>
+        <label class="flex items-center gap-2">
+          <span class="text-xs text-gray-500">Min confidence</span>
+          <input type="range" min="40" max="95" step="5" x-model.number="sorFuzzyThreshold" class="w-32" />
+          <span class="text-xs font-mono w-10" x-text="sorFuzzyThreshold + '%'"></span>
+        </label>
+        <button @click="loadSystemOfRecordFuzzy()" :disabled="sorFuzzyLoading"
+          class="bg-violet-600 hover:bg-violet-700 disabled:opacity-50 text-white px-3 py-1.5 rounded">
+          <span x-show="!sorFuzzyLoading">🔍 Find fuzzy matches</span>
+          <span x-show="sorFuzzyLoading">⏳ Scoring…</span>
+        </button>
+        <span x-show="sorFuzzyData" class="text-xs text-gray-500"
+          x-text="`Found ${sorFuzzyData?.pairs_count || 0} candidate pair(s) at ≥ ${sorFuzzyData?.threshold || 0}% — scanned ${sorFuzzyData?.primary_only_count || 0} × ${sorFuzzyData?.compare_only_count || 0} products`"></span>
+      </div>
+
       <!-- Tabs -->
-      <div x-show="sorData" class="flex gap-1 mb-3 text-sm">
+      <div x-show="sorData" class="flex gap-1 mb-3 text-sm flex-wrap">
         <button @click="sorTab='missing'"
           :class="sorTab==='missing' ? 'bg-orange-500 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'"
           class="px-4 py-1.5 rounded">
@@ -1374,6 +1395,16 @@
           :class="sorTab==='differing' ? 'bg-orange-500 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'"
           class="px-4 py-1.5 rounded">
           Data differs (<span x-text="sorData?.differing_count || 0"></span>)
+        </button>
+        <button @click="sorTab='matching'"
+          :class="sorTab==='matching' ? 'bg-orange-500 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'"
+          class="px-4 py-1.5 rounded">
+          Match exactly (<span x-text="sorData?.matching_count || 0"></span>)
+        </button>
+        <button @click="sorTab='fuzzy'"
+          :class="sorTab==='fuzzy' ? 'bg-violet-600 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'"
+          class="px-4 py-1.5 rounded">
+          Fuzzy matches (<span x-text="sorFuzzyData?.pairs_count || 0"></span>)
         </button>
       </div>
 
@@ -1410,6 +1441,103 @@
             </template>
           </tbody>
         </table>
+      </div>
+
+      <!-- Matching tab — products on both with identical data -->
+      <div x-show="sorData && sorTab === 'matching'" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+        <div x-show="!sorData?.matching?.length" class="p-8 text-center text-gray-400">
+          No products match exactly across both domains.
+        </div>
+        <table x-show="sorData?.matching?.length" class="w-full text-sm">
+          <thead class="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wide">
+            <tr>
+              <th class="text-left px-4 py-2 font-semibold">Product</th>
+              <th class="text-left px-4 py-2 font-semibold" style="width: 12rem;">Manufacturer</th>
+              <th class="text-left px-4 py-2 font-semibold" style="width: 10rem;">Model #</th>
+              <th class="text-right px-4 py-2 font-semibold" style="width: 8rem;">Price (both)</th>
+              <th class="text-right px-4 py-2 font-semibold" style="width: 8rem;">SKU</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+            <template x-for="p in sorData?.matching || []" :key="p.product_id">
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                <td class="px-4 py-2">
+                  <div class="font-medium text-sm truncate" x-text="p.canonical_title" :title="p.canonical_title"></div>
+                </td>
+                <td class="px-4 py-2 text-gray-600 dark:text-gray-300" x-text="p.manufacturer || '—'"></td>
+                <td class="px-4 py-2 font-mono text-xs text-gray-600 dark:text-gray-300" x-text="p.model_number || '—'"></td>
+                <td class="px-4 py-2 text-right font-semibold"
+                  x-text="p.primary?.price ? '$' + Number(p.primary.price).toFixed(2) : '—'"></td>
+                <td class="px-4 py-2 font-mono text-xs text-gray-500" x-text="p.primary?.sku || '—'"></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Fuzzy tab — unlinked cross-domain candidates above threshold -->
+      <div x-show="sorData && sorTab === 'fuzzy'" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+        <div x-show="!sorFuzzyData" class="p-8 text-center text-gray-400">
+          Adjust the threshold above and click <strong>Find fuzzy matches</strong> to search for near-duplicates the dedup engine missed.
+        </div>
+        <div x-show="sorFuzzyData && !sorFuzzyData?.pairs?.length" class="p-8 text-center text-gray-400">
+          No fuzzy matches above
+          <span x-text="(sorFuzzyData?.threshold ?? 0) + '%'"></span> confidence between unlinked products on these two domains.
+        </div>
+        <div x-show="sorFuzzyData?.pairs?.length" class="divide-y divide-gray-100 dark:divide-gray-700">
+          <template x-for="pair in sorFuzzyData?.pairs || []" :key="pair.primary_product_id + ':' + pair.compare_product_id">
+            <div class="px-4 py-3">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <div class="min-w-0 flex-1">
+                  <div class="text-xs text-gray-400">Likely match</div>
+                  <div class="font-medium text-sm truncate" x-text="pair.primary_title" :title="pair.primary_title"></div>
+                  <div class="font-medium text-sm truncate text-gray-600 dark:text-gray-300" x-text="'↳ ' + pair.compare_title" :title="pair.compare_title"></div>
+                </div>
+                <div class="text-right flex-shrink-0">
+                  <div class="text-2xl font-bold"
+                    :class="pair.confidence >= 85 ? 'text-green-600' : pair.confidence >= 70 ? 'text-amber-600' : 'text-violet-600'"
+                    x-text="pair.confidence + '%'"></div>
+                  <div class="text-[10px] text-gray-400 uppercase tracking-wide">confidence</div>
+                </div>
+              </div>
+              <!-- Factor scores chips -->
+              <div class="flex flex-wrap gap-1 mb-2">
+                <template x-for="[k,v] in Object.entries(pair.factor_scores || {}).filter(([k]) => k !== 'disqualifier')" :key="k">
+                  <span class="text-[10px] px-1.5 py-0.5 rounded font-mono"
+                        :class="v >= 80 ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300'
+                                : v >= 50 ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300'
+                                : 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300'"
+                        x-text="k + ': ' + Math.round(v)"></span>
+                </template>
+              </div>
+              <!-- Field-by-field diff -->
+              <div class="overflow-x-auto">
+                <table class="w-full text-xs">
+                  <thead class="text-gray-400">
+                    <tr>
+                      <th class="text-left px-2 py-1 font-medium w-32">Field</th>
+                      <th class="text-left px-2 py-1 font-medium" x-text="sorFuzzyData?.primary"></th>
+                      <th class="text-left px-2 py-1 font-medium" x-text="sorFuzzyData?.compare_to"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <template x-for="field in ['title','price','manufacturer','model_number','sku']" :key="field">
+                      <tr :class="pair.diff_fields?.includes(field) ? 'bg-red-50 dark:bg-red-900/10' : 'bg-green-50 dark:bg-green-900/10'">
+                        <td class="px-2 py-1 capitalize text-gray-500" x-text="field.replace('_',' ')"></td>
+                        <td class="px-2 py-1"
+                            :class="(field === 'model_number' || field === 'sku') ? 'font-mono' : ''"
+                            x-text="field === 'price' ? (pair.primary?.price ? '$' + Number(pair.primary.price).toFixed(2) : '—') : (pair.primary?.[field] || '—')"></td>
+                        <td class="px-2 py-1"
+                            :class="(field === 'model_number' || field === 'sku') ? 'font-mono' : ''"
+                            x-text="field === 'price' ? (pair.compare?.price ? '$' + Number(pair.compare.price).toFixed(2) : '—') : (pair.compare?.[field] || '—')"></td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </template>
+        </div>
       </div>
 
       <!-- Differing tab -->
@@ -2561,6 +2689,6 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260520-8"></script>
+<script src="/static/js/app.js?v=20260520-9"></script>
 </body>
 </html>
