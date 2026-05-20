@@ -56,3 +56,108 @@
 2026-05-20 13:59:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [18] Visiting: https://yahoo.uservoice.com/forums/193847-search/RK=2/RS=fSAz5MEfUre47zU7Toh1Jx37_7o-
 2026-05-20 13:59:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Error 404: Page Not Found')
 2026-05-20 13:59:37 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='140 Quart Thunderbird Planetary Mixer ARM-140'  visited=18  found=4/5
+2026-05-20 14:05:49 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20 Quart Stainless Steel Floor Model Blakeslee Food Mixer Model F-20-SS'  (id=2346)
+2026-05-20 14:05:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20 Quart Stainless Steel Floor Model Blakeslee Food Mixer buy'
+2026-05-20 14:05:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 23 result URLs
+2026-05-20 14:05:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://blakesleeinc.com/products/f-20-20-quart-floor-planetary-mixer
+2026-05-20 14:05:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: blakesleeinc.com
+2026-05-20 14:05:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=blakesleeinc.com  price=$7815.00  confidence=35%
+2026-05-20 14:05:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.restaurantsupply.com/products/blakeslee-f-20-ss-20-quart-planetary-mixer-floor-model-stainless-steel-with-timer-and-attachments
+2026-05-20 14:06:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$9165.35  confidence=50%
+2026-05-20 14:06:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.chefsdeal.com/p/commercial-mixers/blakeslee-f-20-ss
+2026-05-20 14:06:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-20 14:06:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.usaequipmentdirect.com/shop/f-20-ca-blakeslee-commercial-20-qt-planetary-floor-mounted-mixer-f-20-ca-25800
+2026-05-20 14:06:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Blakeslee Commercial 20 QT Planetary Floor Mounted Mixer F-2')
+2026-05-20 14:06:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://kitchenrestock.com/products/blakeslee-f-20-ss-planetary-mixer-floor-model-20-quart-bowl-capacity
+2026-05-20 14:06:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$8792.24  confidence=44%
+2026-05-20 14:06:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.truechefessentials.com/product/blakeslee-f-20-ss-20-quart-planetary-mixer-floor-model-stainless-steel-with-timer-and-attachments/
+2026-05-20 14:06:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-20 14:06:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://m.ebay.com/sch/i.html?_nkw=blakeslee+20+qt&_sop=12
+2026-05-20 14:06:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-20 14:06:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://shopusars.com/products/blakeslee-f-20-ss-planetary-mixers
+2026-05-20 14:06:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: shopusars.com
+2026-05-20 14:06:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=shopusars.com  price=$7843.77  confidence=39%
+2026-05-20 14:06:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://abc.com/show
+2026-05-20 14:06:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page not found - ABC.com')
+2026-05-20 14:06:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://en.m.wikipedia.org/wiki
+2026-05-20 14:06:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-20 14:06:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://abcnews.com
+2026-05-20 14:06:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:06:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.iheart.com/podcast
+2026-05-20 14:06:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:06:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://people.com/susana-morales-murder-disappearance-what-to...
+2026-05-20 14:06:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:06:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://m.imdb.com/title
+2026-05-20 14:06:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:06:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://www.disneyplus.com/browse
+2026-05-20 14:07:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:07:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://number.academy
+2026-05-20 14:07:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:07:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [17] Visiting: https://www.serveandchafe.com/product/blakeslee-f-20-ss-planetary-mixer-floor-model-20-quart-bowl-capacity//RK=2/RS=e5QZAetQt3bYE.jIY8IUzC1qbL4-
+2026-05-20 14:07:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page not found -')
+2026-05-20 14:07:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [18] Visiting: https://www.cudakitchen.com/blakeslee-f-20ss-planetary-food-mixer-floor-model-type-20-qt-5-hp-3-speed-stainless-steel/RK=2/RS=ZyDu12QqMsyd.6S5AFVuVzuaTN0-
+2026-05-20 14:07:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:07:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [19] Visiting: https://yahoo.uservoice.com/forums/193847-search/RK=2/RS=oYD.UTHvg2RHG48iUWeNa37ISTo-
+2026-05-20 14:07:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Error 404: Page Not Found')
+2026-05-20 14:07:35 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20 Quart Stainless Steel Floor Model Blakeslee Food Mixer Model F-20-SS'  visited=19  found=4/9
+2026-05-20 14:07:35 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20 Quart Floor Model Blakeslee Food Mixer Model F-20-CA'  (id=3916)
+2026-05-20 14:07:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20 Quart Floor Model Blakeslee Food Mixer Model F-20-CA buy'
+2026-05-20 14:07:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 24 result URLs
+2026-05-20 14:07:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://blakesleeinc.com/products/f-20-20-quart-floor-planetary-mixer
+2026-05-20 14:07:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=blakesleeinc.com
+2026-05-20 14:07:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.restaurantsupply.com/products/blakeslee-f-20-ca-20-quart-floor-model-planetary-mixer-with-timer-and-attachments
+2026-05-20 14:07:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$7039.33  confidence=48%
+2026-05-20 14:07:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.chefsdeal.com/p/commercial-mixers/blakeslee-f-20-ca
+2026-05-20 14:07:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-20 14:07:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.usaequipmentdirect.com/shop/f-20-ca-blakeslee-commercial-20-qt-planetary-floor-mounted-mixer-f-20-ca-25800
+2026-05-20 14:07:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Blakeslee Commercial 20 QT Planetary Floor Mounted Mixer F-2')
+2026-05-20 14:07:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.calwestservice.com/p/blakeslee-f-20-ca.html
+2026-05-20 14:07:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: calwestservice.com
+2026-05-20 14:07:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=calwestservice.com  price=no price  confidence=30%
+2026-05-20 14:07:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://shopusars.com/products/blakeslee-f-20-ca-planetary-mixers
+2026-05-20 14:07:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=shopusars.com  price=$6096.10  confidence=34%
+2026-05-20 14:07:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://m.ebay.com/sch/i.html?_nkw=blakeslee+20+qt&_sop=12
+2026-05-20 14:07:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-20 14:07:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://kitchenrestock.com/products/blakeslee-f-20-ca-planetary-mixer-floor-model-20-quart-bowl-capacity
+2026-05-20 14:07:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$6755.55  confidence=48%
+2026-05-20 14:07:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.ckitchen.com/food-preparation/mixers.html?brands=blakeslee
+2026-05-20 14:07:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ckitchen.com  price=$10.00  confidence=29%
+2026-05-20 14:07:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://abc.com/show
+2026-05-20 14:08:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page not found - ABC.com')
+2026-05-20 14:08:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://en.m.wikipedia.org/wiki
+2026-05-20 14:08:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-20 14:08:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://abcnews.com
+2026-05-20 14:08:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:08:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.iheart.com/podcast
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://people.com/susana-morales-murder-disappearance-what-to...
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://m.imdb.com/title
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://www.disneyplus.com/browse
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [17] Visiting: https://number.academy
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [18] Visiting: https://yahoo.uservoice.com/forums/193847-search/RK=2/RS=34zqaazwE2oAJXblXrY2UeLh07E-
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Error 404: Page Not Found')
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20 Quart Floor Model Blakeslee Food Mixer Model F-20-CA'  visited=18  found=6/9
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '140 Quart Thunderbird Planetary Mixer ARM-140'  (id=4147)
+2026-05-20 14:08:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '140 Quart Thunderbird Planetary Mixer buy'
+2026-05-20 14:08:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 22 result URLs
+2026-05-20 14:08:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.restaurantsupply.com/products/thunderbird-arm-140-planetary-mixer-floor-model-140-quart-capacity
+2026-05-20 14:08:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantsupply.com
+2026-05-20 14:08:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.ebay.com/p/1004509864
+2026-05-20 14:08:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=ebay.com
+2026-05-20 14:08:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://directkitchenequip.com/products/thunderbird-food-machinery-arm-140-mixer-planetary
+2026-05-20 14:08:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=directkitchenequip.com
+2026-05-20 14:08:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://officeequipmentmachineshop.com/products/Preferred-Pack-ARM-140-Planetary-Mixers
+2026-05-20 14:08:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Food Processing Equipment | Thunderbird ARM-140 Planetary Mi')
+2026-05-20 14:08:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.foodservex.com/product/140-quart-thunderbird-planetary-mixer-arm-140/
+2026-05-20 14:08:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-20 14:08:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.toprestaurantsupplies.com/products/thunderbird-arm-140-planetary-mixer-140-qt-capacity-1
+2026-05-20 14:08:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=toprestaurantsupplies.com
+2026-05-20 14:08:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.thunderbirdfm.com/ARM-140.html
+2026-05-20 14:08:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Thunderbird Food Machinery')
+2026-05-20 14:08:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://yahoo.uservoice.com/forums/193847-search/RK=2/RS=HpKh7P3OHnX9S1qlFxOsFTgXAqU-
+2026-05-20 14:08:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Error 404: Page Not Found')
+2026-05-20 14:08:14 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='140 Quart Thunderbird Planetary Mixer ARM-140'  visited=8  found=4/9

@@ -149,6 +149,7 @@ function app() {
     // Pricing matrix
     priceMatrix: { rows: [], competitors: [], total: 0, page: 1, pages: 1 },
     priceMatrixPage: 1,
+    priceMatrixSortDir: 'asc',  // 'asc' = cheapest first, 'desc' = most expensive first
     loadingMatrix: false,
 
     // Scheduler
@@ -1398,7 +1399,8 @@ function app() {
       return parseFloat(diff) < 0 ? 'text-green-600 font-bold' : 'text-red-600 font-bold';
     },
 
-    // Return matched competitors for a row, sorted ascending by price.
+    // Return matched competitors for a row, sorted by price per the page's
+    // current sort direction (default 'asc' = cheapest first).
     matchedCompetitors(row) {
       const by = row?.by_competitor || {};
       const out = [];
@@ -1407,7 +1409,8 @@ function app() {
           out.push({ domain, price: info.price, url: info.url, in_stock: info.in_stock });
         }
       }
-      out.sort((a, b) => a.price - b.price);
+      const dir = this.priceMatrixSortDir === 'desc' ? -1 : 1;
+      out.sort((a, b) => (a.price - b.price) * dir);
       return out;
     },
 

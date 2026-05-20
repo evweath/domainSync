@@ -7,10 +7,10 @@
   <!-- Vendor JS/CSS served locally so the dashboard works offline.
        Bumping the ?v= query string on any change forces a fresh fetch even
        through stubborn browser caches; pair with no-cache server headers. -->
-  <script src="/static/vendor/alpine.min.js?v=20260520-4" defer></script>
-  <script src="/static/vendor/chart.umd.min.js?v=20260520-4"></script>
-  <link href="/static/vendor/tailwind.min.css?v=20260520-4" rel="stylesheet" />
-  <link href="/static/css/style.css?v=20260520-4" rel="stylesheet" />
+  <script src="/static/vendor/alpine.min.js?v=20260520-5" defer></script>
+  <script src="/static/vendor/chart.umd.min.js?v=20260520-5"></script>
+  <link href="/static/vendor/tailwind.min.css?v=20260520-5" rel="stylesheet" />
+  <link href="/static/css/style.css?v=20260520-5" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-200">
 
@@ -1574,9 +1574,19 @@
 
     <!-- ===== PRICE COMPARISON VIEW ===== -->
     <div x-show="currentView === 'pricing'" class="p-6">
-      <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
         <h2 class="text-2xl font-bold">Price Comparison Matrix</h2>
-        <div class="flex gap-2">
+        <div class="flex items-center gap-2 flex-wrap">
+          <!-- Sort direction toggle for competitor order on every row -->
+          <div class="flex items-center gap-1 mr-2 text-sm">
+            <span class="text-gray-500">Sort competitors:</span>
+            <button @click="priceMatrixSortDir='asc'"
+              :class="priceMatrixSortDir==='asc' ? 'bg-orange-500 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'"
+              class="px-3 py-1 rounded transition-colors">↑ Cheapest first</button>
+            <button @click="priceMatrixSortDir='desc'"
+              :class="priceMatrixSortDir==='desc' ? 'bg-orange-500 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'"
+              class="px-3 py-1 rounded transition-colors">↓ Most expensive first</button>
+          </div>
           <button @click="scanAllCompetitors()" :disabled="competitorScanRunning"
             class="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-1">
             <span x-show="competitorScanRunning" class="animate-spin">⏳</span>
@@ -1607,20 +1617,30 @@
       <div x-show="priceMatrix.competitors && priceMatrix.competitors.length > 0">
         <div x-show="loadingMatrix" class="text-center py-8 text-gray-400">Loading price matrix...</div>
         <div x-show="!loadingMatrix" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
-          <!-- Per-product compact rows: title + our price, then matched competitors as
-               chips sorted cheapest-first (wraps onto 1-2 extra lines if needed). -->
+          <!-- Per-product single-line rows: product info | our price | competitor
+               chips listed horizontally (cheapest-first by default) | actions.
+               The chip strip scrolls horizontally if there are more competitors
+               than fit, so every row stays on ONE line. -->
           <div class="divide-y divide-gray-100 dark:divide-gray-700">
             <template x-for="row in priceMatrix.rows" :key="row.product_id">
               <div class="px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                <div class="flex items-start gap-4 cols-divided">
-                  <div class="flex-1 min-w-0">
-                    <div class="font-medium text-sm truncate" x-text="row.title"></div>
-                    <!-- Competitor chips, sorted ascending by price, wrap to 1-2 lines -->
-                    <div class="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-xs">
+                <div class="flex items-center gap-4 cols-divided">
+                  <!-- Product title (left) -->
+                  <div class="min-w-0 w-72 flex-shrink-0">
+                    <div class="font-medium text-sm truncate" x-text="row.title" :title="row.title"></div>
+                  </div>
+                  <!-- Our price -->
+                  <div class="w-28 flex-shrink-0 text-right">
+                    <div class="text-[10px] text-gray-400 uppercase tracking-wide">Our Price</div>
+                    <div class="font-bold text-orange-600 text-sm" x-text="fmtPrice(row.our_price)"></div>
+                  </div>
+                  <!-- Competitor chips, all on one horizontal line, scroll on overflow -->
+                  <div class="flex-1 min-w-0 overflow-x-auto">
+                    <div class="flex items-center gap-2 whitespace-nowrap text-xs">
                       <template x-for="comp in matchedCompetitors(row)" :key="comp.domain">
                         <a :href="comp.url || '#'"
                            :target="comp.url ? '_blank' : ''"
-                           class="inline-flex items-baseline gap-1 px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+                           class="inline-flex items-baseline gap-1 px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition flex-shrink-0"
                            :class="!comp.url && 'pointer-events-none'">
                           <span class="text-gray-500 dark:text-gray-300" x-text="compShortName(comp.domain)"></span>
                           <span class="font-semibold"
@@ -1634,17 +1654,8 @@
                       <span x-show="matchedCompetitors(row).length === 0" class="text-gray-400 italic">No competitor matches yet</span>
                     </div>
                   </div>
-                  <div class="text-right shrink-0">
-                    <div class="text-[10px] text-gray-400 uppercase tracking-wide">Our Price</div>
-                    <div class="font-bold text-orange-600 text-base" x-text="fmtPrice(row.our_price)"></div>
-                  </div>
-                  <div class="flex flex-col items-end gap-1 shrink-0">
-                    <button @click="scanAllCompetitors()" :disabled="competitorScanRunning"
-                      class="text-xs text-blue-500 hover:text-blue-700 disabled:opacity-40"
-                      title="Scan all competitors for updated prices">
-                      <span x-show="competitorScanRunning">⏳</span>
-                      <span x-show="!competitorScanRunning">🔍 Scan</span>
-                    </button>
+                  <!-- Per-row actions -->
+                  <div class="flex items-center gap-2 flex-shrink-0">
                     <button @click="window.open(`/api/reports/price-comparison/${row.product_id}`, '_blank')"
                       class="text-xs text-gray-400 hover:text-blue-700">Report</button>
                   </div>
@@ -2381,6 +2392,6 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260520-4"></script>
+<script src="/static/js/app.js?v=20260520-5"></script>
 </body>
 </html>
