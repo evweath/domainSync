@@ -53,28 +53,69 @@ aside::-webkit-scrollbar { width: 3px; }
 .flex-shrink-0 { flex-shrink: 0; }
 .transition-colors { transition: color 0.15s, background-color 0.15s; }
 
+/* Visible column dividers on every data table.
+   Every <th> and <td> except the last in a row gets a thin gray border on
+   the right, so the user can see exactly where columns split and where to
+   grab to resize. Headers get a slightly heavier line to anchor the eye. */
+table th,
+table td {
+  border-right: 1px solid rgb(229, 231, 235);  /* gray-200 */
+}
+table thead th {
+  border-right: 1px solid rgb(209, 213, 219);  /* gray-300 — heavier on headers */
+}
+.dark table th,
+.dark table td {
+  border-right-color: rgb(75, 85, 99);  /* gray-600 */
+}
+.dark table thead th {
+  border-right-color: rgb(107, 114, 128);  /* gray-500 — heavier on headers */
+}
+table tr > th:last-child,
+table tr > td:last-child {
+  border-right: none;
+}
+
 /* Resizable table columns. JS in app.js (_initColumnResize) appends a
    span.col-resize-grip to each <th> except the last. Drag the grip to
-   resize; double-click to reset. Width is persisted to localStorage. */
+   resize; double-click to reset. Width is persisted to localStorage.
+   The grip sits ON TOP of the visible column divider, so the line the
+   user sees is the line they grab. */
 .col-resize-grip {
   position: absolute;
   top: 0;
-  right: -3px;
-  width: 7px;
+  right: -4px;
+  width: 9px;
   height: 100%;
   cursor: col-resize;
   user-select: none;
   z-index: 5;
   background: transparent;
-  border-right: 1px solid transparent;
-  transition: border-color 0.15s, background-color 0.15s;
+  transition: background-color 0.15s;
 }
-.col-resize-grip:hover {
-  border-right-color: #f59e0b;  /* orange-500 */
-  background: rgba(245, 158, 11, 0.15);
+.col-resize-grip::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 4px;
+  width: 1px;
+  height: 100%;
+  background: rgb(156, 163, 175);  /* gray-400 — visible at rest */
+  transition: background-color 0.15s, width 0.15s, left 0.15s;
+}
+.dark .col-resize-grip::after { background: rgb(107, 114, 128); }  /* gray-500 */
+.col-resize-grip:hover { background: rgba(245, 158, 11, 0.18); }
+.col-resize-grip:hover::after {
+  background: #f59e0b;  /* orange-500 */
+  width: 3px;
+  left: 3px;
 }
 body.col-resizing { user-select: none !important; }
-body.col-resizing .col-resize-grip { border-right-color: #f59e0b; }
+body.col-resizing .col-resize-grip::after {
+  background: #f59e0b;
+  width: 3px;
+  left: 3px;
+}
 /* Once table-layout: fixed is applied by JS, cells must honor pinned widths. */
 table.col-resize-active td,
 table.col-resize-active th { overflow: hidden; text-overflow: ellipsis; word-break: break-word; }

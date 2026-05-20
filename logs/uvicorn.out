@@ -11,3 +11,5 @@
 2026-05-20 13:35:17 [INFO] backend.app: Log-tail broadcaster started
 2026-05-20 13:35:17 [INFO] backend.app: Dashboard: https://localhost:8743
 2026-05-20 13:35:17 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+/Users/evw/dev/productComparison/donut-intel/backend/api/routes.py:1506: SAWarning: Coercing Subquery object into a select() for use in IN(); please pass a select() construct explicitly
+  .filter(Product.id.in_(multi_domain_ids), Product.is_active == True)
