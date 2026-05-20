@@ -492,11 +492,29 @@ class DeduplicateRequest(BaseModel):
 
 @router.post("/api/dedup/run")
 async def run_deduplication(req: DeduplicateRequest):
-    async def do_dedup():
+    """Kick off a dedup pass off the event loop.
+
+    DeduplicationEngine.run is sync and does an O(n²) pass over the active
+    product table with DB queries inside the loop — calling it directly
+    from an asyncio task blocks the event loop for minutes (no WS
+    broadcasts, no API responses, can't shut down cleanly). We hand it
+    to the default thread pool so the loop stays free to serve other
+    requests and stream the live log.
+    """
+    def _sync_run():
         with session_scope() as s:
             engine = DeduplicationEngine()
-            stats = engine.run(s, req.product_ids, req.domain_filters)
+            return engine.run(s, req.product_ids, req.domain_filters)
+
+    async def do_dedup():
+        await manager.broadcast({"event": "dedup_started"})
+        try:
+            stats = await asyncio.get_event_loop().run_in_executor(None, _sync_run)
             await manager.broadcast({"event": "dedup_complete", "stats": stats})
+        except Exception as exc:
+            logger.exception("Dedup run failed: %s", exc)
+            await manager.broadcast({"event": "dedup_error", "error": str(exc)})
+
     asyncio.create_task(do_dedup())
     return {"status": "dedup_started"}
 

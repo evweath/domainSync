@@ -551,10 +551,13 @@ function app() {
     },
 
     logLineClass(line) {
+      // Color-code by Python logging level — formatter writes "[LEVEL]" tokens.
       if (!line) return 'text-gray-400';
+      if (/\[CRITICAL\]/.test(line)) return 'bg-red-900 text-red-200 font-bold';
       if (/\[ERROR\]|\bTraceback\b/.test(line)) return 'text-red-400';
-      if (/\[WARNING\]|\[WARN\]/.test(line)) return 'text-yellow-300';
+      if (/\[WARNING\]|\[WARN\]/.test(line)) return 'text-amber-300';
       if (/\[DEBUG\]/.test(line)) return 'text-gray-500';
+      if (/\[INFO\]/.test(line)) return 'text-sky-300';
       return 'text-gray-200';
     },
 
@@ -1280,9 +1283,15 @@ function app() {
           this.scanRunning = false; this.scanStatus = {};
           this.toast('Scan error: ' + (msg.error || 'Unknown'), 'error');
           this.loadScanSessions(); break;
+        case 'dedup_started':
+          this.toast('Deduplication started — this may take several minutes on a large catalog.', 'info', 5000);
+          break;
         case 'dedup_complete':
           this.toast(`Dedup done — ${msg.stats?.auto_merged || 0} merged, ${msg.stats?.flagged_for_review || 0} need review`, 'success');
           this.loadDuplicates(); this.loadStats(); break;
+        case 'dedup_error':
+          this.toast('Deduplication failed: ' + (msg.error || 'Unknown'), 'error');
+          break;
         case 'competitor_found':
           this.toast(`Found competitor: ${msg.domain} (${msg.total} total)`, 'info', 2000); break;
         case 'discovery_complete':
