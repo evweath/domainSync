@@ -89,8 +89,13 @@ function app() {
     // Beat This Price
     beatPriceForm: { description: '', price_min: '', price_max: '', max_results: 10 },
     beatPriceChars: { size: '', color: '', manufacturer: '', country_of_origin: '', features: '' },
-    beatPriceResults: [],
+    beatPriceResults: [],            // Flat list when free-text only
+    beatPriceGroupedResults: [],     // Per-product groups when products selected
     beatPriceLoading: false,
+    beatPriceProductIds: [],         // IDs of selected master products
+    beatPriceCatalogSearch: '',
+    beatPriceCatalogResults: [],
+    beatPriceProgress: '',           // Status text while running multi-product
 
     // Find Me Customers
     findCustForm: { business_type: '', location: '', radius_miles: '', max_results: 20 },
@@ -816,31 +821,134 @@ function app() {
     // -----------------------------------------------------------------------
     // Beat This Price
     // -----------------------------------------------------------------------
+    async beatPriceSearchCatalog() {
+      try {
+        const params = new URLSearchParams({ per_page: 20 });
+        if (this.beatPriceCatalogSearch) params.set('search', this.beatPriceCatalogSearch);
+        const r = await this.api(`/api/products?${params}`);
+        this.beatPriceCatalogResults = r?.products || [];
+      } catch {}
+    },
+
+    beatPriceToggleProduct(id) {
+      const i = this.beatPriceProductIds.indexOf(id);
+      if (i >= 0) this.beatPriceProductIds = this.beatPriceProductIds.filter(x => x !== id);
+      else this.beatPriceProductIds = [...this.beatPriceProductIds, id];
+    },
+
+    beatPriceClearProducts() {
+      this.beatPriceProductIds = [];
+    },
+
+    _beatPriceDescribeProduct(p) {
+      // Build a single search description from a product record.
+      const parts = [];
+      if (p.canonical_title || p.title) parts.push(p.canonical_title || p.title);
+      if (p.manufacturer && !parts.join(' ').includes(p.manufacturer)) parts.push(p.manufacturer);
+      if (p.model_number && !parts.join(' ').includes(p.model_number)) parts.push(p.model_number);
+      return parts.join(' ');
+    },
+
     async runBeatPrice() {
-      if (!this.beatPriceForm.description) {
-        this.toast('Enter a product description', 'info');
+      const hasProducts = this.beatPriceProductIds.length > 0;
+      const hasDescription = !!(this.beatPriceForm.description || '').trim();
+      if (!hasProducts && !hasDescription) {
+        this.toast('Select at least one product or enter a description', 'info');
         return;
       }
+
       this.beatPriceLoading = true;
       this.beatPriceResults = [];
+      this.beatPriceGroupedResults = [];
+      this.beatPriceProgress = '';
+
+      const chars = Object.fromEntries(
+        Object.entries(this.beatPriceChars).filter(([, v]) => v)
+      );
+      const charsPayload = Object.keys(chars).length ? chars : null;
+      const priceMin = this.beatPriceForm.price_min ? parseFloat(this.beatPriceForm.price_min) : null;
+      const priceMax = this.beatPriceForm.price_max ? parseFloat(this.beatPriceForm.price_max) : null;
+      const maxResults = this.beatPriceForm.max_results || 10;
+
       try {
-        const chars = Object.fromEntries(
-          Object.entries(this.beatPriceChars).filter(([, v]) => v)
-        );
-        const res = await this.api('/api/search/beat-price', {
-          method: 'POST',
-          body: JSON.stringify({
-            description: this.beatPriceForm.description,
-            price_min: this.beatPriceForm.price_min ? parseFloat(this.beatPriceForm.price_min) : null,
-            price_max: this.beatPriceForm.price_max ? parseFloat(this.beatPriceForm.price_max) : null,
-            characteristics: Object.keys(chars).length ? chars : null,
-            max_results: this.beatPriceForm.max_results,
-          }),
-        });
-        this.beatPriceResults = res?.results || [];
-        if (!this.beatPriceResults.length) this.toast('No suppliers found — try broadening the description', 'info');
-      } catch (e) { this.toast('Search failed: ' + e.message, 'error'); }
-      finally { this.beatPriceLoading = false; }
+        if (!hasProducts) {
+          // Free-text only path (legacy behavior).
+          const res = await this.api('/api/search/beat-price', {
+            method: 'POST',
+            body: JSON.stringify({
+              description: this.beatPriceForm.description,
+              price_min: priceMin, price_max: priceMax,
+              characteristics: charsPayload, max_results: maxResults,
+            }),
+          });
+          this.beatPriceResults = res?.results || [];
+          if (!this.beatPriceResults.length) {
+            this.toast('No suppliers found — try broadening the description', 'info');
+          }
+          return;
+        }
+
+        // Multi-product path: load product details, run beat-price per product.
+        const products = [];
+        for (const pid of this.beatPriceProductIds) {
+          try {
+            const p = await this.api(`/api/products/${pid}`);
+            if (p) products.push(p);
+          } catch {}
+        }
+        if (!products.length) {
+          this.toast('Could not load any of the selected products', 'error');
+          return;
+        }
+
+        const groups = [];
+        for (let i = 0; i < products.length; i++) {
+          const p = products[i];
+          this.beatPriceProgress = `Searching ${i + 1}/${products.length}: ${(p.canonical_title || p.title || '').slice(0, 60)}`;
+          const baseDesc = this._beatPriceDescribeProduct(p);
+          const desc = this.beatPriceForm.description
+            ? `${baseDesc}. ${this.beatPriceForm.description}`
+            : baseDesc;
+          try {
+            const res = await this.api('/api/search/beat-price', {
+              method: 'POST',
+              body: JSON.stringify({
+                description: desc,
+                price_min: priceMin, price_max: priceMax,
+                characteristics: charsPayload, max_results: maxResults,
+              }),
+            });
+            groups.push({
+              product_id: p.id,
+              title: p.canonical_title || p.title,
+              our_price: p.price_canonical,
+              manufacturer: p.manufacturer,
+              model_number: p.model_number,
+              results: res?.results || [],
+            });
+          } catch (e) {
+            groups.push({
+              product_id: p.id,
+              title: p.canonical_title || p.title,
+              our_price: p.price_canonical,
+              error: e.message,
+              results: [],
+            });
+          }
+        }
+        this.beatPriceGroupedResults = groups;
+        const totalResults = groups.reduce((n, g) => n + (g.results?.length || 0), 0);
+        if (!totalResults) {
+          this.toast('No alternate suppliers found for any selected product', 'info');
+        } else {
+          this.toast(`${totalResults} supplier${totalResults !== 1 ? 's' : ''} found across ${groups.length} product${groups.length !== 1 ? 's' : ''}`, 'success');
+        }
+      } catch (e) {
+        this.toast('Search failed: ' + e.message, 'error');
+      } finally {
+        this.beatPriceLoading = false;
+        this.beatPriceProgress = '';
+      }
     },
 
     // -----------------------------------------------------------------------
