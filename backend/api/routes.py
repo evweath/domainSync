@@ -1103,45 +1103,117 @@ def update_scraping_profile(
 # Price Comparison (F22-F26)
 # ---------------------------------------------------------------------------
 
+_VARIANT_TRIM_RE = re.compile(r"[^a-z0-9]+")
+
+
+def _variant_key(product) -> tuple:
+    """Variant signature for the Price Comparison Matrix.
+
+    Two products with the same canonical_title AND the same model/SKU are the
+    SAME variant — they should occupy exactly one row in the matrix, even if
+    they came from different source sites and the dedup engine hasn't merged
+    them into a single master yet.
+
+    Two products with the same title but a different model/SKU are DIFFERENT
+    variants — each gets its own row.
+
+    Both title and the variant token are normalized: lowercased, stripped of
+    surrounding whitespace, and (for the variant token) collapsed to
+    alphanumerics so harmless punctuation differences like
+    `WIN-FP-LID-01` vs `WIN-FP-LID 01` don't masquerade as distinct variants.
+    """
+    title = (product.canonical_title or "").strip().lower()
+    raw_variant = (product.model_number or product.sku or "")
+    variant = _VARIANT_TRIM_RE.sub("", raw_variant.lower()) if raw_variant else ""
+    return (title, variant)
+
+
 @router.get("/api/price-comparison")
 def price_comparison_matrix(
     page: int = 1, per_page: int = 25,
     db: Session = Depends(get_db_session),
 ):
-    """F26: Matrix of all products vs all competitors."""
+    """F26: Matrix of all products vs all competitors.
+
+    Rows are deduplicated by (title, variant) so the same product variant
+    appears at most once, regardless of how many source domains carry it or
+    whether the dedup engine has merged the underlying master records.
+    """
+    competitors = db.query(Competitor).filter(Competitor.is_active == True).all()
+    comp_domains = [c.domain for c in competitors]
     products = (
         db.query(Product).filter(Product.is_active == True)
-        .order_by(Product.canonical_title)
-        .offset((page - 1) * per_page).limit(per_page).all()
+        .order_by(Product.canonical_title).all()
     )
-    total = db.query(func.count(Product.id)).filter(Product.is_active == True).scalar() or 0
-    competitors = db.query(Competitor).filter(Competitor.is_active == True).all()
 
-    rows = []
+    # Group by variant key. Each group becomes one row in the matrix.
+    groups: Dict[tuple, dict] = {}
     for p in products:
-        row = {
-            "product_id": p.id,
-            "title": p.canonical_title,
-            "our_price": p.price_canonical,
-            "by_competitor": {},
-        }
-        for comp in competitors:
-            match = next(
-                (m for m in p.competitor_matches if m.competitor_id == comp.id and m.is_active),
-                None
-            )
-            row["by_competitor"][comp.domain] = {
-                "price": match.competitor_price if match else None,
-                "url": match.competitor_url if match else None,
-                "in_stock": match.in_stock if match else None,
+        key = _variant_key(p)
+        g = groups.get(key)
+        if g is None:
+            g = {
+                "product_id": p.id,                 # lowest-id master in the group
+                "title": p.canonical_title,
+                "our_price": p.price_canonical,     # will be reduced to MIN across group
+                "manufacturer": p.manufacturer,
+                "model_number": p.model_number,
+                "_matches": {},                     # domain -> {price, url, in_stock} (cheapest)
             }
-        rows.append(row)
+            groups[key] = g
+        else:
+            if p.id < g["product_id"]:
+                g["product_id"] = p.id
+                g["title"] = p.canonical_title  # prefer the title attached to the canonical master
+            if p.price_canonical is not None and (
+                g["our_price"] is None or p.price_canonical < g["our_price"]
+            ):
+                g["our_price"] = p.price_canonical
+
+        # Merge competitor matches. If multiple masters in the group each have
+        # a match to the same competitor, keep the cheapest one.
+        for m in p.competitor_matches:
+            if not m.is_active:
+                continue
+            comp = next((c for c in competitors if c.id == m.competitor_id), None)
+            if comp is None:
+                continue
+            existing = g["_matches"].get(comp.domain)
+            if existing and existing.get("price") is not None and (
+                m.competitor_price is None or m.competitor_price >= existing["price"]
+            ):
+                continue
+            g["_matches"][comp.domain] = {
+                "price": m.competitor_price,
+                "url": m.competitor_url,
+                "in_stock": m.in_stock,
+            }
+
+    # Flatten + flesh out per-row by_competitor with every competitor domain
+    # so the UI's chip strip can simply iterate over the known list.
+    row_list = []
+    for key in sorted(groups.keys(), key=lambda k: (k[0], k[1])):
+        g = groups[key]
+        by_competitor = {d: g["_matches"].get(d, {"price": None, "url": None, "in_stock": None})
+                         for d in comp_domains}
+        row_list.append({
+            "product_id": g["product_id"],
+            "title": g["title"],
+            "our_price": g["our_price"],
+            "manufacturer": g["manufacturer"],
+            "model_number": g["model_number"],
+            "by_competitor": by_competitor,
+        })
+
+    total = len(row_list)
+    start = (page - 1) * per_page
+    page_rows = row_list[start: start + per_page]
 
     return {
         "total": total, "page": page, "per_page": per_page,
-        "pages": (total + per_page - 1) // per_page,
+        "pages": max(1, (total + per_page - 1) // per_page),
         "competitors": [{"id": c.id, "domain": c.domain} for c in competitors],
-        "rows": rows,
+        "rows": page_rows,
     }
 
 
