@@ -159,6 +159,17 @@ class DeduplicationEngine:
                     else:
                         stats["flagged_for_review"] += 1
 
+                # Commit + release the write lock periodically. With ~5k
+                # products the inner loop runs ~13M times, and SQLite only
+                # allows ONE writer at a time. Without periodic commits the
+                # write transaction stays open for the entire pass and any
+                # other endpoint that wants to write (scheduler, scrapers,
+                # API saves) blocks on `busy_timeout` and eventually fails
+                # with `database is locked`. 250 candidates ≈ a few seconds
+                # of work and keeps each transaction small.
+                if (stats["auto_merged"] + stats["flagged_for_review"]) % 250 == 0:
+                    session.commit()
+
         session.commit()
         logger.info(f"Deduplication complete: {stats}")
         return stats
