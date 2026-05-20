@@ -623,10 +623,33 @@ class DiscoverCompetitorsRequest(BaseModel):
     session_name: Optional[str] = None
 
 
+def _source_site_domains() -> set:
+    """Configured source sites — these can never be competitors."""
+    return {(s.get("domain") or "").lower().lstrip("www.")
+            for s in config.get("source_sites", default=[])
+            if s.get("domain")}
+
+
+def _is_source_site(domain: str) -> bool:
+    """True if `domain` matches a configured source site (case-insensitive,
+    `www.` insensitive). We never want to add one of our own source sites to
+    the Competitors list — its product rows are already master records."""
+    if not domain:
+        return False
+    d = domain.lower()
+    if d.startswith("www."):
+        d = d[4:]
+    return d in _source_site_domains()
+
+
 @router.post("/api/competitors/discover")
 async def discover_competitors(req: DiscoverCompetitorsRequest, db: Session = Depends(get_db_session)):
     """F12-F13: Auto-discover competitors via web search."""
+    # `already_known` is treated as a deny-list by the discovery engine. Seed
+    # it with both the currently-tracked competitors AND every source site so
+    # auto-discovery can never propose donut-supplies/donut-equipment/etc.
     already_known = {c.domain for c in db.query(Competitor).all()}
+    already_known |= _source_site_domains()
 
     # Build queries from master catalog
     from backend.competitor.discovery import build_discovery_queries
@@ -648,8 +671,12 @@ async def discover_competitors(req: DiscoverCompetitorsRequest, db: Session = De
             already_known=already_known, progress_cb=ws_cb,
         )
         added = 0
+        skipped_as_source = 0
         with session_scope() as s:
             for comp_data in found:
+                if _is_source_site(comp_data["domain"]):
+                    skipped_as_source += 1
+                    continue
                 existing = s.query(Competitor).filter(Competitor.domain == comp_data["domain"]).first()
                 if not existing:
                     comp = Competitor(
@@ -659,7 +686,10 @@ async def discover_competitors(req: DiscoverCompetitorsRequest, db: Session = De
                     s.add(comp)
                     added += 1
 
-        await manager.broadcast({"event": "discovery_complete", "added": added, "total": len(found)})
+        await manager.broadcast({
+            "event": "discovery_complete", "added": added, "total": len(found),
+            "skipped_as_source": skipped_as_source,
+        })
 
     asyncio.create_task(do_discover())
     return {"status": "discovery_started", "queries": len(queries)}
@@ -676,8 +706,13 @@ async def bulk_import_competitors(req: BulkImportRequest, db: Session = Depends(
     from backend.competitor.discovery import bulk_import_competitors as _bulk
     parsed = await _bulk(req.domains)
     added = 0
+    skipped_as_source: List[str] = []
     session_name = req.session_name or f"Bulk Import {datetime.utcnow().strftime('%Y-%m-%d %H:%M')}"
     for comp_data in parsed:
+        if _is_source_site(comp_data["domain"]):
+            # One of our own source sites — never a competitor.
+            skipped_as_source.append(comp_data["domain"])
+            continue
         existing = db.query(Competitor).filter(Competitor.domain == comp_data["domain"]).first()
         if not existing:
             db.add(Competitor(
@@ -686,7 +721,7 @@ async def bulk_import_competitors(req: BulkImportRequest, db: Session = Depends(
             ))
             added += 1
     db.commit()
-    return {"added": added, "parsed": len(parsed)}
+    return {"added": added, "parsed": len(parsed), "skipped_as_source": skipped_as_source}
 
 
 @router.get("/api/competitors")

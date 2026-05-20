@@ -380,6 +380,14 @@ async def run_web_search_scan(
             domain = _domain(url)
             if not domain:
                 return
+            # Skip results that land on one of our own source sites.
+            # Without this, every web-search hit on (e.g.) bakerywholesalers.com
+            # auto-creates a `Competitor` row and inserts CompetitorProductMatches
+            # for products that are already master records — the matrix then
+            # shows our own catalog as a competitor.
+            if domain in source_domains:
+                logger.debug("[WEB-SCAN] Skipping %s — configured source site", domain)
+                return
 
             with session_scope() as db:
                 competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
