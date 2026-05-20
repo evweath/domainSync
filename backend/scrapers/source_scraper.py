@@ -5,6 +5,7 @@ Scrapes the 3 owned source sites and persists products to the database.
 import asyncio
 import json
 import logging
+import re
 from datetime import datetime
 from typing import Any, Callable, Dict, List, Optional
 
@@ -19,6 +20,7 @@ from backend.database.models import (
     ProductSource,
     ScanSession,
 )
+from backend.competitor.scraper import _is_shopify_store, scrape_shopify_store
 from backend.scrapers.base_scraper import BaseScraper, ScrapedProduct
 
 logger = logging.getLogger(__name__)
@@ -82,12 +84,88 @@ class SourceScraper:
         site_name: str,
         domain: str,
     ) -> Dict[str, Any]:
-        """Scrape a single source site end-to-end."""
+        """Scrape a single source site end-to-end.
+
+        Tries the fast Shopify /products.json path first (all three known
+        source sites are Shopify stores at present); falls back to the
+        Playwright-driven BaseScraper crawl for non-Shopify sites.
+        """
         stats = {"scraped": 0, "new": 0, "updated": 0, "errors": 0, "skipped": 0}
 
         await self._emit("site_start", {"site": site_name, "url": base_url})
         logger.info(f"Starting scrape of {site_name} ({base_url})")
 
+        # ---- Fast path: Shopify /products.json ----
+        if await _is_shopify_store(base_url):
+            logger.info("[SCRAPE] %s is a Shopify store — using fast /products.json path", site_name)
+            await self._emit("status", {"message": f"Fetching products via Shopify API on {site_name}..."})
+            try:
+                shopify_products, rate_limited = await scrape_shopify_store(
+                    base_url, domain, request_delay_ms=0
+                )
+            except Exception as exc:
+                logger.warning(
+                    "[SCRAPE] Shopify fetch failed on %s (%s) — falling back to Playwright crawl",
+                    site_name, exc,
+                )
+                shopify_products = None  # signal fallback
+                rate_limited = False
+
+            if shopify_products is not None:
+                if rate_limited:
+                    logger.warning("[SCRAPE] %s rate-limited during Shopify fetch", site_name)
+                logger.info(
+                    "[SCRAPE] %s: Shopify returned %d products",
+                    site_name, len(shopify_products),
+                )
+                await self._emit("urls_found", {"site": site_name, "count": len(shopify_products)})
+
+                if self.scan_session_id:
+                    with session_scope() as db:
+                        sess = db.get(ScanSession, self.scan_session_id)
+                        if sess:
+                            sess.notes = (sess.notes or "") + (
+                                f"\n{site_name}: {len(shopify_products)} products via Shopify API"
+                            )
+
+                for idx, product in enumerate(shopify_products):
+                    if self._cancelled:
+                        await self._emit("cancelled", {"site": site_name})
+                        break
+                    await self._emit("product_progress", {
+                        "site": site_name,
+                        "current": idx + 1,
+                        "total": len(shopify_products),
+                        "url": product.url,
+                    })
+                    try:
+                        if not product.is_valid():
+                            stats["skipped"] += 1
+                            continue
+                        result = self._persist_product(product, domain)
+                        stats["scraped"] += 1
+                        if result == "new":
+                            stats["new"] += 1
+                        elif result == "updated":
+                            stats["updated"] += 1
+                    except Exception as exc:
+                        logger.error(f"Error persisting Shopify product {product.url}: {exc}")
+                        stats["errors"] += 1
+
+                if self.scan_session_id:
+                    with session_scope() as db:
+                        sess = db.get(ScanSession, self.scan_session_id)
+                        if sess:
+                            sess.total_scraped = (sess.total_scraped or 0) + stats["scraped"]
+                            sess.new_products = (sess.new_products or 0) + stats["new"]
+                            sess.updated_products = (sess.updated_products or 0) + stats["updated"]
+                            sess.errors = (sess.errors or 0) + stats["errors"]
+
+                await self._emit("site_complete", {"site": site_name, **stats})
+                logger.info(f"Completed {site_name} via Shopify API: {stats}")
+                return stats
+
+        # ---- Slow path: Playwright crawl + per-page extraction ----
         max_pages = config.get("scraping", "max_pages_per_site", default=200)
 
         async with BaseScraper(session_id=self.scan_session_id) as scraper:
@@ -171,6 +249,33 @@ class SourceScraper:
                 )
                 .first()
             )
+
+            # Shopify handle fallback: pre-Shopify scans persisted URLs with
+            # collection-context query strings or with a 'www.' prefix; the
+            # Shopify fast path emits the canonical `/products/<handle>` form
+            # with neither. Without this fallback, every Shopify-path scan
+            # would create a new ProductSource (and Product) for products
+            # that were already in the catalog under a different URL spelling.
+            if not existing_source:
+                handle_match = re.search(r'/products/([^/?#]+)', scraped.url)
+                if handle_match:
+                    handle = handle_match.group(1)
+                    candidates = (
+                        db.query(ProductSource)
+                        .filter(
+                            ProductSource.source_site == source_site,
+                            ProductSource.source_url.like(f'%/products/{handle}%'),
+                        )
+                        .all()
+                    )
+                    for cand in candidates:
+                        cand_m = re.search(r'/products/([^/?#]+)', cand.source_url or '')
+                        if cand_m and cand_m.group(1) == handle:
+                            existing_source = cand
+                            # Migrate stored URL to the canonical form so future
+                            # exact-match lookups succeed without the fallback.
+                            cand.source_url = scraped.url
+                            break
 
             if existing_source:
                 # F05: Incremental – skip if content unchanged

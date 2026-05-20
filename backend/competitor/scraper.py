@@ -72,17 +72,21 @@ async def scrape_shopify_store(
                 price_raw = variant.get("price")
                 price = float(price_raw) if price_raw else None
                 images = [img["src"] for img in item.get("images", []) if img.get("src")]
+                product_type = (item.get("product_type") or "").strip() or None
                 sp = ScrapedProduct(
                     url=f"{base}/products/{item['handle']}",
                     title=item.get("title", ""),
                     price=price,
+                    price_raw=price_raw,
                     in_stock=variant.get("available", True),
                     sku=variant.get("sku") or None,
                     manufacturer=item.get("vendor") or None,
+                    category=product_type,
                     description=re.sub(r"<[^>]+>", " ", item.get("body_html") or "").strip() or None,
                     images=images,
                     source_site=domain,
                 )
+                sp.compute_hash()
                 products.append(sp)
             logger.info("Shopify %s: page %d → %d products so far", domain, page, len(products))
             if len(batch) < 250:
