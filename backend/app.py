@@ -151,6 +151,21 @@ async def auth_middleware(request: Request, call_next):
     return await call_next(request)
 
 
+# Force browsers to revalidate the HTML shell + static frontend assets on
+# every load. Without this Safari/Chrome cache index.html, app.js and
+# style.css aggressively, and users see stale UI after a deploy even
+# after a "reload" (you need ⌘⇧R or DevTools open to actually hard-refresh).
+@app.middleware("http")
+async def no_cache_frontend(request: Request, call_next):
+    response = await call_next(request)
+    path = request.url.path
+    if path == "/" or path.startswith("/static/") or path.endswith((".html", ".js", ".css")):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    return response
+
+
 app.add_middleware(
     SessionMiddleware,
     secret_key=config.get("app", "secret_key", default="CHANGE_ME_PLEASE"),
