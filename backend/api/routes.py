@@ -1485,6 +1485,140 @@ async def start_parallel_scan(db: Session = Depends(get_db_session)):
 # Domain Comparison — products on 2+ source domains with field differences
 # ---------------------------------------------------------------------------
 
+# ---------------------------------------------------------------------------
+# System of Record — treat one source domain as the truth and compare the
+# others against it. Returns two lists per pair:
+#   - missing:   products on primary that the compare-to domain doesn't carry
+#   - differing: products on both, with at least one mismatched field
+# ---------------------------------------------------------------------------
+
+_SOR_COMPARE_FIELDS = ("title", "price", "manufacturer", "model_number", "sku")
+
+
+def _latest_active_source_for_site(product, site):
+    """Pick the most recently scraped active ProductSource for a given site."""
+    best = None
+    for s in product.sources:
+        if not s.is_active or s.source_site != site:
+            continue
+        if best is None or (s.scraped_at and (not best.scraped_at or s.scraped_at > best.scraped_at)):
+            best = s
+    return best
+
+
+def _source_payload(src):
+    """Flatten a ProductSource into the dict the SoR UI consumes."""
+    if not src:
+        return None
+    return {
+        "title": src.source_title,
+        "price": src.source_price,
+        "manufacturer": src.source_manufacturer,
+        "model_number": src.source_model_number,
+        "sku": src.source_sku,
+        "url": src.source_url,
+        "scraped_at": src.scraped_at.isoformat() if src.scraped_at else None,
+    }
+
+
+def _norm(value):
+    """Loose equality helper. Returns a string suitable for == comparison.
+    Prices are rounded to the cent so float jitter doesn't flag a difference;
+    None/empty strings collapse to '' so both 'absent on this domain' cases
+    compare equal."""
+    if value is None or value == "":
+        return ""
+    if isinstance(value, float):
+        return f"{value:.2f}"
+    return str(value).strip().lower()
+
+
+@router.get("/api/system-of-record")
+def system_of_record(
+    primary: str = "donut-equipment.com",
+    compare_to: str = "donut-supplies.com",
+    db: Session = Depends(get_db_session),
+):
+    """List products present on `primary` that are either missing from
+    `compare_to` or present on both with differing data."""
+    # All master products that have an active source on `primary`
+    primary_pids = {
+        pid for (pid,) in
+        db.query(ProductSource.product_id)
+        .filter(ProductSource.source_site == primary, ProductSource.is_active == True)
+        .distinct()
+        .all()
+    }
+    compare_pids = {
+        pid for (pid,) in
+        db.query(ProductSource.product_id)
+        .filter(ProductSource.source_site == compare_to, ProductSource.is_active == True)
+        .distinct()
+        .all()
+    }
+
+    missing_ids = primary_pids - compare_pids
+    both_ids = primary_pids & compare_pids
+
+    missing = []
+    differing = []
+
+    if missing_ids:
+        for p in (
+            db.query(Product)
+            .filter(Product.id.in_(missing_ids), Product.is_active == True)
+            .order_by(Product.canonical_title)
+            .all()
+        ):
+            src = _latest_active_source_for_site(p, primary)
+            missing.append({
+                "product_id": p.id,
+                "canonical_title": p.canonical_title,
+                "manufacturer": p.manufacturer,
+                "model_number": p.model_number,
+                "category": p.category,
+                "primary": _source_payload(src),
+            })
+
+    if both_ids:
+        for p in (
+            db.query(Product)
+            .filter(Product.id.in_(both_ids), Product.is_active == True)
+            .order_by(Product.canonical_title)
+            .all()
+        ):
+            p_src = _latest_active_source_for_site(p, primary)
+            c_src = _latest_active_source_for_site(p, compare_to)
+            p_data = _source_payload(p_src) or {}
+            c_data = _source_payload(c_src) or {}
+            diff_fields = [
+                f for f in _SOR_COMPARE_FIELDS
+                if _norm(p_data.get(f)) != _norm(c_data.get(f))
+            ]
+            if diff_fields:
+                differing.append({
+                    "product_id": p.id,
+                    "canonical_title": p.canonical_title,
+                    "manufacturer": p.manufacturer,
+                    "model_number": p.model_number,
+                    "primary": p_data,
+                    "compare": c_data,
+                    "diff_fields": diff_fields,
+                })
+
+    return {
+        "primary": primary,
+        "compare_to": compare_to,
+        "primary_count": len(primary_pids),
+        "compare_to_count": len(compare_pids),
+        "missing": missing,
+        "differing": differing,
+        "missing_count": len(missing),
+        "differing_count": len(differing),
+        "both_count": len(both_ids),
+    }
+
+
 @router.get("/api/domain-comparison")
 def get_domain_comparison(
     page: int = 1,

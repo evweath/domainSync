@@ -7,10 +7,10 @@
   <!-- Vendor JS/CSS served locally so the dashboard works offline.
        Bumping the ?v= query string on any change forces a fresh fetch even
        through stubborn browser caches; pair with no-cache server headers. -->
-  <script src="/static/vendor/alpine.min.js?v=20260520-7" defer></script>
-  <script src="/static/vendor/chart.umd.min.js?v=20260520-7"></script>
-  <link href="/static/vendor/tailwind.min.css?v=20260520-7" rel="stylesheet" />
-  <link href="/static/css/style.css?v=20260520-7" rel="stylesheet" />
+  <script src="/static/vendor/alpine.min.js?v=20260520-8" defer></script>
+  <script src="/static/vendor/chart.umd.min.js?v=20260520-8"></script>
+  <link href="/static/vendor/tailwind.min.css?v=20260520-8" rel="stylesheet" />
+  <link href="/static/css/style.css?v=20260520-8" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-200">
 
@@ -45,7 +45,7 @@
     <nav class="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
       <template x-for="item in navItems" :key="item.id">
         <button
-          @click="currentView = item.id; item.id === 'products' && loadProducts(1); item.id === 'competitors' && loadCompetitors(1); item.id === 'pricing' && loadPriceMatrix(1); item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'source-products' && loadSourceProducts(); item.id === 'find-product' && findProductSearchCatalog(); item.id === 'beat-price' && beatPriceSearchCatalog(); item.id === 'find-customers' && null"
+          @click="currentView = item.id; item.id === 'products' && loadProducts(1); item.id === 'competitors' && loadCompetitors(1); item.id === 'pricing' && loadPriceMatrix(1); item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'source-products' && loadSourceProducts(); item.id === 'find-product' && findProductSearchCatalog(); item.id === 'beat-price' && beatPriceSearchCatalog(); item.id === 'system-of-record' && loadSystemOfRecord(); item.id === 'find-customers' && null"
           :class="currentView === item.id
             ? 'bg-orange-600 text-white'
             : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
@@ -1309,6 +1309,161 @@
       </div>
     </div>
 
+    <!-- ===== SYSTEM OF RECORD VIEW ===== -->
+    <div x-show="currentView === 'system-of-record'" class="p-6">
+      <div class="mb-4">
+        <h2 class="text-2xl font-bold">System of Record</h2>
+        <p class="text-xs text-gray-500 mt-0.5">
+          Treat one source domain as the truth and see what's missing from another, or where the data disagrees.
+        </p>
+      </div>
+
+      <!-- Selectors -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 mb-4 flex items-center gap-3 flex-wrap">
+        <label class="text-sm font-medium">Primary (truth):</label>
+        <select x-model="sorPrimary" @change="loadSystemOfRecord()"
+          class="border rounded px-3 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600">
+          <option value="donut-equipment.com">donut-equipment.com</option>
+          <option value="donut-supplies.com">donut-supplies.com</option>
+          <option value="bakerywholesalers.com">bakerywholesalers.com</option>
+        </select>
+        <span class="text-gray-400">vs</span>
+        <label class="text-sm font-medium">Compare to:</label>
+        <select x-model="sorCompareTo" @change="loadSystemOfRecord()"
+          class="border rounded px-3 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600">
+          <option value="donut-supplies.com">donut-supplies.com</option>
+          <option value="donut-equipment.com">donut-equipment.com</option>
+          <option value="bakerywholesalers.com">bakerywholesalers.com</option>
+        </select>
+        <button @click="loadSystemOfRecord()" :disabled="sorLoading"
+          class="ml-auto text-xs bg-orange-500 hover:bg-orange-600 disabled:opacity-50 text-white px-3 py-1.5 rounded">
+          <span x-show="!sorLoading">🔄 Refresh</span>
+          <span x-show="sorLoading">⏳ Loading...</span>
+        </button>
+      </div>
+
+      <!-- Summary -->
+      <div x-show="sorData" class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-3">
+          <div class="text-xs text-gray-500" x-text="`On ${sorData?.primary || ''}`"></div>
+          <div class="text-xl font-bold text-orange-600" x-text="sorData?.primary_count || 0"></div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-3">
+          <div class="text-xs text-gray-500" x-text="`On ${sorData?.compare_to || ''}`"></div>
+          <div class="text-xl font-bold text-blue-600" x-text="sorData?.compare_to_count || 0"></div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-3">
+          <div class="text-xs text-gray-500">Missing from compare-to</div>
+          <div class="text-xl font-bold text-red-600" x-text="sorData?.missing_count || 0"></div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-3">
+          <div class="text-xs text-gray-500">On both — data differs</div>
+          <div class="text-xl font-bold text-amber-600" x-text="sorData?.differing_count || 0"></div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div x-show="sorData" class="flex gap-1 mb-3 text-sm">
+        <button @click="sorTab='missing'"
+          :class="sorTab==='missing' ? 'bg-orange-500 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'"
+          class="px-4 py-1.5 rounded">
+          Missing from <span x-text="sorData?.compare_to"></span>
+          (<span x-text="sorData?.missing_count || 0"></span>)
+        </button>
+        <button @click="sorTab='differing'"
+          :class="sorTab==='differing' ? 'bg-orange-500 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'"
+          class="px-4 py-1.5 rounded">
+          Data differs (<span x-text="sorData?.differing_count || 0"></span>)
+        </button>
+      </div>
+
+      <!-- Missing tab -->
+      <div x-show="sorData && sorTab === 'missing'" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+        <div x-show="!sorData?.missing?.length" class="p-8 text-center text-gray-400">
+          Every product on <span x-text="sorData?.primary"></span> is also on <span x-text="sorData?.compare_to"></span>. Nothing missing.
+        </div>
+        <table x-show="sorData?.missing?.length" class="w-full text-sm">
+          <thead class="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wide">
+            <tr>
+              <th class="text-left px-4 py-2 font-semibold">Product</th>
+              <th class="text-left px-4 py-2 font-semibold" style="width: 12rem;">Manufacturer</th>
+              <th class="text-left px-4 py-2 font-semibold" style="width: 10rem;">Model #</th>
+              <th class="text-right px-4 py-2 font-semibold" style="width: 8rem;">Price</th>
+              <th class="px-4 py-2 font-semibold" style="width: 5rem;"></th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+            <template x-for="p in sorData?.missing || []" :key="p.product_id">
+              <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                <td class="px-4 py-2">
+                  <div class="font-medium text-sm truncate" x-text="p.canonical_title" :title="p.canonical_title"></div>
+                </td>
+                <td class="px-4 py-2 text-gray-600 dark:text-gray-300" x-text="p.manufacturer || '—'"></td>
+                <td class="px-4 py-2 font-mono text-xs text-gray-600 dark:text-gray-300" x-text="p.model_number || '—'"></td>
+                <td class="px-4 py-2 text-right font-semibold"
+                  x-text="p.primary?.price ? '$' + Number(p.primary.price).toFixed(2) : '—'"></td>
+                <td class="px-4 py-2 text-right">
+                  <a x-show="p.primary?.url" :href="p.primary?.url" target="_blank"
+                    class="text-xs text-blue-500 hover:text-blue-700">View ↗</a>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Differing tab -->
+      <div x-show="sorData && sorTab === 'differing'" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+        <div x-show="!sorData?.differing?.length" class="p-8 text-center text-gray-400">
+          Every product on both domains has matching data.
+        </div>
+        <div x-show="sorData?.differing?.length" class="divide-y divide-gray-100 dark:divide-gray-700">
+          <template x-for="p in sorData?.differing || []" :key="p.product_id">
+            <div class="px-4 py-3">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <div class="min-w-0 flex-1">
+                  <div class="font-medium text-sm truncate" x-text="p.canonical_title" :title="p.canonical_title"></div>
+                  <div class="text-xs text-gray-400 flex items-center gap-2 mt-0.5">
+                    <span x-show="p.manufacturer" x-text="p.manufacturer"></span>
+                    <span x-show="p.model_number" class="font-mono" x-text="p.model_number"></span>
+                  </div>
+                </div>
+                <div class="flex gap-1 flex-shrink-0 flex-wrap justify-end">
+                  <template x-for="f in p.diff_fields" :key="f">
+                    <span class="text-xs bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 px-1.5 py-0.5 rounded font-medium" x-text="f"></span>
+                  </template>
+                </div>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-xs">
+                  <thead class="text-gray-400">
+                    <tr>
+                      <th class="text-left px-2 py-1 font-medium w-32">Field</th>
+                      <th class="text-left px-2 py-1 font-medium" x-text="sorData?.primary"></th>
+                      <th class="text-left px-2 py-1 font-medium" x-text="sorData?.compare_to"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <template x-for="field in ['title','price','manufacturer','model_number','sku']" :key="field">
+                      <tr :class="p.diff_fields?.includes(field) ? 'bg-red-50 dark:bg-red-900/10' : ''">
+                        <td class="px-2 py-1 capitalize text-gray-500" x-text="field.replace('_',' ')"></td>
+                        <td class="px-2 py-1"
+                            :class="(field === 'model_number' || field === 'sku') ? 'font-mono' : ''"
+                            x-text="field === 'price' ? (p.primary?.price ? '$' + Number(p.primary.price).toFixed(2) : '—') : (p.primary?.[field] || '—')"></td>
+                        <td class="px-2 py-1"
+                            :class="(field === 'model_number' || field === 'sku') ? 'font-mono' : ''"
+                            x-text="field === 'price' ? (p.compare?.price ? '$' + Number(p.compare.price).toFixed(2) : '—') : (p.compare?.[field] || '—')"></td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
     <!-- ===== COMPETITORS VIEW ===== -->
     <div x-show="currentView === 'competitors'" class="p-6">
       <div class="flex items-center justify-between mb-4">
@@ -2406,6 +2561,6 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260520-7"></script>
+<script src="/static/js/app.js?v=20260520-8"></script>
 </body>
 </html>

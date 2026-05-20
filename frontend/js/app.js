@@ -31,6 +31,7 @@ function app() {
       { id: 'beat-price',      icon: '💡', label: 'Beat This Price',    badge: 0 },
       { id: 'find-customers',  icon: '👥', label: 'Find Customers',     badge: 0 },
       { id: 'sync',         icon: '🔄', label: 'Source Sync',        badge: 0 },
+      { id: 'system-of-record', icon: '🏛️', label: 'System of Record',   badge: 0 },
       { id: 'scheduler',    icon: '⏰', label: 'Scheduler',         badge: 0 },
       { id: 'reports',      icon: '📋', label: 'Reports',           badge: 0 },
       { id: 'export',       icon: '📤', label: 'Export',            badge: 0 },
@@ -96,6 +97,13 @@ function app() {
     beatPriceCatalogSearch: '',
     beatPriceCatalogResults: [],
     beatPriceProgress: '',           // Status text while running multi-product
+
+    // System of Record (primary = donut-equipment.com vs other source domains)
+    sorPrimary: 'donut-equipment.com',
+    sorCompareTo: 'donut-supplies.com',
+    sorTab: 'missing',  // 'missing' | 'differing'
+    sorData: null,
+    sorLoading: false,
 
     // Find Me Customers
     findCustForm: { business_type: '', location: '', radius_miles: '', max_results: 20 },
@@ -1045,6 +1053,35 @@ function app() {
     // -----------------------------------------------------------------------
     // Source Sync / Domain Comparison
     // -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
+    // System of Record — primary domain vs another source domain
+    // -----------------------------------------------------------------------
+    async loadSystemOfRecord() {
+      this.sorLoading = true;
+      try {
+        const params = new URLSearchParams({
+          primary: this.sorPrimary,
+          compare_to: this.sorCompareTo,
+        });
+        this.sorData = await this.api(`/api/system-of-record?${params}`);
+      } catch (e) {
+        this.toast('System of Record query failed: ' + e.message, 'error');
+        this.sorData = null;
+      } finally {
+        this.sorLoading = false;
+      }
+    },
+
+    sorDiffCell(p_val, c_val, field) {
+      // Render a single (primary, compare) value pair, highlighting mismatches.
+      const fmt = v => {
+        if (v == null || v === '') return '—';
+        if (field === 'price') return '$' + Number(v).toFixed(2);
+        return v;
+      };
+      return { p: fmt(p_val), c: fmt(c_val) };
+    },
+
     async loadDomainComparison(page = 1) {
       this.domainCompPage = page;
       try {
