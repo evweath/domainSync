@@ -223,6 +223,9 @@ app.include_router(router)
 if FRONTEND_DIR.exists():
     app.mount("/static/js", StaticFiles(directory=str(FRONTEND_DIR / "js")), name="js")
     app.mount("/static/css", StaticFiles(directory=str(FRONTEND_DIR / "css")), name="css")
+    _vendor_dir = FRONTEND_DIR / "vendor"
+    if _vendor_dir.exists():
+        app.mount("/static/vendor", StaticFiles(directory=str(_vendor_dir)), name="vendor")
 
 
 @app.get("/", response_class=HTMLResponse)
