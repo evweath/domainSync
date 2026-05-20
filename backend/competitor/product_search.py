@@ -29,6 +29,55 @@ logger = logging.getLogger(__name__)
 _PRICE_RE = re.compile(r'\$\s*([\d,]+(?:\.\d{1,2})?)')
 _MODEL_RE = re.compile(r'(?:model|part|item)[#\s:]+([A-Z0-9][\w\-]{2,})', re.I)
 
+# Heuristic product-type extraction. The category columns in the DB are
+# all NULL (no AI categorization has run), so the "product type" signal
+# for the search query is derived from canonical_title via this keyword
+# list. Multi-word phrases are listed before single-word catch-alls so
+# the longest match wins.
+_PRODUCT_TYPE_KEYWORDS = [
+    # Donut-specific equipment
+    "donut fryer", "donut glazer", "donut depositor", "donut filler", "donut hopper",
+    "donut maker", "donut machine", "donut sheeter", "donut cutter", "donut roller",
+    "donut robot", "icing machine", "glazing machine", "production sheeter",
+    # Mixing / dough
+    "spiral mixer", "planetary mixer", "stand mixer", "dough mixer", "dough sheeter",
+    "dough divider", "dough rounder", "dough cutter", "dough roller", "rotary cutter",
+    # Ovens & baking
+    "convection oven", "rotary oven", "rack oven", "deck oven", "pizza oven",
+    "conveyor oven", "combi oven",
+    # Proofing
+    "retarder proofer", "proofing cabinet", "proofer", "retarder",
+    # Frying
+    "deep fryer", "fryer",
+    # Refrigeration
+    "walk-in cooler", "walk-in freezer", "reach-in cooler", "reach-in freezer",
+    "display case", "merchandiser", "freezer", "refrigerator", "cooler",
+    # Holding / warming
+    "holding cabinet", "warmer", "heated cabinet",
+    # Tables / surfaces
+    "feed table", "production table", "work table", "prep table",
+    # Ventilation
+    "exhaust hood", "ventilation hood", "hood",
+    # Smallwares / parts
+    "shelving", "scale", "sink", "cart", "rack", "shelf", "screen", "tray", "pan",
+    # Ingredients
+    "icing", "frosting", "glaze", "filling", "shortening", "syrup", "mix",
+    # Generic catch-alls (last resort)
+    "sheeter", "cutter", "roller", "robot", "depositor",
+    "oven", "mixer", "hopper", "machine", "table",
+]
+
+
+def _extract_product_type(title: Optional[str]) -> str:
+    """Return the longest keyword from _PRODUCT_TYPE_KEYWORDS found in *title*, else ''."""
+    if not title:
+        return ""
+    lowered = title.lower()
+    for kw in _PRODUCT_TYPE_KEYWORDS:
+        if kw in lowered:
+            return kw
+    return ""
+
 
 def _domain(url: str) -> str:
     try:
@@ -84,21 +133,58 @@ def _clean_title_for_search(title: str) -> str:
 
 
 def _build_query(product: Any, override: Optional[str]) -> str:
+    """Build a competitor-search query string from a product.
+
+    Strategy:
+      * Anchor on the strongest identifier available — quoted model_number,
+        else manufacturer, else cleaned title tokens.
+      * Always include a cleaned slice of the title (specs/voltage stripped).
+      * Append the heuristically-extracted product_type unless the same
+        word(s) are already present in the title — duplicating hurts
+        precision more than it helps recall.
+    """
     if override:
         return override
+
+    title_raw = product.canonical_title or ''
+    cleaned_title = _clean_title_for_search(title_raw)
+    mfg = (product.manufacturer or '').strip()
+    model = product.model_number
+    product_type = _extract_product_type(title_raw)
+
     parts: List[str] = []
-    if product.manufacturer and product.model_number:
-        model = re.sub(r'[^\w\-]', '', product.model_number)
-        parts.append(product.manufacturer)
-        parts.append(f'"{model}"')
-    elif product.model_number:
-        model = re.sub(r'[^\w\-]', '', product.model_number)
-        parts.append(f'"{model}"')
+    # Treat all-digit "model numbers" of 12+ chars as UPC barcodes — quoting
+    # them as an exact-match phrase in a web search is poison (no competitor
+    # site lists products by foreign-vendor UPC, so the SERP collapses to 0).
+    clean_model = re.sub(r'[^\w\-]', '', model) if model else ''
+    looks_like_upc = clean_model.isdigit() and len(clean_model) >= 12
+    use_model = bool(clean_model) and not looks_like_upc
+
+    mfg_in_title = bool(mfg) and mfg.lower() in cleaned_title.lower()
+
+    if use_model:
+        if mfg and not mfg_in_title:
+            parts.append(mfg)
+        parts.append(f'"{clean_model}"')
+        # Carry the cleaned title minus the model (the cleaner already
+        # strips alnum-dash codes, but be defensive in case the model is
+        # plain digits like "5001").
+        rest = re.sub(re.escape(clean_model), '', cleaned_title, flags=re.I).strip()
+        if rest:
+            parts.append(rest)
     else:
-        title = _clean_title_for_search(product.canonical_title or '')
-        parts.append(title)
+        if mfg and not mfg_in_title:
+            parts.append(mfg)
+        if cleaned_title:
+            parts.append(cleaned_title)
+
+    if product_type:
+        haystack = ' '.join(parts).lower()
+        if product_type.lower() not in haystack:
+            parts.append(product_type)
+
     parts.append('buy')
-    return ' '.join(parts)
+    return ' '.join(p for p in parts if p)
 
 
 def _extract_price(text: str) -> Optional[float]:
