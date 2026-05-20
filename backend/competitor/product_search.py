@@ -313,85 +313,69 @@ class _P:
         self.price_canonical = s['price']
 
 
-async def run_product_competitor_search(
-    product_ids: List[int],
-    search_query: Optional[str] = None,
-    max_competitors: int = 10,
-    max_urls: int = 50,
-    callbacks: Optional[List[Callable]] = None,
-) -> dict:
-    cbs = callbacks or []
-    source_domains = _get_source_domains()
-    criteria = MatchCriteria()
-    total_found = 0
+def _snapshot_product(p: Product) -> dict:
+    return {
+        'id': p.id,
+        'title': p.canonical_title,
+        'manufacturer': p.manufacturer,
+        'model_number': p.model_number,
+        'sku': p.sku,
+        'price': p.price_canonical,
+        'category': p.category,
+    }
 
-    async def emit(event: str, data: dict) -> None:
-        for cb in cbs:
-            try:
-                await cb(event, data)
-            except Exception:
-                pass
 
-    with session_scope() as db:
-        products = db.query(Product).filter(
-            Product.is_active == True,
-            Product.id.in_(product_ids)
-        ).all()
-        product_snapshots = [
-            {
-                'id': p.id,
-                'title': p.canonical_title,
-                'manufacturer': p.manufacturer,
-                'model_number': p.model_number,
-                'sku': p.sku,
-                'price': p.price_canonical,
-                'category': p.category,
-            }
-            for p in products
-        ]
+async def _process_one_product(
+    snap: dict,
+    criteria: MatchCriteria,
+    source_domains: set,
+    max_competitors: int,
+    max_urls: int,
+    emit: Callable,
+    search_query_override: Optional[str] = None,
+    log_prefix: str = "[PROD-SEARCH]",
+) -> int:
+    """Search the web for competitor listings of a single product and persist matches.
 
-    await emit('product_comp_search_start', {
-        'total_products': len(product_snapshots),
-        'max_competitors': max_competitors,
+    Returns the number of NEW competitor-domain matches recorded for this product
+    (already-stored matches and price-only updates do not count toward this number).
+    """
+    query_str = _build_query(_P(snap), search_query_override)
+
+    logger.info("%s ── Product: %r  (id=%d)", log_prefix, snap['title'], snap['id'])
+    logger.info("%s    Query:   %r", log_prefix, query_str)
+
+    await emit('product_comp_search_progress', {
+        'product_id': snap['id'],
+        'product_title': snap['title'],
+        'phase': 'searching',
+        'found': 0,
+        'max': max_competitors,
     })
 
-    for snap in product_snapshots:
-        query_str = _build_query(_P(snap), search_query)
+    search_results = await multi_engine_search(
+        query=query_str,
+        max_results=max_urls,
+        exclude_domains=source_domains,
+    )
 
-        logger.info("[PROD-SEARCH] ── Product: %r  (id=%d)", snap['title'], snap['id'])
-        logger.info("[PROD-SEARCH]    Query:   %r", query_str)
+    logger.info("%s    Search returned %d result URLs", log_prefix, len(search_results))
 
-        await emit('product_comp_search_progress', {
+    if not search_results:
+        logger.info("%s    No search results — skipping this product", log_prefix)
+        await emit('product_comp_search_product_done', {
             'product_id': snap['id'],
             'product_title': snap['title'],
-            'phase': 'searching',
             'found': 0,
-            'max': max_competitors,
+            'visited': 0,
         })
+        return 0
 
-        search_results = await multi_engine_search(
-            query=query_str,
-            max_results=max_urls,
-            exclude_domains=source_domains,
-        )
+    visited_domains: set = set()
+    found_count = 0
+    visited_count = 0
 
-        logger.info("[PROD-SEARCH]    Search returned %d result URLs", len(search_results))
-
-        if not search_results:
-            logger.info("[PROD-SEARCH]    No search results — skipping this product")
-            await emit('product_comp_search_product_done', {
-                'product_id': snap['id'],
-                'product_title': snap['title'],
-                'found': 0,
-                'visited': 0,
-            })
-            continue
-
-        visited_domains: set = set()
-        found_count = 0
-        visited_count = 0
-
-        for idx, item in enumerate(search_results):
+    for idx, item in enumerate(search_results):
             if found_count >= max_competitors:
                 break
 
@@ -541,7 +525,6 @@ async def run_product_competitor_search(
                     competitor.first_scanned_at = datetime.utcnow()
 
             found_count += 1
-            total_found += 1
 
             await emit('product_comp_search_progress', {
                 'product_id': snap['id'],
@@ -556,19 +539,263 @@ async def run_product_competitor_search(
 
             await asyncio.sleep(0.5)
 
-        logger.info(
-            "[PROD-SEARCH] ── Done: product=%r  visited=%d  found=%d/%d",
-            snap['title'], visited_count, found_count, max_competitors,
+    logger.info(
+        "%s ── Done: product=%r  visited=%d  found=%d/%d",
+        log_prefix, snap['title'], visited_count, found_count, max_competitors,
+    )
+    await emit('product_comp_search_product_done', {
+        'product_id': snap['id'],
+        'product_title': snap['title'],
+        'found': found_count,
+        'visited': visited_count,
+    })
+    return found_count
+
+
+# ---------------------------------------------------------------------------
+# Sequential top-level entry (existing API)
+# ---------------------------------------------------------------------------
+
+async def run_product_competitor_search(
+    product_ids: List[int],
+    search_query: Optional[str] = None,
+    max_competitors: int = 10,
+    max_urls: int = 50,
+    callbacks: Optional[List[Callable]] = None,
+) -> dict:
+    """Sequential per-product competitor search (one product at a time)."""
+    cbs = callbacks or []
+    source_domains = _get_source_domains()
+    criteria = MatchCriteria()
+    total_found = 0
+
+    async def emit(event: str, data: dict) -> None:
+        for cb in cbs:
+            try:
+                await cb(event, data)
+            except Exception:
+                pass
+
+    with session_scope() as db:
+        products = db.query(Product).filter(
+            Product.is_active == True,
+            Product.id.in_(product_ids),
+        ).all()
+        snaps = [_snapshot_product(p) for p in products]
+
+    await emit('product_comp_search_start', {
+        'total_products': len(snaps),
+        'max_competitors': max_competitors,
+    })
+
+    for snap in snaps:
+        total_found += await _process_one_product(
+            snap, criteria, source_domains,
+            max_competitors, max_urls, emit, search_query,
         )
 
-        await emit('product_comp_search_product_done', {
-            'product_id': snap['id'],
-            'product_title': snap['title'],
-            'found': found_count,
-            'visited': visited_count,
-        })
+    return {'product_ids': product_ids, 'total_found': total_found}
+
+
+# ---------------------------------------------------------------------------
+# Parallel top-level entry (new — 4-worker queue + 5-minute DB refresh)
+# ---------------------------------------------------------------------------
+
+# Module-level handle so the API can query / cancel the running scan.
+_parallel_state: Dict[str, Any] = {
+    'task': None,         # asyncio.Task or None
+    'progress': None,     # dict, updated in place by workers
+    'started_at': None,   # datetime
+}
+
+
+def get_parallel_search_state() -> dict:
+    """Snapshot of the currently-running parallel scan (or empty dict if idle)."""
+    task = _parallel_state.get('task')
+    if task is None or task.done():
+        return {'running': False}
+    return {
+        'running': True,
+        'started_at': _parallel_state['started_at'].isoformat() if _parallel_state['started_at'] else None,
+        'progress': dict(_parallel_state['progress'] or {}),
+    }
+
+
+def cancel_parallel_search() -> bool:
+    task = _parallel_state.get('task')
+    if task is None or task.done():
+        return False
+    task.cancel()
+    return True
+
+
+async def run_parallel_product_competitor_search(
+    num_workers: int = 4,
+    sync_interval_seconds: int = 300,
+    max_competitors: int = 10,
+    max_urls: int = 50,
+    product_ids: Optional[List[int]] = None,
+    callbacks: Optional[List[Callable]] = None,
+) -> dict:
+    """Run competitor search across many products with a worker pool.
+
+    Spawns *num_workers* async worker tasks that pull product IDs from a
+    shared queue. Every *sync_interval_seconds* a refresher re-queries
+    active products and enqueues any that weren't there at start (or were
+    added since). The scan runs until externally cancelled or until the
+    queue is drained and no new products show up in two refresh cycles.
+    """
+    cbs = callbacks or []
+    source_domains = _get_source_domains()
+    criteria = MatchCriteria()
+
+    async def emit(event: str, data: dict) -> None:
+        for cb in cbs:
+            try:
+                await cb(event, data)
+            except Exception:
+                pass
+
+    queue: asyncio.Queue = asyncio.Queue()
+    processed_ids: set = set()
+    in_flight_ids: set = set()
+    progress: Dict[str, Any] = {
+        'total_queued': 0,
+        'processed': 0,
+        'total_found': 0,
+        'workers_active': 0,
+        'num_workers': num_workers,
+        'sync_interval_seconds': sync_interval_seconds,
+        'last_refresh_at': None,
+        'started_at': datetime.utcnow().isoformat(),
+    }
+    _parallel_state['progress'] = progress
+    _parallel_state['started_at'] = datetime.utcnow()
+
+    def _load_target_snapshots() -> List[dict]:
+        with session_scope() as db:
+            q = db.query(Product).filter(Product.is_active == True)
+            if product_ids:
+                q = q.filter(Product.id.in_(product_ids))
+            return [_snapshot_product(p) for p in q.all()]
+
+    def _enqueue_new(snaps: List[dict]) -> int:
+        added = 0
+        for s in snaps:
+            if s['id'] in processed_ids or s['id'] in in_flight_ids:
+                continue
+            in_flight_ids.add(s['id'])
+            queue.put_nowait(s)
+            progress['total_queued'] += 1
+            added += 1
+        return added
+
+    # Initial load
+    initial = _load_target_snapshots()
+    added = _enqueue_new(initial)
+    logger.info(
+        "[PARALLEL-SEARCH] Starting: %d products queued, %d workers, sync_interval=%ds",
+        added, num_workers, sync_interval_seconds,
+    )
+    await emit('parallel_search_start', {
+        'total_products': added,
+        'num_workers': num_workers,
+        'sync_interval_seconds': sync_interval_seconds,
+        'max_competitors': max_competitors,
+    })
+
+    async def worker(worker_id: int) -> None:
+        prefix = f"[PARALLEL-SEARCH][w{worker_id}]"
+        while True:
+            snap = await queue.get()
+            progress['workers_active'] += 1
+            try:
+                found = await _process_one_product(
+                    snap, criteria, source_domains,
+                    max_competitors, max_urls, emit,
+                    log_prefix=prefix,
+                )
+                progress['total_found'] += found
+                processed_ids.add(snap['id'])
+            except asyncio.CancelledError:
+                raise
+            except Exception as exc:
+                logger.exception("%s failed on product id=%d: %s", prefix, snap['id'], exc)
+            finally:
+                in_flight_ids.discard(snap['id'])
+                progress['processed'] += 1
+                progress['workers_active'] -= 1
+                queue.task_done()
+                await emit('parallel_search_progress', {
+                    'worker_id': worker_id,
+                    'processed': progress['processed'],
+                    'total_queued': progress['total_queued'],
+                    'remaining': queue.qsize(),
+                    'total_found': progress['total_found'],
+                    'workers_active': progress['workers_active'],
+                })
+
+    async def refresher() -> None:
+        while True:
+            await asyncio.sleep(sync_interval_seconds)
+            try:
+                added_n = _enqueue_new(_load_target_snapshots())
+                progress['last_refresh_at'] = datetime.utcnow().isoformat()
+                if added_n:
+                    logger.info(
+                        "[PARALLEL-SEARCH] refresh added %d new products (total_queued=%d)",
+                        added_n, progress['total_queued'],
+                    )
+                await emit('parallel_search_refresh', {
+                    'new_products': added_n,
+                    'total_queued': progress['total_queued'],
+                    'processed': progress['processed'],
+                    'last_refresh_at': progress['last_refresh_at'],
+                })
+            except asyncio.CancelledError:
+                raise
+            except Exception as exc:
+                logger.exception("[PARALLEL-SEARCH] refresh failed: %s", exc)
+
+    worker_tasks = [asyncio.create_task(worker(i)) for i in range(num_workers)]
+    refresh_task = asyncio.create_task(refresher())
+
+    try:
+        # Drain the queue, then wait one refresh cycle to see if more
+        # products show up; bail if two consecutive refreshes added nothing.
+        empty_refreshes = 0
+        while True:
+            await queue.join()
+            queued_before = progress['total_queued']
+            await asyncio.sleep(sync_interval_seconds + 1)
+            if progress['total_queued'] == queued_before and queue.empty():
+                empty_refreshes += 1
+                if empty_refreshes >= 2:
+                    break
+            else:
+                empty_refreshes = 0
+    except asyncio.CancelledError:
+        logger.info("[PARALLEL-SEARCH] cancelled by caller")
+        raise
+    finally:
+        refresh_task.cancel()
+        for w in worker_tasks:
+            w.cancel()
+        await asyncio.gather(*worker_tasks, refresh_task, return_exceptions=True)
+        _parallel_state['task'] = None
+
+    await emit('parallel_search_complete', {
+        'total_processed': progress['processed'],
+        'total_found': progress['total_found'],
+        'total_queued': progress['total_queued'],
+    })
+    logger.info(
+        "[PARALLEL-SEARCH] complete: processed=%d total_found=%d",
+        progress['processed'], progress['total_found'],
+    )
 
     return {
-        'product_ids': product_ids,
-        'total_found': total_found,
+        'total_processed': progress['processed'],
+        'total_found': progress['total_found'],
+        'total_queued': progress['total_queued'],
     }

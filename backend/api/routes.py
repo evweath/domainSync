@@ -822,6 +822,74 @@ class ProductCompetitorSearchRequest(BaseModel):
     max_urls: int = 50                  # max URLs to visit per product before giving up
 
 
+class ParallelCompetitorSearchRequest(BaseModel):
+    num_workers: int = 4
+    sync_interval_seconds: int = 300    # re-query DB for new active products every N seconds
+    max_competitors: int = 10
+    max_urls: int = 50
+    product_ids: Optional[List[int]] = None  # None = all active products
+
+
+@router.post("/api/products/parallel-competitor-search")
+async def start_parallel_competitor_search(req: ParallelCompetitorSearchRequest):
+    """Kick off a long-running competitor search across many products in parallel.
+
+    Spawns N async worker coroutines that pull product IDs from a shared
+    queue. Every sync_interval_seconds the queue is topped up with any
+    newly-active products from the DB. Progress events are broadcast over
+    the existing /ws/scan-progress WebSocket.
+    """
+    from backend.competitor.product_search import (
+        run_parallel_product_competitor_search,
+        get_parallel_search_state,
+        _parallel_state,
+    )
+    state = get_parallel_search_state()
+    if state.get('running'):
+        return {"status": "already_running", "progress": state.get('progress')}
+
+    async def _run():
+        try:
+            result = await run_parallel_product_competitor_search(
+                num_workers=req.num_workers,
+                sync_interval_seconds=req.sync_interval_seconds,
+                max_competitors=req.max_competitors,
+                max_urls=req.max_urls,
+                product_ids=req.product_ids,
+                callbacks=[lambda e, d: manager.broadcast({"event": e, **d})],
+            )
+            await manager.broadcast({"event": "parallel_search_complete", **result})
+        except asyncio.CancelledError:
+            logger.info("Parallel search cancelled")
+            await manager.broadcast({"event": "parallel_search_cancelled"})
+            raise
+        except Exception as exc:
+            logger.exception("Parallel search failed: %s", exc)
+            await manager.broadcast({"event": "parallel_search_error", "error": str(exc)})
+
+    task = asyncio.create_task(_run())
+    _parallel_state['task'] = task
+    return {
+        "status": "started",
+        "num_workers": req.num_workers,
+        "sync_interval_seconds": req.sync_interval_seconds,
+        "max_competitors": req.max_competitors,
+    }
+
+
+@router.get("/api/products/parallel-competitor-search/status")
+def parallel_competitor_search_status():
+    from backend.competitor.product_search import get_parallel_search_state
+    return get_parallel_search_state()
+
+
+@router.post("/api/products/parallel-competitor-search/stop")
+def parallel_competitor_search_stop():
+    from backend.competitor.product_search import cancel_parallel_search
+    cancelled = cancel_parallel_search()
+    return {"cancelled": cancelled}
+
+
 @router.post("/api/products/competitor-search")
 async def start_product_competitor_search(req: ProductCompetitorSearchRequest):
     """Search for competitors for specific products sequentially."""
