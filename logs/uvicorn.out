@@ -3193,3 +3193,359 @@ INFO:     127.0.0.1:50895 - "POST /api/shopify-sync/preview HTTP/1.1" 200 OK
 2026-05-21 16:32:46 [INFO] watchfiles.main: 2 changes detected
 2026-05-21 16:32:50 [INFO] watchfiles.main: 3 changes detected
 2026-05-21 16:33:01 [INFO] watchfiles.main: 26 changes detected
+2026-05-21 16:33:07 [INFO] watchfiles.main: 34 changes detected
+2026-05-21 16:33:45 [INFO] watchfiles.main: 4 changes detected
+2026-05-21 16:33:51 [INFO] watchfiles.main: 33 changes detected
+2026-05-21 16:34:54 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 16:34:56 [INFO] watchfiles.main: 41 changes detected
+2026-05-21 16:35:06 [INFO] watchfiles.main: 4 changes detected
+2026-05-21 16:35:17 [INFO] watchfiles.main: 29 changes detected
+2026-05-21 16:35:18 [INFO] watchfiles.main: 4 changes detected
+2026-05-21 16:35:20 [INFO] watchfiles.main: 33 changes detected
+2026-05-21 16:41:11 [INFO] watchfiles.main: 33 changes detected
+2026-05-21 16:49:30 [INFO] watchfiles.main: 33 changes detected
+2026-05-21 16:52:30 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 16:52:47 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 16:52:47 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 16:52:47 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [9076]
+INFO:     Started server process [10106]
+INFO:     Waiting for application startup.
+2026-05-21 16:52:47 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 16:52:47 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:52:47 [INFO] backend.database.db: Database initialized
+2026-05-21 16:52:47 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:52:47 [INFO] watchfiles.main: 5 changes detected
+2026-05-21 16:52:47 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 16:52:47 [INFO] backend.app: Scheduler started
+2026-05-21 16:52:47 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 16:52:47 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 16:52:47 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 16:52:48 [INFO] watchfiles.main: 1 change detected
+2026-05-21 16:52:59 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 16:53:07 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 16:53:13 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 16:53:35 [INFO] watchfiles.main: 3 changes detected
+INFO:     127.0.0.1:50950 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50954 - "PUT /api/source-sites/donut-supplies.com/credentials HTTP/1.1" 200 OK
+2026-05-21 16:53:54 [INFO] watchfiles.main: 1 change detected
+INFO:     127.0.0.1:50956 - "PUT /api/source-sites/donut-supplies.com/credentials HTTP/1.1" 200 OK
+2026-05-21 16:53:59 [INFO] watchfiles.main: 1 change detected
+INFO:     127.0.0.1:50958 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50963 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50958 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50965 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50966 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50965 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50966 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50966 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50958 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50958 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50970 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50964 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50958 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50963 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50965 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50966 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50965 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50972 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50966 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     connection closed
+2026-05-21 16:54:23 [INFO] watchfiles.main: 69 changes detected
+2026-05-21 16:56:16 [INFO] watchfiles.main: 1 change detected
+2026-05-21 16:56:19 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/shopify/__init__.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 16:56:19 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 16:56:19 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [10106]
+2026-05-21 16:56:20 [INFO] watchfiles.main: 2 changes detected
+INFO:     Started server process [10545]
+INFO:     Waiting for application startup.
+2026-05-21 16:56:20 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 16:56:20 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:56:20 [INFO] backend.database.db: Database initialized
+2026-05-21 16:56:20 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:56:20 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 16:56:20 [INFO] backend.app: Scheduler started
+2026-05-21 16:56:20 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 16:56:20 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 16:56:20 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 16:56:20 [INFO] watchfiles.main: 1 change detected
+2026-05-21 16:56:45 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/shopify/client.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 16:56:45 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 16:56:45 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [10545]
+INFO:     Started server process [10572]
+INFO:     Waiting for application startup.
+2026-05-21 16:56:46 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 16:56:46 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:56:46 [INFO] backend.database.db: Database initialized
+2026-05-21 16:56:46 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:56:46 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 16:56:46 [INFO] backend.app: Scheduler started
+2026-05-21 16:56:46 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 16:56:46 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 16:56:46 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 16:56:46 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 16:57:03 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/shopify/scanner.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 16:57:03 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 16:57:03 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [10572]
+INFO:     Started server process [10596]
+INFO:     Waiting for application startup.
+2026-05-21 16:57:04 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 16:57:04 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:57:04 [INFO] backend.database.db: Database initialized
+2026-05-21 16:57:04 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:57:04 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 16:57:04 [INFO] backend.app: Scheduler started
+2026-05-21 16:57:04 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 16:57:04 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 16:57:04 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 16:57:04 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 16:58:09 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/shopify/differ.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 16:58:09 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 16:58:09 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [10596]
+INFO:     Started server process [10623]
+INFO:     Waiting for application startup.
+2026-05-21 16:58:09 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 16:58:09 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:58:09 [INFO] backend.database.db: Database initialized
+2026-05-21 16:58:09 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:58:09 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 16:58:09 [INFO] backend.app: Scheduler started
+2026-05-21 16:58:09 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 16:58:09 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 16:58:09 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 16:58:09 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 16:58:29 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/shopify/executor.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 16:58:30 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 16:58:30 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [10623]
+INFO:     Started server process [10648]
+INFO:     Waiting for application startup.
+2026-05-21 16:58:30 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 16:58:30 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:58:30 [INFO] backend.database.db: Database initialized
+2026-05-21 16:58:30 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:58:30 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 16:58:30 [INFO] backend.app: Scheduler started
+2026-05-21 16:58:30 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 16:58:30 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 16:58:30 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 16:58:30 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 16:59:10 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 16:59:10 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 16:59:10 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [10648]
+INFO:     Started server process [10771]
+INFO:     Waiting for application startup.
+2026-05-21 16:59:11 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 16:59:11 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:59:11 [INFO] backend.database.db: Database initialized
+2026-05-21 16:59:11 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 16:59:11 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 16:59:11 [INFO] backend.app: Scheduler started
+2026-05-21 16:59:11 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 16:59:11 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 16:59:11 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 16:59:11 [INFO] watchfiles.main: 5 changes detected
+2026-05-21 16:59:19 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 16:59:44 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 16:59:53 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 17:00:01 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 17:01:36 [INFO] watchfiles.main: 3 changes detected
+INFO:     127.0.0.1:51000 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51004 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51011 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51004 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51010 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51009 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51012 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51011 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51012 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51012 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51010 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51009 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51016 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51010 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51009 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51016 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51004 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51011 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51012 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51011 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51018 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51012 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51012 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     connection closed
+2026-05-21 17:02:08 [INFO] watchfiles.main: 3 changes detected
+INFO:     127.0.0.1:51022 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51022 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51027 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51028 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51030 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51029 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51029 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51030 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51030 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51027 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51028 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51022 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51034 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51027 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51022 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51028 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51030 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51029 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51030 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51036 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51029 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51029 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51030 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:51040 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51040 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51045 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51048 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51046 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51047 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51047 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51048 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51048 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51045 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51046 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51052 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51045 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51046 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51052 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51040 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51047 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51048 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51054 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51047 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51047 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51048 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:51058 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51058 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51065 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51064 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51066 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51063 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51065 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51066 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51066 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51064 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51063 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51070 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51064 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51063 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51070 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51058 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51066 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51065 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51066 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51072 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51065 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51065 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51066 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:51078 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51078 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51083 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51086 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51085 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51085 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51086 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51086 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51083 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51090 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51086 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51083 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51078 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51084 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51090 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51085 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51090 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51092 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51085 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51085 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51090 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     connection closed
+2026-05-21 17:03:38 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 17:03:44 [INFO] watchfiles.main: 32 changes detected
+2026-05-21 17:03:59 [INFO] watchfiles.main: 44 changes detected
+2026-05-21 17:04:06 [INFO] watchfiles.main: 33 changes detected
+INFO:     Will watch for changes in these directories: ['/Users/evw/dev/productComparison/donut-intel']
+ERROR:    [Errno 48] Address already in use
+INFO:     Will watch for changes in these directories: ['/Users/evw/dev/productComparison/donut-intel']
+INFO:     Uvicorn running on https://0.0.0.0:8743 (Press CTRL+C to quit)
+INFO:     Started reloader process [11575] using WatchFiles
+INFO:     Started server process [11583]
+INFO:     Waiting for application startup.
+2026-05-21 17:09:40 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:09:40 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:09:40 [INFO] backend.database.db: Database initialized
+2026-05-21 17:09:40 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:09:40 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:09:40 [INFO] backend.app: Scheduler started
+2026-05-21 17:09:40 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:09:40 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:09:40 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:09:40 [INFO] watchfiles.main: 1 change detected
+2026-05-21 17:10:01 [INFO] watchfiles.main: 33 changes detected
+2026-05-21 17:10:46 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:11:05 [INFO] watchfiles.main: 17 changes detected
+2026-05-21 17:11:24 [INFO] watchfiles.main: 17 changes detected
+2026-05-21 17:11:36 [INFO] watchfiles.main: 26 changes detected
+2026-05-21 17:11:54 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 17:11:58 [INFO] watchfiles.main: 33 changes detected
+2026-05-21 17:12:00 [INFO] watchfiles.main: 4 changes detected
