@@ -34,7 +34,7 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, WebSocke
 from fastapi.responses import HTMLResponse, Response, StreamingResponse
 from pydantic import BaseModel
 from sqlalchemy import func, or_, text
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from backend.config import config
 from backend.database.db import get_db_session, db_health_check, session_scope
@@ -48,7 +48,9 @@ from backend.database.models import (
     ExportRecord,
     PriceHistory,
     Product,
+    ProductImage,
     ProductNote,
+    ProductOption,
     ProductSource,
     ProductTag,
     ScheduledJob,
@@ -252,6 +254,208 @@ def list_product_ids(
             Product.model_number.ilike(like),
         ))
     return {"ids": [row[0] for row in query.all()]}
+
+
+# ---------------------------------------------------------------------------
+# Store Comparison – compare canonical product across all source stores
+# ---------------------------------------------------------------------------
+
+_COMP_FIELDS = [
+    ("title",        "canonical_title",        "source_title"),
+    ("manufacturer", "manufacturer",            "source_manufacturer"),
+    ("model_number", "model_number",            "source_model_number"),
+    ("sku",          "sku",                     "source_sku"),
+    ("category",     "category",               "source_category"),
+]
+
+
+@router.get("/api/products/store-comparison")
+def get_store_comparison(
+    page: int = 1,
+    per_page: int = 25,
+    search: Optional[str] = None,
+    has_diffs: bool = False,
+    db: Session = Depends(get_db_session),
+):
+    per_page = min(per_page, 100)
+    source_sites = [s["domain"] for s in config.get("source_sites", default=[]) if s.get("enabled", True)]
+
+    q = (
+        db.query(Product)
+        .filter(Product.is_active == True)
+        .options(
+            joinedload(Product.sources),
+            joinedload(Product.tags),
+            joinedload(Product.options),
+            joinedload(Product.images),
+        )
+    )
+    if search:
+        like = f"%{search}%"
+        q = q.filter(or_(
+            Product.canonical_title.ilike(like),
+            Product.manufacturer.ilike(like),
+            Product.model_number.ilike(like),
+            Product.sku.ilike(like),
+        ))
+
+    total = q.count()
+    products = q.order_by(Product.canonical_title).offset((page - 1) * per_page).limit(per_page).all()
+
+    results = []
+    for product in products:
+        # latest active source per site
+        site_sources: Dict[str, Any] = {}
+        for src in sorted(product.sources, key=lambda s: s.scraped_at or datetime.min, reverse=True):
+            if src.is_active and src.source_site not in site_sources:
+                site_sources[src.source_site] = src
+
+        canonical = {
+            "title": product.canonical_title,
+            "description": _strip_html(product.canonical_description),
+            "sku": product.sku,
+            "manufacturer": product.manufacturer,
+            "model_number": product.model_number,
+            "price_canonical": product.price_canonical,
+            "price_min": product.price_min,
+            "price_max": product.price_max,
+            "category": product.category,
+            "subcategory": product.subcategory,
+            "ai_category": product.ai_category,
+            "country_of_origin": product.country_of_origin,
+            "weight": product.weight,
+            "dimensions": json.loads(product.dimensions_json) if product.dimensions_json else None,
+            "specs": json.loads(product.specs_json) if product.specs_json else None,
+            "in_stock": product.in_stock,
+            "tags": sorted(t.tag for t in product.tags),
+            "images": [
+                {"url": img.source_url, "is_primary": img.is_primary, "source_site": img.source_site}
+                for img in product.images
+            ],
+            "options": [
+                {
+                    "group": o.option_group, "value": o.option_value,
+                    "price_modifier": o.price_modifier, "sku_suffix": o.sku_suffix,
+                    "source_site": o.source_site,
+                }
+                for o in product.options
+            ],
+        }
+
+        sources: Dict[str, Any] = {}
+        for site in source_sites:
+            src = site_sources.get(site)
+            if src:
+                sources[site] = {
+                    "source_id": src.id,
+                    "title": src.source_title,
+                    "description": _strip_html(src.source_description),
+                    "sku": src.source_sku,
+                    "manufacturer": src.source_manufacturer,
+                    "model_number": src.source_model_number,
+                    "price": src.source_price,
+                    "price_raw": src.source_price_raw,
+                    "category": src.source_category,
+                    "url": src.source_url,
+                    "scraped_at": src.scraped_at.isoformat() if src.scraped_at else None,
+                    "options": [
+                        {"group": o.option_group, "value": o.option_value, "price_modifier": o.price_modifier}
+                        for o in product.options if o.source_site == site
+                    ],
+                    "images": [
+                        {"url": img.source_url, "is_primary": img.is_primary}
+                        for img in product.images if img.source_site == site
+                    ],
+                }
+            else:
+                sources[site] = None
+
+        # detect diffs between canonical and any source
+        diff_fields: List[str] = []
+        for label, canon_attr, src_attr in _COMP_FIELDS:
+            canon_val = (getattr(product, canon_attr) or "").strip().lower()
+            src_vals = [
+                (sources[site][src_attr] or "").strip().lower()
+                for site in source_sites
+                if sources.get(site) and sources[site].get(src_attr)
+            ]
+            if not src_vals:
+                continue
+            if not canon_val:
+                diff_fields.append(label)
+            elif any(v != canon_val for v in src_vals):
+                diff_fields.append(label)
+
+        src_prices = [sources[s]["price"] for s in source_sites if sources.get(s) and sources[s].get("price")]
+        if len(set(src_prices)) > 1 or (src_prices and product.price_canonical and
+                any(abs(p - product.price_canonical) / max(product.price_canonical, 0.01) > 0.01 for p in src_prices)):
+            diff_fields.append("price")
+
+        if has_diffs and not diff_fields:
+            continue
+
+        results.append({
+            "product_id": product.id,
+            "canonical_title": product.canonical_title,
+            "canonical": canonical,
+            "sources": sources,
+            "diff_fields": diff_fields,
+            "missing_sites": [s for s in source_sites if s not in site_sources],
+            "source_count": len(site_sources),
+        })
+
+    return {
+        "total": total,
+        "page": page,
+        "pages": max(1, (total + per_page - 1) // per_page),
+        "source_sites": source_sites,
+        "products": results,
+    }
+
+
+class UpdateCanonicalRequest(BaseModel):
+    canonical_title: Optional[str] = None
+    canonical_description: Optional[str] = None
+    manufacturer: Optional[str] = None
+    model_number: Optional[str] = None
+    sku: Optional[str] = None
+    price_canonical: Optional[float] = None
+    price_min: Optional[float] = None
+    price_max: Optional[float] = None
+    category: Optional[str] = None
+    subcategory: Optional[str] = None
+    ai_category: Optional[str] = None
+    country_of_origin: Optional[str] = None
+    weight: Optional[float] = None
+    in_stock: Optional[bool] = None
+    tags: Optional[List[str]] = None
+
+
+@router.put("/api/products/{product_id}/canonical")
+def update_canonical(product_id: int, req: UpdateCanonicalRequest, db: Session = Depends(get_db_session)):
+    product = db.query(Product).filter(Product.id == product_id, Product.is_active == True).first()
+    if not product:
+        raise HTTPException(status_code=404, detail="Product not found")
+
+    update_data = req.model_dump(exclude_unset=True)
+    tags = update_data.pop("tags", None)
+
+    for field, value in update_data.items():
+        setattr(product, field, value)
+
+    if tags is not None:
+        for t in list(product.tags):
+            db.delete(t)
+        db.flush()
+        for tag in tags:
+            tag = tag.strip()
+            if tag:
+                db.add(ProductTag(product_id=product.id, tag=tag))
+
+    product.updated_at = datetime.utcnow()
+    db.commit()
+    db.refresh(product)
+    return _serialize_product(product, full=True)
 
 
 class BulkDeactivateRequest(BaseModel):

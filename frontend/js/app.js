@@ -27,6 +27,7 @@ function app() {
       { id: 'scans',        icon: '🔍', label: 'Scans',             badge: 0 },
       { id: 'duplicates',   icon: '🔁', label: 'Duplicates',        badge: 0 },
       { id: 'source-products', icon: '📂', label: 'Source Products',   badge: 0 },
+      { id: 'store-compare',   icon: '🔀', label: 'Store Compare',      badge: 0 },
       { id: 'find-product',    icon: '🔎', label: 'Find Product',       badge: 0 },
       { id: 'beat-price',      icon: '💡', label: 'Beat This Price',    badge: 0 },
       { id: 'find-customers',  icon: '👥', label: 'Find Customers',     badge: 0 },
@@ -97,6 +98,13 @@ function app() {
     beatPriceCatalogSearch: '',
     beatPriceCatalogResults: [],
     beatPriceProgress: '',           // Status text while running multi-product
+
+    // Store Comparison
+    storeComp: { products: [], total: 0, page: 1, pages: 1, source_sites: [] },
+    storeCompSearch: '',
+    storeCompHasDiffs: false,
+    storeCompExpanded: {},
+    storeCompSaving: {},
 
     // System of Record (primary = donut-equipment.com vs other source domains)
     sorPrimary: 'donut-equipment.com',
@@ -1127,6 +1135,56 @@ function app() {
 
     syncSelectedCount() {
       return Object.values(this.syncSelected).filter(Boolean).length;
+    },
+
+    // -----------------------------------------------------------------------
+    // Store Comparison
+    // -----------------------------------------------------------------------
+    async loadStoreComparison(page = 1) {
+      try {
+        const params = new URLSearchParams({
+          page, per_page: 25,
+          has_diffs: this.storeCompHasDiffs,
+          ...(this.storeCompSearch ? { search: this.storeCompSearch } : {}),
+        });
+        this.storeComp = await this.api(`/api/products/store-comparison?${params}`) || { products: [], total: 0, page: 1, pages: 1, source_sites: [] };
+      } catch (e) { this.toast('Failed to load store comparison: ' + e.message, 'error'); }
+    },
+
+    toggleStoreCompExpanded(productId) {
+      this.storeCompExpanded = { ...this.storeCompExpanded, [productId]: !this.storeCompExpanded[productId] };
+    },
+
+    storeCompDiffClass(canonVal, srcVal, field) {
+      if (srcVal == null || srcVal === '') return '';
+      const fmt = v => field === 'price' ? Number(v).toFixed(2) : String(v || '').trim().toLowerCase();
+      return fmt(srcVal) !== fmt(canonVal) ? 'bg-amber-50 dark:bg-amber-900/30 ring-1 ring-amber-400' : '';
+    },
+
+    async adoptSourceValue(productId, field, value) {
+      const payload = { [field]: value };
+      this.storeCompSaving = { ...this.storeCompSaving, [productId]: true };
+      try {
+        await this.api(`/api/products/${productId}/canonical`, {
+          method: 'PUT', body: JSON.stringify(payload),
+        });
+        this.toast(`Updated ${field}`, 'success');
+        await this.loadStoreComparison(this.storeComp.page);
+      } catch (e) {
+        this.toast('Update failed: ' + e.message, 'error');
+      } finally {
+        this.storeCompSaving = { ...this.storeCompSaving, [productId]: false };
+      }
+    },
+
+    storeCompFmt(val, field) {
+      if (val == null || val === '') return '—';
+      if (field === 'price' || field === 'price_canonical' || field === 'price_min' || field === 'price_max')
+        return '$' + Number(val).toFixed(2);
+      if (field === 'weight') return val + ' lbs';
+      if (field === 'in_stock') return val ? 'In Stock' : 'Out of Stock';
+      if (typeof val === 'object') return JSON.stringify(val).slice(0, 80);
+      return String(val);
     },
 
     // -----------------------------------------------------------------------

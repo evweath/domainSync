@@ -26,3 +26,23 @@ ERROR:    Error loading ASGI app. Could not import module "backend.main".
 2026-05-21 14:44:14 [INFO] backend.app: Log-tail broadcaster started
 2026-05-21 14:44:14 [INFO] backend.app: Dashboard: https://localhost:8743
 2026-05-21 14:44:14 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+2026-05-21 14:54:51 [INFO] primp: response: https://duckduckgo.com/?q=Pure+Cane+Sugar+under+%24100+50+fine+granulated+supplier+wholesale+price 200
+2026-05-21 14:54:51 [INFO] primp: response: https://duckduckgo.com/i.js?o=json&q=Pure+Cane+Sugar+under+%24100+50+fine+granulated+supplier+wholesale+price&l=us-en&vqd=4-62990591696268981921896893791223046509&p=1&ct=AT 403
+2026-05-21 14:54:51 [WARNING] backend.search.engine: DDG image search failed (images will be missing): No results found.
+2026-05-21 14:55:15 [INFO] primp: response: https://duckduckgo.com/?q=Pure+Cane+Sugar+under+%24100+50+supplier+wholesale+price 200
+2026-05-21 14:55:15 [INFO] primp: response: https://duckduckgo.com/i.js?o=json&q=Pure+Cane+Sugar+under+%24100+50+supplier+wholesale+price&l=us-en&vqd=4-165174895912002275126027871636338058710&p=1&ct=AT 403
+2026-05-21 14:55:15 [WARNING] backend.search.engine: DDG image search failed (images will be missing): No results found.
+2026-05-21 14:55:35 [INFO] primp: response: https://duckduckgo.com/?q=Cane+Sugar+under+%24100+50+supplier+wholesale+price 200
+2026-05-21 14:55:35 [INFO] primp: response: https://duckduckgo.com/i.js?o=json&q=Cane+Sugar+under+%24100+50+supplier+wholesale+price&l=us-en&vqd=4-82474458729889907217849895159794752544&p=1&ct=AT 403
+2026-05-21 14:55:35 [WARNING] backend.search.engine: DDG image search failed (images will be missing): No results found.
+2026-05-21 15:12:47 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 15:12:47 [INFO] backend.app: Donut Intel Platform shut down.
+2026-05-21 15:12:49 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 15:12:49 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 15:12:49 [INFO] backend.database.db: Database initialized
+2026-05-21 15:12:49 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 15:12:49 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 15:12:49 [INFO] backend.app: Scheduler started
+2026-05-21 15:12:49 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 15:12:49 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 15:12:49 [INFO] backend.app: API docs:  https://localhost:8743/api/docs

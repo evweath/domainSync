@@ -328,7 +328,7 @@ async def find_suppliers(
     query = ' '.join(parts)
 
     texts, images = await asyncio.gather(
-        _text_search(query, max_results=max_results * 3),
+        multi_engine_search(query, max_results=max_results * 3),
         _image_search(query, max_results=max_results),
     )
     img_idx = _img_index(images)

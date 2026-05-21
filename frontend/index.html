@@ -45,7 +45,7 @@
     <nav class="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
       <template x-for="item in navItems" :key="item.id">
         <button
-          @click="currentView = item.id; item.id === 'products' && loadProducts(1); item.id === 'competitors' && loadCompetitors(1); item.id === 'pricing' && loadPriceMatrix(1); item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'source-products' && loadSourceProducts(); item.id === 'find-product' && findProductSearchCatalog(); item.id === 'beat-price' && beatPriceSearchCatalog(); item.id === 'system-of-record' && loadSystemOfRecord(); item.id === 'find-customers' && null"
+          @click="currentView = item.id; item.id === 'products' && loadProducts(1); item.id === 'competitors' && loadCompetitors(1); item.id === 'pricing' && loadPriceMatrix(1); item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'source-products' && loadSourceProducts(); item.id === 'store-compare' && loadStoreComparison(1); item.id === 'find-product' && findProductSearchCatalog(); item.id === 'beat-price' && beatPriceSearchCatalog(); item.id === 'system-of-record' && loadSystemOfRecord(); item.id === 'find-customers' && null"
           :class="currentView === item.id
             ? 'bg-orange-600 text-white'
             : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
@@ -805,6 +805,396 @@
           x-text="'Page ' + sourceProducts.page + ' of ' + sourceProducts.pages"></span>
         <button @click="loadSourceProducts(null, sourceProducts.page + 1)"
           :disabled="sourceProducts.page >= sourceProducts.pages"
+          class="px-3 py-1.5 rounded border border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm disabled:opacity-40 hover:bg-gray-100 dark:hover:bg-gray-700">Next →</button>
+      </div>
+    </div>
+
+    <!-- ===== STORE COMPARE VIEW ===== -->
+    <div x-show="currentView === 'store-compare'" class="p-6">
+      <div class="mb-4 space-y-3">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div>
+            <h2 class="text-2xl font-bold">Store Comparison</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Compare every attribute of each canonical product across all 3 source stores. Adopt any source value into the canonical record.</p>
+          </div>
+          <div class="flex gap-2 items-center flex-wrap">
+            <input x-model="storeCompSearch" @input.debounce.400ms="loadStoreComparison(1)"
+              type="text" placeholder="Search products…"
+              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 w-56" />
+            <label class="flex items-center gap-1.5 text-sm cursor-pointer select-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-lg">
+              <input type="checkbox" x-model="storeCompHasDiffs" @change="loadStoreComparison(1)" class="w-4 h-4" />
+              Diffs only
+            </label>
+            <button @click="loadStoreComparison(storeComp.page)"
+              class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 rounded-lg text-sm">↺ Refresh</button>
+          </div>
+        </div>
+        <div class="text-xs text-gray-500 dark:text-gray-400" x-text="storeComp.total + ' products · Page ' + storeComp.page + ' of ' + storeComp.pages"></div>
+      </div>
+
+      <!-- Empty state -->
+      <div x-show="storeComp.products.length === 0" class="bg-white dark:bg-gray-800 rounded-xl shadow p-12 text-center text-gray-400">
+        <div class="text-4xl mb-2">🔀</div>
+        <div>No products found. Try adjusting your search or filters.</div>
+      </div>
+
+      <!-- Product list -->
+      <div class="space-y-3">
+        <template x-for="row in storeComp.products" :key="row.product_id">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+
+            <!-- Row header / summary -->
+            <div class="flex items-start gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                 @click="toggleStoreCompExpanded(row.product_id)">
+              <span class="mt-0.5 text-gray-400 text-sm" x-text="storeCompExpanded[row.product_id] ? '▼' : '▶'"></span>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-sm truncate" x-text="row.canonical_title"></div>
+                <div class="flex flex-wrap gap-2 mt-1">
+                  <span class="text-xs text-gray-500 dark:text-gray-400" x-text="'ID ' + row.product_id"></span>
+                  <span x-show="row.canonical.manufacturer" class="text-xs text-gray-500 dark:text-gray-400" x-text="row.canonical.manufacturer"></span>
+                  <span x-show="row.canonical.model_number" class="text-xs font-mono text-gray-400" x-text="row.canonical.model_number"></span>
+                  <span class="text-xs px-1.5 py-0.5 rounded-full font-medium"
+                    :class="row.source_count >= storeComp.source_sites.length ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300' : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300'"
+                    x-text="row.source_count + '/' + storeComp.source_sites.length + ' stores'"></span>
+                  <template x-for="f in row.diff_fields" :key="f">
+                    <span class="text-xs px-1.5 py-0.5 bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 rounded-full" x-text="f + ' diff'"></span>
+                  </template>
+                  <template x-for="s in row.missing_sites" :key="s">
+                    <span class="text-xs px-1.5 py-0.5 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-400 rounded-full" x-text="'missing: ' + s.split('.')[0]"></span>
+                  </template>
+                </div>
+              </div>
+              <div x-show="row.canonical.price_canonical" class="text-sm font-semibold text-right whitespace-nowrap">
+                <span x-text="'$' + Number(row.canonical.price_canonical).toFixed(2)"></span>
+              </div>
+            </div>
+
+            <!-- Expanded comparison grid -->
+            <div x-show="storeCompExpanded[row.product_id]" x-cloak>
+              <div class="border-t border-gray-200 dark:border-gray-700 overflow-x-auto">
+                <table class="w-full text-xs">
+                  <!-- Column headers -->
+                  <thead>
+                    <tr class="bg-gray-100 dark:bg-gray-700/60">
+                      <th class="px-3 py-2 text-left font-semibold text-gray-500 dark:text-gray-400 w-32">Field</th>
+                      <th class="px-3 py-2 text-left font-semibold text-orange-600 dark:text-orange-400 min-w-48">
+                        <div>Canonical</div>
+                        <div class="font-normal text-gray-400 text-xs">master record</div>
+                      </th>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <th class="px-3 py-2 text-left font-semibold text-blue-600 dark:text-blue-400 min-w-48">
+                          <div x-text="site.split('.')[0]"></div>
+                          <div x-show="row.sources[site]">
+                            <a :href="row.sources[site]?.url" target="_blank" class="font-normal text-blue-400 hover:underline text-xs" x-text="row.sources[site]?.scraped_at ? new Date(row.sources[site].scraped_at).toLocaleDateString() : 'view'"></a>
+                          </div>
+                          <div x-show="!row.sources[site]" class="font-normal text-red-400 text-xs">not found</div>
+                        </th>
+                      </template>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-100 dark:divide-gray-700/50">
+
+                    <!-- ── Core identity ── -->
+                    <tr class="bg-gray-50 dark:bg-gray-700/30">
+                      <td colspan="99" class="px-3 py-1 text-xs font-bold text-gray-400 uppercase tracking-wide">Core Identity</td>
+                    </tr>
+
+                    <!-- Title -->
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400 align-top">Title</td>
+                      <td class="px-3 py-2 align-top">
+                        <div class="leading-snug" x-text="row.canonical.title || '—'"></div>
+                      </td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2 align-top" :class="storeCompDiffClass(row.canonical.title, row.sources[site]?.title, 'title')">
+                          <div class="leading-snug" x-text="row.sources[site]?.title || '—'"></div>
+                          <button x-show="row.sources[site]?.title && row.sources[site].title !== row.canonical.title"
+                            @click.stop="adoptSourceValue(row.product_id, 'canonical_title', row.sources[site].title)"
+                            :disabled="storeCompSaving[row.product_id]"
+                            class="mt-1 text-xs bg-blue-500 hover:bg-blue-600 text-white px-2 py-0.5 rounded disabled:opacity-50">Use</button>
+                        </td>
+                      </template>
+                    </tr>
+
+                    <!-- Manufacturer -->
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">Manufacturer</td>
+                      <td class="px-3 py-2" x-text="row.canonical.manufacturer || '—'"></td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2" :class="storeCompDiffClass(row.canonical.manufacturer, row.sources[site]?.manufacturer, 'manufacturer')">
+                          <span x-text="row.sources[site]?.manufacturer || '—'"></span>
+                          <button x-show="row.sources[site]?.manufacturer && row.sources[site].manufacturer !== row.canonical.manufacturer"
+                            @click.stop="adoptSourceValue(row.product_id, 'manufacturer', row.sources[site].manufacturer)"
+                            :disabled="storeCompSaving[row.product_id]"
+                            class="ml-1 text-xs bg-blue-500 hover:bg-blue-600 text-white px-2 py-0.5 rounded disabled:opacity-50">Use</button>
+                        </td>
+                      </template>
+                    </tr>
+
+                    <!-- Model # -->
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">Model #</td>
+                      <td class="px-3 py-2 font-mono" x-text="row.canonical.model_number || '—'"></td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2 font-mono" :class="storeCompDiffClass(row.canonical.model_number, row.sources[site]?.model_number, 'model_number')">
+                          <span x-text="row.sources[site]?.model_number || '—'"></span>
+                          <button x-show="row.sources[site]?.model_number && row.sources[site].model_number !== row.canonical.model_number"
+                            @click.stop="adoptSourceValue(row.product_id, 'model_number', row.sources[site].model_number)"
+                            :disabled="storeCompSaving[row.product_id]"
+                            class="ml-1 text-xs bg-blue-500 hover:bg-blue-600 text-white px-2 py-0.5 rounded disabled:opacity-50">Use</button>
+                        </td>
+                      </template>
+                    </tr>
+
+                    <!-- SKU -->
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">SKU</td>
+                      <td class="px-3 py-2 font-mono" x-text="row.canonical.sku || '—'"></td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2 font-mono" :class="storeCompDiffClass(row.canonical.sku, row.sources[site]?.sku, 'sku')">
+                          <span x-text="row.sources[site]?.sku || '—'"></span>
+                          <button x-show="row.sources[site]?.sku && row.sources[site].sku !== row.canonical.sku"
+                            @click.stop="adoptSourceValue(row.product_id, 'sku', row.sources[site].sku)"
+                            :disabled="storeCompSaving[row.product_id]"
+                            class="ml-1 text-xs bg-blue-500 hover:bg-blue-600 text-white px-2 py-0.5 rounded disabled:opacity-50">Use</button>
+                        </td>
+                      </template>
+                    </tr>
+
+                    <!-- ── Pricing ── -->
+                    <tr class="bg-gray-50 dark:bg-gray-700/30">
+                      <td colspan="99" class="px-3 py-1 text-xs font-bold text-gray-400 uppercase tracking-wide">Pricing</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">Price</td>
+                      <td class="px-3 py-2">
+                        <span class="font-semibold" x-text="row.canonical.price_canonical ? '$' + Number(row.canonical.price_canonical).toFixed(2) : '—'"></span>
+                        <span x-show="row.canonical.price_min || row.canonical.price_max" class="text-gray-400 ml-1"
+                          x-text="'(' + (row.canonical.price_min ? '$'+Number(row.canonical.price_min).toFixed(2) : '') + '–' + (row.canonical.price_max ? '$'+Number(row.canonical.price_max).toFixed(2) : '') + ')'"></span>
+                      </td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2" :class="storeCompDiffClass(row.canonical.price_canonical, row.sources[site]?.price, 'price')">
+                          <span x-text="row.sources[site]?.price ? '$' + Number(row.sources[site].price).toFixed(2) : (row.sources[site]?.price_raw || '—')"></span>
+                          <button x-show="row.sources[site]?.price && row.sources[site].price !== row.canonical.price_canonical"
+                            @click.stop="adoptSourceValue(row.product_id, 'price_canonical', row.sources[site].price)"
+                            :disabled="storeCompSaving[row.product_id]"
+                            class="ml-1 text-xs bg-blue-500 hover:bg-blue-600 text-white px-2 py-0.5 rounded disabled:opacity-50">Use</button>
+                        </td>
+                      </template>
+                    </tr>
+
+                    <!-- ── Categorization ── -->
+                    <tr class="bg-gray-50 dark:bg-gray-700/30">
+                      <td colspan="99" class="px-3 py-1 text-xs font-bold text-gray-400 uppercase tracking-wide">Categorization</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">Category</td>
+                      <td class="px-3 py-2">
+                        <span x-text="row.canonical.category || '—'"></span>
+                        <span x-show="row.canonical.subcategory" class="text-gray-400 ml-1" x-text="'/ ' + row.canonical.subcategory"></span>
+                      </td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2" :class="storeCompDiffClass(row.canonical.category, row.sources[site]?.category, 'category')">
+                          <span x-text="row.sources[site]?.category || '—'"></span>
+                          <button x-show="row.sources[site]?.category && row.sources[site].category !== row.canonical.category"
+                            @click.stop="adoptSourceValue(row.product_id, 'category', row.sources[site].category)"
+                            :disabled="storeCompSaving[row.product_id]"
+                            class="ml-1 text-xs bg-blue-500 hover:bg-blue-600 text-white px-2 py-0.5 rounded disabled:opacity-50">Use</button>
+                        </td>
+                      </template>
+                    </tr>
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">AI Category</td>
+                      <td class="px-3 py-2" x-text="row.canonical.ai_category || '—'"></td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2 text-gray-400" x-text="'—'"></td>
+                      </template>
+                    </tr>
+
+                    <!-- ── Physical attributes ── -->
+                    <tr class="bg-gray-50 dark:bg-gray-700/30">
+                      <td colspan="99" class="px-3 py-1 text-xs font-bold text-gray-400 uppercase tracking-wide">Physical</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">Weight</td>
+                      <td class="px-3 py-2" x-text="row.canonical.weight ? row.canonical.weight + ' lbs' : '—'"></td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2 text-gray-400">—</td>
+                      </template>
+                    </tr>
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">Dimensions</td>
+                      <td class="px-3 py-2 font-mono text-gray-600 dark:text-gray-300" x-text="row.canonical.dimensions ? JSON.stringify(row.canonical.dimensions) : '—'"></td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2 text-gray-400">—</td>
+                      </template>
+                    </tr>
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">Origin</td>
+                      <td class="px-3 py-2" x-text="row.canonical.country_of_origin || '—'"></td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2 text-gray-400">—</td>
+                      </template>
+                    </tr>
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">In Stock</td>
+                      <td class="px-3 py-2">
+                        <span :class="row.canonical.in_stock ? 'text-green-600 dark:text-green-400' : 'text-red-500'" x-text="row.canonical.in_stock ? 'Yes' : 'No'"></span>
+                      </td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2 text-gray-400">—</td>
+                      </template>
+                    </tr>
+
+                    <!-- ── Description ── -->
+                    <tr class="bg-gray-50 dark:bg-gray-700/30">
+                      <td colspan="99" class="px-3 py-1 text-xs font-bold text-gray-400 uppercase tracking-wide">Description</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400 align-top">Description</td>
+                      <td class="px-3 py-2 align-top">
+                        <div class="text-xs leading-relaxed max-h-28 overflow-y-auto text-gray-700 dark:text-gray-300 whitespace-pre-wrap" x-text="row.canonical.description || '—'"></div>
+                      </td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2 align-top">
+                          <div class="text-xs leading-relaxed max-h-28 overflow-y-auto text-gray-700 dark:text-gray-300 whitespace-pre-wrap" x-text="row.sources[site]?.description || '—'"></div>
+                          <button x-show="row.sources[site]?.description && row.sources[site].description !== row.canonical.description"
+                            @click.stop="adoptSourceValue(row.product_id, 'canonical_description', row.sources[site].description)"
+                            :disabled="storeCompSaving[row.product_id]"
+                            class="mt-1 text-xs bg-blue-500 hover:bg-blue-600 text-white px-2 py-0.5 rounded disabled:opacity-50">Use</button>
+                        </td>
+                      </template>
+                    </tr>
+
+                    <!-- ── Specifications ── -->
+                    <tr x-show="row.canonical.specs" class="bg-gray-50 dark:bg-gray-700/30">
+                      <td colspan="99" class="px-3 py-1 text-xs font-bold text-gray-400 uppercase tracking-wide">Specifications</td>
+                    </tr>
+                    <template x-if="row.canonical.specs">
+                      <template x-for="[specKey, specVal] in Object.entries(row.canonical.specs)" :key="specKey">
+                        <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                          <td class="px-3 py-1.5 font-medium text-gray-500 dark:text-gray-400 pl-5" x-text="specKey"></td>
+                          <td class="px-3 py-1.5 font-mono text-gray-600 dark:text-gray-300" x-text="specVal"></td>
+                          <template x-for="site in storeComp.source_sites" :key="site">
+                            <td class="px-3 py-1.5 text-gray-400">—</td>
+                          </template>
+                        </tr>
+                      </template>
+                    </template>
+
+                    <!-- ── Variants / Options ── -->
+                    <tr x-show="row.canonical.options.length > 0 || storeComp.source_sites.some(s => row.sources[s]?.options?.length > 0)" class="bg-gray-50 dark:bg-gray-700/30">
+                      <td colspan="99" class="px-3 py-1 text-xs font-bold text-gray-400 uppercase tracking-wide">Variants / Options</td>
+                    </tr>
+                    <tr x-show="row.canonical.options.length > 0 || storeComp.source_sites.some(s => row.sources[s]?.options?.length > 0)"
+                        class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400 align-top">Options</td>
+                      <td class="px-3 py-2 align-top">
+                        <template x-if="row.canonical.options.length === 0">
+                          <span class="text-gray-400">—</span>
+                        </template>
+                        <template x-for="opt in row.canonical.options" :key="opt.group + opt.value">
+                          <div class="text-xs">
+                            <span class="font-medium" x-text="opt.group + ': '"></span>
+                            <span x-text="opt.value"></span>
+                            <span x-show="opt.price_modifier" class="text-gray-400 ml-1" x-text="'(+$' + Number(opt.price_modifier).toFixed(2) + ')'"></span>
+                          </div>
+                        </template>
+                      </td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2 align-top">
+                          <template x-if="!row.sources[site]?.options?.length">
+                            <span class="text-gray-400">—</span>
+                          </template>
+                          <template x-for="opt in (row.sources[site]?.options || [])" :key="opt.group + opt.value">
+                            <div class="text-xs">
+                              <span class="font-medium" x-text="opt.group + ': '"></span>
+                              <span x-text="opt.value"></span>
+                              <span x-show="opt.price_modifier" class="text-gray-400 ml-1" x-text="'(+$' + Number(opt.price_modifier).toFixed(2) + ')'"></span>
+                            </div>
+                          </template>
+                        </td>
+                      </template>
+                    </tr>
+
+                    <!-- ── Tags ── -->
+                    <tr class="bg-gray-50 dark:bg-gray-700/30">
+                      <td colspan="99" class="px-3 py-1 text-xs font-bold text-gray-400 uppercase tracking-wide">Tags</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400 align-top">Tags</td>
+                      <td class="px-3 py-2 align-top">
+                        <template x-if="row.canonical.tags.length === 0">
+                          <span class="text-gray-400">—</span>
+                        </template>
+                        <div class="flex flex-wrap gap-1">
+                          <template x-for="tag in row.canonical.tags" :key="tag">
+                            <span class="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded" x-text="tag"></span>
+                          </template>
+                        </div>
+                      </td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2 align-top text-gray-400">—</td>
+                      </template>
+                    </tr>
+
+                    <!-- ── Images ── -->
+                    <tr class="bg-gray-50 dark:bg-gray-700/30">
+                      <td colspan="99" class="px-3 py-1 text-xs font-bold text-gray-400 uppercase tracking-wide">Images</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/50 dark:hover:bg-gray-700/20">
+                      <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400 align-top">Images</td>
+                      <td class="px-3 py-2 align-top">
+                        <div class="flex flex-wrap gap-1">
+                          <template x-for="img in row.canonical.images.slice(0,4)" :key="img.url">
+                            <a :href="img.url" target="_blank">
+                              <img :src="img.url" class="w-12 h-12 object-cover rounded border border-gray-200 dark:border-gray-600"
+                                   onerror="this.style.display='none'" />
+                            </a>
+                          </template>
+                          <span x-show="!row.canonical.images.length" class="text-gray-400">—</span>
+                        </div>
+                      </td>
+                      <template x-for="site in storeComp.source_sites" :key="site">
+                        <td class="px-3 py-2 align-top">
+                          <div class="flex flex-wrap gap-1">
+                            <template x-for="img in (row.sources[site]?.images || []).slice(0,4)" :key="img.url">
+                              <a :href="img.url" target="_blank">
+                                <img :src="img.url" class="w-12 h-12 object-cover rounded border border-gray-200 dark:border-gray-600"
+                                     onerror="this.style.display='none'" />
+                              </a>
+                            </template>
+                            <span x-show="!row.sources[site]?.images?.length" class="text-gray-400">—</span>
+                          </div>
+                        </td>
+                      </template>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Footer: links to other views -->
+              <div class="px-4 py-2 bg-gray-50 dark:bg-gray-700/30 border-t border-gray-200 dark:border-gray-700 flex gap-3 text-xs flex-wrap">
+                <button @click.stop="currentView = 'products'; loadProducts(1)"
+                  class="text-blue-500 hover:underline">View in Products</button>
+                <template x-for="site in storeComp.source_sites" :key="site">
+                  <a x-show="row.sources[site]?.url" :href="row.sources[site]?.url" target="_blank"
+                     class="text-blue-500 hover:underline" x-text="'Open on ' + site.split('.')[0]"></a>
+                </template>
+              </div>
+            </div>
+
+          </div>
+        </template>
+      </div>
+
+      <!-- Pagination -->
+      <div x-show="storeComp.pages > 1" class="flex items-center justify-center gap-2 mt-4">
+        <button @click="loadStoreComparison(storeComp.page - 1)" :disabled="storeComp.page <= 1"
+          class="px-3 py-1.5 rounded border border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm disabled:opacity-40 hover:bg-gray-100 dark:hover:bg-gray-700">← Prev</button>
+        <span class="text-sm text-gray-700 dark:text-gray-300" x-text="'Page ' + storeComp.page + ' of ' + storeComp.pages"></span>
+        <button @click="loadStoreComparison(storeComp.page + 1)" :disabled="storeComp.page >= storeComp.pages"
           class="px-3 py-1.5 rounded border border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm disabled:opacity-40 hover:bg-gray-100 dark:hover:bg-gray-700">Next →</button>
       </div>
     </div>
