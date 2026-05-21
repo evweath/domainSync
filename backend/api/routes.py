@@ -284,27 +284,72 @@ def get_store_comparison(
     per_page = min(per_page, 100)
     source_sites = [s["domain"] for s in config.get("source_sites", default=[]) if s.get("enabled", True)]
 
-    q = (
-        db.query(Product)
-        .filter(Product.is_active == True)
-        .options(
-            joinedload(Product.sources),
-            joinedload(Product.tags),
-            joinedload(Product.options),
-            joinedload(Product.images),
-        )
-    )
+    base_q = db.query(Product).filter(Product.is_active == True)
     if search:
         like = f"%{search}%"
-        q = q.filter(or_(
+        base_q = base_q.filter(or_(
             Product.canonical_title.ilike(like),
             Product.manufacturer.ilike(like),
             Product.model_number.ilike(like),
             Product.sku.ilike(like),
         ))
 
-    total = q.count()
-    products = q.order_by(Product.canonical_title).offset((page - 1) * per_page).limit(per_page).all()
+    if has_diffs:
+        # Light pass: load all products with only sources to find which have diffs
+        light = (
+            base_q.options(joinedload(Product.sources))
+            .order_by(Product.canonical_title)
+            .all()
+        )
+        diff_ids: List[int] = []
+        for p in light:
+            site_srcs: Dict[str, Any] = {}
+            for src in sorted(p.sources, key=lambda s: s.scraped_at or datetime.min, reverse=True):
+                if src.is_active and src.source_site not in site_srcs:
+                    site_srcs[src.source_site] = src
+            srcs_light = {
+                site: {
+                    "title": src.source_title, "manufacturer": src.source_manufacturer,
+                    "model_number": src.source_model_number, "sku": src.source_sku,
+                    "category": src.source_category, "price": src.source_price,
+                }
+                for site in source_sites
+                if (src := site_srcs.get(site))
+            }
+            diffs: List[str] = []
+            for label, canon_attr, src_attr in _COMP_FIELDS:
+                canon_val = (getattr(p, canon_attr) or "").strip().lower()
+                src_vals = [
+                    (srcs_light[site].get(src_attr) or "").strip().lower()
+                    for site in source_sites if srcs_light.get(site) and srcs_light[site].get(src_attr)
+                ]
+                if src_vals and (not canon_val or any(v != canon_val for v in src_vals)):
+                    diffs.append(label)
+            prices = [srcs_light[s]["price"] for s in source_sites if srcs_light.get(s) and srcs_light[s].get("price")]
+            if len(set(prices)) > 1 or (prices and p.price_canonical and
+                    any(abs(px - p.price_canonical) / max(p.price_canonical, 0.01) > 0.01 for px in prices)):
+                diffs.append("price")
+            if diffs:
+                diff_ids.append(p.id)
+        total = len(diff_ids)
+        page_ids = diff_ids[(page - 1) * per_page: page * per_page]
+        products = (
+            db.query(Product)
+            .filter(Product.id.in_(page_ids))
+            .options(
+                joinedload(Product.sources), joinedload(Product.tags),
+                joinedload(Product.options), joinedload(Product.images),
+            )
+            .order_by(Product.canonical_title)
+            .all()
+        )
+    else:
+        q = base_q.options(
+            joinedload(Product.sources), joinedload(Product.tags),
+            joinedload(Product.options), joinedload(Product.images),
+        )
+        total = q.count()
+        products = q.order_by(Product.canonical_title).offset((page - 1) * per_page).limit(per_page).all()
 
     results = []
     for product in products:
