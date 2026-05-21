@@ -46,3 +46,6 @@ ERROR:    Error loading ASGI app. Could not import module "backend.main".
 2026-05-21 15:12:49 [INFO] backend.app: Log-tail broadcaster started
 2026-05-21 15:12:49 [INFO] backend.app: Dashboard: https://localhost:8743
 2026-05-21 15:12:49 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+2026-05-21 15:23:11 [INFO] primp: response: https://duckduckgo.com/?q=618L+Donut+Fryer+%28Electric%29+electric-heated%2C+frying+area+18+X+26+inches+%2846+X+66+cm%29+Belshaw+Adamatic+supplier+wholesale+price 200
+2026-05-21 15:23:11 [INFO] primp: response: https://duckduckgo.com/i.js?o=json&q=618L+Donut+Fryer+%28Electric%29+electric-heated%2C+frying+area+18+X+26+inches+%2846+X+66+cm%29+Belshaw+Adamatic+supplier+wholesale+price&l=us-en&vqd=4-67430456904327509544196211270112668925&p=1&ct=AT 403
+2026-05-21 15:23:11 [WARNING] backend.search.engine: DDG image search failed (images will be missing): No results found.
