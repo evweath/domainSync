@@ -3553,3 +3553,186 @@ INFO:     Application startup complete.
 2026-05-21 17:13:16 [INFO] watchfiles.main: 3 changes detected
 2026-05-21 17:13:20 [INFO] watchfiles.main: 33 changes detected
 2026-05-21 17:13:22 [INFO] watchfiles.main: 4 changes detected
+2026-05-21 17:13:26 [INFO] watchfiles.main: 33 changes detected
+2026-05-21 17:14:00 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 17:14:04 [INFO] watchfiles.main: 29 changes detected
+2026-05-21 17:14:06 [INFO] watchfiles.main: 4 changes detected
+2026-05-21 17:16:36 [INFO] watchfiles.main: 32 changes detected
+INFO:     Will watch for changes in these directories: ['/Users/evw/dev/productComparison/donut-intel']
+INFO:     Uvicorn running on https://0.0.0.0:8743 (Press CTRL+C to quit)
+INFO:     Started reloader process [12277] using WatchFiles
+INFO:     Started server process [12285]
+INFO:     Waiting for application startup.
+2026-05-21 17:17:37 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:17:37 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:17:37 [INFO] backend.database.db: Database initialized
+2026-05-21 17:17:37 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:17:38 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:17:38 [INFO] backend.app: Scheduler started
+2026-05-21 17:17:38 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:17:38 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:17:38 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:17:38 [INFO] watchfiles.main: 1 change detected
+2026-05-21 17:17:45 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:51153 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51154 - "GET /api/logs/tail?lines=50 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51155 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51154 - "GET / HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:51154 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51156 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51158 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51157 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51159 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51154 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51156 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51158 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51162 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51165 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51167 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51164 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51165 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51164 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51167 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51166 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51162 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51163 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51168 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51164 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51165 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51169 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51170 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51171 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51172 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51173 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51173 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51174 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51175 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51176 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51177 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51177 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51177 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51178 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51182 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51181 - "GET /api/settings HTTP/1.1" 200 OK
+2026-05-21 17:22:46 [INFO] watchfiles.main: 3 changes detected
+INFO:     127.0.0.1:51184 - "GET /api/products?limit=5&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51186 - "GET /api/products?limit=5&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51190 - "GET /api/products?limit=3&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51194 - "GET /api/products?limit=1&offset=0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51196 - "GET /api/products/3585 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51198 - "POST /api/shopify-sync/preview HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:51202 - "POST /api/shopify-sync/preview HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:51206 - "POST /api/shopify-sync/preview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51208 - "GET /api/store-compare?limit=3 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51210 - "GET /api/store-compare?limit=3 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51216 - "GET /api/products/store-comparison?page=1&per_page=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51218 - "GET /api/products/store-comparison?page=1&per_page=3&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51220 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51225 - "GET /api/products/store-comparison?page=1&per_page=3&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51226 - "GET /api/products/store-comparison?page=1&per_page=3&has_diffs=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51230 - "GET /api/products/store-comparison?page=1&per_page=10&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51232 - "GET /api/products/store-comparison?page=1&per_page=5&has_diffs=false HTTP/1.1" 200 OK
+2026-05-21 17:25:13 [INFO] primp: response: https://duckduckgo.com/?q=donut+filler+spout+under+%24200+supplier+wholesale+price 200
+2026-05-21 17:25:13 [INFO] primp: response: https://duckduckgo.com/i.js?o=json&q=donut+filler+spout+under+%24200+supplier+wholesale+price&l=us-en&vqd=4-190363504992457809460591361347153390555&p=1&ct=AT 403
+2026-05-21 17:25:13 [WARNING] backend.search.engine: DDG image search failed (images will be missing): No results found.
+INFO:     127.0.0.1:51236 - "POST /api/search/beat-price HTTP/1.1" 200 OK
+2026-05-21 17:25:23 [INFO] watchfiles.main: 33 changes detected
+2026-05-21 17:25:41 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:25:55 [INFO] watchfiles.main: 33 changes detected
+2026-05-21 17:26:21 [INFO] watchfiles.main: 16 changes detected
+2026-05-21 17:26:26 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 17:26:28 [INFO] watchfiles.main: 33 changes detected
+INFO:     Will watch for changes in these directories: ['/Users/evw/dev/productComparison/donut-intel']
+INFO:     Uvicorn running on https://0.0.0.0:8743 (Press CTRL+C to quit)
+INFO:     Started reloader process [13537] using WatchFiles
+INFO:     Started server process [13545]
+INFO:     Waiting for application startup.
+2026-05-21 17:27:33 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:27:33 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:27:33 [INFO] backend.database.db: Database initialized
+2026-05-21 17:27:33 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:27:33 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:27:33 [INFO] backend.app: Scheduler started
+2026-05-21 17:27:33 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:27:33 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:27:33 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:27:33 [INFO] watchfiles.main: 1 change detected
+2026-05-21 17:27:41 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:51276 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51276 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51277 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51278 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51279 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51280 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51276 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51278 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51279 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51278 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51281 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51276 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51278 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51281 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51281 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51279 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51281 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51281 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51281 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51279 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51279 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51281 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51276 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51280 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51279 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51277 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51278 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51282 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51276 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51279 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51283 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51281 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51280 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51284 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51284 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51284 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+2026-05-21 17:30:37 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 17:30:37 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:30:37 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [13545]
+INFO:     Started server process [13721]
+INFO:     Waiting for application startup.
+2026-05-21 17:30:38 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:30:38 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:30:38 [INFO] backend.database.db: Database initialized
+2026-05-21 17:30:38 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:30:38 [INFO] watchfiles.main: 5 changes detected
+2026-05-21 17:30:38 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:30:38 [INFO] backend.app: Scheduler started
+2026-05-21 17:30:38 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:30:38 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:30:38 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     127.0.0.1:51295 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51296 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51297 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51298 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51302 - "GET /api/products/store-comparison?page=1&per_page=10&has_diffs=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51301 - "GET /api/products/store-comparison?page=1&per_page=10&has_diffs=true HTTP/1.1" 200 OK
+2026-05-21 17:30:49 [INFO] watchfiles.main: 45 changes detected
+2026-05-21 17:31:18 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:31:24 [INFO] watchfiles.main: 17 changes detected
+2026-05-21 17:31:30 [INFO] watchfiles.main: 26 changes detected
