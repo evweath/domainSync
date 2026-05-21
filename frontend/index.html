@@ -45,7 +45,7 @@
     <nav class="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
       <template x-for="item in navItems" :key="item.id">
         <button
-          @click="currentView = item.id; item.id === 'products' && loadProducts(1); item.id === 'competitors' && loadCompetitors(1); item.id === 'pricing' && loadPriceMatrix(1); item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'source-products' && loadSourceProducts(); item.id === 'store-compare' && loadStoreComparison(1); item.id === 'shopify-sync' && loadShopifySyncConfig(); item.id === 'find-product' && findProductSearchCatalog(); item.id === 'beat-price' && beatPriceSearchCatalog(); item.id === 'system-of-record' && loadSystemOfRecord(); item.id === 'find-customers' && null"
+          @click="currentView = item.id; item.id === 'products' && loadProducts(1); item.id === 'competitors' && loadCompetitors(1); item.id === 'pricing' && loadPriceMatrix(1); item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'source-products' && loadSourceProducts(); item.id === 'store-compare' && loadStoreComparison(1); item.id === 'shopify-sync' && loadShopifySyncConfig(); item.id === 'live-sync' && (loadShopifySyncConfig(), loadLiveSyncScanStatus()); item.id === 'find-product' && findProductSearchCatalog(); item.id === 'beat-price' && beatPriceSearchCatalog(); item.id === 'system-of-record' && loadSystemOfRecord(); item.id === 'find-customers' && null"
           :class="currentView === item.id
             ? 'bg-orange-600 text-white'
             : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
@@ -1196,6 +1196,336 @@
         <span class="text-sm text-gray-700 dark:text-gray-300" x-text="'Page ' + storeComp.page + ' of ' + storeComp.pages"></span>
         <button @click="loadStoreComparison(storeComp.page + 1)" :disabled="storeComp.page >= storeComp.pages"
           class="px-3 py-1.5 rounded border border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm disabled:opacity-40 hover:bg-gray-100 dark:hover:bg-gray-700">Next →</button>
+      </div>
+    </div>
+
+    <!-- ===== LIVE SYNC VIEW ===== -->
+    <div x-show="currentView === 'live-sync'" class="p-6" x-cloak>
+      <div class="mb-4 flex items-start justify-between">
+        <div>
+          <h2 class="text-2xl font-bold mb-1">⚡ Live Sync</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400">Scan source and destination Shopify stores via the Admin API, review every proposed change with explicit warnings, then execute approved transactions.</p>
+        </div>
+        <!-- Step indicator -->
+        <div class="flex items-center gap-2 text-xs font-medium flex-shrink-0 ml-4">
+          <template x-for="(step, i) in [{id:'configure',label:'Configure'},{id:'scanning',label:'Diff'},{id:'review',label:'Review'},{id:'executing',label:'Execute'},{id:'done',label:'Done'}]" :key="step.id">
+            <div class="flex items-center gap-1">
+              <span :class="liveSyncStep === step.id ? 'bg-indigo-500 text-white' : ((['review','executing','done'].includes(liveSyncStep) && i < 2) || (['executing','done'].includes(liveSyncStep) && i < 3) || (liveSyncStep === 'done' && i < 4)) ? 'bg-green-500 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-500'"
+                class="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" x-text="i+1"></span>
+              <span :class="liveSyncStep === step.id ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400'" x-text="step.label"></span>
+              <span x-show="i < 4" class="text-gray-300 dark:text-gray-600">›</span>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- ── STEP 1: Configure ── -->
+      <div x-show="liveSyncStep === 'configure'" class="space-y-4">
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+
+          <!-- Source store -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+            <h3 class="text-sm font-semibold mb-3 text-gray-700 dark:text-gray-200">Source Store <span class="text-xs text-gray-400 font-normal">(system of record)</span></h3>
+            <div class="space-y-2">
+              <template x-for="site in (shopifySyncConfig.source_sites || [])" :key="site.domain">
+                <label class="flex items-center justify-between gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                  :class="liveSyncSource === site.domain ? 'ring-2 ring-indigo-400 bg-indigo-50 dark:bg-indigo-900/30' : ''">
+                  <div class="flex items-center gap-2">
+                    <input type="radio" :value="site.domain" x-model="liveSyncSource" class="w-4 h-4 text-indigo-500" />
+                    <div>
+                      <div class="text-sm font-medium" x-text="site.name"></div>
+                      <div class="text-xs text-gray-400 font-mono" x-text="site.domain"></div>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 text-xs">
+                    <span x-show="liveSyncScanStatus[site.domain]?.product_count" class="text-green-600 dark:text-green-400" x-text="'✓ ' + liveSyncScanStatus[site.domain]?.product_count + ' products cached'"></span>
+                    <span x-show="liveSyncScanProgress[site.domain]" :class="liveSyncScanProgress[site.domain]?.startsWith('✗') ? 'text-red-500' : 'text-gray-500'" x-text="liveSyncScanProgress[site.domain]"></span>
+                    <button @click.stop="runLiveScan(site.domain)"
+                      :disabled="liveSyncScanProgress[site.domain] === 'Scanning…'"
+                      class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded transition disabled:opacity-40">
+                      <span x-show="liveSyncScanProgress[site.domain] !== 'Scanning…'">Scan Now</span>
+                      <span x-show="liveSyncScanProgress[site.domain] === 'Scanning…'">Scanning…</span>
+                    </button>
+                  </div>
+                </label>
+              </template>
+            </div>
+          </div>
+
+          <!-- Destination store -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+            <h3 class="text-sm font-semibold mb-3 text-gray-700 dark:text-gray-200">Destination Store <span class="text-xs text-gray-400 font-normal">(will receive changes)</span></h3>
+            <div class="space-y-2">
+              <template x-for="site in (shopifySyncConfig.source_sites || [])" :key="site.domain">
+                <label class="flex items-center justify-between gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
+                  :class="liveSyncDest === site.domain ? 'ring-2 ring-orange-400 bg-orange-50 dark:bg-orange-900/30' : (liveSyncSource === site.domain ? 'opacity-40 pointer-events-none' : '')">
+                  <div class="flex items-center gap-2">
+                    <input type="radio" :value="site.domain" x-model="liveSyncDest" :disabled="liveSyncSource === site.domain" class="w-4 h-4 text-orange-500" />
+                    <div>
+                      <div class="text-sm font-medium" x-text="site.name"></div>
+                      <div class="text-xs text-gray-400 font-mono" x-text="site.domain"></div>
+                    </div>
+                  </div>
+                  <div class="text-xs">
+                    <span x-show="liveSyncScanStatus[site.domain]?.product_count" class="text-green-600 dark:text-green-400" x-text="'✓ ' + liveSyncScanStatus[site.domain]?.product_count + ' products cached'"></span>
+                    <button @click.stop="runLiveScan(site.domain)"
+                      :disabled="liveSyncScanProgress[site.domain] === 'Scanning…'"
+                      class="ml-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded transition disabled:opacity-40">
+                      <span x-show="liveSyncScanProgress[site.domain] !== 'Scanning…'">Scan Now</span>
+                      <span x-show="liveSyncScanProgress[site.domain] === 'Scanning…'">Scanning…</span>
+                    </button>
+                  </div>
+                </label>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Field selection + options -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+          <h3 class="text-sm font-semibold mb-3 text-gray-700 dark:text-gray-200">What to Sync</h3>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <template x-for="f in [{id:'title',label:'Title'},{id:'body_html',label:'Description'},{id:'vendor',label:'Vendor'},{id:'product_type',label:'Product Type'},{id:'tags',label:'Tags'},{id:'variants',label:'Variants & Pricing'},{id:'images',label:'Images'},{id:'collections',label:'Collections'}]" :key="f.id">
+              <label class="flex items-center gap-1.5 cursor-pointer text-sm px-3 py-1.5 rounded-full border transition"
+                :class="liveSyncFields.includes(f.id) ? 'bg-indigo-500 text-white border-indigo-500' : 'bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-indigo-400'">
+                <input type="checkbox" :value="f.id" class="hidden"
+                  :checked="liveSyncFields.includes(f.id)"
+                  @change="liveSyncFields.includes(f.id) ? liveSyncFields.splice(liveSyncFields.indexOf(f.id), 1) : liveSyncFields.push(f.id)" />
+                <span x-text="f.label"></span>
+              </label>
+            </template>
+          </div>
+          <div class="flex flex-wrap gap-4 text-sm">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" x-model="liveSyncIncludeNew" class="w-4 h-4" />
+              <span>Include new products <span class="text-xs text-gray-400">(in source but not destination)</span></span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" x-model="liveSyncIncludeDeletes" class="w-4 h-4" />
+              <span class="text-red-600 dark:text-red-400 font-medium">Include deletes</span>
+              <span class="text-xs text-gray-400">(products in destination missing from source — CRITICAL risk)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Warning toggle -->
+        <div class="rounded-xl border-2 p-4" :class="liveSyncWarningsOn ? 'border-green-400 bg-green-50 dark:bg-green-900/20' : 'border-red-400 bg-red-50 dark:bg-red-900/20'">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-semibold text-sm" :class="liveSyncWarningsOn ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'">
+                <span x-show="liveSyncWarningsOn">🛡️ Transaction warnings: ON (recommended)</span>
+                <span x-show="!liveSyncWarningsOn">⚠️ Transaction warnings: OFF — changes will execute without review</span>
+              </div>
+              <p class="text-xs mt-1" :class="liveSyncWarningsOn ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'">
+                <span x-show="liveSyncWarningsOn">All MEDIUM, HIGH, and CRITICAL transactions require explicit approval before execution. Default and strongly recommended.</span>
+                <span x-show="!liveSyncWarningsOn">⛔ Disabling warnings means all non-CRITICAL transactions will be auto-approved. You will not see what changes are being made. This is dangerous for large catalogs.</span>
+              </p>
+            </div>
+            <button @click="liveSyncWarningsOn ? (liveSyncShowDisableWarning = true) : (liveSyncWarningsOn = true)"
+              class="flex-shrink-0 ml-4 text-xs font-medium px-3 py-1.5 rounded-lg transition"
+              :class="liveSyncWarningsOn ? 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-red-100 hover:text-red-700' : 'bg-green-500 text-white hover:bg-green-600'">
+              <span x-show="liveSyncWarningsOn">Turn OFF (not recommended)</span>
+              <span x-show="!liveSyncWarningsOn">Turn warnings back ON</span>
+            </button>
+          </div>
+          <!-- Disable confirmation -->
+          <div x-show="liveSyncShowDisableWarning" class="mt-3 p-3 bg-red-100 dark:bg-red-900/40 rounded-lg border border-red-300 dark:border-red-700">
+            <p class="text-sm font-semibold text-red-700 dark:text-red-300 mb-2">⛔ Are you sure you want to disable transaction warnings?</p>
+            <p class="text-xs text-red-600 dark:text-red-400 mb-3">All non-CRITICAL transactions will be auto-approved and executed without review. Accidental bulk changes to your live Shopify store cannot be undone by this tool.</p>
+            <div class="flex gap-2">
+              <button @click="liveSyncWarningsOn = false; liveSyncShowDisableWarning = false"
+                class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-3 py-1.5 rounded-lg">I understand — disable warnings</button>
+              <button @click="liveSyncShowDisableWarning = false"
+                class="bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs font-medium px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button @click="runLiveDiff()"
+            :disabled="!liveSyncSource || !liveSyncDest || liveSyncSource === liveSyncDest"
+            class="bg-indigo-500 hover:bg-indigo-600 disabled:opacity-40 text-white font-medium px-6 py-2.5 rounded-xl text-sm transition">
+            Scan &amp; Diff →
+          </button>
+          <p class="text-xs text-gray-400 self-center">This will fetch the current product catalog from both stores via the Shopify Admin API. May take 30–120 seconds for large catalogs.</p>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: Scanning/Diffing ── -->
+      <div x-show="liveSyncStep === 'scanning'" class="flex flex-col items-center justify-center py-20 text-center">
+        <div class="text-5xl mb-4 animate-spin">⚡</div>
+        <p class="text-lg font-semibold mb-2">Scanning stores and computing diff…</p>
+        <p class="text-sm text-gray-500">Fetching products, variants, collections, and metafields from both stores.</p>
+        <p class="text-xs text-gray-400 mt-2">Large catalogs may take up to 2 minutes.</p>
+      </div>
+
+      <!-- ── STEP 3: Review ── -->
+      <div x-show="liveSyncStep === 'review'" class="space-y-4">
+        <!-- Summary bar -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 flex flex-wrap items-center gap-4">
+          <div class="flex-1">
+            <span class="font-semibold" x-text="liveSyncTransactions.length"></span>
+            <span class="text-sm text-gray-500"> total changes</span>
+            <span class="mx-2 text-gray-300">·</span>
+            <span class="text-green-600 font-medium" x-text="liveSyncApprovedCount()"></span>
+            <span class="text-sm text-gray-500"> approved</span>
+            <span class="mx-2 text-gray-300">·</span>
+            <span class="text-gray-500 text-sm" x-text="liveSyncPendingCount() + ' pending'"></span>
+          </div>
+          <!-- Risk count pills -->
+          <div class="flex gap-2">
+            <template x-for="[risk, count] in Object.entries(liveSyncRiskCounts).filter(([,c]) => c > 0)" :key="risk">
+              <button @click="liveSyncFilter = liveSyncFilter === risk ? 'all' : risk"
+                :class="[liveSyncRiskBadge(risk), liveSyncFilter === risk ? 'ring-2 ring-offset-1 ring-gray-400' : '']"
+                class="text-xs font-medium px-2.5 py-1 rounded-full transition cursor-pointer"
+                x-text="risk + ': ' + count">
+              </button>
+            </template>
+          </div>
+          <!-- Bulk actions -->
+          <div class="flex gap-2">
+            <button @click="liveSyncApproveAll(true)"
+              class="bg-green-500 hover:bg-green-600 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition">
+              ✓ Approve Visible
+            </button>
+            <button @click="liveSyncRejectAll(true)"
+              class="bg-gray-200 dark:bg-gray-700 hover:bg-red-100 text-gray-600 dark:text-gray-300 hover:text-red-600 text-xs font-medium px-3 py-1.5 rounded-lg transition">
+              ✗ Reject Visible
+            </button>
+            <button @click="liveSyncApproveAll(false)"
+              class="border border-green-400 text-green-600 dark:text-green-400 text-xs font-medium px-3 py-1.5 rounded-lg hover:bg-green-50 transition">
+              ✓ All
+            </button>
+            <button @click="liveSyncRejectAll(false)"
+              class="border border-gray-300 dark:border-gray-600 text-gray-500 text-xs font-medium px-3 py-1.5 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+              ✗ None
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter + search -->
+        <div class="flex gap-3">
+          <select x-model="liveSyncFilter" class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+            <option value="all">All changes</option>
+            <option value="pending">Pending only</option>
+            <option value="approved">Approved only</option>
+            <option value="rejected">Rejected only</option>
+            <option value="LOW">LOW risk</option>
+            <option value="MEDIUM">MEDIUM risk</option>
+            <option value="HIGH">HIGH risk</option>
+            <option value="CRITICAL">CRITICAL risk</option>
+          </select>
+          <input x-model="liveSyncSearch" type="text" placeholder="Search by product title, handle, or field…"
+            class="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" />
+        </div>
+
+        <!-- Transaction list -->
+        <div class="space-y-2 max-h-[60vh] overflow-y-auto pr-1">
+          <template x-for="txn in liveSyncFilteredTransactions()" :key="txn.id">
+            <div class="rounded-xl border p-3 transition"
+              :class="[liveSyncRiskClass(txn.risk_level), txn.approved === true ? 'opacity-100' : txn.approved === false ? 'opacity-50' : '']">
+              <div class="flex items-start gap-3">
+                <!-- Approve/reject toggle -->
+                <button @click="liveSyncToggle(txn.id)"
+                  class="flex-shrink-0 mt-0.5 w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold transition"
+                  :class="txn.approved === true ? 'bg-green-500 border-green-500 text-white' : txn.approved === false ? 'bg-gray-200 dark:bg-gray-700 border-gray-300 text-gray-400 line-through' : 'border-gray-300 dark:border-gray-600 text-gray-400 hover:border-green-400 hover:text-green-500'">
+                  <span x-show="txn.approved === true">✓</span>
+                  <span x-show="txn.approved === false">✗</span>
+                  <span x-show="txn.approved === null">?</span>
+                </button>
+
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <span class="text-xs font-bold px-2 py-0.5 rounded" :class="liveSyncRiskBadge(txn.risk_level)" x-text="txn.risk_level"></span>
+                    <span class="text-xs font-medium uppercase text-gray-500 dark:text-gray-400" x-text="txn.action"></span>
+                    <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-500 px-1.5 py-0.5 rounded" x-text="txn.resource_type.replace('_',' ')"></span>
+                    <span class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate" x-text="txn.title"></span>
+                    <span class="text-xs text-gray-400 truncate" x-text="'— ' + txn.field"></span>
+                  </div>
+
+                  <!-- Old → New value -->
+                  <div x-show="txn.old_value !== null || txn.new_value !== null" class="mt-1.5 flex items-start gap-2 text-xs font-mono">
+                    <span x-show="txn.old_value !== null" class="bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 px-2 py-0.5 rounded max-w-xs truncate" x-text="txn.old_value ?? ''"></span>
+                    <span x-show="txn.old_value !== null && txn.new_value !== null" class="text-gray-400 mt-0.5">→</span>
+                    <span x-show="txn.new_value !== null" class="bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-0.5 rounded max-w-xs truncate" x-text="txn.new_value ?? ''"></span>
+                  </div>
+
+                  <!-- Warnings -->
+                  <div x-show="txn.warnings && txn.warnings.length > 0" class="mt-2 space-y-0.5">
+                    <template x-for="(w, wi) in txn.warnings" :key="wi">
+                      <p class="text-xs text-gray-600 dark:text-gray-400 leading-snug" :class="w.startsWith('⚠') || w.startsWith('⛔') ? 'font-semibold text-orange-700 dark:text-orange-400' : ''" x-text="w"></p>
+                    </template>
+                  </div>
+
+                  <!-- Affected relationships -->
+                  <div x-show="txn.affected_relationships && txn.affected_relationships.length > 0" class="mt-1.5 flex flex-wrap gap-1">
+                    <template x-for="(rel, ri) in txn.affected_relationships" :key="ri">
+                      <span class="text-xs bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-700 px-1.5 py-0.5 rounded"
+                        x-text="rel.type + ': ' + rel.name + ' (' + rel.action + ')'"></span>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+          <template x-if="liveSyncFilteredTransactions().length === 0">
+            <p class="text-center text-gray-400 py-8">No transactions match the current filter.</p>
+          </template>
+        </div>
+
+        <!-- Commit bar -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 flex items-center justify-between gap-4 sticky bottom-0">
+          <div class="text-sm">
+            <span class="font-semibold text-green-600" x-text="liveSyncApprovedCount()"></span>
+            <span class="text-gray-500"> transaction(s) approved and ready to execute on </span>
+            <span class="font-medium" x-text="liveSyncDest"></span>
+          </div>
+          <div class="flex gap-3">
+            <button @click="liveSyncStep = 'configure'; liveSyncTransactions = []"
+              class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm font-medium px-4 py-2 rounded-xl hover:bg-gray-200 transition">
+              ← Back
+            </button>
+            <button @click="runLiveExecute()"
+              :disabled="liveSyncApprovedCount() === 0 || liveSyncExecuting"
+              class="bg-indigo-500 hover:bg-indigo-600 disabled:opacity-40 text-white font-medium px-6 py-2 rounded-xl text-sm transition">
+              Execute <span x-text="liveSyncApprovedCount()"></span> Transaction(s) →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STEP 4: Executing ── -->
+      <div x-show="liveSyncStep === 'executing'" class="flex flex-col items-center justify-center py-20 text-center">
+        <div class="text-5xl mb-4">⚡</div>
+        <p class="text-lg font-semibold mb-2">Executing transactions…</p>
+        <p class="text-sm text-gray-500">Writing approved changes to <span x-text="liveSyncDest"></span> via the Shopify Admin API.</p>
+        <p class="text-xs text-gray-400 mt-1">Do not close this page.</p>
+      </div>
+
+      <!-- ── STEP 5: Done ── -->
+      <div x-show="liveSyncStep === 'done'" class="space-y-4">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-6 text-center">
+          <div class="text-4xl mb-3" x-text="(liveSyncResults?.errors || 0) === 0 ? '✅' : '⚠️'"></div>
+          <h3 class="text-xl font-bold mb-2" x-text="(liveSyncResults?.errors || 0) === 0 ? 'Sync complete' : 'Sync complete with errors'"></h3>
+          <div class="flex justify-center gap-6 text-sm mt-3">
+            <div><span class="text-2xl font-bold text-green-600" x-text="liveSyncResults?.ok || 0"></span><br><span class="text-gray-500">succeeded</span></div>
+            <div><span class="text-2xl font-bold text-red-500" x-text="liveSyncResults?.errors || 0"></span><br><span class="text-gray-500">errors</span></div>
+          </div>
+        </div>
+        <template x-if="liveSyncResults?.error_details?.length > 0">
+          <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4">
+            <h4 class="text-sm font-semibold text-red-700 dark:text-red-300 mb-2">Errors</h4>
+            <div class="space-y-1">
+              <template x-for="(err, ei) in liveSyncResults.error_details" :key="ei">
+                <p class="text-xs text-red-600 dark:text-red-400 font-mono" x-text="err.error"></p>
+              </template>
+            </div>
+          </div>
+        </template>
+        <button @click="liveSyncStep = 'configure'; liveSyncTransactions = []; liveSyncResults = null"
+          class="bg-indigo-500 hover:bg-indigo-600 text-white font-medium px-6 py-2.5 rounded-xl text-sm transition">
+          Start New Sync
+        </button>
       </div>
     </div>
 
@@ -2987,6 +3317,76 @@
               class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium">
               🤖 Categorize Visible Products
             </button>
+          </div>
+        </div>
+
+        <!-- Shopify API Credentials -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+          <h3 class="font-semibold mb-1 text-orange-500">🛍️ Shopify API Credentials</h3>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
+            Enter the Admin API credentials for each store. These are used for live sync, diff scanning, and writing back to Shopify.
+            Credentials are stored in <code class="bg-gray-100 dark:bg-gray-700 px-1 rounded">config/settings.yaml</code> — keep that file out of source control.
+          </p>
+          <div class="space-y-5">
+            <template x-for="site in (settingsData.source_sites || [])" :key="site.domain">
+              <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-4">
+                <div class="flex items-center justify-between mb-3">
+                  <div>
+                    <span class="font-medium text-sm" x-text="site.name"></span>
+                    <span class="ml-2 text-xs text-gray-400 font-mono" x-text="site.domain"></span>
+                  </div>
+                  <!-- Connection status badge -->
+                  <span x-show="shopifyTestStatus[site.domain] === 'ok'"
+                    class="text-xs bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-2 py-0.5 rounded-full font-medium">
+                    ✓ Connected — <span x-text="shopifyTestMessage[site.domain]"></span>
+                  </span>
+                  <span x-show="shopifyTestStatus[site.domain] === 'error'"
+                    class="text-xs bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 px-2 py-0.5 rounded-full font-medium">
+                    ✗ <span x-text="shopifyTestMessage[site.domain]"></span>
+                  </span>
+                  <span x-show="shopifyTestStatus[site.domain] === 'testing'"
+                    class="text-xs bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 px-2 py-0.5 rounded-full font-medium">
+                    Testing…
+                  </span>
+                </div>
+                <div class="grid grid-cols-1 gap-2">
+                  <div>
+                    <label class="text-xs font-medium block mb-1 text-gray-600 dark:text-gray-300">Store URL</label>
+                    <input type="text" placeholder="your-store.myshopify.com"
+                      :value="shopifyCredentials[site.domain]?.shopify_store_url || ''"
+                      @input="shopifyCredentials[site.domain] = { ...(shopifyCredentials[site.domain] || {}), shopify_store_url: $event.target.value }"
+                      class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm font-mono bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                  </div>
+                  <div class="grid grid-cols-2 gap-2">
+                    <div>
+                      <label class="text-xs font-medium block mb-1 text-gray-600 dark:text-gray-300">API Key</label>
+                      <input type="password" placeholder="••••••••••••••••"
+                        :value="shopifyCredentials[site.domain]?.shopify_api_key || ''"
+                        @input="shopifyCredentials[site.domain] = { ...(shopifyCredentials[site.domain] || {}), shopify_api_key: $event.target.value }"
+                        class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm font-mono bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                    </div>
+                    <div>
+                      <label class="text-xs font-medium block mb-1 text-gray-600 dark:text-gray-300">Admin Access Token</label>
+                      <input type="password" placeholder="shpat_••••••••••••••••"
+                        :value="shopifyCredentials[site.domain]?.shopify_access_token || ''"
+                        @input="shopifyCredentials[site.domain] = { ...(shopifyCredentials[site.domain] || {}), shopify_access_token: $event.target.value }"
+                        class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm font-mono bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                    </div>
+                  </div>
+                </div>
+                <div class="flex gap-2 mt-3">
+                  <button @click="saveShopifyCredentials(site.domain)"
+                    class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">
+                    Save
+                  </button>
+                  <button @click="testShopifyConnection(site.domain)"
+                    :disabled="shopifyTestStatus[site.domain] === 'testing'"
+                    class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-xs font-medium px-4 py-1.5 rounded-lg transition disabled:opacity-40">
+                    Test Connection
+                  </button>
+                </div>
+              </div>
+            </template>
           </div>
         </div>
 

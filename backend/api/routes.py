@@ -1674,6 +1674,69 @@ def db_health():
 
 
 # ---------------------------------------------------------------------------
+# Source-site Shopify credentials
+# ---------------------------------------------------------------------------
+
+class ShopifyCredentialsRequest(BaseModel):
+    shopify_store_url: str = ""
+    shopify_api_key: str = ""
+    shopify_access_token: str = ""
+
+
+@router.put("/api/source-sites/{domain}/credentials")
+def save_source_site_credentials(domain: str, req: ShopifyCredentialsRequest):
+    """Persist Shopify API credentials for a source site (matched by domain)."""
+    sites = config.get("source_sites", default=[])
+    matched = False
+    for site in sites:
+        if site.get("domain") == domain:
+            site["shopify_store_url"] = req.shopify_store_url.strip()
+            site["shopify_api_key"] = req.shopify_api_key.strip()
+            site["shopify_access_token"] = req.shopify_access_token.strip()
+            matched = True
+            break
+    if not matched:
+        raise HTTPException(status_code=404, detail=f"Source site not found: {domain}")
+    # Patch the list back into config and save
+    config._settings["source_sites"] = sites
+    config._save()
+    return {"status": "saved", "domain": domain}
+
+
+@router.post("/api/source-sites/{domain}/test-connection")
+async def test_source_site_connection(domain: str):
+    """Verify Shopify API credentials by fetching the shop info endpoint."""
+    sites = config.get("source_sites", default=[])
+    site = next((s for s in sites if s.get("domain") == domain), None)
+    if site is None:
+        raise HTTPException(status_code=404, detail=f"Source site not found: {domain}")
+
+    store_url = (site.get("shopify_store_url") or "").strip().rstrip("/")
+    api_key = (site.get("shopify_api_key") or "").strip()
+    access_token = (site.get("shopify_access_token") or "").strip()
+
+    if not store_url or not access_token:
+        return {"ok": False, "error": "Store URL and access token are required"}
+
+    # Normalise store URL
+    if not store_url.startswith("http"):
+        store_url = "https://" + store_url
+
+    import httpx
+    try:
+        url = f"{store_url}/admin/api/2024-01/shop.json"
+        headers = {"X-Shopify-Access-Token": access_token, "Content-Type": "application/json"}
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.get(url, headers=headers)
+        if resp.status_code == 200:
+            shop = resp.json().get("shop", {})
+            return {"ok": True, "shop_name": shop.get("name", ""), "plan": shop.get("plan_name", "")}
+        return {"ok": False, "error": f"HTTP {resp.status_code}: {resp.text[:200]}"}
+    except Exception as exc:
+        return {"ok": False, "error": str(exc)}
+
+
+# ---------------------------------------------------------------------------
 # Task Manager — active/recent task list
 # ---------------------------------------------------------------------------
 
@@ -2661,3 +2724,165 @@ def shopify_sync_export(req: ShopifySyncRequest, db: Session = Depends(get_db_se
         media_type="text/csv",
         headers={"Content-Disposition": "attachment; filename=shopify_sync_export.csv"},
     )
+
+
+# ---------------------------------------------------------------------------
+# Shopify Live Sync  (scan → diff → execute via Admin API)
+# ---------------------------------------------------------------------------
+
+def _get_site_credentials(domain: str):
+    """Return (store_url, access_token) for a domain, or raise 400/422."""
+    sites = config.get("source_sites", default=[])
+    site = next((s for s in sites if s.get("domain") == domain), None)
+    if site is None:
+        raise HTTPException(status_code=404, detail=f"Unknown source site: {domain}")
+    store_url = (site.get("shopify_store_url") or "").strip()
+    token = (site.get("shopify_access_token") or "").strip()
+    if not store_url or not token:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Shopify credentials not configured for {domain}. "
+                   "Add them in Settings → Shopify API Credentials.",
+        )
+    return store_url, token
+
+
+# In-memory scan cache: domain -> snapshot dict
+# (cleared on server restart; use for single-session diff workflows)
+_scan_cache: Dict[str, Any] = {}
+
+
+class LiveScanRequest(BaseModel):
+    domain: str
+
+
+class LiveDiffRequest(BaseModel):
+    source_domain: str
+    dest_domain: str
+    selected_fields: Optional[List[str]] = None
+    include_deletes: bool = False
+    include_new: bool = True
+
+
+class LiveExecuteRequest(BaseModel):
+    dest_domain: str
+    transactions: List[Dict]   # full transaction dicts with approved field set
+
+
+@router.post("/api/shopify-live/scan")
+async def shopify_live_scan(req: LiveScanRequest):
+    """Fetch full product/collection/metafield snapshot from a Shopify store."""
+    store_url, token = _get_site_credentials(req.domain)
+    from backend.shopify.scanner import scan_store
+
+    progress_log: List[str] = []
+
+    def _cb(stage: str, done: int, total: int):
+        msg = f"{stage}: {done}/{total}" if total else stage
+        progress_log.append(msg)
+
+    try:
+        snapshot = await scan_store(store_url, token, progress_cb=_cb)
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Scan failed: {exc}")
+
+    # Cache snapshot (strip large HTML bodies to save memory)
+    _scan_cache[req.domain] = snapshot
+
+    return {
+        "domain": req.domain,
+        "shop_name": snapshot["shop"].get("name", ""),
+        "product_count": len(snapshot["products"]),
+        "collection_count": len(snapshot["collections"]),
+        "metafield_product_count": len(snapshot["metafields"]),
+        "progress": progress_log,
+    }
+
+
+@router.get("/api/shopify-live/scan-status")
+def shopify_scan_status():
+    """Return which domains have a cached scan snapshot."""
+    return {
+        domain: {
+            "product_count": len(snap["products"]),
+            "shop_name": snap["shop"].get("name", ""),
+        }
+        for domain, snap in _scan_cache.items()
+    }
+
+
+@router.post("/api/shopify-live/diff")
+async def shopify_live_diff(req: LiveDiffRequest):
+    """
+    Diff source domain snapshot against destination domain snapshot.
+    Both must have been scanned first (or will be scanned on demand).
+    """
+    # Ensure both snapshots exist — scan on demand if missing
+    for domain in (req.source_domain, req.dest_domain):
+        if domain not in _scan_cache:
+            store_url, token = _get_site_credentials(domain)
+            from backend.shopify.scanner import scan_store
+            try:
+                _scan_cache[domain] = await scan_store(store_url, token)
+            except Exception as exc:
+                raise HTTPException(status_code=502, detail=f"Scan of {domain} failed: {exc}")
+
+    from backend.shopify.differ import diff_stores
+    transactions = diff_stores(
+        source=_scan_cache[req.source_domain],
+        dest=_scan_cache[req.dest_domain],
+        selected_fields=req.selected_fields,
+        include_deletes=req.include_deletes,
+        include_new=req.include_new,
+    )
+
+    # Strip large HTML from transactions before sending to browser
+    for t in transactions:
+        if t.get("field") == "Description (HTML)":
+            for k in ("old_value", "new_value"):
+                if isinstance(t.get(k), str) and len(t[k]) > 300:
+                    t[k] = t[k][:300] + "…"
+        # Don't send full source_product in meta to keep payload small
+        if "source_product" in t.get("meta", {}):
+            sp = t["meta"]["source_product"]
+            t["meta"]["source_product"] = {
+                k: sp[k] for k in ("id", "handle", "title", "status")
+                if k in sp
+            }
+
+    risk_counts = {"LOW": 0, "MEDIUM": 0, "HIGH": 0, "CRITICAL": 0}
+    for t in transactions:
+        risk_counts[t["risk_level"]] = risk_counts.get(t["risk_level"], 0) + 1
+
+    return {
+        "source_domain": req.source_domain,
+        "dest_domain": req.dest_domain,
+        "total": len(transactions),
+        "risk_counts": risk_counts,
+        "transactions": transactions,
+    }
+
+
+@router.post("/api/shopify-live/execute")
+async def shopify_live_execute(req: LiveExecuteRequest):
+    """Execute approved transactions against the destination store."""
+    store_url, token = _get_site_credentials(req.dest_domain)
+    from backend.shopify.executor import execute_transactions
+
+    approved_count = sum(1 for t in req.transactions if t.get("approved") is True)
+    if approved_count == 0:
+        return {"status": "nothing_to_do", "results": []}
+
+    results = await execute_transactions(store_url, token, req.transactions)
+
+    ok = sum(1 for r in results if r["status"] == "ok")
+    errors = [r for r in results if r["status"] == "error"]
+
+    return {
+        "status": "complete",
+        "approved": approved_count,
+        "ok": ok,
+        "errors": len(errors),
+        "error_details": errors[:20],
+        "results": results,
+    }

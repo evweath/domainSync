@@ -29,6 +29,7 @@ function app() {
       { id: 'source-products', icon: '📂', label: 'Source Products',   badge: 0 },
       { id: 'store-compare',   icon: '🔀', label: 'Store Compare',      badge: 0 },
       { id: 'shopify-sync',     icon: '🛍️', label: 'Shopify Sync',        badge: 0 },
+      { id: 'live-sync',        icon: '⚡', label: 'Live Sync',           badge: 0 },
       { id: 'find-product',    icon: '🔎', label: 'Find Product',       badge: 0 },
       { id: 'beat-price',      icon: '💡', label: 'Beat This Price',    badge: 0 },
       { id: 'find-customers',  icon: '👥', label: 'Find Customers',     badge: 0 },
@@ -107,7 +108,25 @@ function app() {
     storeCompExpanded: {},
     storeCompSaving: {},
 
-    // Shopify Sync
+    // Shopify Live Sync (API-based)
+    liveSyncStep: 'configure',   // 'configure' | 'scanning' | 'review' | 'executing' | 'done'
+    liveSyncSource: '',
+    liveSyncDest: '',
+    liveSyncFields: ['title','body_html','vendor','product_type','tags','variants','images','collections'],
+    liveSyncIncludeNew: true,
+    liveSyncIncludeDeletes: false,
+    liveSyncWarningsOn: true,    // default: always warn
+    liveSyncScanStatus: {},      // domain -> {product_count, shop_name}
+    liveSyncScanProgress: {},    // domain -> status string
+    liveSyncTransactions: [],
+    liveSyncRiskCounts: {},
+    liveSyncFilter: 'all',       // 'all'|'pending'|'approved'|'rejected'|'LOW'|'MEDIUM'|'HIGH'|'CRITICAL'
+    liveSyncSearch: '',
+    liveSyncExecuting: false,
+    liveSyncResults: null,
+    liveSyncShowDisableWarning: false,
+
+    // Shopify Sync (CSV export — existing)
     shopifySyncConfig: { attribute_groups: [], source_sites: [] },
     shopifySyncSource: '',
     shopifySyncGroups: {},   // group_id -> 'MERGE'|'REPLACE'|'SKIP'
@@ -201,6 +220,9 @@ function app() {
     // Settings
     settingsData: {},
     webhookForm: { url: '', events: ['price_alert', 'scan_complete', 'competitor_scan_complete'], secret: '' },
+    shopifyCredentials: {},    // domain -> { shopify_store_url, shopify_api_key, shopify_access_token }
+    shopifyTestStatus: {},     // domain -> 'idle'|'testing'|'ok'|'error'
+    shopifyTestMessage: {},    // domain -> string
 
     // WebSocket
     ws: null,
@@ -1199,7 +1221,156 @@ function app() {
     },
 
     // -----------------------------------------------------------------------
-    // Shopify Sync
+    // Shopify Live Sync (API-based scan → diff → execute)
+    // -----------------------------------------------------------------------
+    async loadLiveSyncScanStatus() {
+      try {
+        this.liveSyncScanStatus = await this.api('/api/shopify-live/scan-status') || {};
+      } catch {}
+    },
+
+    async runLiveScan(domain) {
+      if (!domain) return;
+      this.liveSyncScanProgress = { ...this.liveSyncScanProgress, [domain]: 'Scanning…' };
+      try {
+        const result = await this.api('/api/shopify-live/scan', { method: 'POST', body: JSON.stringify({ domain }) });
+        this.liveSyncScanStatus = {
+          ...this.liveSyncScanStatus,
+          [domain]: { product_count: result.product_count, shop_name: result.shop_name },
+        };
+        this.liveSyncScanProgress = { ...this.liveSyncScanProgress, [domain]: `✓ ${result.product_count} products` };
+      } catch (e) {
+        this.liveSyncScanProgress = { ...this.liveSyncScanProgress, [domain]: `✗ ${e.message}` };
+        this.toast('Scan failed: ' + e.message, 'error');
+      }
+    },
+
+    async runLiveDiff() {
+      if (!this.liveSyncSource || !this.liveSyncDest) {
+        this.toast('Select both source and destination stores.', 'error'); return;
+      }
+      if (this.liveSyncSource === this.liveSyncDest) {
+        this.toast('Source and destination must be different stores.', 'error'); return;
+      }
+      this.liveSyncStep = 'scanning';
+      this.liveSyncTransactions = [];
+      this.liveSyncResults = null;
+      try {
+        const result = await this.api('/api/shopify-live/diff', {
+          method: 'POST',
+          body: JSON.stringify({
+            source_domain: this.liveSyncSource,
+            dest_domain: this.liveSyncDest,
+            selected_fields: this.liveSyncFields,
+            include_deletes: this.liveSyncIncludeDeletes,
+            include_new: this.liveSyncIncludeNew,
+          }),
+        });
+        this.liveSyncTransactions = result.transactions || [];
+        this.liveSyncRiskCounts = result.risk_counts || {};
+        // If warnings off: auto-approve all non-CRITICAL
+        if (!this.liveSyncWarningsOn) {
+          this.liveSyncTransactions.forEach(t => {
+            t.approved = t.risk_level !== 'CRITICAL';
+          });
+        }
+        this.liveSyncStep = 'review';
+      } catch (e) {
+        this.liveSyncStep = 'configure';
+        this.toast('Diff failed: ' + e.message, 'error');
+      }
+    },
+
+    liveSyncFilteredTransactions() {
+      let txns = this.liveSyncTransactions;
+      if (this.liveSyncFilter === 'pending') txns = txns.filter(t => t.approved === null);
+      else if (this.liveSyncFilter === 'approved') txns = txns.filter(t => t.approved === true);
+      else if (this.liveSyncFilter === 'rejected') txns = txns.filter(t => t.approved === false);
+      else if (['LOW','MEDIUM','HIGH','CRITICAL'].includes(this.liveSyncFilter)) {
+        txns = txns.filter(t => t.risk_level === this.liveSyncFilter);
+      }
+      if (this.liveSyncSearch) {
+        const q = this.liveSyncSearch.toLowerCase();
+        txns = txns.filter(t =>
+          (t.title || '').toLowerCase().includes(q) ||
+          (t.handle || '').toLowerCase().includes(q) ||
+          (t.field || '').toLowerCase().includes(q)
+        );
+      }
+      return txns;
+    },
+
+    liveSyncApproveAll(filter) {
+      const txns = filter ? this.liveSyncFilteredTransactions() : this.liveSyncTransactions;
+      txns.forEach(t => { t.approved = true; });
+      this.liveSyncTransactions = [...this.liveSyncTransactions];
+    },
+
+    liveSyncRejectAll(filter) {
+      const txns = filter ? this.liveSyncFilteredTransactions() : this.liveSyncTransactions;
+      txns.forEach(t => { t.approved = false; });
+      this.liveSyncTransactions = [...this.liveSyncTransactions];
+    },
+
+    liveSyncToggle(txnId) {
+      const t = this.liveSyncTransactions.find(x => x.id === txnId);
+      if (!t) return;
+      t.approved = t.approved === true ? false : t.approved === false ? null : true;
+      this.liveSyncTransactions = [...this.liveSyncTransactions];
+    },
+
+    liveSyncApprovedCount() {
+      return this.liveSyncTransactions.filter(t => t.approved === true).length;
+    },
+
+    liveSyncPendingCount() {
+      return this.liveSyncTransactions.filter(t => t.approved === null).length;
+    },
+
+    async runLiveExecute() {
+      const approvedCount = this.liveSyncApprovedCount();
+      if (approvedCount === 0) { this.toast('No transactions approved.', 'error'); return; }
+      if (!confirm(`Execute ${approvedCount} approved transaction(s) against ${this.liveSyncDest}? This will make real changes to the destination store.`)) return;
+      this.liveSyncExecuting = true;
+      this.liveSyncStep = 'executing';
+      try {
+        const result = await this.api('/api/shopify-live/execute', {
+          method: 'POST',
+          body: JSON.stringify({
+            dest_domain: this.liveSyncDest,
+            transactions: this.liveSyncTransactions,
+          }),
+        });
+        this.liveSyncResults = result;
+        this.liveSyncStep = 'done';
+      } catch (e) {
+        this.liveSyncStep = 'review';
+        this.toast('Execution failed: ' + e.message, 'error');
+      } finally {
+        this.liveSyncExecuting = false;
+      }
+    },
+
+    liveSyncRiskClass(risk) {
+      return {
+        'LOW':      'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800',
+        'MEDIUM':   'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800',
+        'HIGH':     'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800',
+        'CRITICAL': 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800',
+      }[risk] || '';
+    },
+
+    liveSyncRiskBadge(risk) {
+      return {
+        'LOW':      'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300',
+        'MEDIUM':   'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300',
+        'HIGH':     'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300',
+        'CRITICAL': 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300',
+      }[risk] || '';
+    },
+
+    // -----------------------------------------------------------------------
+    // Shopify Sync (CSV export)
     // -----------------------------------------------------------------------
     async loadShopifySyncConfig() {
       try {
@@ -1717,6 +1888,16 @@ function app() {
       try {
         this.settingsData = await this.api('/api/settings') || {};
         this.loadSourceSites();
+        // Populate Shopify credential forms from saved settings
+        const creds = {};
+        for (const site of (this.settingsData.source_sites || [])) {
+          creds[site.domain] = {
+            shopify_store_url: site.shopify_store_url || '',
+            shopify_api_key: site.shopify_api_key || '',
+            shopify_access_token: site.shopify_access_token || '',
+          };
+        }
+        this.shopifyCredentials = creds;
         // Load webhook settings
         const wh = await this.api('/api/settings/webhook');
         if (wh) {
@@ -1732,6 +1913,40 @@ function app() {
         this.toast('Setting saved', 'success', 2000);
         await this.loadSettings();
       } catch (e) { this.toast('Failed to save setting: ' + e.message, 'error'); }
+    },
+
+    async saveShopifyCredentials(domain) {
+      const creds = this.shopifyCredentials[domain] || {};
+      try {
+        await this.api(`/api/source-sites/${encodeURIComponent(domain)}/credentials`, {
+          method: 'PUT',
+          body: JSON.stringify({
+            shopify_store_url: creds.shopify_store_url || '',
+            shopify_api_key: creds.shopify_api_key || '',
+            shopify_access_token: creds.shopify_access_token || '',
+          }),
+        });
+        this.toast(`Credentials saved for ${domain}`, 'success', 2500);
+        await this.loadSettings();
+      } catch (e) { this.toast('Failed to save credentials: ' + e.message, 'error'); }
+    },
+
+    async testShopifyConnection(domain) {
+      this.shopifyTestStatus = { ...this.shopifyTestStatus, [domain]: 'testing' };
+      try {
+        const result = await this.api(`/api/source-sites/${encodeURIComponent(domain)}/test-connection`, { method: 'POST' });
+        this.shopifyTestStatus = {
+          ...this.shopifyTestStatus,
+          [domain]: result.ok ? 'ok' : 'error',
+        };
+        this.shopifyTestMessage = {
+          ...this.shopifyTestMessage,
+          [domain]: result.ok ? `Connected — ${result.shop_name} (${result.plan})` : result.error,
+        };
+      } catch (e) {
+        this.shopifyTestStatus = { ...this.shopifyTestStatus, [domain]: 'error' };
+        this.shopifyTestMessage = { ...this.shopifyTestMessage, [domain]: e.message };
+      }
     },
 
     async saveWebhook() {
