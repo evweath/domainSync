@@ -20,3 +20,6 @@ exports/
 
 # macOS
 .DS_Store
+
+# Local config with secrets (API keys, credentials)
+config/settings.yaml
