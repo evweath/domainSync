@@ -106,8 +106,8 @@ class ShopifyClient:
     # Products (cursor-paginated)
     # -----------------------------------------------------------------------
 
-    async def iter_products(self, limit: int = 250) -> AsyncIterator[Dict]:
-        params: Dict[str, Any] = {"limit": limit}
+    async def iter_products(self, limit: int = 250, status: str = "active") -> AsyncIterator[Dict]:
+        params: Dict[str, Any] = {"limit": limit, "status": status}
         while True:
             resp = await self._get("/products.json", params=params)
             for p in resp.json().get("products", []):

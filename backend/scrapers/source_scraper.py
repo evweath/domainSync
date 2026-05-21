@@ -10,6 +10,7 @@ from datetime import datetime
 from typing import Any, Callable, Dict, List, Optional
 from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 
+from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
 from backend.config import config
@@ -212,6 +213,28 @@ class SourceScraper:
                             sess.updated_products = (sess.updated_products or 0) + stats["updated"]
                             sess.errors = (sess.errors or 0) + stats["errors"]
 
+                # Admin API: fetch draft / archived if credentials + checkboxes set
+                site_cfg = next(
+                    (s for s in config.get("source_sites", default=[]) if s.get("domain") == domain),
+                    {},
+                )
+                store_url = site_cfg.get("shopify_store_url", "").strip()
+                access_token = site_cfg.get("shopify_access_token", "").strip()
+                if store_url and access_token:
+                    for admin_status in ("draft", "archived"):
+                        key = f"sync_{admin_status}"
+                        if site_cfg.get(key):
+                            await self._emit("status", {
+                                "message": f"Fetching {admin_status} products via Admin API on {site_name}..."
+                            })
+                            admin_stats = await self._fetch_admin_status_products(
+                                store_url, access_token, domain, admin_status
+                            )
+                            stats[f"{admin_status}_scraped"] = admin_stats["scraped"]
+                            stats[f"{admin_status}_new"] = admin_stats["new"]
+
+                archived = self._archive_unseen_for_site(domain)
+                stats["archived"] = archived
                 await self._emit("site_complete", {"site": site_name, **stats})
                 logger.info(f"Completed {site_name} via Shopify API: {stats}")
                 return stats
@@ -281,11 +304,33 @@ class SourceScraper:
                     sess.updated_products = (sess.updated_products or 0) + stats["updated"]
                     sess.errors = (sess.errors or 0) + stats["errors"]
 
+        # Admin API: fetch draft / archived if credentials + checkboxes set
+        site_cfg = next(
+            (s for s in config.get("source_sites", default=[]) if s.get("domain") == domain),
+            {},
+        )
+        store_url = site_cfg.get("shopify_store_url", "").strip()
+        access_token = site_cfg.get("shopify_access_token", "").strip()
+        if store_url and access_token:
+            for admin_status in ("draft", "archived"):
+                key = f"sync_{admin_status}"
+                if site_cfg.get(key):
+                    await self._emit("status", {
+                        "message": f"Fetching {admin_status} products via Admin API on {site_name}..."
+                    })
+                    admin_stats = await self._fetch_admin_status_products(
+                        store_url, access_token, domain, admin_status
+                    )
+                    stats[f"{admin_status}_scraped"] = admin_stats["scraped"]
+                    stats[f"{admin_status}_new"] = admin_stats["new"]
+
+        archived = self._archive_unseen_for_site(domain)
+        stats["archived"] = archived
         await self._emit("site_complete", {"site": site_name, **stats})
         logger.info(f"Completed {site_name}: {stats}")
         return stats
 
-    def _persist_product(self, scraped: ScrapedProduct, source_site: str) -> str:
+    def _persist_product(self, scraped: ScrapedProduct, source_site: str, source_status: str = "active") -> str:
         """
         Persist a scraped product. Returns "new", "updated", or "skipped".
         Uses content hash for incremental scraping (F05).
@@ -327,9 +372,15 @@ class SourceScraper:
                             break
 
             if existing_source:
-                # F05: Incremental – skip if content unchanged
+                # Always stamp scan_session_id so post-scan archive step knows this was seen.
+                existing_source.scan_session_id = self.scan_session_id
+                existing_source.source_status = source_status
+                existing_source.is_active = source_status != "archived"
+
+                # F05: Incremental – skip content update if hash unchanged
                 if existing_source.content_hash == scraped.content_hash:
                     return "skipped"
+
                 # Update existing source record
                 existing_source.source_title = scraped.title
                 existing_source.source_description = scraped.description
@@ -341,7 +392,6 @@ class SourceScraper:
                 existing_source.source_category = scraped.category
                 existing_source.content_hash = scraped.content_hash
                 existing_source.scraped_at = datetime.utcnow()
-                existing_source.scan_session_id = self.scan_session_id
 
                 # Update master product (F55 versioning handled in dedup engine)
                 product = db.get(Product, existing_source.product_id)
@@ -390,7 +440,8 @@ class SourceScraper:
                     source_sku=scraped.sku,
                     source_category=scraped.category,
                     content_hash=scraped.content_hash,
-                    is_active=True,
+                    is_active=source_status != "archived",
+                    source_status=source_status,
                 )
                 db.add(source)
 
@@ -414,6 +465,71 @@ class SourceScraper:
                     ))
 
                 return "new"
+
+    async def _fetch_admin_status_products(
+        self, store_url: str, access_token: str, domain: str, status: str
+    ) -> Dict[str, int]:
+        """Fetch draft or archived products via Shopify Admin API and persist them."""
+        from backend.scrapers.base_scraper import ScrapedProduct
+        from backend.shopify.client import ShopifyClient
+        import re as _re
+
+        stats = {"scraped": 0, "new": 0, "updated": 0, "errors": 0}
+        base = store_url.rstrip("/")
+        async with ShopifyClient(store_url, access_token) as client:
+            async for item in client.iter_products(status=status):
+                try:
+                    variant = item["variants"][0] if item.get("variants") else {}
+                    price_raw = variant.get("price")
+                    price = float(price_raw) if price_raw else None
+                    images = [img["src"] for img in item.get("images", []) if img.get("src")]
+                    sp = ScrapedProduct(
+                        url=f"{base}/products/{item['handle']}",
+                        title=item.get("title", ""),
+                        price=price,
+                        price_raw=price_raw,
+                        in_stock=variant.get("available", False),
+                        sku=variant.get("sku") or None,
+                        manufacturer=item.get("vendor") or None,
+                        category=(item.get("product_type") or "").strip() or None,
+                        description=_re.sub(r"<[^>]+>", " ", item.get("body_html") or "").strip() or None,
+                        images=images,
+                        source_site=domain,
+                    )
+                    sp.compute_hash()
+                    result = self._persist_product(sp, domain, source_status=status)
+                    stats["scraped"] += 1
+                    if result == "new":
+                        stats["new"] += 1
+                    elif result == "updated":
+                        stats["updated"] += 1
+                except Exception as exc:
+                    logger.error("Admin %s fetch error for %s: %s", status, domain, exc)
+                    stats["errors"] += 1
+        logger.info("Admin %s fetch for %s: %s", status, domain, stats)
+        return stats
+
+    def _archive_unseen_for_site(self, domain: str) -> int:
+        """Mark source listings not touched by this scan session as archived."""
+        if not self.scan_session_id:
+            return 0
+        with session_scope() as db:
+            count = (
+                db.query(ProductSource)
+                .filter(
+                    ProductSource.source_site == domain,
+                    ProductSource.source_status != "archived",
+                    or_(
+                        ProductSource.scan_session_id == None,
+                        ProductSource.scan_session_id != self.scan_session_id,
+                    ),
+                )
+                .update(
+                    {"source_status": "archived", "is_active": False},
+                    synchronize_session=False,
+                )
+            )
+        return count
 
 
 async def run_source_scan(

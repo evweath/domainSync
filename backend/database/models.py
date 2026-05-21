@@ -150,6 +150,7 @@ class ProductSource(Base):
     raw_html_path = Column(String(500))           # F04 optional HTML archive
     content_hash = Column(String(64))             # F05 change detection
     is_active = Column(Boolean, default=True)
+    source_status = Column(String(50), default="active")  # active|draft|archived
     scraped_at = Column(DateTime, default=func.now())
 
     product = relationship("Product", back_populates="sources")

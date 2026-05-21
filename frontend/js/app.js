@@ -1895,6 +1895,8 @@ function app() {
             shopify_store_url: site.shopify_store_url || '',
             shopify_api_key: site.shopify_api_key || '',
             shopify_access_token: site.shopify_access_token || '',
+            sync_draft: site.sync_draft || false,
+            sync_archived: site.sync_archived || false,
           };
         }
         this.shopifyCredentials = creds;
@@ -1924,6 +1926,8 @@ function app() {
             shopify_store_url: creds.shopify_store_url || '',
             shopify_api_key: creds.shopify_api_key || '',
             shopify_access_token: creds.shopify_access_token || '',
+            sync_draft: creds.sync_draft || false,
+            sync_archived: creds.sync_archived || false,
           }),
         });
         this.toast(`Credentials saved for ${domain}`, 'success', 2500);

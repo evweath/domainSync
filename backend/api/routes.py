@@ -137,14 +137,24 @@ def get_stats(db: Session = Depends(get_db_session)):
         .filter(ScanSession.session_type == "source")
         .order_by(ScanSession.started_at.desc()).first()
     )
-    site_counts_raw = (
-        db.query(ProductSource.source_site, func.count(ProductSource.id))
-        .filter(ProductSource.is_active == True)
-        .group_by(ProductSource.source_site).all()
+    site_status_raw = (
+        db.query(
+            ProductSource.source_site,
+            ProductSource.source_status,
+            func.count(ProductSource.id),
+        )
+        .group_by(ProductSource.source_site, ProductSource.source_status)
+        .all()
     )
-    site_counts_map = {site: count for site, count in site_counts_raw}
+    site_counts_map: Dict[str, Any] = {}
+    for site, status, count in site_status_raw:
+        if site not in site_counts_map:
+            site_counts_map[site] = {"active": 0, "draft": 0, "archived": 0, "total": 0}
+        s = status or "active"
+        site_counts_map[site][s] = site_counts_map[site].get(s, 0) + count
+        site_counts_map[site]["total"] += count
     for s in config.get("source_sites", default=[]):
-        site_counts_map.setdefault(s["domain"], 0)
+        site_counts_map.setdefault(s["domain"], {"active": 0, "draft": 0, "archived": 0, "total": 0})
     categories = (
         db.query(Product.category, func.count(Product.id))
         .filter(Product.is_active == True, Product.category != None)
@@ -1726,6 +1736,8 @@ class ShopifyCredentialsRequest(BaseModel):
     shopify_store_url: str = ""
     shopify_api_key: str = ""
     shopify_access_token: str = ""
+    sync_draft: bool = False
+    sync_archived: bool = False
 
 
 @router.put("/api/source-sites/{domain}/credentials")
@@ -1738,6 +1750,8 @@ def save_source_site_credentials(domain: str, req: ShopifyCredentialsRequest):
             site["shopify_store_url"] = req.shopify_store_url.strip()
             site["shopify_api_key"] = req.shopify_api_key.strip()
             site["shopify_access_token"] = req.shopify_access_token.strip()
+            site["sync_draft"] = req.sync_draft
+            site["sync_archived"] = req.sync_archived
             matched = True
             break
     if not matched:
