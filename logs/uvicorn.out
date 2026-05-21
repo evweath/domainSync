@@ -11,3 +11,18 @@
 2026-05-20 17:16:54 [INFO] backend.app: Log-tail broadcaster started
 2026-05-20 17:16:54 [INFO] backend.app: Dashboard: https://localhost:8743
 2026-05-20 17:16:54 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+/Users/evw/dev/productComparison/donut-intel/backend/api/routes.py:1922: SAWarning: Coercing Subquery object into a select() for use in IN(); please pass a select() construct explicitly
+  .filter(Product.id.in_(multi_domain_ids), Product.is_active == True)
+2026-05-20 19:21:19 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-20 19:21:19 [INFO] backend.app: Donut Intel Platform shut down.
+./start.sh: line 22: 19479 Terminated: 15          uvicorn backend.app:app --host 127.0.0.1 --port "$PORT" --ssl-certfile "$CERT" --ssl-keyfile "$KEY" --log-level warning
+ERROR:    Error loading ASGI app. Could not import module "backend.main".
+2026-05-21 14:44:14 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 14:44:14 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 14:44:14 [INFO] backend.database.db: Database initialized
+2026-05-21 14:44:14 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 14:44:14 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 14:44:14 [INFO] backend.app: Scheduler started
+2026-05-21 14:44:14 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 14:44:14 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 14:44:14 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
