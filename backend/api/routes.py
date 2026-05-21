@@ -4,14 +4,18 @@ Covers: scraping, dedup, products, competitors, price comparison,
         scheduler, export, reports, AI categorization, webhooks, bulk import.
 """
 import asyncio
+import csv
 import html
+import io
 import json
 import logging
 import re
+import zipfile
 from collections import deque
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+from urllib.parse import urlparse
 
 
 # Scraped product descriptions arrive with raw HTML (paragraphs, lists,
@@ -2283,3 +2287,377 @@ async def search_find_customers(req: FindCustomersRequest):
         max_results=req.max_results,
     )
     return {"results": results}
+
+
+# ---------------------------------------------------------------------------
+# Shopify Sync
+# ---------------------------------------------------------------------------
+
+_SHOPIFY_ATTR_GROUPS = [
+    {
+        "id": "core_identity",
+        "label": "Core Identity",
+        "icon": "🏷️",
+        "description": "Title, handle, vendor, product type, tags, status",
+        "fields": ["Title", "URL Handle", "Vendor", "Product Type", "Tags", "Published"],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "MERGE",
+    },
+    {
+        "id": "description",
+        "label": "Description / Body HTML",
+        "icon": "📝",
+        "description": "Full product description (HTML body)",
+        "fields": ["Body HTML"],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "MERGE",
+    },
+    {
+        "id": "seo",
+        "label": "SEO",
+        "icon": "🔍",
+        "description": "SEO title and description",
+        "fields": ["SEO Title", "SEO Description"],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "MERGE",
+    },
+    {
+        "id": "pricing",
+        "label": "Pricing",
+        "icon": "💲",
+        "description": "Price, compare-at price, cost per item",
+        "fields": ["Variant Price", "Variant Compare At Price", "Cost per item"],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "MERGE",
+    },
+    {
+        "id": "inventory",
+        "label": "Inventory & Fulfillment",
+        "icon": "📦",
+        "description": "SKU, barcode, inventory policy, fulfillment service, quantity",
+        "fields": [
+            "Variant SKU", "Variant Barcode", "Variant Inventory Policy",
+            "Variant Fulfillment Service", "Variant Inventory Qty",
+            "Variant Inventory Tracker",
+        ],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "MERGE",
+    },
+    {
+        "id": "shipping",
+        "label": "Shipping",
+        "icon": "🚚",
+        "description": "Weight, weight unit, requires shipping, taxable",
+        "fields": [
+            "Variant Grams", "Variant Weight Unit",
+            "Variant Requires Shipping", "Variant Taxable",
+        ],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "MERGE",
+    },
+    {
+        "id": "options",
+        "label": "Options / Variants",
+        "icon": "🎨",
+        "description": "Option names and values (size, color, etc.)",
+        "fields": [
+            "Option1 Name", "Option1 Value",
+            "Option2 Name", "Option2 Value",
+            "Option3 Name", "Option3 Value",
+        ],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "REPLACE",
+    },
+    {
+        "id": "images",
+        "label": "Images",
+        "icon": "🖼️",
+        "description": "Product and variant image URLs and alt text",
+        "fields": [
+            "Image Src", "Image Position", "Image Alt Text",
+            "Variant Image",
+        ],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "MERGE",
+    },
+    {
+        "id": "gift_card",
+        "label": "Gift Card",
+        "icon": "🎁",
+        "description": "Gift card flag",
+        "fields": ["Gift Card"],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "MERGE",
+    },
+    {
+        "id": "collections",
+        "label": "Collections",
+        "icon": "📁",
+        "description": "Collection membership (Smart collection rules not exported)",
+        "fields": ["Custom Collections"],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "MERGE",
+    },
+    {
+        "id": "metafields",
+        "label": "Metafields",
+        "icon": "🔧",
+        "description": "Google Shopping and custom metafield columns",
+        "fields": [
+            "Google Shopping / Google Product Category",
+            "Google Shopping / Gender",
+            "Google Shopping / Age Group",
+            "Google Shopping / MPN",
+            "Google Shopping / Condition",
+            "Google Shopping / Custom Product",
+            "Google Shopping / Custom Label 0",
+            "Google Shopping / Custom Label 1",
+            "Google Shopping / Custom Label 2",
+            "Google Shopping / Custom Label 3",
+            "Google Shopping / Custom Label 4",
+        ],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "MERGE",
+    },
+    {
+        "id": "variants_misc",
+        "label": "Variant Misc",
+        "icon": "⚙️",
+        "description": "Tax code, HS code, country of origin",
+        "fields": ["Variant Tax Code", "HS Code", "Country/Region of Origin"],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "MERGE",
+    },
+    {
+        "id": "status",
+        "label": "Status / Visibility",
+        "icon": "👁️",
+        "description": "Published status and sales channel visibility",
+        "fields": ["Published", "Status"],
+        "commands": ["MERGE", "REPLACE"],
+        "default_command": "MERGE",
+    },
+]
+
+_SHOPIFY_CSV_HEADERS = [
+    "Handle", "Title", "Body HTML", "Vendor", "Product Category", "Type",
+    "Tags", "Published", "Option1 Name", "Option1 Value", "Option2 Name",
+    "Option2 Value", "Option3 Name", "Option3 Value", "Variant SKU",
+    "Variant Grams", "Variant Inventory Tracker", "Variant Inventory Qty",
+    "Variant Inventory Policy", "Variant Fulfillment Service",
+    "Variant Price", "Variant Compare At Price", "Variant Requires Shipping",
+    "Variant Taxable", "Variant Barcode", "Image Src", "Image Position",
+    "Image Alt Text", "Gift Card", "SEO Title", "SEO Description",
+    "Google Shopping / Google Product Category", "Google Shopping / Gender",
+    "Google Shopping / Age Group", "Google Shopping / MPN",
+    "Google Shopping / Condition", "Google Shopping / Custom Product",
+    "Google Shopping / Custom Label 0", "Google Shopping / Custom Label 1",
+    "Google Shopping / Custom Label 2", "Google Shopping / Custom Label 3",
+    "Google Shopping / Custom Label 4", "Variant Image",
+    "Variant Weight Unit", "Variant Tax Code", "Cost per item",
+    "Status",
+]
+
+
+def _shopify_handle(source_url: str) -> str:
+    """Extract Shopify product handle from a source URL."""
+    if not source_url:
+        return ""
+    try:
+        path = urlparse(source_url).path.rstrip("/")
+        return path.split("/")[-1]
+    except Exception:
+        return ""
+
+
+def _build_shopify_rows(
+    product,
+    source,
+    selected_groups: dict,
+) -> list:
+    """Build one or more Shopify CSV rows for a product/source pair."""
+    rows = []
+    handle = _shopify_handle(source.source_url) if source and source.source_url else ""
+    if not handle:
+        handle = re.sub(r"[^a-z0-9-]", "-", (product.canonical_title or "product").lower())[:200]
+
+    active_fields: set = set()
+    for group in _SHOPIFY_ATTR_GROUPS:
+        if selected_groups.get(group["id"]):
+            active_fields.update(group["fields"])
+
+    def pick(field: str, src_val, prod_val=""):
+        if field not in active_fields:
+            return ""
+        return str(src_val) if src_val not in (None, "") else (str(prod_val) if prod_val not in (None, "") else "")
+
+    images = list(product.images) if product.images else []
+    options = list(product.options) if hasattr(product, "options") and product.options else []
+    first_image = images[0] if images else None
+
+    base: dict = {h: "" for h in _SHOPIFY_CSV_HEADERS}
+    base["Handle"] = handle
+    base["Title"] = pick("Title", source.source_title if source else None, product.canonical_title)
+    base["Body HTML"] = pick("Body HTML", source.source_description if source else None, product.canonical_description)
+    base["Vendor"] = pick("Vendor", source.source_manufacturer if source else None, product.manufacturer)
+    base["Type"] = pick("Product Type", source.source_category if source else None, product.category)
+    base["Published"] = pick("Published", None, "TRUE") or "TRUE"
+
+    # Tags: from product tags relationship
+    if "Tags" in active_fields:
+        tags = [t.tag for t in product.tags] if hasattr(product, "tags") and product.tags else []
+        base["Tags"] = ", ".join(tags)
+
+    base["Variant SKU"] = pick("Variant SKU", source.source_sku if source else None, product.sku)
+    base["Variant Price"] = pick("Variant Price", source.source_price if source else None, product.price_canonical)
+    base["Variant Requires Shipping"] = "TRUE" if "Variant Requires Shipping" in active_fields else ""
+    base["Variant Taxable"] = "TRUE" if "Variant Taxable" in active_fields else ""
+    base["Variant Inventory Policy"] = "deny" if "Variant Inventory Policy" in active_fields else ""
+    base["Variant Fulfillment Service"] = "manual" if "Variant Fulfillment Service" in active_fields else ""
+    base["Status"] = "active" if "Status" in active_fields else ""
+
+    # Options (group option_group/option_value into up to 3 Option slots)
+    if options and any(f.startswith("Option") for f in active_fields):
+        seen_groups: dict = {}
+        for opt in options:
+            g = opt.option_group or "Option"
+            if g not in seen_groups:
+                seen_groups[g] = []
+            seen_groups[g].append(opt.option_value or "")
+        for i, (grp, vals) in enumerate(list(seen_groups.items())[:3], start=1):
+            base[f"Option{i} Name"] = grp
+            base[f"Option{i} Value"] = vals[0] if vals else ""
+
+    # First image
+    if first_image and "Image Src" in active_fields:
+        base["Image Src"] = first_image.source_url or ""
+        base["Image Position"] = "1"
+        base["Image Alt Text"] = first_image.alt_text or ""
+
+    rows.append(base)
+
+    # Additional image rows
+    if "Image Src" in active_fields:
+        for pos, img in enumerate(images[1:], start=2):
+            row = {h: "" for h in _SHOPIFY_CSV_HEADERS}
+            row["Handle"] = handle
+            row["Image Src"] = img.source_url or ""
+            row["Image Position"] = str(pos)
+            row["Image Alt Text"] = img.alt_text or ""
+            rows.append(row)
+
+    return rows
+
+
+def _make_csv_bytes(rows: list) -> bytes:
+    buf = io.StringIO()
+    writer = csv.DictWriter(buf, fieldnames=_SHOPIFY_CSV_HEADERS, extrasaction="ignore")
+    writer.writeheader()
+    for row in rows:
+        writer.writerow(row)
+    return ("﻿" + buf.getvalue()).encode("utf-8")
+
+
+@router.get("/api/shopify-sync/config")
+def shopify_sync_config():
+    """Return attribute groups and available source sites."""
+    source_sites = [
+        {"domain": s["domain"], "name": s.get("name", s["domain"])}
+        for s in config.get("source_sites", default=[])
+        if s.get("enabled", True)
+    ]
+    return {"attribute_groups": _SHOPIFY_ATTR_GROUPS, "source_sites": source_sites}
+
+
+class ShopifySyncRequest(BaseModel):
+    source_site: str
+    selected_groups: Dict[str, str] = {}  # group_id -> "MERGE"|"REPLACE"|"SKIP"
+    product_scope: str = "all"  # "all" | "source_only" | "diffs_only"
+    search: Optional[str] = None
+    product_ids: Optional[List[int]] = None
+
+
+def _get_sync_products(req: ShopifySyncRequest, db):
+    """Fetch products + their source listings for a sync request."""
+    known_domains = {s["domain"] for s in config.get("source_sites", default=[]) if s.get("enabled", True)}
+    if req.source_site not in known_domains:
+        raise HTTPException(status_code=400, detail=f"Unknown source site: {req.source_site}")
+
+    q = db.query(Product).options(
+        joinedload(Product.sources),
+        joinedload(Product.images),
+    )
+
+    if req.product_ids:
+        q = q.filter(Product.id.in_(req.product_ids))
+
+    if req.search:
+        term = f"%{req.search}%"
+        q = q.filter(
+            (Product.canonical_title.ilike(term))
+            | (Product.sku.ilike(term))
+            | (Product.model_number.ilike(term))
+        )
+
+    products = q.all()
+    pairs = []
+    for product in products:
+        source = next(
+            (src for src in product.sources if src.source_site == req.source_site),
+            None,
+        )
+        if req.product_scope == "source_only" and source is None:
+            continue
+        if req.product_scope == "diffs_only":
+            if source is None:
+                continue
+            has_diff = (
+                (source.source_title or '') != (product.canonical_title or '')
+                or (source.source_sku or '') != (product.sku or '')
+                or source.source_price != product.price_canonical
+            )
+            if not has_diff:
+                continue
+        pairs.append((product, source))
+    return pairs
+
+
+@router.post("/api/shopify-sync/preview")
+def shopify_sync_preview(req: ShopifySyncRequest, db: Session = Depends(get_db_session)):
+    pairs = _get_sync_products(req, db)
+    active_groups = {
+        gid: cmd for gid, cmd in req.selected_groups.items() if cmd != "SKIP"
+    }
+    all_rows = []
+    sample_rows = []
+    for product, source in pairs:
+        rows = _build_shopify_rows(product, source, active_groups)
+        all_rows.extend(rows)
+        if len(sample_rows) < 10:
+            sample_rows.extend(rows[:3])
+
+    return {
+        "product_count": len(pairs),
+        "row_count": len(all_rows),
+        "sample": sample_rows[:10],
+    }
+
+
+@router.post("/api/shopify-sync/export")
+def shopify_sync_export(req: ShopifySyncRequest, db: Session = Depends(get_db_session)):
+    pairs = _get_sync_products(req, db)
+    active_groups = {
+        gid: cmd for gid, cmd in req.selected_groups.items() if cmd != "SKIP"
+    }
+    all_rows = []
+    for product, source in pairs:
+        rows = _build_shopify_rows(product, source, active_groups)
+        all_rows.extend(rows)
+
+    csv_bytes = _make_csv_bytes(all_rows)
+    from fastapi.responses import Response
+    return Response(
+        content=csv_bytes,
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=shopify_sync_export.csv"},
+    )

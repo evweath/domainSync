@@ -28,6 +28,7 @@ function app() {
       { id: 'duplicates',   icon: '🔁', label: 'Duplicates',        badge: 0 },
       { id: 'source-products', icon: '📂', label: 'Source Products',   badge: 0 },
       { id: 'store-compare',   icon: '🔀', label: 'Store Compare',      badge: 0 },
+      { id: 'shopify-sync',     icon: '🛍️', label: 'Shopify Sync',        badge: 0 },
       { id: 'find-product',    icon: '🔎', label: 'Find Product',       badge: 0 },
       { id: 'beat-price',      icon: '💡', label: 'Beat This Price',    badge: 0 },
       { id: 'find-customers',  icon: '👥', label: 'Find Customers',     badge: 0 },
@@ -105,6 +106,16 @@ function app() {
     storeCompHasDiffs: false,
     storeCompExpanded: {},
     storeCompSaving: {},
+
+    // Shopify Sync
+    shopifySyncConfig: { attribute_groups: [], source_sites: [] },
+    shopifySyncSource: '',
+    shopifySyncGroups: {},   // group_id -> 'MERGE'|'REPLACE'|'SKIP'
+    shopifySyncScope: 'all',
+    shopifySyncSearch: '',
+    shopifySyncPreview: null,
+    shopifySyncLoading: false,
+    shopifySyncExporting: false,
 
     // System of Record (primary = donut-equipment.com vs other source domains)
     sorPrimary: 'donut-equipment.com',
@@ -1185,6 +1196,77 @@ function app() {
       if (field === 'in_stock') return val ? 'In Stock' : 'Out of Stock';
       if (typeof val === 'object') return JSON.stringify(val).slice(0, 80);
       return String(val);
+    },
+
+    // -----------------------------------------------------------------------
+    // Shopify Sync
+    // -----------------------------------------------------------------------
+    async loadShopifySyncConfig() {
+      try {
+        const data = await this.api('/api/shopify-sync/config');
+        this.shopifySyncConfig = data || { attribute_groups: [], source_sites: [] };
+        if (!this.shopifySyncSource && this.shopifySyncConfig.source_sites.length > 0) {
+          this.shopifySyncSource = this.shopifySyncConfig.source_sites[0].domain;
+        }
+        if (Object.keys(this.shopifySyncGroups).length === 0) {
+          const defaults = {};
+          for (const g of this.shopifySyncConfig.attribute_groups) {
+            defaults[g.id] = g.default_command;
+          }
+          this.shopifySyncGroups = defaults;
+        }
+      } catch (e) {
+        console.error('loadShopifySyncConfig failed', e);
+      }
+    },
+
+    async runShopifySyncPreview() {
+      if (!this.shopifySyncSource) { alert('Select a source store first.'); return; }
+      this.shopifySyncLoading = true;
+      this.shopifySyncPreview = null;
+      try {
+        const body = {
+          source_site: this.shopifySyncSource,
+          selected_groups: this.shopifySyncGroups,
+          product_scope: this.shopifySyncScope,
+          search: this.shopifySyncSearch || null,
+        };
+        this.shopifySyncPreview = await this.api('/api/shopify-sync/preview', { method: 'POST', body: JSON.stringify(body) });
+      } catch (e) {
+        console.error('shopify sync preview failed', e);
+      } finally {
+        this.shopifySyncLoading = false;
+      }
+    },
+
+    async runShopifySyncExport() {
+      if (!this.shopifySyncSource) { alert('Select a source store first.'); return; }
+      this.shopifySyncExporting = true;
+      try {
+        const body = {
+          source_site: this.shopifySyncSource,
+          selected_groups: this.shopifySyncGroups,
+          product_scope: this.shopifySyncScope,
+          search: this.shopifySyncSearch || null,
+        };
+        const resp = await fetch('/api/shopify-sync/export', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token },
+          body: JSON.stringify(body),
+        });
+        if (!resp.ok) throw new Error(await resp.text());
+        const blob = await resp.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'shopify_sync_export.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+      } catch (e) {
+        alert('Export failed: ' + e.message);
+      } finally {
+        this.shopifySyncExporting = false;
+      }
     },
 
     // -----------------------------------------------------------------------

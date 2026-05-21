@@ -45,7 +45,7 @@
     <nav class="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
       <template x-for="item in navItems" :key="item.id">
         <button
-          @click="currentView = item.id; item.id === 'products' && loadProducts(1); item.id === 'competitors' && loadCompetitors(1); item.id === 'pricing' && loadPriceMatrix(1); item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'source-products' && loadSourceProducts(); item.id === 'store-compare' && loadStoreComparison(1); item.id === 'find-product' && findProductSearchCatalog(); item.id === 'beat-price' && beatPriceSearchCatalog(); item.id === 'system-of-record' && loadSystemOfRecord(); item.id === 'find-customers' && null"
+          @click="currentView = item.id; item.id === 'products' && loadProducts(1); item.id === 'competitors' && loadCompetitors(1); item.id === 'pricing' && loadPriceMatrix(1); item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'source-products' && loadSourceProducts(); item.id === 'store-compare' && loadStoreComparison(1); item.id === 'shopify-sync' && loadShopifySyncConfig(); item.id === 'find-product' && findProductSearchCatalog(); item.id === 'beat-price' && beatPriceSearchCatalog(); item.id === 'system-of-record' && loadSystemOfRecord(); item.id === 'find-customers' && null"
           :class="currentView === item.id
             ? 'bg-orange-600 text-white'
             : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
@@ -1196,6 +1196,156 @@
         <span class="text-sm text-gray-700 dark:text-gray-300" x-text="'Page ' + storeComp.page + ' of ' + storeComp.pages"></span>
         <button @click="loadStoreComparison(storeComp.page + 1)" :disabled="storeComp.page >= storeComp.pages"
           class="px-3 py-1.5 rounded border border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm disabled:opacity-40 hover:bg-gray-100 dark:hover:bg-gray-700">Next →</button>
+      </div>
+    </div>
+
+    <!-- ===== SHOPIFY SYNC VIEW ===== -->
+    <div x-show="currentView === 'shopify-sync'" class="p-6" x-cloak>
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold mb-1">🛍️ Shopify Sync</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Generate a Shopify-importable CSV to synchronize selected product attributes from a source store into Shopify.</p>
+      </div>
+
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+
+        <!-- LEFT COLUMN: Config -->
+        <div class="xl:col-span-1 space-y-4">
+
+          <!-- Source Store -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">Source Store</h3>
+            <template x-if="shopifySyncConfig.source_sites.length === 0">
+              <p class="text-xs text-gray-400">Loading…</p>
+            </template>
+            <div class="space-y-1">
+              <template x-for="site in shopifySyncConfig.source_sites" :key="site.domain">
+                <label class="flex items-center gap-2 cursor-pointer text-sm">
+                  <input type="radio" :value="site.domain" x-model="shopifySyncSource" class="w-4 h-4 text-indigo-500" />
+                  <span x-text="site.name"></span>
+                  <span class="text-xs text-gray-400" x-text="site.domain"></span>
+                </label>
+              </template>
+            </div>
+          </div>
+
+          <!-- Product Scope -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">Product Scope</h3>
+            <select x-model="shopifySyncScope" class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+              <option value="all">All products</option>
+              <option value="source_only">Source-store products only</option>
+              <option value="diffs_only">Products with differences</option>
+            </select>
+            <input x-model="shopifySyncSearch" type="text" placeholder="Filter by title / SKU…"
+              class="mt-2 w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" />
+          </div>
+
+          <!-- Actions -->
+          <div class="flex gap-2">
+            <button @click="runShopifySyncPreview()"
+              :disabled="shopifySyncLoading || !shopifySyncSource"
+              class="flex-1 bg-indigo-500 hover:bg-indigo-600 disabled:opacity-40 text-white text-sm font-medium py-2 rounded-lg transition">
+              <span x-show="!shopifySyncLoading">Preview</span>
+              <span x-show="shopifySyncLoading">Running…</span>
+            </button>
+            <button @click="runShopifySyncExport()"
+              :disabled="shopifySyncExporting || !shopifySyncSource"
+              class="flex-1 bg-green-500 hover:bg-green-600 disabled:opacity-40 text-white text-sm font-medium py-2 rounded-lg transition">
+              <span x-show="!shopifySyncExporting">⬇ Export CSV</span>
+              <span x-show="shopifySyncExporting">Exporting…</span>
+            </button>
+          </div>
+
+          <!-- Preview summary -->
+          <template x-if="shopifySyncPreview">
+            <div class="bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-700 rounded-xl p-4 text-sm space-y-1">
+              <p class="font-semibold text-indigo-700 dark:text-indigo-300">Preview Results</p>
+              <p><span class="font-medium" x-text="shopifySyncPreview.product_count"></span> products</p>
+              <p><span class="font-medium" x-text="shopifySyncPreview.row_count"></span> CSV rows</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Sample of first rows shown →</p>
+            </div>
+          </template>
+        </div>
+
+        <!-- RIGHT COLUMN: Attribute Groups -->
+        <div class="xl:col-span-2">
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Attribute Groups</h3>
+              <div class="flex gap-2 text-xs">
+                <button @click="Object.keys(shopifySyncGroups).forEach(k => shopifySyncGroups[k] = 'MERGE')"
+                  class="px-2 py-1 rounded bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 hover:bg-blue-200 transition">All MERGE</button>
+                <button @click="Object.keys(shopifySyncGroups).forEach(k => shopifySyncGroups[k] = 'SKIP')"
+                  class="px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 transition">Skip All</button>
+              </div>
+            </div>
+            <div class="space-y-2 max-h-[600px] overflow-y-auto pr-1">
+              <template x-for="group in shopifySyncConfig.attribute_groups" :key="group.id">
+                <div class="border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 flex items-start gap-3"
+                  :class="shopifySyncGroups[group.id] === 'SKIP' ? 'opacity-50' : ''">
+                  <span class="text-lg mt-0.5" x-text="group.icon"></span>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                      <span class="text-sm font-medium text-gray-800 dark:text-gray-100" x-text="group.label"></span>
+                      <span class="text-xs text-gray-400 dark:text-gray-500 truncate" x-text="group.description"></span>
+                    </div>
+                    <div class="flex flex-wrap gap-1 mt-1">
+                      <template x-for="field in group.fields.slice(0, 4)" :key="field">
+                        <span class="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-1.5 py-0.5 rounded" x-text="field"></span>
+                      </template>
+                      <template x-if="group.fields.length > 4">
+                        <span class="text-xs text-gray-400" x-text="'+' + (group.fields.length - 4) + ' more'"></span>
+                      </template>
+                    </div>
+                  </div>
+                  <div class="flex gap-1 flex-shrink-0">
+                    <template x-for="cmd in group.commands.concat(['SKIP'])" :key="cmd">
+                      <button
+                        @click="shopifySyncGroups[group.id] = cmd"
+                        :class="{
+                          'bg-blue-500 text-white': shopifySyncGroups[group.id] === cmd && cmd === 'MERGE',
+                          'bg-amber-500 text-white': shopifySyncGroups[group.id] === cmd && cmd === 'REPLACE',
+                          'bg-gray-400 text-white': shopifySyncGroups[group.id] === cmd && cmd === 'SKIP',
+                          'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200': shopifySyncGroups[group.id] !== cmd,
+                        }"
+                        class="text-xs px-2 py-1 rounded font-medium transition"
+                        x-text="cmd">
+                      </button>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Sample Preview Table -->
+          <template x-if="shopifySyncPreview && shopifySyncPreview.sample && shopifySyncPreview.sample.length > 0">
+            <div class="mt-4 bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+              <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">CSV Preview (first rows)</h3>
+              <div class="overflow-x-auto">
+                <table class="text-xs w-full border-collapse">
+                  <thead>
+                    <tr class="bg-gray-50 dark:bg-gray-700">
+                      <template x-for="col in Object.keys(shopifySyncPreview.sample[0]).filter(k => shopifySyncPreview.sample.some(r => r[k]))" :key="col">
+                        <th class="border border-gray-200 dark:border-gray-600 px-2 py-1 text-left font-medium text-gray-600 dark:text-gray-300 whitespace-nowrap" x-text="col"></th>
+                      </template>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <template x-for="(row, ri) in shopifySyncPreview.sample" :key="ri">
+                      <tr :class="ri % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-750'">
+                        <template x-for="col in Object.keys(shopifySyncPreview.sample[0]).filter(k => shopifySyncPreview.sample.some(r => r[k]))" :key="col">
+                          <td class="border border-gray-200 dark:border-gray-600 px-2 py-1 max-w-[180px] truncate" :title="row[col]" x-text="row[col] || ''"></td>
+                        </template>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </template>
+
+        </div>
       </div>
     </div>
 
