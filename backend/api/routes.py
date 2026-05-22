@@ -34,7 +34,7 @@ def _strip_html(text_value: Optional[str]) -> Optional[str]:
     collapsed = _WHITESPACE_RE.sub(" ", decoded).strip()
     return collapsed or None
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, WebSocket, WebSocketDisconnect
+from fastapi import APIRouter, BackgroundTasks, Body, Depends, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.responses import HTMLResponse, Response, StreamingResponse
 from pydantic import BaseModel
 from sqlalchemy import func, or_, text
@@ -2682,11 +2682,36 @@ def _make_csv_bytes(rows: list) -> bytes:
     return ("﻿" + buf.getvalue()).encode("utf-8")
 
 
+@router.put("/api/source-sites/{domain}/destination")
+def set_source_site_destination(domain: str, payload: Dict[str, bool] = Body(...)):
+    is_dest = payload.get("is_destination", False)
+    sites = config.get("source_sites", default=[])
+    if is_dest:
+        current = sum(1 for s in sites if s.get("is_destination") and s.get("domain") != domain)
+        if current >= 2:
+            raise HTTPException(status_code=400, detail="Maximum 2 destination stores allowed")
+    matched = False
+    for site in sites:
+        if site.get("domain") == domain:
+            site["is_destination"] = is_dest
+            matched = True
+            break
+    if not matched:
+        raise HTTPException(status_code=404, detail=f"Source site not found: {domain}")
+    config._settings["source_sites"] = sites
+    config._save()
+    return {"status": "saved", "domain": domain, "is_destination": is_dest}
+
+
 @router.get("/api/shopify-sync/config")
 def shopify_sync_config():
     """Return attribute groups and available source sites."""
     source_sites = [
-        {"domain": s["domain"], "name": s.get("name", s["domain"])}
+        {
+            "domain": s["domain"],
+            "name": s.get("name", s["domain"]),
+            "is_destination": s.get("is_destination", False),
+        }
         for s in config.get("source_sites", default=[])
         if s.get("enabled", True)
     ]

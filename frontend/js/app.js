@@ -1391,6 +1391,19 @@ function app() {
       }
     },
 
+    async toggleShopifySyncDestination(domain, isDestination) {
+      try {
+        await this.api(`/api/source-sites/${domain}/destination`, {
+          method: 'PUT',
+          body: JSON.stringify({ is_destination: isDestination }),
+        });
+        const site = this.shopifySyncConfig.source_sites.find(s => s.domain === domain);
+        if (site) site.is_destination = isDestination;
+      } catch (e) {
+        alert('Failed to save destination setting: ' + e.message);
+      }
+    },
+
     async runShopifySyncPreview() {
       if (!this.shopifySyncSource) { alert('Select a source store first.'); return; }
       this.shopifySyncLoading = true;

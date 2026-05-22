@@ -1569,6 +1569,27 @@
             </div>
           </div>
 
+          <!-- Destination Store(s) -->
+          <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">Destination Store(s)</h3>
+            <p class="text-xs text-gray-400 dark:text-gray-500 mb-3">Mark up to 2 stores where the CSV will be imported.</p>
+            <div class="space-y-1">
+              <template x-for="site in shopifySyncConfig.source_sites" :key="site.domain">
+                <label class="flex items-center gap-2 text-sm"
+                  :class="!site.is_destination && shopifySyncConfig.source_sites.filter(s => s.is_destination).length >= 2 ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'">
+                  <input type="checkbox"
+                    :checked="site.is_destination"
+                    :disabled="!site.is_destination && shopifySyncConfig.source_sites.filter(s => s.is_destination).length >= 2"
+                    @change="toggleShopifySyncDestination(site.domain, $event.target.checked)"
+                    class="w-4 h-4 text-green-500 rounded" />
+                  <span x-text="site.name"></span>
+                  <span class="text-xs text-gray-400" x-text="site.domain"></span>
+                  <span x-show="site.is_destination" class="ml-auto text-xs font-medium text-green-600 dark:text-green-400">destination</span>
+                </label>
+              </template>
+            </div>
+          </div>
+
           <!-- Product Scope -->
           <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
             <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">Product Scope</h3>
