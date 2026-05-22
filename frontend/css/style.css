@@ -156,3 +156,15 @@ table.price-matrix > thead > tr > th {
 /* The competitor chip cell's inner scroller is the ONLY place chips can
    exceed the cell width; keep its scrollbar slim. */
 table.price-matrix .overflow-x-auto::-webkit-scrollbar { height: 4px; }
+
+/* Indigo utilities missing from purged Tailwind build (used in Alpine :class bindings) */
+.bg-indigo-50  { --tw-bg-opacity:1; background-color: rgba(238,242,255,var(--tw-bg-opacity)); }
+.bg-indigo-500 { --tw-bg-opacity:1; background-color: rgba(99,102,241,var(--tw-bg-opacity)); }
+.hover\:bg-indigo-600:hover { --tw-bg-opacity:1; background-color: rgba(79,70,229,var(--tw-bg-opacity)); }
+.border-indigo-500 { --tw-border-opacity:1; border-color: rgba(99,102,241,var(--tw-border-opacity)); }
+.hover\:border-indigo-400:hover { --tw-border-opacity:1; border-color: rgba(129,140,248,var(--tw-border-opacity)); }
+.ring-indigo-400 { --tw-ring-opacity:1; --tw-ring-color: rgba(129,140,248,var(--tw-ring-opacity)); }
+.text-indigo-600 { --tw-text-opacity:1; color: rgba(79,70,229,var(--tw-text-opacity)); }
+.disabled\:opacity-40:disabled { opacity: 0.4; }
+.dark .dark\:bg-indigo-900\/30 { background-color: rgba(49,46,129,0.3); }
+.dark .dark\:text-indigo-400 { --tw-text-opacity:1; color: rgba(129,140,248,var(--tw-text-opacity)); }

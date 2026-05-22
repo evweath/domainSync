@@ -1254,8 +1254,7 @@
                     <button @click.stop="runLiveScan(site.domain)"
                       :disabled="liveSyncScanProgress[site.domain] === 'Scanning…'"
                       class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded transition disabled:opacity-40">
-                      <span x-show="liveSyncScanProgress[site.domain] !== 'Scanning…'">Scan Now</span>
-                      <span x-show="liveSyncScanProgress[site.domain] === 'Scanning…'">Scanning…</span>
+                      <span x-text="liveSyncScanProgress[site.domain] === 'Scanning…' ? 'Scanning…' : 'Scan Now'"></span>
                     </button>
                   </div>
                 </label>
@@ -1271,7 +1270,11 @@
                 <label class="flex items-center justify-between gap-3 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
                   :class="liveSyncDest === site.domain ? 'ring-2 ring-orange-400 bg-orange-50 dark:bg-orange-900/30' : (liveSyncSource === site.domain ? 'opacity-40 pointer-events-none' : '')">
                   <div class="flex items-center gap-2">
-                    <input type="radio" :value="site.domain" x-model="liveSyncDest" :disabled="liveSyncSource === site.domain" class="w-4 h-4 text-orange-500" />
+                    <input type="checkbox"
+                      :checked="liveSyncDest === site.domain"
+                      :disabled="liveSyncSource === site.domain"
+                      @change="liveSyncDest = $event.target.checked ? site.domain : ''"
+                      class="w-4 h-4 text-orange-500 rounded" />
                     <div>
                       <div class="text-sm font-medium" x-text="site.name"></div>
                       <div class="text-xs text-gray-400 font-mono" x-text="site.domain"></div>
@@ -1282,8 +1285,7 @@
                     <button @click.stop="runLiveScan(site.domain)"
                       :disabled="liveSyncScanProgress[site.domain] === 'Scanning…'"
                       class="ml-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded transition disabled:opacity-40">
-                      <span x-show="liveSyncScanProgress[site.domain] !== 'Scanning…'">Scan Now</span>
-                      <span x-show="liveSyncScanProgress[site.domain] === 'Scanning…'">Scanning…</span>
+                      <span x-text="liveSyncScanProgress[site.domain] === 'Scanning…' ? 'Scanning…' : 'Scan Now'"></span>
                     </button>
                   </div>
                 </label>
@@ -1296,7 +1298,7 @@
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
           <h3 class="text-sm font-semibold mb-3 text-gray-700 dark:text-gray-200">What to Sync</h3>
           <div class="flex flex-wrap gap-2 mb-4">
-            <template x-for="f in [{id:'title',label:'Title'},{id:'body_html',label:'Description'},{id:'vendor',label:'Vendor'},{id:'product_type',label:'Product Type'},{id:'tags',label:'Tags'},{id:'variants',label:'Variants & Pricing'},{id:'images',label:'Images'},{id:'collections',label:'Collections'}]" :key="f.id">
+            <template x-for="f in liveSyncFieldOptions" :key="f.id">
               <label class="flex items-center gap-1.5 cursor-pointer text-sm px-3 py-1.5 rounded-full border transition"
                 :class="liveSyncFields.includes(f.id) ? 'bg-indigo-500 text-white border-indigo-500' : 'bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-indigo-400'">
                 <input type="checkbox" :value="f.id" class="hidden"
@@ -1335,8 +1337,7 @@
             <button @click="liveSyncWarningsOn ? (liveSyncShowDisableWarning = true) : (liveSyncWarningsOn = true)"
               class="flex-shrink-0 ml-4 text-xs font-medium px-3 py-1.5 rounded-lg transition"
               :class="liveSyncWarningsOn ? 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-red-100 hover:text-red-700' : 'bg-green-500 text-white hover:bg-green-600'">
-              <span x-show="liveSyncWarningsOn">Turn OFF (not recommended)</span>
-              <span x-show="!liveSyncWarningsOn">Turn warnings back ON</span>
+              <span x-text="liveSyncWarningsOn ? 'Turn OFF (not recommended)' : 'Turn warnings back ON'"></span>
             </button>
           </div>
           <!-- Disable confirmation -->

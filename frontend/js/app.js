@@ -113,6 +113,16 @@ function app() {
     liveSyncSource: '',
     liveSyncDest: '',
     liveSyncFields: ['title','body_html','vendor','product_type','tags','variants','images','collections'],
+    liveSyncFieldOptions: [
+      {id:'title',label:'Title'},
+      {id:'body_html',label:'Description'},
+      {id:'vendor',label:'Vendor'},
+      {id:'product_type',label:'Product Type'},
+      {id:'tags',label:'Tags'},
+      {id:'variants',label:'Variants & Pricing'},
+      {id:'images',label:'Images'},
+      {id:'collections',label:'Collections'},
+    ],
     liveSyncIncludeNew: true,
     liveSyncIncludeDeletes: false,
     liveSyncWarningsOn: true,    // default: always warn
