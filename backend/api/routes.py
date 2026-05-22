@@ -275,11 +275,11 @@ def list_product_ids(
 # ---------------------------------------------------------------------------
 
 _COMP_FIELDS = [
-    ("title",        "canonical_title",        "source_title"),
-    ("manufacturer", "manufacturer",            "source_manufacturer"),
-    ("model_number", "model_number",            "source_model_number"),
-    ("sku",          "sku",                     "source_sku"),
-    ("category",     "category",               "source_category"),
+    ("title",        "canonical_title",  "title"),
+    ("manufacturer", "manufacturer",     "manufacturer"),
+    ("model_number", "model_number",     "model_number"),
+    ("sku",          "sku",              "sku"),
+    ("category",     "category",        "category"),
 ]
 
 
@@ -326,18 +326,20 @@ def get_store_comparison(
                 for site in source_sites
                 if (src := site_srcs.get(site))
             }
+            present = [site for site in source_sites if srcs_light.get(site)]
+            missing = [site for site in source_sites if site not in site_srcs]
             diffs: List[str] = []
-            for label, canon_attr, src_attr in _COMP_FIELDS:
-                canon_val = (getattr(p, canon_attr) or "").strip().lower()
+            for label, _, src_attr in _COMP_FIELDS:
                 src_vals = [
                     (srcs_light[site].get(src_attr) or "").strip().lower()
-                    for site in source_sites if srcs_light.get(site) and srcs_light[site].get(src_attr)
+                    for site in present if (srcs_light[site].get(src_attr) or "").strip()
                 ]
-                if src_vals and (not canon_val or any(v != canon_val for v in src_vals)):
+                if len(src_vals) >= 2 and len(set(src_vals)) > 1:
                     diffs.append(label)
-            prices = [srcs_light[s]["price"] for s in source_sites if srcs_light.get(s) and srcs_light[s].get("price")]
-            if len(set(prices)) > 1 or (prices and p.price_canonical and
-                    any(abs(px - p.price_canonical) / max(p.price_canonical, 0.01) > 0.01 for px in prices)):
+                elif len(src_vals) >= 1 and len(src_vals) < len(present):
+                    diffs.append(label)
+            prices = [srcs_light[s]["price"] for s in present if srcs_light[s].get("price")]
+            if len(set(prices)) > 1:
                 diffs.append("price")
             if diffs:
                 diff_ids.append(p.id)
@@ -429,25 +431,25 @@ def get_store_comparison(
             else:
                 sources[site] = None
 
-        # detect diffs between canonical and any source
+        # Compare sources to each other (not to canonical — canonical is seeded from first scrape)
+        present_sites = [site for site in source_sites if sources.get(site)]
+        missing_sites_list = [site for site in source_sites if site not in site_sources]
         diff_fields: List[str] = []
-        for label, canon_attr, src_attr in _COMP_FIELDS:
-            canon_val = (getattr(product, canon_attr) or "").strip().lower()
+        for label, _, src_attr in _COMP_FIELDS:
+            # Values from sites that carry this field (non-null/non-empty)
             src_vals = [
                 (sources[site][src_attr] or "").strip().lower()
-                for site in source_sites
-                if sources.get(site) and sources[site].get(src_attr)
+                for site in present_sites
+                if (sources[site].get(src_attr) or "").strip()
             ]
-            if not src_vals:
-                continue
-            if not canon_val:
+            if len(src_vals) >= 2 and len(set(src_vals)) > 1:
                 diff_fields.append(label)
-            elif any(v != canon_val for v in src_vals):
+            elif len(src_vals) >= 1 and len(src_vals) < len(present_sites):
+                # Some stores have this field, others don't
                 diff_fields.append(label)
 
-        src_prices = [sources[s]["price"] for s in source_sites if sources.get(s) and sources[s].get("price")]
-        if len(set(src_prices)) > 1 or (src_prices and product.price_canonical and
-                any(abs(p - product.price_canonical) / max(product.price_canonical, 0.01) > 0.01 for p in src_prices)):
+        src_prices = [sources[s]["price"] for s in present_sites if sources[s].get("price")]
+        if len(set(src_prices)) > 1:
             diff_fields.append("price")
 
         if has_diffs and not diff_fields:
@@ -459,7 +461,7 @@ def get_store_comparison(
             "canonical": canonical,
             "sources": sources,
             "diff_fields": diff_fields,
-            "missing_sites": [s for s in source_sites if s not in site_sources],
+            "missing_sites": missing_sites_list,
             "source_count": len(site_sources),
         })
 
