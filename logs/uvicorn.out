@@ -3736,3 +3736,992 @@ INFO:     127.0.0.1:51301 - "GET /api/products/store-comparison?page=1&per_page=
 2026-05-21 17:31:18 [INFO] watchfiles.main: 2 changes detected
 2026-05-21 17:31:24 [INFO] watchfiles.main: 17 changes detected
 2026-05-21 17:31:30 [INFO] watchfiles.main: 26 changes detected
+2026-05-21 17:31:33 [INFO] watchfiles.main: 33 changes detected
+2026-05-21 17:32:10 [INFO] watchfiles.main: 4 changes detected
+INFO:     127.0.0.1:51311 - "GET /api/products/store-comparison?page=1&per_page=5&has_diffs=true HTTP/1.1" 200 OK
+2026-05-21 17:32:19 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:51314 - "GET / HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     connection closed
+INFO:     127.0.0.1:51314 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51315 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51316 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51318 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51317 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51314 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51315 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51316 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51315 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51314 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51316 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51315 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51314 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51317 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51319 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51317 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51314 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51317 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51314 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51317 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51319 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51318 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51314 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51315 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51317 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51316 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51320 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51318 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51315 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51321 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51319 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51314 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51324 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51324 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51325 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+2026-05-21 17:33:37 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:51333 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51341 - "GET /api/products/store-comparison?page=2&per_page=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51339 - "GET /api/products/store-comparison?page=1&per_page=5&has_diffs=true&search=fryer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51337 - "GET /api/products/store-comparison?page=1&per_page=5&has_diffs=true HTTP/1.1" 200 OK
+2026-05-21 17:35:23 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:51348 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51356 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-21 17:44:54 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/database/models.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 17:44:55 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:44:55 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [13721]
+INFO:     Started server process [14760]
+INFO:     Waiting for application startup.
+2026-05-21 17:44:55 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:44:55 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:44:55 [INFO] backend.database.db: Database initialized
+2026-05-21 17:44:55 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:44:55 [INFO] watchfiles.main: 5 changes detected
+2026-05-21 17:44:55 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:44:55 [INFO] backend.app: Scheduler started
+2026-05-21 17:44:55 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:44:55 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:44:55 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:44:55 [INFO] watchfiles.main: 1 change detected
+2026-05-21 17:44:59 [INFO] watchfiles.main: 3 changes detected
+INFO:     127.0.0.1:51382 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51381 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51383 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51384 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-21 17:45:28 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/scrapers/source_scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 17:45:28 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:45:28 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [14760]
+INFO:     Started server process [14855]
+INFO:     Waiting for application startup.
+2026-05-21 17:45:28 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:45:28 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:45:28 [INFO] backend.database.db: Database initialized
+2026-05-21 17:45:28 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:45:28 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:45:28 [INFO] backend.app: Scheduler started
+2026-05-21 17:45:28 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:45:28 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:45:28 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:45:28 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:51389 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51390 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51391 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51392 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-21 17:45:42 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/scrapers/source_scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 17:45:42 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:45:42 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [14855]
+INFO:     Started server process [14879]
+INFO:     Waiting for application startup.
+2026-05-21 17:45:42 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:45:42 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:45:42 [INFO] backend.database.db: Database initialized
+2026-05-21 17:45:42 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:45:42 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:45:42 [INFO] backend.app: Scheduler started
+2026-05-21 17:45:42 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:45:42 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:45:42 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:45:43 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:51395 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51396 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-21 17:45:52 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/scrapers/source_scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 17:45:52 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:45:52 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [14879]
+INFO:     Started server process [14904]
+INFO:     Waiting for application startup.
+2026-05-21 17:45:53 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:45:53 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:45:53 [INFO] backend.database.db: Database initialized
+2026-05-21 17:45:53 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:45:53 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:45:53 [INFO] backend.app: Scheduler started
+2026-05-21 17:45:53 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:45:53 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:45:53 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:45:53 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:51397 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51398 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51399 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51400 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-21 17:45:59 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/scrapers/source_scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 17:45:59 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:45:59 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [14904]
+INFO:     Started server process [14929]
+INFO:     Waiting for application startup.
+2026-05-21 17:46:00 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:46:00 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:46:00 [INFO] backend.database.db: Database initialized
+2026-05-21 17:46:00 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:46:00 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:46:00 [INFO] backend.app: Scheduler started
+2026-05-21 17:46:00 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:46:00 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:46:00 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     127.0.0.1:51401 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51402 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+2026-05-21 17:46:00 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:51405 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51406 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-21 17:46:10 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/scrapers/source_scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 17:46:10 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:46:10 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [14929]
+INFO:     Started server process [14953]
+INFO:     Waiting for application startup.
+2026-05-21 17:46:10 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:46:10 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:46:10 [INFO] backend.database.db: Database initialized
+2026-05-21 17:46:10 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:46:10 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:46:10 [INFO] backend.app: Scheduler started
+2026-05-21 17:46:10 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:46:10 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:46:10 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:46:10 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:51407 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51408 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+2026-05-21 17:46:14 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/scrapers/source_scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 17:46:14 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:46:14 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [14953]
+INFO:     Started server process [14977]
+INFO:     Waiting for application startup.
+2026-05-21 17:46:15 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:46:15 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:46:15 [INFO] backend.database.db: Database initialized
+2026-05-21 17:46:15 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:46:15 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:46:15 [INFO] backend.app: Scheduler started
+2026-05-21 17:46:15 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:46:15 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:46:15 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     127.0.0.1:51409 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51410 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-21 17:46:15 [INFO] watchfiles.main: 5 changes detected
+2026-05-21 17:46:40 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 17:46:40 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:46:40 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [14977]
+INFO:     Started server process [15002]
+INFO:     Waiting for application startup.
+2026-05-21 17:46:40 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:46:40 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:46:40 [INFO] backend.database.db: Database initialized
+2026-05-21 17:46:40 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:46:40 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:46:40 [INFO] backend.app: Scheduler started
+2026-05-21 17:46:40 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:46:40 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:46:40 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:46:40 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:51413 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51414 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51415 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51416 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-21 17:46:54 [INFO] watchfiles.main: 3 changes detected
+INFO:     127.0.0.1:51420 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-21 17:47:27 [INFO] backend.scrapers.source_scraper: Starting scrape of Donut Supplies (https://donut-supplies.com)
+INFO:     127.0.0.1:51426 - "POST /api/scan/sources HTTP/1.1" 200 OK
+2026-05-21 17:47:27 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:47:28 [INFO] backend.scrapers.source_scraper: [SCRAPE] Donut Supplies is a Shopify store — using fast /products.json path
+2026-05-21 17:47:29 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 1 → 250 products so far
+2026-05-21 17:47:30 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 2 → 500 products so far
+2026-05-21 17:47:32 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 3 → 750 products so far
+2026-05-21 17:47:33 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 4 → 1000 products so far
+2026-05-21 17:47:34 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 5 → 1250 products so far
+2026-05-21 17:47:36 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 6 → 1500 products so far
+2026-05-21 17:47:36 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 7 → 1750 products so far
+2026-05-21 17:47:37 [INFO] backend.competitor.scraper: Shopify donut-supplies.com: page 8 → 1973 products so far
+2026-05-21 17:47:37 [INFO] backend.scrapers.source_scraper: [SCRAPE] Donut Supplies: Shopify returned 1973 products
+2026-05-21 17:47:37 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:47:38 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:47:38 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:47:38 [INFO] backend.scrapers.source_scraper: Completed Donut Supplies via Shopify API: {'scraped': 1973, 'new': 370, 'updated': 8, 'errors': 0, 'skipped': 0, 'archived': 2}
+2026-05-21 17:47:38 [INFO] backend.scrapers.source_scraper: Starting scrape of Donut Equipment (https://donut-equipment.com)
+2026-05-21 17:47:38 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:47:39 [INFO] backend.scrapers.source_scraper: [SCRAPE] Donut Equipment is a Shopify store — using fast /products.json path
+INFO:     127.0.0.1:51432 - "GET /api/scan/15/status HTTP/1.1" 200 OK
+2026-05-21 17:47:40 [INFO] backend.competitor.scraper: Shopify donut-equipment.com: page 1 → 250 products so far
+2026-05-21 17:47:42 [INFO] backend.competitor.scraper: Shopify donut-equipment.com: page 2 → 500 products so far
+2026-05-21 17:47:43 [INFO] backend.competitor.scraper: Shopify donut-equipment.com: page 3 → 750 products so far
+2026-05-21 17:47:44 [INFO] backend.competitor.scraper: Shopify donut-equipment.com: page 4 → 1000 products so far
+2026-05-21 17:47:45 [INFO] backend.competitor.scraper: Shopify donut-equipment.com: page 5 → 1250 products so far
+2026-05-21 17:47:46 [INFO] backend.competitor.scraper: Shopify donut-equipment.com: page 6 → 1500 products so far
+2026-05-21 17:47:46 [INFO] backend.competitor.scraper: Shopify donut-equipment.com: page 7 → 1750 products so far
+2026-05-21 17:47:47 [INFO] backend.competitor.scraper: Shopify donut-equipment.com: page 8 → 2000 products so far
+2026-05-21 17:47:48 [INFO] backend.competitor.scraper: Shopify donut-equipment.com: page 9 → 2221 products so far
+2026-05-21 17:47:48 [INFO] backend.scrapers.source_scraper: [SCRAPE] Donut Equipment: Shopify returned 2221 products
+2026-05-21 17:47:48 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:47:48 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:47:49 [INFO] backend.scrapers.source_scraper: Completed Donut Equipment via Shopify API: {'scraped': 2221, 'new': 143, 'updated': 0, 'errors': 0, 'skipped': 0, 'archived': 2}
+2026-05-21 17:47:49 [INFO] backend.scrapers.source_scraper: Starting scrape of Bakery Wholesalers (https://bakerywholesalers.com)
+2026-05-21 17:47:49 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:47:50 [INFO] backend.scrapers.source_scraper: [SCRAPE] Bakery Wholesalers is a Shopify store — using fast /products.json path
+2026-05-21 17:47:51 [INFO] backend.competitor.scraper: Shopify bakerywholesalers.com: page 1 → 250 products so far
+2026-05-21 17:47:52 [INFO] backend.competitor.scraper: Shopify bakerywholesalers.com: page 2 → 500 products so far
+2026-05-21 17:47:53 [INFO] backend.competitor.scraper: Shopify bakerywholesalers.com: page 3 → 750 products so far
+2026-05-21 17:47:53 [INFO] backend.competitor.scraper: Shopify bakerywholesalers.com: page 4 → 1000 products so far
+2026-05-21 17:47:55 [INFO] backend.competitor.scraper: Shopify bakerywholesalers.com: page 5 → 1250 products so far
+2026-05-21 17:47:55 [INFO] backend.competitor.scraper: Shopify bakerywholesalers.com: page 6 → 1500 products so far
+2026-05-21 17:47:56 [INFO] backend.competitor.scraper: Shopify bakerywholesalers.com: page 7 → 1750 products so far
+2026-05-21 17:47:57 [INFO] backend.competitor.scraper: Shopify bakerywholesalers.com: page 8 → 1972 products so far
+2026-05-21 17:47:57 [INFO] backend.scrapers.source_scraper: [SCRAPE] Bakery Wholesalers: Shopify returned 1972 products
+2026-05-21 17:47:58 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:47:58 [INFO] watchfiles.main: 2 changes detected
+2026-05-21 17:47:58 [INFO] backend.scrapers.source_scraper: Completed Bakery Wholesalers via Shopify API: {'scraped': 1972, 'new': 12, 'updated': 0, 'errors': 0, 'skipped': 0, 'archived': 5}
+INFO:     127.0.0.1:51439 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51442 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51437 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51440 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51441 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51438 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-21 17:47:58 [INFO] watchfiles.main: 2 changes detected
+INFO:     127.0.0.1:51444 - "GET /api/scan/15/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51446 - "GET /api/scan/15/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51450 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-21 17:48:13 [INFO] watchfiles.main: 69 changes detected
+INFO:     127.0.0.1:51455 - "GET /api/settings HTTP/1.1" 200 OK
+2026-05-21 17:51:31 [INFO] watchfiles.main: 33 changes detected
+2026-05-21 17:56:42 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/shopify/client.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 17:56:42 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:56:42 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [15002]
+2026-05-21 17:56:43 [INFO] watchfiles.main: 4 changes detected
+INFO:     Started server process [15514]
+INFO:     Waiting for application startup.
+2026-05-21 17:56:43 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:56:43 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:56:43 [INFO] backend.database.db: Database initialized
+2026-05-21 17:56:43 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:56:43 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:56:43 [INFO] backend.app: Scheduler started
+2026-05-21 17:56:43 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:56:43 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:56:43 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:56:43 [INFO] watchfiles.main: 1 change detected
+2026-05-21 17:56:47 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/scrapers/source_scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 17:56:47 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:56:47 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [15514]
+INFO:     Started server process [15541]
+INFO:     Waiting for application startup.
+2026-05-21 17:56:47 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:56:47 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:56:47 [INFO] backend.database.db: Database initialized
+2026-05-21 17:56:47 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:56:47 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:56:47 [INFO] backend.app: Scheduler started
+2026-05-21 17:56:47 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:56:47 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:56:47 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:56:47 [INFO] watchfiles.main: 5 changes detected
+2026-05-21 17:56:52 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/scrapers/source_scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 17:56:52 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:56:52 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [15541]
+INFO:     Started server process [15566]
+INFO:     Waiting for application startup.
+2026-05-21 17:56:52 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:56:52 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:56:52 [INFO] backend.database.db: Database initialized
+2026-05-21 17:56:52 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:56:52 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:56:52 [INFO] backend.app: Scheduler started
+2026-05-21 17:56:52 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:56:52 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:56:52 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:56:52 [INFO] watchfiles.main: 5 changes detected
+2026-05-21 17:56:58 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/scrapers/source_scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 17:56:58 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:56:58 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [15566]
+INFO:     Started server process [15590]
+INFO:     Waiting for application startup.
+2026-05-21 17:56:59 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:56:59 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:56:59 [INFO] backend.database.db: Database initialized
+2026-05-21 17:56:59 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:56:59 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:56:59 [INFO] backend.app: Scheduler started
+2026-05-21 17:56:59 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:56:59 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:56:59 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:56:59 [INFO] watchfiles.main: 5 changes detected
+2026-05-21 17:57:11 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/scrapers/source_scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 17:57:11 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:57:11 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [15590]
+INFO:     Started server process [15614]
+INFO:     Waiting for application startup.
+2026-05-21 17:57:11 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:57:11 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:57:11 [INFO] backend.database.db: Database initialized
+2026-05-21 17:57:11 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:57:11 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:57:11 [INFO] backend.app: Scheduler started
+2026-05-21 17:57:11 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:57:11 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:57:11 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:57:11 [INFO] watchfiles.main: 5 changes detected
+2026-05-21 17:57:22 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/scrapers/source_scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 17:57:22 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:57:22 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [15614]
+INFO:     Started server process [15638]
+INFO:     Waiting for application startup.
+2026-05-21 17:57:22 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:57:22 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:57:22 [INFO] backend.database.db: Database initialized
+2026-05-21 17:57:22 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:57:22 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:57:22 [INFO] backend.app: Scheduler started
+2026-05-21 17:57:22 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:57:22 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:57:22 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:57:22 [INFO] watchfiles.main: 5 changes detected
+2026-05-21 17:57:29 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/scrapers/source_scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 17:57:29 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:57:29 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [15638]
+INFO:     Started server process [15663]
+INFO:     Waiting for application startup.
+2026-05-21 17:57:30 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:57:30 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:57:30 [INFO] backend.database.db: Database initialized
+2026-05-21 17:57:30 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:57:30 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:57:30 [INFO] backend.app: Scheduler started
+2026-05-21 17:57:30 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:57:30 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:57:30 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:57:30 [INFO] watchfiles.main: 5 changes detected
+2026-05-21 17:57:38 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 17:57:38 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 17:57:38 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [15663]
+INFO:     Started server process [15687]
+INFO:     Waiting for application startup.
+2026-05-21 17:57:38 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 17:57:38 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:57:38 [INFO] backend.database.db: Database initialized
+2026-05-21 17:57:38 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 17:57:38 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 17:57:38 [INFO] backend.app: Scheduler started
+2026-05-21 17:57:38 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 17:57:38 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 17:57:38 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 17:57:38 [INFO] watchfiles.main: 5 changes detected
+2026-05-21 17:57:44 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 17:57:49 [INFO] watchfiles.main: 3 changes detected
+2026-05-21 17:58:08 [INFO] watchfiles.main: 3 changes detected
+INFO:     127.0.0.1:51483 - "PUT /api/source-sites/donut-supplies.com/credentials HTTP/1.1" 200 OK
+2026-05-21 17:58:18 [INFO] watchfiles.main: 1 change detected
+2026-05-21 17:58:28 [INFO] watchfiles.main: 77 changes detected
+2026-05-21 18:01:41 [INFO] watchfiles.main: 14 changes detected
+2026-05-21 18:01:51 [INFO] watchfiles.main: 26 changes detected
+2026-05-21 18:01:56 [INFO] watchfiles.main: 4 changes detected
+2026-05-21 18:01:59 [INFO] watchfiles.main: 33 changes detected
+INFO:     Will watch for changes in these directories: ['/Users/evw/dev/productComparison/donut-intel']
+INFO:     Uvicorn running on https://0.0.0.0:8743 (Press CTRL+C to quit)
+INFO:     Started reloader process [16596] using WatchFiles
+INFO:     Started server process [16604]
+INFO:     Waiting for application startup.
+2026-05-21 18:03:04 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 18:03:04 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 18:03:04 [INFO] backend.database.db: Database initialized
+2026-05-21 18:03:04 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 18:03:04 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 18:03:04 [INFO] backend.app: Scheduler started
+2026-05-21 18:03:04 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 18:03:04 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 18:03:04 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 18:03:04 [INFO] watchfiles.main: 1 change detected
+2026-05-21 18:03:13 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:51565 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51564 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51566 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51567 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51564 - "GET / HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     connection closed
+INFO:     127.0.0.1:51564 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51566 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51568 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51569 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51570 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51566 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51568 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51569 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51568 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51566 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51571 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51568 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51566 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51566 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51569 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51566 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51566 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51566 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51566 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51569 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51566 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51564 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51571 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51569 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51570 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51568 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51572 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51564 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51569 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51573 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51566 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51571 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51574 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51574 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51574 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51581 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51581 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51700 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51701 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51704 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51706 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51703 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51704 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51703 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51706 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51705 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51702 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51701 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51703 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51704 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51707 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51707 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51708 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51708 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51708 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51708 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51750 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51750 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51751 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51751 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51751 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51752 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51752 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51752 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51755 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51756 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51771 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+2026-05-21 19:02:50 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 19:02:50 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 19:02:50 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [16604]
+2026-05-21 19:02:50 [INFO] watchfiles.main: 5 changes detected
+INFO:     Started server process [40713]
+INFO:     Waiting for application startup.
+2026-05-21 19:02:50 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 19:02:50 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:02:50 [INFO] backend.database.db: Database initialized
+2026-05-21 19:02:50 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:02:51 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 19:02:51 [INFO] backend.app: Scheduler started
+2026-05-21 19:02:51 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 19:02:51 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 19:02:51 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 19:02:51 [INFO] watchfiles.main: 1 change detected
+INFO:     127.0.0.1:51806 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51807 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51808 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51809 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-21 19:03:04 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 19:03:04 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 19:03:04 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [40713]
+INFO:     Started server process [40760]
+INFO:     Waiting for application startup.
+2026-05-21 19:03:04 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 19:03:04 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:03:04 [INFO] backend.database.db: Database initialized
+2026-05-21 19:03:04 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:03:04 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 19:03:04 [INFO] backend.app: Scheduler started
+2026-05-21 19:03:04 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 19:03:04 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 19:03:04 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 19:03:04 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:51812 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51813 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51812 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51814 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51815 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51817 - "GET /api/products/store-comparison?page=1&per_page=5&has_diffs=true HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51821 - "GET /api/products/store-comparison?page=1&per_page=5&has_diffs=true HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:51823 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51825 - "GET /api/products/store-comparison?page=1&per_page=5&has_diffs=true HTTP/1.1" 200 OK
+2026-05-21 19:03:41 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 19:03:41 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 19:03:41 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [40760]
+INFO:     Started server process [40868]
+INFO:     Waiting for application startup.
+2026-05-21 19:03:41 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 19:03:41 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:03:41 [INFO] backend.database.db: Database initialized
+2026-05-21 19:03:41 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:03:41 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 19:03:41 [INFO] backend.app: Scheduler started
+2026-05-21 19:03:41 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 19:03:41 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 19:03:41 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 19:03:41 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:51830 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51831 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51830 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+2026-05-21 19:03:45 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 19:03:45 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 19:03:45 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [40868]
+INFO:     Started server process [40892]
+INFO:     Waiting for application startup.
+2026-05-21 19:03:45 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 19:03:45 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:03:45 [INFO] backend.database.db: Database initialized
+2026-05-21 19:03:45 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:03:45 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 19:03:45 [INFO] backend.app: Scheduler started
+2026-05-21 19:03:45 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 19:03:45 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 19:03:45 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 19:03:45 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:51832 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51833 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51835 - "GET /api/products/store-comparison?page=1&per_page=10&has_diffs=true HTTP/1.1" 200 OK
+2026-05-21 19:04:23 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 19:04:24 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 19:04:24 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [40892]
+INFO:     Started server process [40978]
+INFO:     Waiting for application startup.
+2026-05-21 19:04:24 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 19:04:24 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:04:24 [INFO] backend.database.db: Database initialized
+2026-05-21 19:04:24 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:04:24 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 19:04:24 [INFO] backend.app: Scheduler started
+2026-05-21 19:04:24 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 19:04:24 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 19:04:24 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 19:04:24 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:51840 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51841 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51840 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51842 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51843 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51845 - "GET /api/products/store-comparison?page=1&per_page=10&has_diffs=true HTTP/1.1" 200 OK
+2026-05-21 19:05:15 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-21 19:05:15 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 19:05:15 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [40978]
+INFO:     Started server process [41092]
+INFO:     Waiting for application startup.
+2026-05-21 19:05:16 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 19:05:16 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:05:16 [INFO] backend.database.db: Database initialized
+2026-05-21 19:05:16 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:05:16 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 19:05:16 [INFO] backend.app: Scheduler started
+2026-05-21 19:05:16 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 19:05:16 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 19:05:16 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-21 19:05:16 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:51852 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51853 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51852 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+2026-05-21 19:05:20 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 19:05:20 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 19:05:20 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [41092]
+INFO:     Started server process [41119]
+INFO:     Waiting for application startup.
+2026-05-21 19:05:21 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-21 19:05:21 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:05:21 [INFO] backend.database.db: Database initialized
+2026-05-21 19:05:21 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-21 19:05:21 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-21 19:05:21 [INFO] backend.app: Scheduler started
+2026-05-21 19:05:21 [INFO] backend.app: Log-tail broadcaster started
+2026-05-21 19:05:21 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-21 19:05:21 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     127.0.0.1:51854 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51855 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-21 19:05:21 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:51857 - "GET /api/products/store-comparison?page=1&per_page=5&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51861 - "GET /api/products/store-comparison?page=1&per_page=200&has_diffs=true HTTP/1.1" 200 OK
+2026-05-21 19:05:37 [INFO] watchfiles.main: 45 changes detected
+2026-05-21 19:09:27 [INFO] watchfiles.main: 17 changes detected
+2026-05-21 19:09:36 [INFO] watchfiles.main: 26 changes detected
+2026-05-21 19:09:40 [INFO] watchfiles.main: 4 changes detected
+2026-05-21 19:09:44 [INFO] watchfiles.main: 33 changes detected
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-21 19:10:19 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-21 19:10:19 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [41119]
+INFO:     Stopping reloader process [16596]
+INFO:     Will watch for changes in these directories: ['/Users/evw/dev/productComparison/donut-intel']
+INFO:     Uvicorn running on https://0.0.0.0:8743 (Press CTRL+C to quit)
+INFO:     Started reloader process [1912] using WatchFiles
+INFO:     Started server process [1923]
+INFO:     Waiting for application startup.
+2026-05-22 11:14:18 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-22 11:14:18 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-22 11:14:18 [INFO] backend.database.db: Database initialized
+2026-05-22 11:14:18 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-22 11:14:18 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-22 11:14:18 [INFO] backend.app: Scheduler started
+2026-05-22 11:14:18 [INFO] backend.app: Log-tail broadcaster started
+2026-05-22 11:14:18 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-22 11:14:18 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-22 11:14:18 [INFO] watchfiles.main: 1 change detected
+2026-05-22 11:14:26 [INFO] watchfiles.main: 33 changes detected
+2026-05-22 11:50:10 [INFO] watchfiles.main: 33 changes detected
+INFO:     Will watch for changes in these directories: ['/Users/evw/dev/productComparison/donut-intel']
+INFO:     Uvicorn running on https://0.0.0.0:8743 (Press CTRL+C to quit)
+INFO:     Started reloader process [4159] using WatchFiles
+INFO:     Started server process [4163]
+INFO:     Waiting for application startup.
+2026-05-22 12:26:25 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-22 12:26:25 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-22 12:26:25 [INFO] backend.database.db: Database initialized
+2026-05-22 12:26:25 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-22 12:26:25 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-22 12:26:25 [INFO] backend.app: Scheduler started
+2026-05-22 12:26:25 [INFO] backend.app: Log-tail broadcaster started
+2026-05-22 12:26:25 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-22 12:26:25 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-22 12:26:25 [INFO] watchfiles.main: 1 change detected
+2026-05-22 12:26:29 [INFO] watchfiles.main: 33 changes detected
+2026-05-22 12:27:47 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:50089 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50089 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50090 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50091 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50092 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50093 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50089 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50091 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50092 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50093 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50092 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50094 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50091 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50092 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50094 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50093 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50091 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50089 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50090 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50095 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50094 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50092 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50096 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50097 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50097 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50102 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50105 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+2026-05-22 12:32:38 [INFO] watchfiles.main: 33 changes detected
+2026-05-22 12:34:44 [INFO] watchfiles.main: 3 changes detected
+2026-05-22 12:34:53 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-22 12:34:53 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-22 12:34:53 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [4163]
+Process SpawnProcess-2:
+Traceback (most recent call last):
+  File "/Users/evw/.pyenv/versions/3.13.13/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/Users/evw/.pyenv/versions/3.13.13/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    ~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/server.py", line 75, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+  File "/Users/evw/.pyenv/versions/3.13.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Users/evw/.pyenv/versions/3.13.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/server.py", line 79, in serve
+    await self._serve(sockets)
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/server.py", line 86, in _serve
+    config.load()
+    ~~~~~~~~~~~^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 481, in load
+    self.loaded_app = self.load_app()
+                      ~~~~~~~~~~~~~^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 415, in load_app
+    return import_from_string(self.app)
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+  File "/Users/evw/.pyenv/versions/3.13.13/lib/python3.13/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1395, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 1023, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/Users/evw/dev/productComparison/donut-intel/backend/app.py", line 25, in <module>
+    from backend.api.routes import router
+  File "/Users/evw/dev/productComparison/donut-intel/backend/api/routes.py", line 2686, in <module>
+    def set_source_site_destination(domain: str, payload: Dict[str, bool] = Body(...)):
+                                                                            ^^^^
+NameError: name 'Body' is not defined
+2026-05-22 12:34:54 [INFO] watchfiles.main: 5 changes detected
+2026-05-22 12:35:04 [INFO] watchfiles.main: 3 changes detected
+2026-05-22 12:35:12 [INFO] watchfiles.main: 3 changes detected
+2026-05-22 12:35:38 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Started server process [5185]
+INFO:     Waiting for application startup.
+2026-05-22 12:35:38 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-22 12:35:38 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-22 12:35:38 [INFO] backend.database.db: Database initialized
+2026-05-22 12:35:38 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-22 12:35:38 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-22 12:35:38 [INFO] backend.app: Scheduler started
+2026-05-22 12:35:38 [INFO] backend.app: Log-tail broadcaster started
+2026-05-22 12:35:38 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-22 12:35:38 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     127.0.0.1:50135 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50136 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50137 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50138 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50139 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50146 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:50142 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50143 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50144 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50145 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+2026-05-22 12:35:38 [INFO] watchfiles.main: 4 changes detected
+INFO:     127.0.0.1:50154 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+2026-05-22 12:36:21 [INFO] watchfiles.main: 61 changes detected
+2026-05-22 12:36:32 [INFO] watchfiles.main: 2 changes detected
+2026-05-22 12:37:21 [INFO] watchfiles.main: 14 changes detected
+2026-05-22 12:37:29 [INFO] watchfiles.main: 3 changes detected
+2026-05-22 12:37:37 [INFO] watchfiles.main: 26 changes detected
