@@ -121,6 +121,15 @@ def _domain(url: str) -> str:
         return ''
 
 
+def _is_homepage(url: str) -> bool:
+    """Return True if the URL is a bare domain homepage with no meaningful path."""
+    try:
+        path = urlparse(url).path
+        return not path or path == '/'
+    except Exception:
+        return False
+
+
 def _extract_price(text: str) -> Optional[str]:
     m = _PRICE_RE.search(text or '')
     return m.group(0).strip() if m else None
@@ -216,13 +225,15 @@ def _cite_to_url(cite_html: str) -> str:
     """Convert a Bing display URL (with › separators) into a real URL."""
     text = re.sub(r'<[^>]+>', '', cite_html).strip()
     text = text.replace(' › ', '/').replace('› ', '/').replace(' ›', '/')
+    # Strip Bing's display ellipsis — path was truncated, keep only what we have
+    text = re.sub(r'[…\.]{2,}\s*$', '', text).rstrip('/')
     if not text.startswith('http'):
         text = 'https://' + text
     return text
 
 
 async def _bing_search(query: str, max_results: int) -> List[Dict[str, Any]]:
-    """Scrape Bing SERP via curl and reconstruct URLs from cite display tags."""
+    """Scrape Bing SERP via curl — reconstructs URLs from cite display tags."""
     try:
         q = quote_plus(query)
         url = f"https://www.bing.com/search?q={q}&count={min(max_results * 2, 50)}&mkt=en-US&setlang=en-US&cc=US"
@@ -232,7 +243,6 @@ async def _bing_search(query: str, max_results: int) -> List[Dict[str, Any]]:
         results = []
         seen: set = set()
 
-        # Extract (h2-title, cite-url) pairs from b_algo result blocks
         for block in re.finditer(r'class="b_algo[^"]*"(.*?)</li>', html, re.DOTALL):
             b = block.group(1)
             cite_m = re.search(r'<cite[^>]*>(.*?)</cite>', b, re.DOTALL)
@@ -240,6 +250,8 @@ async def _bing_search(query: str, max_results: int) -> List[Dict[str, Any]]:
             if not cite_m:
                 continue
             href = _cite_to_url(cite_m.group(1))
+            if _is_homepage(href):
+                continue
             title = re.sub(r'<[^>]+>', '', h2_m.group(1)).strip() if h2_m else ''
             d = _domain(href)
             if not d or any(skip in d for skip in _BING_SKIP_DOMAINS):
@@ -247,7 +259,10 @@ async def _bing_search(query: str, max_results: int) -> List[Dict[str, Any]]:
             if d in seen:
                 continue
             seen.add(d)
-            results.append({'href': href, 'title': title, 'body': ''})
+            # Extract snippet from first paragraph in the result block
+            snip_m = re.search(r'<p[^>]*>(.*?)</p>', b, re.DOTALL)
+            body = re.sub(r'<[^>]+>', '', snip_m.group(1)).strip() if snip_m else ''
+            results.append({'href': href, 'title': title, 'body': body})
             if len(results) >= max_results:
                 break
 
@@ -293,9 +308,10 @@ async def _yahoo_search(query: str, max_results: int) -> List[Dict[str, Any]]:
             return []
         results = []
         seen: set = set()
-        # Yahoo encodes real URLs in RU=... query param
+        # Yahoo encodes real URLs in RU=... query param; strip tracking suffixes
         for m in re.finditer(r'RU=(https?%3[Aa]%2[Ff]%2[Ff][^&"]+)', html):
             href = unquote(m.group(1))
+            href = re.sub(r'/RK=\d+/RS=[^/\s"]+', '', href)  # remove Yahoo tracking
             d = _domain(href)
             if d and 'yahoo.com' not in d and d not in seen:
                 seen.add(d)
@@ -569,35 +585,46 @@ async def multi_engine_search(
 
     raw = await asyncio.gather(*tasks, return_exceptions=True)
 
-    url_score: Dict[str, int] = {}
-    url_data: Dict[str, Dict] = {}
+    # Score and merge at domain level — different engines return different URLs for the
+    # same domain, so URL-level dedup prevents cross-engine scoring and title merging.
+    domain_score: Dict[str, int] = {}
+    domain_best: Dict[str, Dict] = {}
 
     for engine_results in raw:
         if isinstance(engine_results, Exception):
             continue
         for item in (engine_results or []):
             url = item.get('href', '') or item.get('url', '')
-            if not url:
+            if not url or _is_homepage(url):
                 continue
             domain = _domain(url)
             if not domain or domain in exclude:
                 continue
-            if url not in url_score:
-                url_score[url] = 0
-                url_data[url] = {
-                    'href': url,
-                    'url': url,
-                    'domain': domain,
-                    'title': item.get('title', ''),
-                    'body': item.get('body', '') or item.get('description', ''),
-                    'price': item.get('price'),  # shopping results carry price
-                }
-            # Shopping results score 2× — they confirm price availability
-            url_score[url] += 2 if item.get('source') == 'shopping' else 1
+            is_shopping = item.get('source') == 'shopping'
+            domain_score[domain] = domain_score.get(domain, 0) + (2 if is_shopping else 1)
+            entry = {
+                'href': url, 'url': url, 'domain': domain,
+                'title': item.get('title', ''),
+                'body': item.get('body', '') or item.get('description', ''),
+                'price': item.get('price'),
+            }
+            cur = domain_best.get(domain)
+            if cur is None:
+                domain_best[domain] = entry
+            else:
+                if not cur['title'] and entry['title']:
+                    cur['title'] = entry['title']
+                if not cur['body'] and entry['body']:
+                    cur['body'] = entry['body']
+                if not cur['price'] and entry['price']:
+                    cur['price'] = entry['price']
+                # Prefer URL from the entry that has metadata
+                if not cur['title'] and entry['title']:
+                    cur['url'] = url
+                    cur['href'] = url
 
-    # Sort by engine agreement (higher score = more engines agree) then by insertion order
-    ranked = sorted(url_score.keys(), key=lambda u: -url_score[u])
-    return [url_data[u] for u in ranked[:max_results]]
+    ranked = sorted(domain_score.keys(), key=lambda d: -domain_score[d])
+    return [domain_best[d] for d in ranked[:max_results]]
 
 
 async def find_products(
@@ -658,35 +685,45 @@ async def find_products(
     )
     img_idx = _img_index(images) if isinstance(images, list) else {}
 
-    url_score: Dict[str, int] = {}
-    url_data: Dict[str, Dict] = {}
+    domain_score: Dict[str, int] = {}
+    domain_best: Dict[str, Dict] = {}
 
     for engine_results in all_raw:
         if isinstance(engine_results, Exception):
             continue
         for item in (engine_results or []):
             url = item.get('href', '') or item.get('url', '')
-            if not url:
+            if not url or _is_homepage(url):
                 continue
             domain = _domain(url)
             if not domain or _should_exclude(domain):
                 continue
-            if url not in url_score:
-                url_score[url] = 0
-                url_data[url] = {
-                    'url': url, 'domain': domain,
-                    'title': item.get('title', ''),
-                    'body': item.get('body', '') or item.get('description', ''),
-                    'price': item.get('price'),
-                }
-            url_score[url] += 2 if item.get('source') == 'shopping' else 1
+            is_shopping = item.get('source') == 'shopping'
+            domain_score[domain] = domain_score.get(domain, 0) + (2 if is_shopping else 1)
+            entry = {
+                'url': url, 'domain': domain,
+                'title': item.get('title', ''),
+                'body': item.get('body', '') or item.get('description', ''),
+                'price': item.get('price'),
+            }
+            cur = domain_best.get(domain)
+            if cur is None:
+                domain_best[domain] = entry
+            else:
+                if not cur['title'] and entry['title']:
+                    cur['title'] = entry['title']
+                    cur['url'] = url
+                if not cur['body'] and entry['body']:
+                    cur['body'] = entry['body']
+                if not cur['price'] and entry['price']:
+                    cur['price'] = entry['price']
 
-    ranked = sorted(url_score.keys(), key=lambda u: -url_score[u])
+    ranked = sorted(domain_score.keys(), key=lambda d: -domain_score[d])
 
     pre_enrich: List[Dict] = []
-    for url in ranked:
-        item = url_data[url]
-        domain = item['domain']
+    for domain in ranked:
+        item = domain_best[domain]
+        url = item['url']
         snippet = item.get('body', '') or ''
         pre_enrich.append({
             'url': url,
@@ -747,39 +784,45 @@ async def find_suppliers(
     )
     img_idx = _img_index(images) if isinstance(images, list) else {}
 
-    url_score: Dict[str, int] = {}
-    url_data: Dict[str, Dict] = {}
+    domain_score: Dict[str, int] = {}
+    domain_best: Dict[str, Dict] = {}
 
     for engine_results in all_raw:
         if isinstance(engine_results, Exception):
             continue
         for item in (engine_results or []):
             url = item.get('href', '') or item.get('url', '')
-            if not url:
+            if not url or _is_homepage(url):
                 continue
             domain = _domain(url)
             if not domain:
                 continue
-            if url not in url_score:
-                url_score[url] = 0
-                url_data[url] = {
-                    'url': url, 'domain': domain,
-                    'title': item.get('title', ''),
-                    'body': item.get('body', '') or item.get('description', ''),
-                    'price': item.get('price'),
-                }
-            url_score[url] += 2 if item.get('source') == 'shopping' else 1
+            is_shopping = item.get('source') == 'shopping'
+            domain_score[domain] = domain_score.get(domain, 0) + (2 if is_shopping else 1)
+            entry = {
+                'url': url, 'domain': domain,
+                'title': item.get('title', ''),
+                'body': item.get('body', '') or item.get('description', ''),
+                'price': item.get('price'),
+            }
+            cur = domain_best.get(domain)
+            if cur is None:
+                domain_best[domain] = entry
+            else:
+                if not cur['title'] and entry['title']:
+                    cur['title'] = entry['title']
+                    cur['url'] = url
+                if not cur['body'] and entry['body']:
+                    cur['body'] = entry['body']
+                if not cur['price'] and entry['price']:
+                    cur['price'] = entry['price']
 
-    ranked = sorted(url_score.keys(), key=lambda u: -url_score[u])
+    ranked = sorted(domain_score.keys(), key=lambda d: -domain_score[d])
 
     pre_enrich: List[Dict] = []
-    seen_domains: set = set()
-    for url in ranked:
-        item = url_data[url]
-        domain = item['domain']
-        if domain in seen_domains:
-            continue
-        seen_domains.add(domain)
+    for domain in ranked:
+        item = domain_best[domain]
+        url = item['url']
         snippet = item.get('body', '') or ''
         pre_enrich.append({
             'url': url,
