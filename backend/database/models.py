@@ -252,6 +252,7 @@ class Competitor(Base):
     total_matching_products = Column(Integer, default=0)
     scan_session_name = Column(String(255))   # e.g. "Monday Top 20"
     is_active = Column(Boolean, default=True)
+    excluded_from_search = Column(Boolean, default=False)
     notes = Column(Text)
     added_at = Column(DateTime, default=func.now())
 

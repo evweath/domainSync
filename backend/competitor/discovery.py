@@ -1,13 +1,10 @@
 """
 Competitor Discovery (F12-F13, F16, F69)
-Finds competitor websites via Bing HTML search using httpx (no JS rendering needed).
+Finds competitor websites via multi-engine web search.
 """
 import logging
-import re
 from typing import List, Optional
 from urllib.parse import urlparse
-
-import httpx
 
 logger = logging.getLogger(__name__)
 
@@ -32,18 +29,6 @@ EXCLUDED_DOMAINS = {
     "yellowpages.com",
 }
 
-_HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/124.0.0.0 Safari/537.36"
-    ),
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Accept-Encoding": "gzip, deflate, br",
-}
-
-
 def _extract_domain(url: str) -> Optional[str]:
     try:
         parsed = urlparse(url)
@@ -64,36 +49,6 @@ def _is_excluded(domain: str) -> bool:
     return False
 
 
-async def _bing_search(query: str, max_per_query: int = 10) -> list[tuple[str, str]]:
-    """
-    Returns (url, title) pairs from Bing's plain HTML search endpoint.
-    Bing result links appear as <h2><a href="https://...">Title</a></h2>
-    inside <li class="b_algo"> elements.
-    """
-    async with httpx.AsyncClient(headers=_HEADERS, follow_redirects=True, timeout=15) as client:
-        resp = await client.get(
-            "https://www.bing.com/search",
-            params={"q": query, "count": "20"},
-        )
-        resp.raise_for_status()
-
-    html = resp.text
-    results: list[tuple[str, str]] = []
-
-    # Each organic result block: <li class="b_algo">...<h2><a href="URL">Title</a></h2>
-    for block in re.finditer(r'class="b_algo".*?</li>', html, re.DOTALL):
-        m = re.search(r'<h2[^>]*>\s*<a[^>]+href="(https?://[^"]+)"[^>]*>([^<]+)', block.group())
-        if not m:
-            continue
-        url = m.group(1)
-        title = m.group(2).strip()
-        results.append((url, title))
-        if len(results) >= max_per_query:
-            break
-
-    return results
-
-
 async def discover_competitors(
     queries: List[str],
     max_results: int = 20,
@@ -101,9 +56,11 @@ async def discover_competitors(
     progress_cb=None,
 ) -> List[dict]:
     """
-    Search Bing for competitor sites using the given queries.
+    Search for competitor sites using the given queries via multi-engine search.
     Returns list of dicts: {domain, name, base_url, discovered_via}.
     """
+    from backend.search.engine import multi_engine_search
+
     known = already_known or set()
     found: dict[str, dict] = {}
 
@@ -111,12 +68,14 @@ async def discover_competitors(
         if len(found) >= max_results:
             break
         try:
-            hits = await _bing_search(query, max_per_query=15)
+            hits = await multi_engine_search(query, max_results=15)
 
-            for url, title in hits:
+            for item in hits:
                 if len(found) >= max_results:
                     break
-                domain = _extract_domain(url)
+                url = item.get('href') or item.get('url', '')
+                title = item.get('title', '')
+                domain = _extract_domain(url) if url else None
                 if not domain or _is_excluded(domain) or domain in known or domain in found:
                     continue
                 found[domain] = {
@@ -128,7 +87,7 @@ async def discover_competitors(
                 if progress_cb:
                     await progress_cb("competitor_found", {"domain": domain, "total": len(found)})
 
-            logger.info("Query %r: %d hits from Bing, %d total competitors so far", query, len(hits), len(found))
+            logger.info("Query %r: %d hits, %d total competitors so far", query, len(hits), len(found))
         except Exception as exc:
             logger.warning("Discovery query failed: %r — %s", query, exc)
 
