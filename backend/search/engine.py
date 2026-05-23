@@ -171,12 +171,42 @@ async def _curl_get(url: str, extra_headers: Optional[List[str]] = None, timeout
 
 
 async def _text_search(query: str, max_results: int) -> List[Dict[str, Any]]:
-    def _search():
-        from ddgs import DDGS
-        with DDGS() as ddgs:
-            return list(ddgs.text(query, max_results=max_results, backend='duckduckgo'))
+    """Search DuckDuckGo HTML endpoint via curl (avoids httpx socket issues)."""
     try:
-        return await _run_sync(_search)
+        q = quote_plus(query)
+        # Use the HTML endpoint — no JS required, returns structured result anchors
+        html = await _curl_get(
+            f'https://html.duckduckgo.com/html/?q={q}&kl=us-en',
+            extra_headers=['Referer: https://duckduckgo.com/'],
+        )
+        if not html:
+            return []
+        results = []
+        seen: set = set()
+        # DDG HTML: result links are in <a class="result__a" href="...">
+        for m in re.finditer(
+            r'<a[^>]+class="result__a"[^>]+href="([^"]+)"[^>]*>(.*?)</a>',
+            html, re.DOTALL
+        ):
+            href = m.group(1).replace('&amp;', '&')
+            href = unquote(href)
+            # DDG wraps some links in its redirect: //duckduckgo.com/l/?uddg=...
+            redir = re.search(r'uddg=([^&"]+)', href)
+            if redir:
+                href = unquote(redir.group(1))
+            # Skip any remaining duckduckgo.com URLs (ads, trackers)
+            if 'duckduckgo.com' in href:
+                continue
+            title = re.sub(r'<[^>]+>', '', m.group(2)).strip()
+            d = _domain(href)
+            if not d or d in seen:
+                continue
+            seen.add(d)
+            results.append({'href': href, 'title': title, 'body': ''})
+            if len(results) >= max_results:
+                break
+        logger.debug("DDG returned %d results for %r", len(results), query[:60])
+        return results
     except Exception as exc:
         logger.debug("DDG text search failed: %s", exc)
         return []
@@ -220,6 +250,18 @@ _DDG_SEARCH_LOCK = asyncio.Lock()  # serialize DDG calls to avoid rate-limit ban
 _BING_SKIP_DOMAINS = frozenset({'bing.com', 'r.bing.com', 'go.microsoft.com', 'microsoft.com',
                                   'facebook.com', 'youtube.com'})
 
+# Domains that should never appear as product results regardless of search engine
+_NOISE_DOMAINS = frozenset({
+    'google.com', 'shopping.google.com',
+    'merriam-webster.com', 'dictionary.com', 'dictionary.cambridge.org',
+    'wikipedia.org', 'wikimedia.org',
+    'reddit.com', 'quora.com',
+    'twitter.com', 'x.com', 'instagram.com', 'pinterest.com', 'tiktok.com',
+    'youtube.com', 'facebook.com',
+    'yelp.com',
+    'offerup.com', 'letgo.com', 'craigslist.org',
+})
+
 
 def _cite_to_url(cite_html: str) -> str:
     """Convert a Bing display URL (with › separators) into a real URL."""
@@ -254,7 +296,7 @@ async def _bing_search(query: str, max_results: int) -> List[Dict[str, Any]]:
                 continue
             title = re.sub(r'<[^>]+>', '', h2_m.group(1)).strip() if h2_m else ''
             d = _domain(href)
-            if not d or any(skip in d for skip in _BING_SKIP_DOMAINS):
+            if not d or any(skip in d for skip in _BING_SKIP_DOMAINS) or d in _NOISE_DOMAINS:
                 continue
             if d in seen:
                 continue
@@ -567,13 +609,7 @@ async def multi_engine_search(
 
     tasks = []
     if 'ddg' in engines:
-        # Serialize DDG calls with a small delay to avoid rate-limit bans
-        async def _ddg_guarded():
-            async with _DDG_SEARCH_LOCK:
-                result = await _text_search(query, max_results=fetch)
-                await asyncio.sleep(1.5)
-                return result
-        tasks.append(_ddg_guarded())
+        tasks.append(_text_search(query, max_results=fetch))
     if 'bing' in engines:
         tasks.append(_bing_search(query, max_results=fetch))
     if 'google' in engines:
@@ -598,7 +634,7 @@ async def multi_engine_search(
             if not url or _is_homepage(url):
                 continue
             domain = _domain(url)
-            if not domain or domain in exclude:
+            if not domain or domain in exclude or domain in _NOISE_DOMAINS:
                 continue
             is_shopping = item.get('source') == 'shopping'
             domain_score[domain] = domain_score.get(domain, 0) + (2 if is_shopping else 1)
@@ -666,7 +702,7 @@ async def find_products(
 
     if model_number:
         search_tasks.append(multi_engine_search(
-            f"buy {model_number}", max_results=max_results * 3,
+            f"buy {product_name} {model_number}", max_results=max_results * 3,
             engines=['bing', 'google', 'yahoo'],
         ))
         search_tasks.append(_google_shopping_search(f"buy {model_number}", max_results=max_results * 2))
@@ -696,7 +732,7 @@ async def find_products(
             if not url or _is_homepage(url):
                 continue
             domain = _domain(url)
-            if not domain or _should_exclude(domain):
+            if not domain or _should_exclude(domain) or domain in _NOISE_DOMAINS:
                 continue
             is_shopping = item.get('source') == 'shopping'
             domain_score[domain] = domain_score.get(domain, 0) + (2 if is_shopping else 1)
@@ -795,7 +831,7 @@ async def find_suppliers(
             if not url or _is_homepage(url):
                 continue
             domain = _domain(url)
-            if not domain:
+            if not domain or domain in _NOISE_DOMAINS:
                 continue
             is_shopping = item.get('source') == 'shopping'
             domain_score[domain] = domain_score.get(domain, 0) + (2 if is_shopping else 1)
