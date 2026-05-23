@@ -2620,3 +2620,56 @@ INFO:     Uvicorn running on https://0.0.0.0:8743 (Press CTRL+C to quit)
 INFO:     127.0.0.1:54658 - "POST /api/auth/login HTTP/1.1" 200 OK
 2026-05-23 17:54:26 [WARNING] backend.search.engine: DDG image search failed (images will be missing): ConnectError: ConnectError('error sending request for url (https://duckduckgo.com/?q=buy+commercial+convection+oven) > client error (Connect) > tcp connect error > Bad file descriptor (os error 9)')
 INFO:     127.0.0.1:54660 - "POST /api/search/find-product HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54694 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54696 - "GET /api/products HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54698 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54700 - "GET /api/products?limit=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54704 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54706 - "GET /api/products?limit=200 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "POST /api/auth/login HTTP/1.1" 200 OK
+2026-05-23 17:55:49 [WARNING] backend.search.engine: DDG image search failed (images will be missing): ConnectError: ConnectError('error sending request for url (https://duckduckgo.com/?q=buy+Hobart+N50+5-quart+mixer) > client error (Connect) > tcp connect error > Bad file descriptor (os error 9)')
+INFO:     127.0.0.1:54712 - "POST /api/search/find-product HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-23 17:59:03 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-23 17:59:03 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [23462]
+INFO:     Started server process [24491]
+INFO:     Waiting for application startup.
+2026-05-23 17:59:04 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-23 17:59:04 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-23 17:59:04 [INFO] backend.database.db: Database initialized
+2026-05-23 17:59:04 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-23 17:59:04 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-23 17:59:04 [INFO] backend.app: Scheduler started
+2026-05-23 17:59:04 [INFO] backend.app: Log-tail broadcaster started
+2026-05-23 17:59:04 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-23 17:59:04 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://0.0.0.0:8743 (Press CTRL+C to quit)
+INFO:     127.0.0.1:54957 - "POST /api/auth/login HTTP/1.1" 200 OK
+2026-05-23 17:59:16 [WARNING] backend.search.engine: DDG image search failed (images will be missing): ConnectError: ConnectError('error sending request for url (https://duckduckgo.com/?q=buy+Hobart+N50+5-quart+mixer) > client error (Connect) > tcp connect error > Bad file descriptor (os error 9)')
+INFO:     127.0.0.1:54959 - "POST /api/search/find-product HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-23 18:03:45 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-23 18:03:45 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [24491]
+INFO:     Started server process [25182]
+INFO:     Waiting for application startup.
+2026-05-23 18:03:46 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-23 18:03:46 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-23 18:03:46 [INFO] backend.database.db: Database initialized
+2026-05-23 18:03:46 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-23 18:03:46 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-23 18:03:46 [INFO] backend.app: Scheduler started
+2026-05-23 18:03:46 [INFO] backend.app: Log-tail broadcaster started
+2026-05-23 18:03:46 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-23 18:03:46 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://0.0.0.0:8743 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55320 - "POST /api/auth/login HTTP/1.1" 200 OK
+2026-05-23 18:03:58 [WARNING] backend.search.engine: DDG image search failed (images will be missing): ConnectError: ConnectError('error sending request for url (https://duckduckgo.com/?q=buy+Hobart+N50+5-quart+mixer) > client error (Connect) > Socket is not connected (os error 57)')
+INFO:     127.0.0.1:55322 - "POST /api/search/find-product HTTP/1.1" 200 OK
