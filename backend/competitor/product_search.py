@@ -13,6 +13,8 @@ from datetime import datetime
 from typing import Any, Callable, Dict, List, Optional
 from urllib.parse import urlparse
 
+import sqlalchemy.exc
+
 from backend.competitor.matcher import MatchCriteria, match_competitor_product, match_similar_product
 from backend.database.db import session_scope
 from backend.database.models import (
@@ -28,6 +30,20 @@ logger = logging.getLogger(__name__)
 
 _PRICE_RE = re.compile(r'\$\s*([\d,]+(?:\.\d{1,2})?)')
 _MODEL_RE = re.compile(r'(?:model|part|item)[#\s:]+([A-Z0-9][\w\-]{2,})', re.I)
+
+
+async def _db_write_with_retry(fn, retries: int = 4, base_delay: float = 3.0):
+    """Run fn() inside session_scope(), retrying on SQLite 'database is locked'."""
+    for attempt in range(retries):
+        try:
+            with session_scope() as db:
+                return fn(db)
+        except sqlalchemy.exc.OperationalError as exc:
+            if 'database is locked' not in str(exc).lower() or attempt == retries - 1:
+                raise
+            delay = base_delay * (2 ** attempt)
+            logger.warning('[PROD-SEARCH] DB locked, retry %d/%d in %.0fs', attempt + 1, retries, delay)
+            await asyncio.sleep(delay)
 
 # Heuristic product-type extraction. The category columns in the DB are
 # all NULL (no AI categorization has run), so the "product type" signal
@@ -433,7 +449,7 @@ async def _process_one_product(
                 'image_hash': None,
             }
 
-            with session_scope() as db:
+            def _do_db_work(db):
                 master_products = db.query(Product).filter(Product.is_active == True).all()
                 result = match_competitor_product(comp_dict, master_products, criteria)
                 if result is None:
@@ -444,7 +460,7 @@ async def _process_one_product(
                         "[PROD-SEARCH]       No match  (page title: %r)",
                         comp_dict.get('title', '')[:60],
                     )
-                    continue
+                    return False
 
                 competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
                 if competitor is None:
@@ -523,6 +539,11 @@ async def _process_one_product(
                 competitor.last_scanned_at = datetime.utcnow()
                 if not competitor.first_scanned_at:
                     competitor.first_scanned_at = datetime.utcnow()
+
+                return True
+
+            if not await _db_write_with_retry(_do_db_work):
+                continue
 
             found_count += 1
 

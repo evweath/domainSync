@@ -29,7 +29,7 @@ def get_engine() -> Engine:
         f"sqlite:///{db_path}",
         connect_args={
             "check_same_thread": False,
-            "timeout": 30,
+            "timeout": 60,
         },
         pool_size=5,
         max_overflow=10,
@@ -43,7 +43,7 @@ def get_engine() -> Engine:
         cursor.execute("PRAGMA journal_mode=WAL")
         cursor.execute("PRAGMA synchronous=NORMAL")
         cursor.execute("PRAGMA foreign_keys=ON")
-        cursor.execute("PRAGMA busy_timeout=30000")
+        cursor.execute("PRAGMA busy_timeout=60000")
         cursor.execute("PRAGMA cache_size=-64000")  # 64 MB cache
         cursor.close()
 
