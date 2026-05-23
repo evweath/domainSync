@@ -965,6 +965,11 @@ class BulkImportRequest(BaseModel):
     session_name: Optional[str] = None
 
 
+class CompetitorBulkDeleteRequest(BaseModel):
+    ids: List[int]
+    exclude: bool = False
+
+
 @router.post("/api/competitors/bulk-import")
 async def bulk_import_competitors(req: BulkImportRequest, db: Session = Depends(get_db_session)):
     """F69: Import a list of competitor domains."""
@@ -987,6 +992,52 @@ async def bulk_import_competitors(req: BulkImportRequest, db: Session = Depends(
             added += 1
     db.commit()
     return {"added": added, "parsed": len(parsed), "skipped_as_source": skipped_as_source}
+
+
+@router.post("/api/competitors/bulk-delete")
+def bulk_delete_competitors(req: CompetitorBulkDeleteRequest, db: Session = Depends(get_db_session)):
+    """Delete multiple competitors. With exclude=True, soft-deletes (is_active=False,
+    excluded_from_search=True) so discovery and bulk-import won't re-add them.
+    With exclude=False, performs the same hard-delete as DELETE /api/competitors/{id}.
+    """
+    totals = {"matches": 0, "price_history": 0, "scans": 0, "profiles": 0}
+    deleted_ids: List[int] = []
+
+    for competitor_id in req.ids:
+        comp = db.get(Competitor, competitor_id)
+        if not comp:
+            continue
+
+        if req.exclude:
+            # Soft-delete: keep the row so the domain stays on the deny-list
+            comp.is_active = False
+            comp.excluded_from_search = True
+            deleted_ids.append(competitor_id)
+            logger.info("Soft-deleted (excluded) competitor id=%s domain=%s", competitor_id, comp.domain)
+        else:
+            match_ids = [
+                row[0] for row in
+                db.query(CompetitorProductMatch.id)
+                  .filter(CompetitorProductMatch.competitor_id == competitor_id).all()
+            ]
+            if match_ids:
+                totals["price_history"] += db.query(PriceHistory).filter(
+                    PriceHistory.match_id.in_(match_ids)
+                ).delete(synchronize_session=False)
+            totals["matches"] += db.query(CompetitorProductMatch).filter(
+                CompetitorProductMatch.competitor_id == competitor_id
+            ).delete(synchronize_session=False)
+            totals["scans"] += db.query(CompetitorScan).filter(
+                CompetitorScan.competitor_id == competitor_id
+            ).delete(synchronize_session=False)
+            totals["profiles"] += db.query(CompetitorScrapingProfile).filter(
+                CompetitorScrapingProfile.competitor_id == competitor_id
+            ).delete(synchronize_session=False)
+            db.delete(comp)
+            deleted_ids.append(competitor_id)
+            logger.info("Hard-deleted competitor id=%s domain=%s", competitor_id, comp.domain)
+
+    return {"status": "deleted", "ids": deleted_ids, "excluded": req.exclude, "removed": totals}
 
 
 @router.get("/api/competitors")
@@ -1025,6 +1076,7 @@ def list_competitors(
                 "total_matching_products": c.total_matching_products,
                 "scan_session_name": c.scan_session_name,
                 "is_active": c.is_active,
+                "excluded_from_search": c.excluded_from_search or False,
                 "scan_count": len(c.scans),
                 "cooldown_until": _cooldown_until(c),
             }
@@ -2338,41 +2390,105 @@ def tail_log(lines: int = 8):
 class FindProductRequest(BaseModel):
     product_ids: Optional[List[int]] = None
     query: Optional[str] = None
+    model_number: Optional[str] = None
+    category: Optional[str] = None
     max_results: int = 5
+    min_fuzzy_score: int = 0          # 0 = no filter on competitor site results
+    search_competitor_sites: bool = True
 
 
 @router.post("/api/search/find-product")
 async def search_find_product(req: FindProductRequest, db: Session = Depends(get_db_session)):
-    from backend.search.engine import find_products
+    import asyncio as _asyncio
+    from backend.search.engine import find_products, search_competitor_websites
 
-    # Build text query from selected products + free-text query
     parts: List[str] = []
+    model_number: str = req.model_number or ''
+    category: str = req.category or ''
+
     if req.product_ids:
-        prods = db.query(Product).filter(Product.id.in_(req.product_ids), Product.is_active == True).all()
+        prods = (
+            db.query(Product)
+            .filter(Product.id.in_(req.product_ids), Product.is_active == True)
+            .all()
+        )
         for p in prods:
-            if p.model_number:
-                parts.append(p.model_number)
-            if p.manufacturer:
-                parts.append(p.manufacturer)
             if p.canonical_title:
                 parts.append(p.canonical_title)
+            if not model_number and p.model_number:
+                model_number = p.model_number
+            if not category and p.category:
+                category = p.category
     if req.query:
         parts.append(req.query)
     if not parts:
         raise HTTPException(status_code=400, detail="Provide product_ids or a query")
 
-    query = ' '.join(parts[:3])  # keep it focused
+    product_name = ' '.join(parts[:2])
 
-    # Exclude domains we already track
-    known = {c.domain for c in db.query(Competitor).filter(Competitor.is_active == True).all()}
-    known |= {s["domain"] for s in config.get("source_sites", default=[])}
+    # Build competitor model map: domain → set of model numbers already tracked.
+    # A competitor is excluded from web search results ONLY when the specific model
+    # being searched is already present in its tracked set.
+    competitor_model_map: Dict[str, set] = {}
+    all_competitors = (
+        db.query(Competitor).filter(Competitor.is_active == True).all()
+    )
+    competitor_domains = [c.domain for c in all_competitors]
 
-    results = await find_products(query, exclude_domains=known, max_results=req.max_results)
-    return {"query": query, "results": results}
+    if model_number:
+        sources = (
+            db.query(ProductSource.source_site, ProductSource.source_model_number)
+            .filter(
+                ProductSource.source_model_number.isnot(None),
+                ProductSource.is_active == True,
+            )
+            .all()
+        )
+        for site, mdl in sources:
+            d = site.lstrip('www.')
+            if d not in competitor_model_map:
+                competitor_model_map[d] = set()
+            if mdl:
+                competitor_model_map[d].add(mdl)
+
+    own_domains = {s["domain"] for s in config.get("source_sites", default=[])}
+
+    web_coro = find_products(
+        product_name=product_name,
+        model_number=model_number or None,
+        category=category or None,
+        competitor_model_map=competitor_model_map or None,
+        exclude_own_domains=own_domains,
+        max_results=req.max_results,
+    )
+
+    if req.search_competitor_sites and competitor_domains:
+        comp_coro = search_competitor_websites(
+            product_name=product_name,
+            model_number=model_number or None,
+            category=category or None,
+            competitor_domains=competitor_domains,
+            max_results_per_competitor=3,
+            min_fuzzy_score=req.min_fuzzy_score,
+        )
+        web_results, comp_results = await _asyncio.gather(web_coro, comp_coro)
+    else:
+        web_results = await web_coro
+        comp_results = []
+
+    return {
+        "query": product_name,
+        "model_number": model_number,
+        "category": category,
+        "results": web_results,
+        "competitor_results": comp_results,
+    }
 
 
 class BeatPriceRequest(BaseModel):
     description: str
+    model_number: Optional[str] = None
+    category: Optional[str] = None
     price_min: Optional[float] = None
     price_max: Optional[float] = None
     characteristics: Optional[Dict[str, Any]] = None
@@ -2384,6 +2500,8 @@ async def search_beat_price(req: BeatPriceRequest):
     from backend.search.engine import find_suppliers
     results = await find_suppliers(
         description=req.description,
+        model_number=req.model_number,
+        category=req.category,
         price_min=req.price_min,
         price_max=req.price_max,
         characteristics=req.characteristics,
@@ -2397,6 +2515,8 @@ class FindCustomersRequest(BaseModel):
     location: Optional[str] = None
     radius_miles: Optional[int] = None
     keywords: Optional[List[str]] = None
+    exclude_websites: List[str] = []
+    exclude_names: List[str] = []
     max_results: int = 20
 
 
@@ -2408,6 +2528,8 @@ async def search_find_customers(req: FindCustomersRequest):
         location=req.location,
         radius_miles=req.radius_miles,
         keywords=req.keywords,
+        exclude_websites=req.exclude_websites,
+        exclude_names=req.exclude_names,
         max_results=req.max_results,
     )
     return {"results": results}

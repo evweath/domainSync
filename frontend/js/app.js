@@ -83,12 +83,17 @@ function app() {
 
     // Find This Product
     findProductQuery: '',
+    findProductModelNumber: '',
+    findProductCategory: '',
+    findProductMinFuzzyScore: 0,
     findProductIds: [],
     findProductCatalogSearch: '',
     findProductCatalogResults: [],
     findProductMaxResults: 5,
     findProductResults: [],
+    findProductCompResults: [],
     findProductLoading: false,
+    findProductSearched: false,
 
     // Beat This Price
     beatPriceForm: { description: '', price_min: '', price_max: '', max_results: 10 },
@@ -160,6 +165,10 @@ function app() {
     findCustForm: { business_type: '', location: '', radius_miles: '', max_results: 20 },
     findCustKeywords: [],
     findCustKeywordInput: '',
+    findCustExcludeWebsites: [],
+    findCustExcludeWebsiteInput: '',
+    findCustExcludeNames: [],
+    findCustExcludeNameInput: '',
     findCustResults: [],
     findCustLoading: false,
 
@@ -204,6 +213,9 @@ function app() {
     discoverRunning: false,
     competitorEditId: null,
     competitorEditForm: { name: '', base_url: '' },
+    competitorSelected: [],
+    competitorDeleteModal: false,
+    competitorDeleteExclude: false,
 
     // Pricing matrix
     priceMatrix: { rows: [], competitors: [], total: 0, page: 1, pages: 1 },
@@ -865,20 +877,26 @@ function app() {
         return;
       }
       this.findProductLoading = true;
+      this.findProductSearched = false;
       this.findProductResults = [];
+      this.findProductCompResults = [];
       try {
         const res = await this.api('/api/search/find-product', {
           method: 'POST',
           body: JSON.stringify({
             product_ids: this.findProductIds.length ? this.findProductIds : null,
             query: this.findProductQuery || null,
+            model_number: this.findProductModelNumber || null,
+            category: this.findProductCategory || null,
             max_results: this.findProductMaxResults,
+            min_fuzzy_score: this.findProductMinFuzzyScore || 0,
+            search_competitor_sites: true,
           }),
         });
         this.findProductResults = res?.results || [];
-        if (!this.findProductResults.length) this.toast('No results found — try a different query', 'info');
+        this.findProductCompResults = res?.competitor_results || [];
       } catch (e) { this.toast('Search failed: ' + e.message, 'error'); }
-      finally { this.findProductLoading = false; }
+      finally { this.findProductLoading = false; this.findProductSearched = true; }
     },
 
     // -----------------------------------------------------------------------
@@ -977,6 +995,8 @@ function app() {
               method: 'POST',
               body: JSON.stringify({
                 description: desc,
+                model_number: p.model_number || null,
+                category: p.category || null,
                 price_min: priceMin, price_max: priceMax,
                 characteristics: charsPayload, max_results: maxResults,
               }),
@@ -1029,6 +1049,30 @@ function app() {
       this.findCustKeywords = this.findCustKeywords.filter(k => k !== kw);
     },
 
+    addFindCustExcludeWebsite() {
+      const v = this.findCustExcludeWebsiteInput.trim().replace(/^https?:\/\//, '').replace(/\/$/, '');
+      if (v && !this.findCustExcludeWebsites.includes(v)) {
+        this.findCustExcludeWebsites = [...this.findCustExcludeWebsites, v];
+        this.findCustExcludeWebsiteInput = '';
+      }
+    },
+
+    removeFindCustExcludeWebsite(v) {
+      this.findCustExcludeWebsites = this.findCustExcludeWebsites.filter(x => x !== v);
+    },
+
+    addFindCustExcludeName() {
+      const v = this.findCustExcludeNameInput.trim();
+      if (v && !this.findCustExcludeNames.includes(v)) {
+        this.findCustExcludeNames = [...this.findCustExcludeNames, v];
+        this.findCustExcludeNameInput = '';
+      }
+    },
+
+    removeFindCustExcludeName(v) {
+      this.findCustExcludeNames = this.findCustExcludeNames.filter(x => x !== v);
+    },
+
     async runFindCustomers() {
       if (!this.findCustForm.business_type && !this.findCustForm.location && !this.findCustKeywords.length) {
         this.toast('Enter at least a business type, location, or keyword', 'info');
@@ -1044,6 +1088,8 @@ function app() {
             location: this.findCustForm.location || null,
             radius_miles: this.findCustForm.radius_miles ? parseInt(this.findCustForm.radius_miles) : null,
             keywords: this.findCustKeywords.length ? this.findCustKeywords : null,
+            exclude_websites: this.findCustExcludeWebsites,
+            exclude_names: this.findCustExcludeNames,
             max_results: this.findCustForm.max_results,
           }),
         });
@@ -1732,16 +1778,46 @@ function app() {
       this.competitorDragFrom = null;
     },
 
-    async deleteCompetitor(id) {
-      const c = (this.competitors?.competitors || []).find(x => x.id === id)
-                || this.competitorDetail
-                || { domain: `id ${id}` };
-      if (!confirm(`Permanently delete competitor "${c.domain}" and all its scans, matches, and price history? This cannot be undone.`)) return;
+    deleteCompetitor(id) {
+      this.competitorSelected = [id];
+      this.competitorDeleteExclude = false;
+      this.competitorDeleteModal = true;
+    },
+
+    toggleCompetitorSelect(id) {
+      const idx = this.competitorSelected.indexOf(id);
+      if (idx >= 0) this.competitorSelected.splice(idx, 1);
+      else this.competitorSelected.push(id);
+    },
+
+    isCompetitorSelected(id) {
+      return this.competitorSelected.includes(id);
+    },
+
+    selectAllCompetitors() {
+      const all = (this.competitors?.competitors || []).map(c => c.id);
+      this.competitorSelected = this.competitorSelected.length === all.length ? [] : [...all];
+    },
+
+    openBulkDeleteModal() {
+      this.competitorDeleteExclude = false;
+      this.competitorDeleteModal = true;
+    },
+
+    async confirmDeleteCompetitors() {
+      const ids = [...this.competitorSelected];
+      if (!ids.length) return;
       try {
-        const r = await this.api(`/api/competitors/${id}`, { method: 'DELETE' });
+        const r = await this.api('/api/competitors/bulk-delete', {
+          method: 'POST',
+          body: JSON.stringify({ ids, exclude: this.competitorDeleteExclude }),
+        });
         const rm = r?.removed || {};
+        const n = ids.length;
         const detail = `matches=${rm.matches || 0}, prices=${rm.price_history || 0}, scans=${rm.scans || 0}`;
-        this.toast(`Competitor deleted (${detail})`, 'success');
+        this.toast(`${n} competitor${n !== 1 ? 's' : ''} deleted (${detail})`, 'success');
+        this.competitorSelected = [];
+        this.competitorDeleteModal = false;
         this.competitorEditId = null;
         this.competitorDetail = null;
         await this.loadCompetitors();

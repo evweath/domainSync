@@ -1747,12 +1747,35 @@
         <!-- Right: Free-text query + options -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 space-y-4">
           <div>
-            <label class="text-sm font-medium block mb-1">Or describe what you're looking for</label>
-            <textarea x-model="findProductQuery" rows="4" placeholder="e.g. commercial donut fryer stainless steel 24-count capacity..."
+            <label class="text-sm font-medium block mb-1">Product name / description</label>
+            <textarea x-model="findProductQuery" rows="3" placeholder="e.g. commercial donut fryer stainless steel 24-count capacity..."
               class="w-full border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 resize-none"></textarea>
           </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="text-sm font-medium block mb-1">Model number <span class="text-xs text-gray-400 font-normal">(optional)</span></label>
+              <input x-model="findProductModelNumber" type="text" placeholder="e.g. HO-23450"
+                class="w-full border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600" />
+            </div>
+            <div>
+              <label class="text-sm font-medium block mb-1">Category <span class="text-xs text-gray-400 font-normal">(optional)</span></label>
+              <input x-model="findProductCategory" type="text" placeholder="e.g. commercial mixer"
+                class="w-full border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600" />
+            </div>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <label class="text-sm font-medium">Min. competitor match score</label>
+              <span class="text-sm font-bold text-orange-500" x-text="findProductMinFuzzyScore + '%'"></span>
+            </div>
+            <input type="range" min="0" max="95" step="5" x-model.number="findProductMinFuzzyScore"
+              class="w-full accent-orange-500" />
+            <div class="flex justify-between text-xs text-gray-400">
+              <span>0% (show all)</span><span>50% (moderate)</span><span>95% (exact)</span>
+            </div>
+          </div>
           <div class="flex items-center gap-3">
-            <label class="text-sm font-medium">Results:</label>
+            <label class="text-sm font-medium">Web results:</label>
             <select x-model.number="findProductMaxResults" class="border rounded px-2 py-1 text-sm dark:bg-gray-700 dark:border-gray-600">
               <option value="3">3</option>
               <option value="5">5</option>
@@ -1796,12 +1819,38 @@
       </div>
 
       <!-- Results -->
-      <div x-show="findProductResults.length > 0">
-        <h3 class="font-semibold mb-3" x-text="`${findProductResults.length} results found`"></h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div x-show="findProductSearched || findProductLoading" class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-semibold" x-text="findProductLoading ? 'Searching...' : findProductResults.length + ' result' + (findProductResults.length !== 1 ? 's' : '') + ' found'"></h3>
+        </div>
+
+        <!-- Loading skeleton -->
+        <div x-show="findProductLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <template x-for="i in findProductMaxResults" :key="i">
+            <div class="rounded-xl border dark:border-gray-700 overflow-hidden animate-pulse">
+              <div class="h-40 bg-gray-200 dark:bg-gray-700"></div>
+              <div class="p-4 space-y-2">
+                <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
+                <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
+                <div class="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <!-- Empty state -->
+        <div x-show="!findProductLoading && findProductResults.length === 0"
+          class="text-center text-gray-400 py-10">
+          <div class="text-4xl mb-2">🔍</div>
+          <div>No results found — try a broader query or different keywords</div>
+        </div>
+
+        <!-- Result cards -->
+        <div x-show="!findProductLoading && findProductResults.length > 0"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <template x-for="r in findProductResults" :key="r.url">
-            <div class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden flex flex-col">
-              <div class="h-40 bg-gray-100 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
+            <div class="bg-gray-50 dark:bg-gray-700 rounded-xl overflow-hidden flex flex-col">
+              <div class="h-40 bg-gray-100 dark:bg-gray-600 flex items-center justify-center overflow-hidden">
                 <img x-show="r.image" :src="r.image" class="w-full h-full object-cover"
                   @error="$el.style.display='none'" loading="lazy" />
                 <span x-show="!r.image" class="text-4xl">📦</span>
@@ -1810,7 +1859,8 @@
                 <div class="text-sm font-semibold line-clamp-2 mb-1" x-text="r.title"></div>
                 <div class="text-xs text-gray-500 line-clamp-3 flex-1 mb-2" x-text="r.description"></div>
                 <div class="flex items-center justify-between mt-auto">
-                  <span x-show="r.price" class="text-green-600 font-bold text-sm" x-text="r.price"></span>
+                  <span class="text-green-600 font-bold text-sm"
+                    x-text="r.price || '—'" :class="r.price ? '' : 'text-gray-400 font-normal'"></span>
                   <span x-show="r.model_number" class="text-xs font-mono text-gray-400" x-text="r.model_number"></span>
                 </div>
                 <a :href="r.url" target="_blank" rel="noopener"
@@ -1821,6 +1871,62 @@
             </div>
           </template>
         </div>
+      </div>
+
+      <!-- Competitor site results -->
+      <div x-show="findProductSearched && findProductCompResults.length > 0"
+        class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 mt-4">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-semibold">
+            🏪 Competitor Site Results
+            <span class="text-xs text-gray-400 font-normal ml-1"
+              x-text="'(' + findProductCompResults.length + ' match' + (findProductCompResults.length !== 1 ? 'es' : '') + ' from ' + [...new Set(findProductCompResults.map(r => r.competitor_domain))].length + ' sites)'"></span>
+          </h3>
+          <div class="flex items-center gap-2 text-xs text-gray-500">
+            <span>Min match:</span>
+            <input type="range" min="0" max="95" step="5" x-model.number="findProductMinFuzzyScore"
+              class="w-24 accent-orange-500" />
+            <span class="font-bold text-orange-500 w-8" x-text="findProductMinFuzzyScore + '%'"></span>
+          </div>
+        </div>
+        <div class="divide-y divide-gray-100 dark:divide-gray-700">
+          <template x-for="r in findProductCompResults.filter(r => r.fuzzy_score >= findProductMinFuzzyScore)" :key="r.url">
+            <div class="py-3 flex gap-3 items-start">
+              <!-- Match score badge -->
+              <div class="flex-shrink-0 w-12 text-center">
+                <div class="text-lg font-bold"
+                  :class="r.fuzzy_score >= 75 ? 'text-green-600' : r.fuzzy_score >= 50 ? 'text-yellow-500' : 'text-gray-400'"
+                  x-text="r.fuzzy_score + '%'"></div>
+                <div class="text-xs text-gray-400">match</div>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-start justify-between gap-2">
+                  <div class="text-sm font-semibold line-clamp-1" x-text="r.title"></div>
+                  <span class="text-green-600 font-bold text-sm flex-shrink-0"
+                    x-text="r.price || '—'" :class="r.price ? '' : 'text-gray-400 font-normal text-xs'"></span>
+                </div>
+                <div class="text-xs text-gray-500 line-clamp-2 mt-0.5" x-text="r.description"></div>
+                <div class="flex items-center gap-3 mt-1 flex-wrap">
+                  <span class="text-xs text-purple-600 font-medium" x-text="r.competitor_domain"></span>
+                  <span x-show="r.model_number" class="text-xs font-mono text-gray-400" x-text="r.model_number"></span>
+                  <span class="text-xs text-gray-400 italic" x-text="'searched: ' + r.source_query"></span>
+                  <a :href="r.url" target="_blank" rel="noopener"
+                    class="text-xs text-blue-500 hover:underline ml-auto">View →</a>
+                </div>
+              </div>
+            </div>
+          </template>
+          <div x-show="findProductCompResults.filter(r => r.fuzzy_score >= findProductMinFuzzyScore).length === 0"
+            class="py-6 text-center text-sm text-gray-400">
+            No competitor results above <span x-text="findProductMinFuzzyScore + '%'"></span> match threshold.
+            Lower the slider to see more.
+          </div>
+        </div>
+      </div>
+
+      <div x-show="findProductSearched && !findProductLoading && findProductCompResults.length === 0"
+        class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 mt-4 text-center text-sm text-gray-400">
+        No matching products found on tracked competitor sites.
       </div>
     </div>
 
@@ -2054,6 +2160,42 @@
             </div>
           </div>
 
+          <!-- Exclude Websites -->
+          <div>
+            <label class="text-sm font-medium block mb-1">Exclude Websites</label>
+            <div class="flex gap-2 mb-2">
+              <input x-model="findCustExcludeWebsiteInput" @keyup.enter="addFindCustExcludeWebsite()"
+                placeholder="e.g. example.com" class="flex-1 border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600" />
+              <button @click="addFindCustExcludeWebsite()" class="bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 px-3 rounded-lg text-sm">+</button>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <template x-for="v in findCustExcludeWebsites" :key="v">
+                <span class="flex items-center gap-1 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 text-xs px-2 py-1 rounded-full">
+                  <span x-text="v"></span>
+                  <button @click="removeFindCustExcludeWebsite(v)" class="hover:text-red-500 font-bold ml-0.5">×</button>
+                </span>
+              </template>
+            </div>
+          </div>
+
+          <!-- Exclude Business Names -->
+          <div>
+            <label class="text-sm font-medium block mb-1">Exclude Business Names</label>
+            <div class="flex gap-2 mb-2">
+              <input x-model="findCustExcludeNameInput" @keyup.enter="addFindCustExcludeName()"
+                placeholder="e.g. Dunkin'" class="flex-1 border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600" />
+              <button @click="addFindCustExcludeName()" class="bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 px-3 rounded-lg text-sm">+</button>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <template x-for="v in findCustExcludeNames" :key="v">
+                <span class="flex items-center gap-1 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 text-xs px-2 py-1 rounded-full">
+                  <span x-text="v"></span>
+                  <button @click="removeFindCustExcludeName(v)" class="hover:text-red-500 font-bold ml-0.5">×</button>
+                </span>
+              </template>
+            </div>
+          </div>
+
           <div class="flex items-center gap-3">
             <label class="text-sm font-medium">Results:</label>
             <select x-model.number="findCustForm.max_results" class="border rounded px-2 py-1 text-sm dark:bg-gray-700 dark:border-gray-600">
@@ -2084,6 +2226,12 @@
                   <span class="text-xs text-gray-400 flex-shrink-0 font-mono" x-text="'#' + (idx + 1)"></span>
                 </div>
                 <div class="text-xs text-gray-500 line-clamp-3 mb-2" x-text="r.description"></div>
+                <div x-show="r.phone" class="text-xs text-gray-600 dark:text-gray-300 mb-1">
+                  📞 <span x-text="r.phone"></span>
+                </div>
+                <div x-show="r.address" class="text-xs text-gray-600 dark:text-gray-300 mb-2">
+                  📍 <span x-text="r.address"></span>
+                </div>
                 <a :href="r.url" target="_blank" rel="noopener"
                   class="text-xs text-blue-500 hover:underline truncate block" x-text="r.domain || r.url"></a>
               </div>
@@ -2688,8 +2836,29 @@
         </div>
         <!-- Competitor list as flex rows to support drag-to-reorder columns -->
         <div class="text-sm">
+          <!-- Bulk action bar -->
+          <div x-show="competitorSelected.length > 0"
+            class="flex items-center gap-3 px-4 py-2 bg-orange-50 dark:bg-orange-900/20 border-b border-orange-200 dark:border-orange-800 text-sm">
+            <span class="font-medium text-orange-700 dark:text-orange-300"
+              x-text="`${competitorSelected.length} selected`"></span>
+            <button @click="openBulkDeleteModal()"
+              class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs font-medium">
+              Delete Selected
+            </button>
+            <button @click="competitorSelected = []"
+              class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-xs underline">
+              Clear selection
+            </button>
+          </div>
           <!-- Header row -->
           <div class="flex items-center bg-gray-50 dark:bg-gray-700 text-gray-500 text-xs border-b border-gray-200 dark:border-gray-600 cols-divided cols-divided-header">
+            <div style="order: -1" class="flex-shrink-0 px-3 py-2 w-10 flex items-center justify-center">
+              <input type="checkbox"
+                :checked="competitorSelected.length > 0 && competitorSelected.length === (competitors?.competitors || []).length"
+                :indeterminate.prop="competitorSelected.length > 0 && competitorSelected.length < (competitors?.competitors || []).length"
+                @change="selectAllCompetitors()"
+                class="w-4 h-4 rounded border-gray-300 text-orange-500 cursor-pointer" />
+            </div>
             <div :style="{ order: competitorCols.indexOf('domain') }"
               class="flex-1 min-w-0 px-4 py-2 font-semibold cursor-pointer select-none hover:text-orange-500 transition-colors"
               :class="competitorDragFrom === 'domain' ? 'opacity-40' : ''"
@@ -2751,7 +2920,14 @@
                   </div>
                 </div>
                 <!-- Normal row -->
-                <div x-show="competitorEditId !== c.id" class="flex items-center cols-divided">
+                <div x-show="competitorEditId !== c.id" class="flex items-center cols-divided"
+                  :class="isCompetitorSelected(c.id) ? 'bg-orange-50 dark:bg-orange-900/10' : ''">
+                  <div style="order: -1" class="flex-shrink-0 px-3 py-2 w-10 flex items-center justify-center">
+                    <input type="checkbox"
+                      :checked="isCompetitorSelected(c.id)"
+                      @click.stop="toggleCompetitorSelect(c.id)"
+                      class="w-4 h-4 rounded border-gray-300 text-orange-500 cursor-pointer" />
+                  </div>
                   <div :style="{ order: competitorCols.indexOf('domain') }" class="flex-1 min-w-0 px-4 py-2">
                     <div class="font-medium" x-text="c.domain"></div>
                     <div class="text-xs text-gray-400" x-text="c.name || ''"></div>
@@ -2799,6 +2975,43 @@
             class="px-3 py-1 rounded border text-sm disabled:opacity-40">← Prev</button>
           <button @click="loadCompetitors(competitorPage + 1)" :disabled="competitorPage * 50 >= competitors.total"
             class="px-3 py-1 rounded border text-sm disabled:opacity-40">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== COMPETITOR DELETE MODAL ===== -->
+    <div x-show="competitorDeleteModal" x-cloak
+      class="fixed inset-0 bg-black/60 z-40 flex items-center justify-center"
+      @click.self="competitorDeleteModal = false">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md mx-4 p-6">
+        <h3 class="text-lg font-bold mb-1">Delete Competitor<span x-text="competitorSelected.length !== 1 ? 's' : ''"></span></h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+          Permanently delete
+          <span class="font-semibold text-gray-800 dark:text-gray-200"
+            x-text="competitorSelected.length === 1
+              ? `'${ (competitors?.competitors || []).find(c => c.id === competitorSelected[0])?.domain || 'this competitor' }'`
+              : `${competitorSelected.length} competitors`"></span>
+          and all their scans, matches, and price history? This cannot be undone.
+        </p>
+        <label class="flex items-start gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 mb-5">
+          <input type="checkbox" x-model="competitorDeleteExclude"
+            class="mt-0.5 w-4 h-4 rounded border-gray-300 text-orange-500" />
+          <div>
+            <div class="text-sm font-medium">Exclude from future searches</div>
+            <div class="text-xs text-gray-400 mt-0.5">Auto-discover and bulk import will skip
+              <span x-text="competitorSelected.length !== 1 ? 'these domains' : 'this domain'"></span>
+              going forward.</div>
+          </div>
+        </label>
+        <div class="flex justify-end gap-2">
+          <button @click="competitorDeleteModal = false"
+            class="px-4 py-2 rounded text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200">
+            Cancel
+          </button>
+          <button @click="confirmDeleteCompetitors()"
+            class="px-4 py-2 rounded text-sm bg-red-500 hover:bg-red-600 text-white font-medium">
+            Delete
+          </button>
         </div>
       </div>
     </div>
