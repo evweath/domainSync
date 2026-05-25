@@ -124,12 +124,12 @@ echo "   Press Ctrl+C to stop"
 echo ""
 
 if [ -f "$CERT" ] && [ -f "$KEY" ]; then
-  uvicorn backend.app:app --host 0.0.0.0 --port "$PORT" \
+  uvicorn backend.app:app --host 127.0.0.1 --port "$PORT" \
     --ssl-certfile "$CERT" --ssl-keyfile "$KEY" \
     --log-level warning
 else
   echo "  [WARN] No TLS cert found — running on HTTP"
-  uvicorn backend.app:app --host 0.0.0.0 --port "$PORT" --log-level warning
+  uvicorn backend.app:app --host 127.0.0.1 --port "$PORT" --log-level warning
 fi
 STARTSCRIPT
 chmod +x "$SCRIPT_DIR/start.sh"
@@ -161,7 +161,7 @@ cat > "$PLIST_SRC" << PLIST
     <string>uvicorn</string>
     <string>backend.app:app</string>
     <string>--host</string>
-    <string>0.0.0.0</string>
+    <string>127.0.0.1</string>
     <string>--port</string>
     <string>8743</string>
     <string>--ssl-certfile</string>

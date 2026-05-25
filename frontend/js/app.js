@@ -890,7 +890,7 @@ function app() {
             category: this.findProductCategory || null,
             max_results: this.findProductMaxResults,
             min_fuzzy_score: this.findProductMinFuzzyScore || 0,
-            search_competitor_sites: true,
+            search_competitor_sites: false,
           }),
         });
         this.findProductResults = res?.results || [];

@@ -1,7 +1,7 @@
 """
 Web search engine for Find This Product, Beat This Price, Find Me Customers,
 and web-search-first competitor scanning.
-Supports DuckDuckGo, Bing, Google, and Yahoo — no API keys required.
+Supports DuckDuckGo, Bing, Google, Yahoo, and Google Shopping — no API keys required.
 """
 import asyncio
 import json
@@ -411,9 +411,9 @@ async def _google_shopping_search(query: str, max_results: int) -> List[Dict[str
                 continue
 
             domain = _domain(href)
-            if not domain or domain in seen:
+            if not domain or href in seen:
                 continue
-            seen.add(domain)
+            seen.add(href)
 
             merch_m = re.search(
                 r'class="[^"]*(?:aULzUe|NbK1N|merchant|seller)[^"]*"[^>]*>(.*?)</(?:span|div)>',
@@ -437,13 +437,13 @@ async def _google_shopping_search(query: str, max_results: int) -> List[Dict[str
             for m in re.finditer(r'href="(https?://(?!(?:www\.)?google\.com)[^"]+)"', stripped):
                 href = m.group(1)
                 domain = _domain(href)
-                if not domain or domain in seen:
+                if not domain or href in seen:
                     continue
                 ctx = stripped[max(0, m.start() - 100): m.end() + 300]
                 price_m = _PRICE_RE.search(ctx)
                 if not price_m:
                     continue
-                seen.add(domain)
+                seen.add(href)
                 results.append({
                     'href': href, 'url': href, 'domain': domain,
                     'title': domain, 'body': price_m.group(0),
@@ -599,15 +599,20 @@ async def multi_engine_search(
 ) -> List[Dict[str, Any]]:
     """
     Search across DuckDuckGo, Bing, Google, Yahoo, and Google Shopping concurrently.
-    Returns up to max_results unique results (by URL), ranked by engine agreement.
-    Shopping results receive a 2× score bonus since they confirm price availability.
+
+    Google Shopping results are always included first and are URL-deduplicated (so
+    multiple products from the same seller are all captured). Organic results from the
+    other engines fill remaining slots up to max_results, domain-deduplicated and
+    ranked by cross-engine agreement.
     """
     if engines is None:
-        engines = ['ddg', 'bing', 'google', 'yahoo']
+        engines = ['ddg', 'bing', 'google', 'yahoo', 'shopping']
     exclude = exclude_domains or set()
     fetch = max_results * 3  # over-fetch to account for filtering
 
-    tasks = []
+    # Build tasks, noting which index belongs to shopping.
+    tasks: List = []
+    shopping_idx: Optional[int] = None
     if 'ddg' in engines:
         tasks.append(_text_search(query, max_results=fetch))
     if 'bing' in engines:
@@ -617,27 +622,47 @@ async def multi_engine_search(
     if 'yahoo' in engines:
         tasks.append(_yahoo_search(query, max_results=fetch))
     if 'shopping' in engines:
+        shopping_idx = len(tasks)
         tasks.append(_google_shopping_search(query, max_results=fetch))
 
     raw = await asyncio.gather(*tasks, return_exceptions=True)
 
-    # Score and merge at domain level — different engines return different URLs for the
-    # same domain, so URL-level dedup prevents cross-engine scoring and title merging.
-    domain_score: Dict[str, int] = {}
-    domain_best: Dict[str, Dict] = {}
-
-    for engine_results in raw:
-        if isinstance(engine_results, Exception):
-            continue
-        for item in (engine_results or []):
+    # --- Pass 1: collect all Shopping results (URL-keyed, multiple per domain allowed) ---
+    shopping_results: List[Dict[str, Any]] = []
+    seen_shopping_urls: set = set()
+    if shopping_idx is not None and not isinstance(raw[shopping_idx], Exception):
+        for item in (raw[shopping_idx] or []):
             url = item.get('href', '') or item.get('url', '')
-            if not url or _is_homepage(url):
+            if not url or _is_homepage(url) or url in seen_shopping_urls:
                 continue
             domain = _domain(url)
             if not domain or domain in exclude or domain in _NOISE_DOMAINS:
                 continue
-            is_shopping = item.get('source') == 'shopping'
-            domain_score[domain] = domain_score.get(domain, 0) + (2 if is_shopping else 1)
+            seen_shopping_urls.add(url)
+            shopping_results.append({
+                'href': url, 'url': url, 'domain': domain,
+                'title': item.get('title', ''),
+                'body': item.get('body', '') or item.get('description', ''),
+                'price': item.get('price'),
+            })
+
+    # --- Pass 2: score organic results at domain level, skip URLs already in Shopping ---
+    domain_score: Dict[str, int] = {}
+    domain_best: Dict[str, Dict] = {}
+    organic_indices = [i for i in range(len(tasks)) if i != shopping_idx]
+
+    for i in organic_indices:
+        engine_results = raw[i]
+        if isinstance(engine_results, Exception):
+            continue
+        for item in (engine_results or []):
+            url = item.get('href', '') or item.get('url', '')
+            if not url or _is_homepage(url) or url in seen_shopping_urls:
+                continue
+            domain = _domain(url)
+            if not domain or domain in exclude or domain in _NOISE_DOMAINS:
+                continue
+            domain_score[domain] = domain_score.get(domain, 0) + 1
             entry = {
                 'href': url, 'url': url, 'domain': domain,
                 'title': item.get('title', ''),
@@ -654,13 +679,11 @@ async def multi_engine_search(
                     cur['body'] = entry['body']
                 if not cur['price'] and entry['price']:
                     cur['price'] = entry['price']
-                # Prefer URL from the entry that has metadata
-                if not cur['title'] and entry['title']:
-                    cur['url'] = url
-                    cur['href'] = url
 
-    ranked = sorted(domain_score.keys(), key=lambda d: -domain_score[d])
-    return [domain_best[d] for d in ranked[:max_results]]
+    ranked_organic = sorted(domain_score.keys(), key=lambda d: -domain_score[d])
+    # Shopping results first (have embedded prices), organic fills remaining slots.
+    organic_slots = max(0, max_results - len(shopping_results))
+    return shopping_results + [domain_best[d] for d in ranked_organic[:organic_slots]]
 
 
 async def find_products(
