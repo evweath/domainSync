@@ -56,7 +56,8 @@ Nothing — all work committed and pushed (`52bc202` is HEAD on `origin/main`).
 - **ProductOption**: `option_group`, `option_value` (not `name`, `value`)
 - **Config list update pattern**: `config.get("source_sites", default=[])` returns plain dicts; to update a list item patch `config._settings["source_sites"]` directly then call `config._save()`
 - **Auth**: cookie-based — POST `/api/auth/login` `{"username":"admin","password":"changeme"}`; no Bearer token
-- **Server start**: `source .venv/bin/activate && uvicorn backend.app:app --host 0.0.0.0 --port 8743 --ssl-keyfile certs/key.pem --ssl-certfile certs/cert.pem --reload`
+- **Server start**: `source .venv/bin/activate && uvicorn backend.app:app --host 127.0.0.1 --port 8743 --ssl-keyfile certs/key.pem --ssl-certfile certs/cert.pem --reload`
+- **NEVER bind to 0.0.0.0** — always use 127.0.0.1 to prevent LAN exposure
 - **Port conflict on restart**: use `lsof -ti :8743 | xargs kill -9` before starting
 - **Session backup hook** auto-commits everything on stop — always squash with `git reset --soft <last-real-commit>` and re-commit cleanly before pushing
 - DB: `data/donut_intel.db` (SQLite WAL mode)
