@@ -366,8 +366,57 @@ async def _yahoo_search(query: str, max_results: int) -> List[Dict[str, Any]]:
         return []
 
 
+async def _serpapi_shopping_search(query: str, max_results: int) -> List[Dict[str, Any]]:
+    """Fetch Google Shopping results via SerpAPI (requires serpapi.api_key in settings)."""
+    from backend.config import Config
+    api_key = (Config().get('serpapi', 'api_key') or '').strip()
+    if not api_key:
+        return []
+    try:
+        q = quote_plus(query)
+        url = (
+            f"https://serpapi.com/search.json"
+            f"?engine=google_shopping&q={q}&api_key={api_key}"
+            f"&num={min(max_results, 100)}&gl=us&hl=en"
+        )
+        html = await _curl_get(url, timeout=20)
+        if not html:
+            return []
+        import json as _json
+        data = _json.loads(html)
+        results: List[Dict[str, Any]] = []
+        seen: set = set()
+        for item in data.get('shopping_results', []):
+            href = item.get('link', '') or item.get('product_link', '')
+            if not href or href in seen:
+                continue
+            domain = _domain(href)
+            if not domain:
+                continue
+            seen.add(href)
+            price_raw = str(item.get('price', '') or '')
+            results.append({
+                'href': href, 'url': href, 'domain': domain,
+                'title': item.get('title', '')[:200],
+                'body': f"{item.get('source', domain)} — {price_raw}".strip(' —'),
+                'price': price_raw,
+                'source': 'shopping',
+            })
+            if len(results) >= max_results:
+                break
+        logger.info("SerpAPI Shopping: %d results for %r", len(results), query[:60])
+        return results
+    except Exception as exc:
+        logger.debug("SerpAPI Shopping failed: %s", exc)
+        return []
+
+
 async def _google_shopping_search(query: str, max_results: int) -> List[Dict[str, Any]]:
-    """Scrape Google Shopping SERP for products with embedded prices."""
+    """Google Shopping: try SerpAPI first, fall back to HTML scraping."""
+    results = await _serpapi_shopping_search(query, max_results)
+    if results:
+        return results
+    # Fallback: HTML scraping (works only when Google doesn't serve a JS-gate page)
     try:
         q = quote_plus(query)
         url = f"https://www.google.com/search?q={q}&tbm=shop&num=40&hl=en&gl=us"

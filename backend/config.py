@@ -19,6 +19,7 @@ _ENV_OVERRIDES = {
     "DONUT_INTEL_HOST": ["app", "host"],
     "DONUT_INTEL_SECRET": ["app", "secret_key"],
     "ANTHROPIC_API_KEY": ["anthropic", "api_key"],
+    "SERPAPI_API_KEY": ["serpapi", "api_key"],
     "DONUT_INTEL_LOG_LEVEL": ["logging", "level"],
 }
 

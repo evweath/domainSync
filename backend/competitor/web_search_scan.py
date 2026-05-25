@@ -98,6 +98,12 @@ def _build_query(product: Product) -> str:
         parts.append(f'"{model}"')
     else:
         title = _clean_title_for_search(product.canonical_title or '')
+        mfr = (product.manufacturer or '').strip()
+        if mfr:
+            # Strip manufacturer name from front of title if it's repeated there
+            if title.upper().startswith(mfr.upper()):
+                title = title[len(mfr):].strip()
+            parts.append(mfr)
         parts.append(title)
     parts.append('buy')
     return ' '.join(parts)

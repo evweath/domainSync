@@ -3548,6 +3548,24 @@
           </div>
         </div>
 
+        <!-- Search API Keys -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+          <h3 class="font-semibold mb-3 text-orange-500">🔍 Search API Keys</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="text-sm font-medium block mb-1">SerpAPI Key</label>
+              <div class="text-xs text-gray-500 mb-2">Used for Google Shopping results. Get a key at <span class="font-mono">serpapi.com</span> (100 free searches/mo).</div>
+              <div class="flex gap-2">
+                <input type="password" placeholder="Paste SerpAPI key..."
+                  :value="settingsData?.serpapi?.api_key || ''"
+                  @change="saveSetting(['serpapi','api_key'], $event.target.value)"
+                  class="flex-1 border rounded-lg px-3 py-2 text-sm font-mono dark:bg-gray-700 dark:border-gray-600" />
+                <span x-show="settingsData?.serpapi?.api_key" class="flex items-center text-xs text-green-600 font-medium px-2">✓ saved</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- AI (F64) -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
           <h3 class="font-semibold mb-3 text-orange-500">🤖 AI Categorization (F64)</h3>
