@@ -1539,6 +1539,10 @@ def _variant_key(product) -> tuple:
 @router.get("/api/price-comparison")
 def price_comparison_matrix(
     page: int = 1, per_page: int = 25,
+    search: str = '',
+    manufacturer: str = '',
+    category: str = '',
+    source_site: str = '',
     db: Session = Depends(get_db_session),
 ):
     """F26: Matrix of all products vs all competitors.
@@ -1549,10 +1553,22 @@ def price_comparison_matrix(
     """
     competitors = db.query(Competitor).filter(Competitor.is_active == True).all()
     comp_domains = [c.domain for c in competitors]
-    products = (
-        db.query(Product).filter(Product.is_active == True)
-        .order_by(Product.canonical_title).all()
-    )
+    q = db.query(Product).filter(Product.is_active == True)
+    if search:
+        like = f'%{search}%'
+        q = q.filter(or_(
+            Product.canonical_title.ilike(like),
+            Product.manufacturer.ilike(like),
+            Product.model_number.ilike(like),
+            Product.sku.ilike(like),
+        ))
+    if manufacturer:
+        q = q.filter(Product.manufacturer.ilike(f'%{manufacturer}%'))
+    if category:
+        q = q.filter(Product.category.ilike(f'%{category}%'))
+    if source_site:
+        q = q.join(Product.sources).filter(ProductSource.source_site == source_site)
+    products = q.order_by(Product.canonical_title).all()
 
     # Group by variant key. Each group becomes one row in the matrix.
     groups: Dict[tuple, dict] = {}

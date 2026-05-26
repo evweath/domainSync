@@ -45,7 +45,7 @@
     <nav class="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
       <template x-for="item in navItems" :key="item.id">
         <button
-          @click="currentView = item.id; item.id === 'products' && loadProducts(1); item.id === 'competitors' && loadCompetitors(1); item.id === 'pricing' && loadPriceMatrix(1); item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'source-products' && loadSourceProducts(); item.id === 'store-compare' && loadStoreComparison(1); item.id === 'shopify-sync' && loadShopifySyncConfig(); item.id === 'live-sync' && (loadShopifySyncConfig(), loadLiveSyncScanStatus()); item.id === 'find-product' && findProductSearchCatalog(); item.id === 'beat-price' && beatPriceSearchCatalog(); item.id === 'system-of-record' && loadSystemOfRecord(); item.id === 'find-customers' && null"
+          @click="currentView = item.id; item.id === 'products' && loadProducts(1); item.id === 'competitors' && loadCompetitors(1); item.id === 'pricing' && (priceMatrixHasSearched = false);item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'source-products' && loadSourceProducts(); item.id === 'store-compare' && loadStoreComparison(1); item.id === 'shopify-sync' && loadShopifySyncConfig(); item.id === 'live-sync' && (loadShopifySyncConfig(), loadLiveSyncScanStatus()); item.id === 'find-product' && findProductSearchCatalog(); item.id === 'beat-price' && beatPriceSearchCatalog(); item.id === 'system-of-record' && loadSystemOfRecord(); item.id === 'find-customers' && null"
           :class="currentView === item.id
             ? 'bg-orange-600 text-white'
             : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
@@ -3079,7 +3079,6 @@
       <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
         <h2 class="text-2xl font-bold">Price Comparison Matrix</h2>
         <div class="flex items-center gap-2 flex-wrap">
-          <!-- Sort direction toggle for competitor order on every row -->
           <div class="flex items-center gap-1 mr-2 text-sm">
             <span class="text-gray-500">Sort competitors:</span>
             <button @click="priceMatrixSortDir='asc'"
@@ -3095,39 +3094,70 @@
             <span x-show="!competitorScanRunning">🔍</span>
             <span x-text="competitorScanRunning ? 'Scanning...' : 'Scan All Competitors'"></span>
           </button>
-          <button @click="loadPriceMatrix(1)" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm">
+          <button @click="loadPriceMatrix(1)" x-show="priceMatrixHasSearched"
+            class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm">
             🔄 Refresh
           </button>
         </div>
       </div>
 
-      <div x-show="!priceMatrix.competitors || priceMatrix.competitors.length === 0" class="bg-white dark:bg-gray-800 rounded-xl shadow p-12 text-center text-gray-400">
-        <div class="text-4xl mb-3">💰</div>
-        <div class="font-semibold">No competitor prices yet</div>
-        <div class="text-sm mt-1">Run a competitor scan to populate price data.</div>
-        <div class="flex justify-center gap-3 mt-4">
-          <button @click="scanAllCompetitors()" :disabled="competitorScanRunning"
-            class="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-4 py-2 rounded-lg text-sm">
-            <span x-text="competitorScanRunning ? '⏳ Scanning...' : '🔍 Scan All Competitors'"></span>
-          </button>
-          <button @click="currentView='competitors'" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm">
-            Manage Competitors →
-          </button>
+      <!-- Filters (same as product catalog) -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 mb-4">
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-3">
+          <input x-model="priceMatrixFilters.search" @input.debounce.400ms="loadPriceMatrix(1)"
+            placeholder="Search title, model, SKU..."
+            class="col-span-2 lg:col-span-2 border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+          <select x-model="priceMatrixFilters.manufacturer" @change="loadPriceMatrix(1)"
+            class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+            <option value="">All Manufacturers</option>
+            <template x-for="m in filterOptions.manufacturers" :key="m">
+              <option :value="m" x-text="m"></option>
+            </template>
+          </select>
+          <select x-model="priceMatrixFilters.category" @change="loadPriceMatrix(1)"
+            class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+            <option value="">All Categories</option>
+            <template x-for="c in filterOptions.categories" :key="c">
+              <option :value="c" x-text="c"></option>
+            </template>
+          </select>
+          <select x-model="priceMatrixFilters.source_site" @change="loadPriceMatrix(1)"
+            class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+            <option value="">All Sites</option>
+            <template x-for="s in filterOptions.source_sites" :key="s">
+              <option :value="s" x-text="s"></option>
+            </template>
+          </select>
         </div>
       </div>
 
-      <div x-show="priceMatrix.competitors && priceMatrix.competitors.length > 0">
+      <!-- Not yet searched -->
+      <div x-show="!priceMatrixHasSearched" class="bg-white dark:bg-gray-800 rounded-xl shadow p-12 text-center text-gray-400">
+        <div class="text-4xl mb-3">💰</div>
+        <div class="font-semibold">Use the filters above to search the price matrix</div>
+        <div class="text-sm mt-1">Select a manufacturer, category, site, or type a search term to load results.</div>
+      </div>
+
+      <!-- Searched, no results -->
+      <div x-show="priceMatrixHasSearched && !loadingMatrix && (!priceMatrix.rows || priceMatrix.rows.length === 0)"
+        class="bg-white dark:bg-gray-800 rounded-xl shadow p-12 text-center text-gray-400">
+        <div class="text-4xl mb-3">🔍</div>
+        <div class="font-semibold">No products match your filters</div>
+        <div class="text-sm mt-1">Try broadening your search or clearing a filter.</div>
+      </div>
+
+      <!-- Results -->
+      <div x-show="priceMatrixHasSearched && priceMatrix.rows && priceMatrix.rows.length > 0">
         <div x-show="loadingMatrix" class="text-center py-8 text-gray-400">Loading price matrix...</div>
         <div x-show="!loadingMatrix" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
-          <!-- Real <table> so the column-resize logic in app.js (_initColumnResize)
-               and the table-divider CSS both apply automatically. `price-matrix`
-               class on <table> enforces single-line rows: table-layout fixed +
-               every cell clips overflow. The Competitor Prices cell holds an
-               inner overflow-x-auto strip so extra chips scroll horizontally
-               instead of wrapping. -->
           <table class="w-full text-sm price-matrix">
             <thead class="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wide">
               <tr>
+                <th class="px-4 py-2 w-10">
+                  <input type="checkbox" class="w-4 h-4"
+                    :checked="(priceMatrix.rows||[]).length > 0 && (priceMatrix.rows||[]).every(r => priceMatrixSelected[r.product_id])"
+                    @change="toggleAllPriceMatrix()" />
+                </th>
                 <th class="text-left px-4 py-2 font-semibold" style="width: 18rem;">Product</th>
                 <th class="text-right px-4 py-2 font-semibold" style="width: 7rem;">Our Price</th>
                 <th class="text-left px-4 py-2 font-semibold">Competitor Prices
@@ -3140,15 +3170,17 @@
             <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
               <template x-for="row in priceMatrix.rows" :key="row.product_id">
                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                  <!-- Product title -->
+                  <td class="px-4 py-2 w-10" @click.stop>
+                    <input type="checkbox" class="w-4 h-4"
+                      :checked="!!priceMatrixSelected[row.product_id]"
+                      @change="priceMatrixSelected[row.product_id] = $event.target.checked; priceMatrixSelected = {...priceMatrixSelected}" />
+                  </td>
                   <td class="px-4 py-2">
                     <div class="font-medium text-sm truncate" x-text="row.title" :title="row.title"></div>
                   </td>
-                  <!-- Our price -->
                   <td class="px-4 py-2 text-right whitespace-nowrap">
                     <span class="font-bold text-orange-600 text-sm" x-text="fmtPrice(row.our_price)"></span>
                   </td>
-                  <!-- Competitor chips - inner scroller keeps the row to one line -->
                   <td class="px-4 py-2">
                     <div class="overflow-x-auto">
                       <div class="flex items-center gap-2 whitespace-nowrap text-xs">
@@ -3170,7 +3202,6 @@
                       </div>
                     </div>
                   </td>
-                  <!-- Actions -->
                   <td class="px-4 py-2 text-right whitespace-nowrap">
                     <button @click="window.open(`/api/reports/price-comparison/${row.product_id}`, '_blank')"
                       class="text-xs text-gray-400 hover:text-blue-700">Report</button>

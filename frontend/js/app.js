@@ -223,6 +223,9 @@ function app() {
     priceMatrix: { rows: [], competitors: [], total: 0, page: 1, pages: 1 },
     priceMatrixPage: 1,
     priceMatrixSortDir: 'asc',  // 'asc' = cheapest first, 'desc' = most expensive first
+    priceMatrixFilters: { search: '', manufacturer: '', category: '', source_site: '' },
+    priceMatrixSelected: {},
+    priceMatrixHasSearched: false,
     loadingMatrix: false,
 
     // Scheduler
@@ -1866,10 +1869,28 @@ function app() {
     async loadPriceMatrix(page = 1) {
       this.loadingMatrix = true;
       this.priceMatrixPage = page;
+      this.priceMatrixHasSearched = true;
+      const f = this.priceMatrixFilters;
+      const params = new URLSearchParams({ page, per_page: 25 });
+      if (f.search)       params.set('search',       f.search);
+      if (f.manufacturer) params.set('manufacturer', f.manufacturer);
+      if (f.category)     params.set('category',     f.category);
+      if (f.source_site)  params.set('source_site',  f.source_site);
       try {
-        this.priceMatrix = await this.api(`/api/price-comparison?page=${page}&per_page=25`) || { rows: [], competitors: [] };
+        this.priceMatrix = await this.api(`/api/price-comparison?${params}`) || { rows: [], competitors: [] };
       } catch (e) { this.toast('Failed to load price matrix: ' + e.message, 'error'); }
       finally { this.loadingMatrix = false; }
+    },
+
+    toggleAllPriceMatrix() {
+      const rows = this.priceMatrix.rows || [];
+      const allSelected = rows.length > 0 && rows.every(r => this.priceMatrixSelected[r.product_id]);
+      if (allSelected) {
+        rows.forEach(r => { delete this.priceMatrixSelected[r.product_id]; });
+      } else {
+        rows.forEach(r => { this.priceMatrixSelected[r.product_id] = true; });
+      }
+      this.priceMatrixSelected = { ...this.priceMatrixSelected };
     },
 
     priceDiff(ourPrice, theirPrice) {
