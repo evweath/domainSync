@@ -359,8 +359,98 @@
         </div>
       </div>
 
+      <!-- ── Search-Mode View (shown while competitor search is running) ────── -->
+      <div x-show="productCompMode" class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="text-sm text-gray-600 dark:text-gray-400">
+            Searching <span class="font-semibold" x-text="productCompSearchProducts.length"></span>
+            product<span x-show="productCompSearchProducts.length !== 1">s</span> for up to
+            <span class="font-semibold" x-text="(productCompSearchProducts[0] && productCompCounts[productCompSearchProducts[0].id]?.target) || productCompMax"></span> competitors each
+          </div>
+          <button x-show="!productCompRunning" @click="exitCompSearchMode()"
+            class="text-sm text-orange-500 hover:text-orange-600 font-medium">
+            ← Back to catalog
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+          <template x-for="p in productCompSearchProducts" :key="p.id">
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 flex flex-col gap-3">
+              <div class="flex items-start gap-3">
+                <div class="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 flex-shrink-0">
+                  <img x-show="p.primary_image" :src="p.primary_image" class="w-full h-full object-cover" loading="lazy" @error="$el.style.display='none'" />
+                  <div x-show="!p.primary_image" class="w-full h-full flex items-center justify-center text-xl">📦</div>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-medium text-sm line-clamp-2" x-text="p.title"></div>
+                  <div x-show="p.price" class="text-xs text-green-600 font-semibold mt-0.5" x-text="'$' + (p.price || 0).toFixed(2)"></div>
+                </div>
+              </div>
+
+              <!-- Progress bar -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1">
+                  <span class="text-gray-500">Competitors found</span>
+                  <span class="font-semibold">
+                    <span x-text="productCompCounts[p.id]?.found || 0"></span>
+                    /
+                    <span x-text="productCompCounts[p.id]?.target || productCompMax"></span>
+                  </span>
+                </div>
+                <div class="w-full h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div class="h-full bg-orange-400 rounded-full transition-all duration-500"
+                    :style="'width:' + Math.min(100, Math.round(((productCompCounts[p.id]?.found || 0) / (productCompCounts[p.id]?.target || productCompMax)) * 100)) + '%'">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Status line -->
+              <div class="text-xs text-gray-500 min-h-[1.2em] flex items-center gap-1.5">
+                <template x-if="productCompCounts[p.id]?.done">
+                  <span class="text-green-600 font-medium">✓ Done — <span x-text="productCompCounts[p.id].found"></span> found</span>
+                </template>
+                <template x-if="!productCompCounts[p.id]?.done && productCompCounts[p.id]?.searching">
+                  <span class="flex items-center gap-1.5 animate-pulse">
+                    <svg class="w-3 h-3 animate-spin flex-shrink-0" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.4 0 0 5.4 0 12h4z"></path></svg>
+                    <span x-text="productCompCounts[p.id]?.current_domain ? 'Checking ' + productCompCounts[p.id].current_domain : 'Searching…'" class="truncate"></span>
+                  </span>
+                </template>
+                <template x-if="!productCompCounts[p.id]?.done && !productCompCounts[p.id]?.searching">
+                  <span class="text-gray-400">Queued…</span>
+                </template>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- ── Pause / Continue Modal ──────────────────────────────────────────── -->
+      <div x-show="productCompPauseState" x-cloak
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 max-w-sm w-full mx-4">
+          <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">Keep searching?</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
+            Tried <span class="font-semibold" x-text="productCompPauseState?.visited"></span> sites for
+            <em x-text="productCompPauseState?.product_title?.slice(0, 50)"></em>
+            and found <span class="font-semibold" x-text="productCompPauseState?.found"></span>
+            / <span x-text="productCompPauseState?.max"></span> competitors.
+            Continue with additional search queries?
+          </p>
+          <div class="flex gap-3">
+            <button @click="resumeCompSearch()"
+              class="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg text-sm transition">
+              Continue searching
+            </button>
+            <button @click="stopCompSearch()"
+              class="flex-1 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 font-semibold py-2 rounded-lg text-sm transition">
+              Stop
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Product Table -->
-      <div class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+      <div x-show="!productCompMode" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
         <div x-show="loadingProducts" class="flex items-center justify-center py-12">
           <div class="text-gray-400">Loading products...</div>
         </div>

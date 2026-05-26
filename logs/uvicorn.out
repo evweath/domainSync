@@ -14345,3 +14345,522 @@ INFO:     Waiting for application startup.
 2026-05-26 17:42:48 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
 INFO:     Application startup complete.
 2026-05-26 17:42:48 [INFO] watchfiles.main: 1 change detected
+2026-05-26 17:42:53 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:51611 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51611 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51612 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51613 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51614 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51615 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51611 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51613 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51614 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51700 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51703 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51702 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51703 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51702 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51703 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51704 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51705 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51702 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51701 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51700 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51706 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51704 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51703 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52219 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52219 - "GET /api/products?page=1&per_page=50&sort_by=price&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52551 - "GET /api/products?page=2&per_page=50&sort_by=price&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52660 - "GET /api/products?page=3&per_page=50&sort_by=price&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52783 - "GET /api/products?page=4&per_page=50&sort_by=price&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52901 - "GET /api/products?page=5&per_page=50&sort_by=price&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53019 - "GET /api/products?page=6&per_page=50&sort_by=price&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53137 - "GET /api/products?page=7&per_page=50&sort_by=price&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53253 - "GET /api/products?page=8&per_page=50&sort_by=price&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53393 - "GET /api/products?page=9&per_page=50&sort_by=price&sort_order=asc HTTP/1.1" 200 OK
+2026-05-26 17:47:34 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Wildflower Quins Sprinkles 16.5 oz'  (id=216)
+2026-05-26 17:47:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'DecoPac Wildflower Quins Sprinkles 16.5 oz buy'
+INFO:     127.0.0.1:53537 - "POST /api/products/competitor-search HTTP/1.1" 200 OK
+2026-05-26 17:47:36 [INFO] backend.search.engine: SerpAPI Shopping: 6 results for 'DecoPac Wildflower Quins Sprinkles 16.5 oz buy'
+2026-05-26 17:47:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 14 result URLs
+2026-05-26 17:47:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.findhealthclinics.com/.../Farmacias-Del-Ahorro-Honduras
+2026-05-26 17:47:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.findglocal.com/HN/Tegucigalpa/Farmacias-Del-Ahorro-Honduras
+2026-05-26 17:47:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://apps.apple.com/us/app/farmacias-del-ahorro-honduras
+2026-05-26 17:47:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 17:47:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://honduras.worldplaces.me/es/view-place
+2026-05-26 17:47:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.todosbiz.com/HN
+2026-05-26 17:47:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.bancopromerica.com/contacto/farmacias-del-ahorro
+2026-05-26 17:47:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://poidata.io/brand-report/farmacias-del-ahorro/honduras
+2026-05-26 17:47:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.emis.com/php/company-profile/HN
+2026-05-26 17:47:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://bakesupplyplus.com/products/quins-wildflower
+2026-05-26 17:47:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakesupplyplus.com  price=$11.75  confidence=83%
+2026-05-26 17:47:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.kitchenutensilscenter.com/product/decopac-wildflower-quins-16-5oz/
+2026-05-26 17:47:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.stationaryloveseats.com/product/wildflower-quins-sprinkles-16-5-oz/
+2026-05-26 17:47:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=stationaryloveseats.com  price=no price  confidence=30%
+2026-05-26 17:47:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.decopac.com/products/wildflower-quins-mix
+2026-05-26 17:47:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.crispfryer.com/products/wildflower-quins-sprinkles-16-5-oz/
+2026-05-26 17:47:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=crispfryer.com  price=no price  confidence=30%
+2026-05-26 17:47:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 17:47:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 17:47:48 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Wildflower Quins Sprinkles 16.5 oz'  visited=14  found=3/9
+2026-05-26 17:47:48 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Clam Shell Stainless Steel Doughnut/ Donut Glaze Spreader 17 1/4" L'  (id=253)
+2026-05-26 17:47:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Venus Clam Shell Stainless Steel Doughnut Donut Glaze Spreader 17 buy'
+2026-05-26 17:47:51 [INFO] backend.search.engine: SerpAPI Shopping: 3 results for 'Venus Clam Shell Stainless Steel Doughnut Donut Glaze Spread'
+2026-05-26 17:47:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 13 result URLs
+2026-05-26 17:47:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://science.nasa.gov/venus
+2026-05-26 17:47:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://en.wikipedia.org/wiki/Venus
+2026-05-26 17:47:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Venus - Wikipedia')
+2026-05-26 17:47:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.britannica.com/place/Venus-planet
+2026-05-26 17:47:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://starwalk.space/en/news/discover-the-amazing-planet-venus
+2026-05-26 17:47:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://education.nationalgeographic.org/resource
+2026-05-26 17:47:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.astronomy.com/science/venus
+2026-05-26 17:47:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://space-facts.com/ven
+2026-05-26 17:47:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.planetary.org/worlds/venus
+2026-05-26 17:47:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://airandspace.si.edu/explore/stories/venus
+2026-05-26 17:47:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://equipmentplus.myshopify.com/collections/glaze-spreaders-1
+2026-05-26 17:47:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Glaze Spreaders')
+2026-05-26 17:47:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://nedlyaskuki.bronthelins.shop/product/clam-shell-stainless-steel-doughnut-donut-glaze-spreader-17-1-4-l/
+2026-05-26 17:47:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:47:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.stationaryloveseats.com/product/clam-shell-stainless-steel-doughnut-donut-glaze-spreader-23-1-4/
+2026-05-26 17:47:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=stationaryloveseats.com  price=no price  confidence=30%
+2026-05-26 17:47:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 17:47:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 17:47:57 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Clam Shell Stainless Steel Doughnut/ Donut Glaze Spreader 17 1/4" L'  visited=13  found=1/9
+2026-05-26 17:47:57 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'CPWplus 150 Bench Scale'  (id=1002)
+2026-05-26 17:47:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Adam Equipment CPWplus 150 Bench Scale buy'
+2026-05-26 17:48:00 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Adam Equipment CPWplus 150 Bench Scale buy'
+2026-05-26 17:48:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 16 result URLs
+2026-05-26 17:48:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://en.m.wikipedia.org/wiki/Adam
+2026-05-26 17:48:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Adam - Wikipedia')
+2026-05-26 17:48:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.gotquestions.org/Adam-in-the-Bible.html
+2026-05-26 17:48:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://bibleask.org/who-is-adam-in-the-bible
+2026-05-26 17:48:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://bam.sites.uiowa.edu/hello/adam
+2026-05-26 17:48:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.behindthename.com/name/adam
+2026-05-26 17:48:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://familybible.org/characters/adam
+2026-05-26 17:48:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.biblestudy.org/.../life-of-adam.html
+2026-05-26 17:48:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.howardhanna.com/Agent/Detail/Adam-Kaufman
+2026-05-26 17:48:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://adamequipment.com/cpwplus-150-us.html
+2026-05-26 17:48:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.scalesplus.com/adam-equipment-cpwplus-150-bench-scale
+2026-05-26 17:48:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.walmart.com/ip/Adam-Equipment-Bench-Scale/25921041
+2026-05-26 17:48:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 17:48:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.1800scales.com/Adam_CPWplus_150.html
+2026-05-26 17:48:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.digikey.com/en/products/detail/adam-equipment/CPWPLUS-150/11594781
+2026-05-26 17:48:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.globalindustrial.com/p/adam-bench-weighing-scale-330lb
+2026-05-26 17:48:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=globalindustrial.com  price=$217.50  confidence=50%
+2026-05-26 17:48:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://www.dkhardware.com/adam-equipment-cpwplus-150-bench-scale-product-9131066.html
+2026-05-26 17:48:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 17:48:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 17:48:08 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='CPWplus 150 Bench Scale'  visited=16  found=1/9
+2026-05-26 17:48:08 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw H&1-2 or H&1-4 Extra 6 quart 13" diameter icing bowls'  (id=1245)
+2026-05-26 17:48:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'H&1-2 or H&1-4 Extra 6 quart 13" diameter icing buy'
+2026-05-26 17:48:11 [INFO] backend.search.engine: SerpAPI Shopping: 2 results for 'H&1-2 or H&1-4 Extra 6 quart 13" diameter icing buy'
+2026-05-26 17:48:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 10 result URLs
+2026-05-26 17:48:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://ejoy-english.com/go/video/learn-the-letter-h-jack-hartmann
+2026-05-26 17:48:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.dailymotion.com/video
+2026-05-26 17:48:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.vocabineer.com/words-that-begin-with-h
+2026-05-26 17:48:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://blog.duolingo.com/english-alphabet-pronunciation
+2026-05-26 17:48:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://en.wikipedia.org/wiki/English_alphabet
+2026-05-26 17:48:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'English alphabet - Wikipedia')
+2026-05-26 17:48:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.learnenglish.com/vocabulary/alphabet/learn-english-alphabet-online
+2026-05-26 17:48:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://langeek.co/en/grammar/course/the-letter-h
+2026-05-26 17:48:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.belshaw.com/products/handi-4-icer
+2026-05-26 17:48:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  price=no price  confidence=28%
+2026-05-26 17:48:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://donut-supplies.elyxandor.shop/product/belshaw-h-1-2-or-h-1-4-extra-6-quart-13-diameter-icing-bowls/
+2026-05-26 17:48:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 17:48:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 17:48:16 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw H&1-2 or H&1-4 Extra 6 quart 13" diameter icing bowls'  visited=10  found=1/9
+2026-05-26 17:48:16 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Pastel Spring Sprinkles 26 oz'  (id=1441)
+2026-05-26 17:48:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'DecoPac Pastel Spring Sprinkles 26 oz buy'
+2026-05-26 17:48:23 [INFO] backend.search.engine: SerpAPI Shopping: 8 results for 'DecoPac Pastel Spring Sprinkles 26 oz buy'
+2026-05-26 17:48:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 10 result URLs
+2026-05-26 17:48:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.decopac.com/products/spring-pastel-sprinkles-mix
+2026-05-26 17:48:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.walmart.com/ip
+2026-05-26 17:48:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 17:48:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.usapremiumchocolate.com/products
+2026-05-26 17:48:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.amazon.com/DECOPAC-Sprinkles-Sprinkle-Handheld-Container/dp
+2026-05-26 17:48:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page Not Found')
+2026-05-26 17:48:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://valleycakesupplies.com/product
+2026-05-26 17:48:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.michaels.com/product
+2026-05-26 17:48:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.shopcakeandcraft.com/products
+2026-05-26 17:48:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.directwinesource.com/product/decopac-sprinkels-spring-pastel-26oz-tub/
+2026-05-26 17:48:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.holidaycandys.com/product/decopac-sprinkels-spring-pastel-26oz-tub/
+2026-05-26 17:48:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 17:48:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 17:48:26 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Pastel Spring Sprinkles 26 oz'  visited=10  found=0/9
+2026-05-26 17:48:26 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Square Cover for 8-qt Storage Containers'  (id=1653)
+2026-05-26 17:48:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Winco Square Cover for 8-qt Storage Containers buy'
+2026-05-26 17:48:29 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Winco Square Cover for 8-qt Storage Containers buy'
+2026-05-26 17:48:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 9 result URLs
+2026-05-26 17:48:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.wincous.com/products
+2026-05-26 17:48:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.chefsdeal.com/commercial-food-storage-containers
+2026-05-26 17:48:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 17:48:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.restaurantsupply.com/products
+2026-05-26 17:48:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Collections')
+2026-05-26 17:48:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.amazon.com/dp
+2026-05-26 17:48:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 17:48:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://srtrestaurantsolutions.com/products
+2026-05-26 17:48:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Products — SRT Restaurant Solutions LLC')
+2026-05-26 17:48:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.target.com/p/winco-cover-for-square-storage-container-red-fits-6-and-8-quart/-/A-89779142
+2026-05-26 17:48:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=target.com
+2026-05-26 17:48:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.katom.com/080-PECC68.html
+2026-05-26 17:48:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 17:48:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.cooksdirect.com/winco-pecc-68p-fits-6-and-8-qt-square-storage-containers-container-cover
+2026-05-26 17:48:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=cooksdirect.com
+2026-05-26 17:48:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 17:48:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 17:48:39 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Square Cover for 8-qt Storage Containers'  visited=9  found=2/9
+2026-05-26 17:48:39 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Dough Scraper/Cutter with Wooden Handle - Winco'  (id=1662)
+2026-05-26 17:48:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Dough Scraper Cutter with Wooden Handle buy'
+2026-05-26 17:48:40 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Dough Scraper Cutter with Wooden Handle buy'
+2026-05-26 17:48:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 15 result URLs
+2026-05-26 17:48:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://en.wikipedia.org/wiki/Dough
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Dough - Wikipedia')
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.theprairiehomestead.com/easy-dough-recipe.html
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://blox-fruits.fandom.com/wiki/Dough
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://handletheheat.com/ultimate-simple-dough-recipe
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://butterwithasideofbread.com/homemade-bread
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://sallysbakingaddiction.com/homemade-pizz
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.britannica.com/topic/dough
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.allrecipes.com/recipe/quick-and-easy-pizza-crust
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.amazon.com/wooden-dough-scraper/s?k=wooden+dough+scraper
+2026-05-26 17:48:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com : wooden dough scraper')
+2026-05-26 17:48:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.etsy.com/market/wood_dough_scraper_and_cutter
+2026-05-26 17:48:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'etsy.com')
+2026-05-26 17:48:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.walmart.com/c/kp/dough-cutter
+2026-05-26 17:48:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Dough Cutter')
+2026-05-26 17:48:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.katom.com/080-DSC3.html
+2026-05-26 17:48:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 17:48:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.wincous.com/products/dsc-3
+2026-05-26 17:48:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.target.com/p/winco-dough-scraper-stainless-steel-wooden-handle/-/A-89787968
+2026-05-26 17:48:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=target.com  price=$35.00  confidence=34%
+2026-05-26 17:48:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 17:48:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 17:48:50 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Dough Scraper/Cutter with Wooden Handle - Winco'  visited=15  found=1/9
+2026-05-26 17:48:50 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'One Row Donut Cutter (4 Sizes Available in Variants)'  (id=2107)
+2026-05-26 17:48:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Practical Baker One Row Donut Cutter buy'
+2026-05-26 17:48:51 [INFO] backend.search.engine: SerpAPI Shopping: 35 results for 'Practical Baker One Row Donut Cutter buy'
+2026-05-26 17:48:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 10 result URLs
+2026-05-26 17:48:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.thefreedictionary.com/practical
+2026-05-26 17:48:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.collinsdictionary.com/us/dictionary/english/practical
+2026-05-26 17:48:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.thesaurus.com/browse/practica
+2026-05-26 17:48:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.oxfordlearnersdictionaries.com/definition/english/practical
+2026-05-26 17:48:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.vocabulary.com/dictionary/practical
+2026-05-26 17:48:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://en.wiktionary.org/wiki/practical
+2026-05-26 17:48:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://discountbakeryequip.com/product/practical-baker-donut-revolving-cutters/
+2026-05-26 17:48:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Practical Baker Donut Revolving Cutters')
+2026-05-26 17:48:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.ebay.com/itm/335928573267
+2026-05-26 17:48:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 17:48:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.ebay.ca/itm/326388996456
+2026-05-26 17:48:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 17:48:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 17:48:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 17:48:55 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='One Row Donut Cutter (4 Sizes Available in Variants)'  visited=10  found=0/9
+2026-05-26 17:48:55 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Ladle, 3 oz.'  (id=2271)
+2026-05-26 17:48:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Winco Ladle 3 oz. buy'
+2026-05-26 17:48:57 [INFO] backend.search.engine: SerpAPI Shopping: 30 results for 'Winco Ladle 3 oz. buy'
+2026-05-26 17:48:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 13 result URLs
+2026-05-26 17:48:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.myweeklyads.net/winco-foods-sales
+2026-05-26 17:48:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://en.wikipedia.org/wiki/WinCo_Foods
+2026-05-26 17:48:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods - Wikipedia')
+2026-05-26 17:48:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://storelocatortool.com/winco-foods-locations
+2026-05-26 17:48:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:48:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://brilliantmaps.com/us-locations/winco-foods-locations-us
+2026-05-26 17:48:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Map Of All 140 WinCo Foods Locations In The US By State')
+2026-05-26 17:48:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.iweeklyads.com/winco-foods-weekly-ad-specials
+2026-05-26 17:49:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods Weekly Ad Specials')
+2026-05-26 17:49:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.mystore411.com/store/listing/WinCo-Foods-store-locations
+2026-05-26 17:49:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.walmart.com/ip/Winco-Stainless-Steel-Ladle-3-Ounce/193252689
+2026-05-26 17:49:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Winco Stainless Steel Ladle, 3-Ounce - Walmart.com')
+2026-05-26 17:49:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.officedepot.com/a/products/9714665/Winco-Stainless-Steel-Ladle-3-Oz/
+2026-05-26 17:49:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.target.com/p/winco-1-piece-ladle-stainless-steel-3-oz/-/A-88064416
+2026-05-26 17:49:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=target.com  price=$35.00  confidence=36%
+2026-05-26 17:49:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.wincous.com/products/ldi-3
+2026-05-26 17:49:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.amazon.com/Winco-Stainless-Steel-Piece-Ladle/dp/B00IRHWKCY
+2026-05-26 17:49:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com: Winco Stainless Steel One Piece Ladle, 3 Ounce -')
+2026-05-26 17:49:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.katom.com/080-LDCN3K.html
+2026-05-26 17:49:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 17:49:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 17:49:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 17:49:08 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Ladle, 3 oz.'  visited=13  found=1/9
+2026-05-26 17:49:08 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Stainless Steel Mixing Bowl 30 Qt.'  (id=7121)
+2026-05-26 17:49:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Winco Stainless Steel Mixing Bowl 30 Qt. buy'
+2026-05-26 17:49:10 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Winco Stainless Steel Mixing Bowl 30 Qt. buy'
+2026-05-26 17:49:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 14 result URLs
+2026-05-26 17:49:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.myweeklyads.net/winco-foods-sales
+2026-05-26 17:49:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://en.wikipedia.org/wiki/WinCo_Foods
+2026-05-26 17:49:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods - Wikipedia')
+2026-05-26 17:49:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://storelocatortool.com/winco-foods-locations
+2026-05-26 17:49:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://brilliantmaps.com/us-locations/winco-foods-locations-us
+2026-05-26 17:49:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Map Of All 140 WinCo Foods Locations In The US By State')
+2026-05-26 17:49:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.iweeklyads.com/winco-foods-weekly-ad-specials
+2026-05-26 17:49:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods Weekly Ad Specials')
+2026-05-26 17:49:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.mystore411.com/store/listing/WinCo-Foods-store-locations
+2026-05-26 17:49:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.target.com/p/winco-mixing-bowl-economy-stainless-steel-30-quart/-/A-88677624
+2026-05-26 17:49:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=target.com  price=$35.00  confidence=38%
+2026-05-26 17:49:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.wincous.com/products/mxb-3000q
+2026-05-26 17:49:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.amazon.com/Winco-MXB-3000Q-Mixing-Quart-Stainless/dp/B00NH0FU1O
+2026-05-26 17:49:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com: Winco MXB-3000Q 30 qt Mixing Bowl, Stainless: Ho')
+2026-05-26 17:49:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.walmart.com/ip/Winco-MXB-3000Q-30-qt-Mixing-Bowl-Stainless/20133004529
+2026-05-26 17:49:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Winco MXB-3000Q 30 qt Mixing Bowl, Stainless - Walmart.com')
+2026-05-26 17:49:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.katom.com/080-MXB3000Q.html
+2026-05-26 17:49:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 17:49:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.kitchenequipmentsupply.com/product/winco-mixing-bowl-stainless-steel-30-quart/
+2026-05-26 17:49:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.culinarydepotinc.com/winco-mxb-3000q-30-qt-stainless-steel-mixing-bowl/
+2026-05-26 17:49:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 17:49:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 17:49:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 17:49:20 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Stainless Steel Mixing Bowl 30 Qt.'  visited=14  found=1/9
+2026-05-26 17:49:20 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Bear Stewart Vanilla Bavarian Creme Pastry, Pie and Cake Filling- 20 Pound Pail'  (id=8511)
+2026-05-26 17:49:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Vanilla Bavarian Creme Pastry Pie and Cake filling buy'
+2026-05-26 17:49:29 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Vanilla Bavarian Creme Pastry Pie and Cake filling buy'
+2026-05-26 17:49:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 14 result URLs
+2026-05-26 17:49:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://en.m.wikipedia.org/wiki/Vanilla
+2026-05-26 17:49:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Vanilla - Wikipedia')
+2026-05-26 17:49:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.cookist.com/what-is-vanilla-how-is-it-made-and-how-to
+2026-05-26 17:49:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.vanillaprepaid.com/index.html
+2026-05-26 17:49:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.webmd.com/diet/health-benefits-vanilla
+2026-05-26 17:49:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.mccormick.com/blogs/how-to/about-vanilla-uses-pairings
+2026-05-26 17:49:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.britannica.com/plant/vanilla
+2026-05-26 17:49:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.thepioneerwoman.com/.../how-to-make-vanilla-extract
+2026-05-26 17:49:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.bonappetit.com/story/best-vanilla-extract-taste-test
+2026-05-26 17:49:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.amazon.com/bavarian-creme-filling/s?k=bavarian+creme+filling
+2026-05-26 17:49:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com : bavarian creme filling')
+2026-05-26 17:49:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.walmart.com/c/kp/bavarian-cream-pastry-filling
+2026-05-26 17:49:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Bavarian Cream Pastry Filling')
+2026-05-26 17:49:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.cakefill.com/products/bavarian-cream-pie-pastry-filling
+2026-05-26 17:49:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.preparedpantry.com/products/professional-bavarian-cream-pastry-filling-2-lb-squeeze-pack
+2026-05-26 17:49:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.hearthorigin.com/product/bear-stewart-vanilla-bavarian-creme-pastry-pie-and-cake-filling-40-pound-pail-2/
+2026-05-26 17:49:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=hearthorigin.com  price=no price  confidence=30%
+2026-05-26 17:49:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 17:49:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 17:49:38 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Bear Stewart Vanilla Bavarian Creme Pastry, Pie and Cake Filling- 20 Pound Pail'  visited=14  found=1/9
+2026-05-26 17:49:38 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'BK Resources 24" x 24" 18 Gauge Stainless Steel Work Table with Undershelf & 1.5" Riser – Prep Table'  (id=8563)
+2026-05-26 17:49:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '24" x 24" 18 Gauge Stainless Steel Work Table buy'
+2026-05-26 17:49:44 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '24" x 24" 18 Gauge Stainless Steel Work Table buy'
+2026-05-26 17:49:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 8 result URLs
+2026-05-26 17:49:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://en.wikipedia.org/wiki
+2026-05-26 17:49:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-26 17:49:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.imdb.com/title
+2026-05-26 17:49:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.disneyplus.com/browse
+2026-05-26 17:49:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.yahoo.com/entertainment/tv/articles
+2026-05-26 17:49:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Yahoo Entertainment')
+2026-05-26 17:49:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.justwatch.com/us/tv-show
+2026-05-26 17:49:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.amazon.com/dp
+2026-05-26 17:49:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 17:49:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.themoviedb.org/tv/seasons
+2026-05-26 17:49:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.hulu.com/series
+2026-05-26 17:49:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 17:49:47 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='BK Resources 24" x 24" 18 Gauge Stainless Steel Work Table with Undershelf & 1.5" Riser – Prep Table'  visited=8  found=0/9
+INFO:     127.0.0.1:54954 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54955 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55330 - "GET /api/products/398 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56036 - "GET /api/price-comparison?page=1&per_page=25&search=Brill+Bittersweet+Chocolate+Fudge+Base HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56172 - "GET /api/products?page=1&per_page=50&sort_by=price&sort_order=asc HTTP/1.1" 200 OK
+2026-05-26 18:15:12 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/competitor/product_search.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 18:15:12 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 18:15:12 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1414]
+INFO:     Started server process [5053]
+INFO:     Waiting for application startup.
+2026-05-26 18:15:12 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 18:15:12 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:15:12 [INFO] backend.database.db: Database initialized
+2026-05-26 18:15:12 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:15:12 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 18:15:12 [INFO] backend.app: Scheduler started
+2026-05-26 18:15:12 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 18:15:12 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 18:15:12 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 18:15:12 [INFO] watchfiles.main: 3 changes detected
+INFO:     127.0.0.1:51687 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51710 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 18:16:28 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/competitor/product_search.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 18:16:28 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 18:16:28 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [5053]
+INFO:     Started server process [5120]
+INFO:     Waiting for application startup.
+2026-05-26 18:16:29 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 18:16:29 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:16:29 [INFO] backend.database.db: Database initialized
+2026-05-26 18:16:29 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:16:29 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 18:16:29 [INFO] backend.app: Scheduler started
+2026-05-26 18:16:29 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 18:16:29 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 18:16:29 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 18:16:29 [INFO] watchfiles.main: 2 changes detected
+INFO:     127.0.0.1:52295 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52368 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 18:16:42 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/competitor/product_search.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 18:16:43 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 18:16:43 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [5120]
+INFO:     Started server process [5146]
+INFO:     Waiting for application startup.
+2026-05-26 18:16:43 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 18:16:43 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:16:43 [INFO] backend.database.db: Database initialized
+2026-05-26 18:16:43 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:16:43 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 18:16:43 [INFO] backend.app: Scheduler started
+2026-05-26 18:16:43 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 18:16:43 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 18:16:43 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 18:16:43 [INFO] watchfiles.main: 2 changes detected
+INFO:     127.0.0.1:52431 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+2026-05-26 18:16:47 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-26 18:16:47 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 18:16:47 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [5146]
+INFO:     Started server process [5171]
+INFO:     Waiting for application startup.
+2026-05-26 18:16:48 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 18:16:48 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:16:48 [INFO] backend.database.db: Database initialized
+2026-05-26 18:16:48 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:16:48 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 18:16:48 [INFO] backend.app: Scheduler started
+2026-05-26 18:16:48 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 18:16:48 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 18:16:48 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     127.0.0.1:52480 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 18:16:48 [INFO] watchfiles.main: 5 changes detected
+2026-05-26 18:16:59 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 18:16:59 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 18:16:59 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [5171]
+INFO:     Started server process [5197]
+INFO:     Waiting for application startup.
+2026-05-26 18:16:59 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 18:16:59 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:16:59 [INFO] backend.database.db: Database initialized
+2026-05-26 18:16:59 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:16:59 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 18:16:59 [INFO] backend.app: Scheduler started
+2026-05-26 18:16:59 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 18:16:59 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 18:16:59 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 18:16:59 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:52579 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52592 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 18:17:06 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 18:17:19 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 18:17:30 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 18:18:01 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 18:19:11 [INFO] watchfiles.main: 3 changes detected

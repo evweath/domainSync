@@ -1294,9 +1294,11 @@ def stop_web_search_scan():
 
 class ProductCompetitorSearchRequest(BaseModel):
     product_ids: List[int]
-    search_query: Optional[str] = None  # override; None = use product title
-    max_competitors: int = 10           # stop per product when this many NEW domains with matches found
-    max_urls: int = 50                  # max URLs to visit per product before giving up
+    search_query: Optional[str] = None
+    max_competitors: int = 10
+    max_urls: int = 150
+    num_fetchers: int = 4
+    pause_after: int = 100
 
 
 class ParallelCompetitorSearchRequest(BaseModel):
@@ -1369,7 +1371,7 @@ def parallel_competitor_search_stop():
 
 @router.post("/api/products/competitor-search")
 async def start_product_competitor_search(req: ProductCompetitorSearchRequest):
-    """Search for competitors for specific products sequentially."""
+    """Search for competitors for specific products using concurrent workers."""
     if not req.product_ids:
         raise HTTPException(status_code=400, detail="product_ids required")
 
@@ -1380,7 +1382,9 @@ async def start_product_competitor_search(req: ProductCompetitorSearchRequest):
                 product_ids=req.product_ids,
                 search_query=req.search_query,
                 max_competitors=max(1, min(50, req.max_competitors)),
-                max_urls=max(5, min(100, req.max_urls)),
+                max_urls=max(50, min(300, req.max_urls)),
+                num_fetchers=max(1, min(8, req.num_fetchers)),
+                pause_after=max(10, req.pause_after),
                 callbacks=[lambda e, d: manager.broadcast({"event": e, **d})],
             )
             await manager.broadcast({"event": "product_competitor_search_complete", **result})
@@ -1390,6 +1394,22 @@ async def start_product_competitor_search(req: ProductCompetitorSearchRequest):
 
     asyncio.create_task(_run())
     return {"status": "started", "product_ids": req.product_ids}
+
+
+@router.post("/api/products/competitor-search/resume")
+async def resume_product_competitor_search():
+    """Resume a paused competitor search (continue with additional queries)."""
+    from backend.competitor.product_search import resume_product_comp_search
+    resumed = resume_product_comp_search()
+    return {"resumed": resumed}
+
+
+@router.post("/api/products/competitor-search/stop")
+async def stop_product_competitor_search_endpoint():
+    """Stop the currently-running per-product competitor search."""
+    from backend.competitor.product_search import stop_product_comp_search
+    stopped = stop_product_comp_search()
+    return {"stopped": stopped}
 
 
 @router.delete("/api/competitors/{competitor_id}")

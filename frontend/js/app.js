@@ -53,6 +53,10 @@ function app() {
     productCompMax: 5,
     productCompRunning: false,
     productCompProgress: null,    // { product_title, found, max, phase, current_domain }
+    productCompMode: false,                 // true while search-mode view is active
+    productCompSearchProducts: [],          // [{id, title, price, primary_image}] — products being searched
+    productCompCounts: {},                  // {product_id: {found, target, done, searching, current_domain}}
+    productCompPauseState: null,            // {product_id, product_title, found, visited, max} when paused
     priceComparison: null,
     priceHistory: null,
     loadingPriceComp: false,
@@ -528,22 +532,65 @@ function app() {
       const ids = Object.keys(this.productSelected).filter(k => this.productSelected[k]).map(Number);
       if (!ids.length) { this.toast('Select at least one product', 'warning'); return; }
       if (this.productCompRunning) return;
+
+      const target = Math.max(1, parseInt(this.productCompMax) || 5);
+
+      // Switch to search-mode view showing only the selected products
+      this.productCompSearchProducts = (this.productData.products || [])
+        .filter(p => ids.includes(p.id))
+        .map(p => ({ id: p.id, title: p.title || p.canonical_title, price: p.price, primary_image: p.primary_image }));
+      this.productCompCounts = {};
+      for (const p of this.productCompSearchProducts) {
+        this.productCompCounts[p.id] = { found: 0, target, done: false, searching: false, current_domain: null };
+      }
+      this.productCompMode = true;
       this.productCompRunning = true;
       this.productCompProgress = null;
+      this.productCompPauseState = null;
+
       try {
         await this.api('/api/products/competitor-search', {
           method: 'POST',
           body: JSON.stringify({
             product_ids: ids,
-            max_competitors: Math.max(1, parseInt(this.productCompMax) || 5),
-            max_urls: 30,
+            max_competitors: target,
+            max_urls: 150,
+            num_fetchers: 4,
+            pause_after: 100,
           }),
         });
-        this.toast(`Competitor search started for ${ids.length} product${ids.length !== 1 ? 's' : ''}`, 'info');
       } catch (e) {
         this.productCompRunning = false;
+        this.productCompMode = false;
         this.toast('Failed to start competitor search: ' + e.message, 'error');
       }
+    },
+
+    async resumeCompSearch() {
+      this.productCompPauseState = null;
+      try {
+        await this.api('/api/products/competitor-search/resume', { method: 'POST' });
+      } catch (e) {
+        this.toast('Resume failed: ' + e.message, 'error');
+      }
+    },
+
+    async stopCompSearch() {
+      this.productCompPauseState = null;
+      this.productCompRunning = false;
+      try {
+        await this.api('/api/products/competitor-search/stop', { method: 'POST' });
+      } catch (e) {
+        this.toast('Stop failed: ' + e.message, 'error');
+      }
+    },
+
+    exitCompSearchMode() {
+      this.productCompMode = false;
+      this.productCompSearchProducts = [];
+      this.productCompCounts = {};
+      this.productCompPauseState = null;
+      this.loadProducts();
     },
 
     // Triggered from the Find This Product page using its own selection model.
@@ -2230,15 +2277,44 @@ function app() {
           this.toast(`Web search scan error: ${msg.error}`, 'error'); break;
         case 'product_comp_search_progress':
           this.productCompProgress = msg;
+          if (msg.product_id && this.productCompCounts[msg.product_id]) {
+            const entry = this.productCompCounts[msg.product_id];
+            if (msg.phase === 'found') {
+              entry.found = msg.found;
+              entry.current_domain = msg.domain || null;
+            } else if (msg.phase === 'visiting') {
+              entry.current_domain = msg.current_domain || null;
+              entry.searching = true;
+            } else if (msg.phase === 'searching') {
+              entry.current_domain = null;
+              entry.searching = true;
+            }
+            this.productCompCounts = { ...this.productCompCounts };
+          }
+          break;
+        case 'product_comp_search_product_done':
+          if (msg.product_id && this.productCompCounts[msg.product_id]) {
+            const entry = this.productCompCounts[msg.product_id];
+            entry.found = msg.found;
+            entry.done = true;
+            entry.searching = false;
+            entry.current_domain = null;
+            this.productCompCounts = { ...this.productCompCounts };
+          }
+          break;
+        case 'product_comp_search_pause':
+          this.productCompPauseState = msg;
           break;
         case 'product_competitor_search_complete':
         case 'product_competitor_search_error':
           this.productCompRunning = false;
           this.productCompProgress = null;
+          this.productCompPauseState = null;
           this.loadCompetitors(1);
           this.loadPriceMatrix(1);
           if (msg.event === 'product_competitor_search_error') {
             this.toast('Competitor search error: ' + msg.error, 'error');
+            this.productCompMode = false;
           } else {
             this.toast(`Competitor search complete — ${msg.total_found || 0} matches found`, 'success');
           }
