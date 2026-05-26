@@ -11755,3 +11755,167 @@ INFO:     Stopping reloader process [11887]
 2026-05-26 13:14:04 [INFO] backend.app: Log-tail broadcaster started
 2026-05-26 13:14:04 [INFO] backend.app: Dashboard: https://localhost:8743
 2026-05-26 13:14:04 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+2026-05-26 13:16:26 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'  (id=241)
+2026-05-26 13:16:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '22306W Thermoglaze Frozen Donut System 50-75 Donuts buy'
+2026-05-26 13:16:28 [INFO] backend.search.engine: SerpAPI Shopping: 8 results for '22306W Thermoglaze Frozen Donut System 50-75 Donuts buy'
+2026-05-26 13:16:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 15 result URLs
+2026-05-26 13:16:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.katom.com/797-22306W.html
+2026-05-26 13:16:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:16:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.belshaw.com/products/thermoglaze-tg50
+2026-05-26 13:16:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  price=no price  confidence=25%
+2026-05-26 13:16:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.ebay.com/itm/257280965561
+2026-05-26 13:16:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:16:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://productregistry.org/product/Mql5Ka0P
+2026-05-26 13:16:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: productregistry.org
+2026-05-26 13:16:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=productregistry.org  price=$48100.00  confidence=90%
+2026-05-26 13:16:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.allbuyton.com/product/belshaw-22306w-thermoglaze-frozen-donut-system-50-75-donuts-hr-208v-1ph/
+2026-05-26 13:16:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 13:16:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://shop.app/products/9436177957094/belshaw-22306w-thermoglaze-frozen-donut-system-50-75-donuts-hr-208v-1ph
+2026-05-26 13:16:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'We ran into an issue')
+2026-05-26 13:16:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://images-edcjb4a9fffkdsfk.z01.azurefd.net/prod-documents/947-Thermoglaze25Thermoglaze50-0.pdf
+2026-05-26 13:17:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:17:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.mrsupply.biz/wp-content/uploads/2022/08/Belshaw-Adamatic-TG50-thermoglaze.pdf
+2026-05-26 13:17:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 13:17:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://cdn.sigmaequipment.com/files/attachment/D2278_Belshaw-Adamatic-Thermoglaze-50.pdf
+2026-05-26 13:17:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 13:17:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://eikaiwa.dmm.com/app
+2026-05-26 13:17:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:17:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://askubuntu.com/questions
+2026-05-26 13:17:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:17:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.monoequip.com/userfiles/files/Belshaw-Adamatic-Thermoglaze-50.pdf
+2026-05-26 13:17:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 13:17:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.chefsdeal.com/p/icers-icing-tables/belshaw-thermoglaze
+2026-05-26 13:17:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:17:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://cdn.place1seo.com/BelshawAdamatic/c00ad11f3e7f731d666f111ffbba28efa63dec70.pdf
+2026-05-26 13:17:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:17:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 13:17:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 13:17:51 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'  visited=15  found=2/6
+2026-05-26 13:17:51 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production'  (id=1035)
+2026-05-26 13:17:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Robot® Mark VI with Dual Plain Depositor 1-9 buy'
+2026-05-26 13:17:53 [INFO] backend.search.engine: SerpAPI Shopping: 8 results for 'Donut Robot® Mark VI with Dual Plain Depositor 1-9 buy'
+2026-05-26 13:17:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 17 result URLs
+2026-05-26 13:17:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.belshaw.com/products/donut-robot-mark-vi
+2026-05-26 13:17:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  price=no price  confidence=26%
+2026-05-26 13:17:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.restaurantsupply.com/products/belshaw-mkvi-1301-1-9-16-cake-donut-production-with-dual-automatic-depositor
+2026-05-26 13:17:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$10106.00  confidence=32%
+2026-05-26 13:17:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://discountbakeryequip.com/product/belshaw-mark-vi-donut-system-with-dual-automatic-dropper-for-cake-donuts-only/
+2026-05-26 13:17:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Belshaw Mark VI Donut System with Dual Automatic Dropper - f')
+2026-05-26 13:17:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.katom.com/797-MARKVI226803.html
+2026-05-26 13:17:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:17:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.machinio.com/manufacturer/belshaw-mark-vi
+2026-05-26 13:17:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:17:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.crispfryer.com/products/belshaw-donut-robot-r-mark-vi-3-3-4-flight-bar-with-dual-plain-depositor-1-9-16-for-cake-donut-production/
+2026-05-26 13:18:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=crispfryer.com  price=no price  confidence=30%
+2026-05-26 13:18:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.strattonsales.com/belshaw-mark-6-donut-robot/
+2026-05-26 13:18:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: strattonsales.com
+2026-05-26 13:18:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=strattonsales.com  price=no price  confidence=28%
+2026-05-26 13:18:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://shop.app/products/8917532704998/belshaw-donut-robot-mark-vi-3-3-4-flight-bar-with-dual-plain
+2026-05-26 13:18:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'We ran into an issue')
+2026-05-26 13:18:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://en.wikipedia.org/wiki/Doughnut
+2026-05-26 13:18:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Doughnut - Wikipedia')
+2026-05-26 13:18:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.dunkindonuts.com/en/m-menu
+2026-05-26 13:18:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:18:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://shipleydonuts.com/locations
+2026-05-26 13:18:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:18:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.wikihow.com/Types-of-Donuts
+2026-05-26 13:18:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:18:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.britannica.com/topic/doughnut
+2026-05-26 13:18:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:18:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://tastylicious.com/types-of-donuts
+2026-05-26 13:18:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '34 Types Of Donuts - The Ultimate Guide - Tastylicious')
+2026-05-26 13:18:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://www.tasteofhome.com/recipes/dishes
+2026-05-26 13:18:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page not found | Taste of Home')
+2026-05-26 13:18:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://www.foodservex.com/product/belshaw-donut-robot-r-mark-vi-3-3-4-flight-bar-with-dual-plain-depositor-1-9-16-for-cake-donut-production/
+2026-05-26 13:18:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 13:18:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [17] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 13:18:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 13:18:22 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production'  visited=17  found=4/6
+2026-05-26 13:18:22 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph'  (id=1660)
+2026-05-26 13:18:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'DX Deck Oven with Steam deck tray buy'
+2026-05-26 13:18:31 [INFO] backend.search.engine: SerpAPI Shopping: 30 results for 'DX Deck Oven with Steam deck tray buy'
+2026-05-26 13:18:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 14 result URLs
+2026-05-26 13:18:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.restaurantsupply.com/products/belshaw-00799579-74-inch-dx-deck-oven-with-steam-electric-4-deck-3-tray
+2026-05-26 13:18:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$53536.00  confidence=39%
+2026-05-26 13:18:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.chefsdeal.com/p/deck-ovens/belshaw-00799579
+2026-05-26 13:18:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:18:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://kitchenrestock.com/products/belshaw-00799579-dx-deck-oven-with-steam-4-deck-3-tray
+2026-05-26 13:18:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$53536.00  confidence=41%
+2026-05-26 13:18:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.foodservex.com/product/belshaw-00799579-dx-deck-oven-with-steam-4-deck-3-tray-208-240v-60-3-ph/
+2026-05-26 13:18:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 13:18:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.belshaw.com/products/dx-eco-touch-deck-oven
+2026-05-26 13:18:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'DX Eco-Touch Deck Oven | Belshaw')
+2026-05-26 13:18:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.hearthorigin.com/product/belshaw-00799322-dx-deck-oven-with-steam-3-deck-3-tray-480v-60-3-ph/
+2026-05-26 13:18:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=hearthorigin.com  price=no price  confidence=30%
+2026-05-26 13:18:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://shop.app/products/8628997718194/belshaw-0079958332301-dx-deck-oven-with-steam-4-deck-2-tray-208-240v
+2026-05-26 13:18:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'We ran into an issue')
+2026-05-26 13:18:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.fryerzone.com/products/belshaw-00799271-dx-deck-oven-with-steam-3-deck-3-tray-208-240v-60-3-ph/
+2026-05-26 13:18:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=fryerzone.com  price=no price  confidence=30%
+2026-05-26 13:18:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://finance.yahoo.com/quote/DX
+2026-05-26 13:18:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Dynex Capital, Inc. (DX) Stock Price, News, Quote &amp; Hist')
+2026-05-26 13:18:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.sltrib.com/news
+2026-05-26 13:19:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:19:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://en.wikipedia.org/wiki/D-Generation_X
+2026-05-26 13:19:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'D-Generation X - Wikipedia')
+2026-05-26 13:19:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://medical-dictionary.thefreedictionary.com/Dx
+2026-05-26 13:19:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:19:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.minitool.com/news
+2026-05-26 13:19:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:19:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 13:19:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 13:19:19 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph'  visited=14  found=4/6
+2026-05-26 13:19:19 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '140 Quart Thunderbird Planetary Mixer ARM-140'  (id=4147)
+2026-05-26 13:19:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '140 Quart Planetary Mixer buy'
+2026-05-26 13:19:26 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '140 Quart Planetary Mixer buy'
+2026-05-26 13:19:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 17 result URLs
+2026-05-26 13:19:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.ebay.com/sch/i.html?_nkw=hobart+mixer+140+quart&_sop=12
+2026-05-26 13:19:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:19:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.webstaurantstore.com/hobart-legacy-hl1400-1std-140-qt-commercial-planetary-floor-mixer-with-standard-accessories-200-240-50-60-3-phase-5-hp/425HL1400STD.html
+2026-05-26 13:19:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Hobart Legacy HL1400-1STD 140 Qt. Planetary Floor Mixer with')
+2026-05-26 13:19:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.katom.com/617-HL1400C1STD.html
+2026-05-26 13:19:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:19:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.restaurantsupply.com/products/hobart-hl1400-1std-140-quarts-electric-mixer-with-bowl-and-beater
+2026-05-26 13:19:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$55537.30  confidence=29%
+2026-05-26 13:19:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.chefsdeal.com/p/commercial-mixers/hobart-hl1400-1
+2026-05-26 13:19:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:19:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://edgefoodequipment.com/products/hobart-hl1400-140-qt-planetary-mixer-with-power-bowl-lift-200-240v-5-hp
+2026-05-26 13:19:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:19:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://chumartusa.com/products/hobart-hl1400-legacy-140-qt-planetary-floor-mixer-with-guard-standard-accessories-240v-3-phase-5-hp
+2026-05-26 13:19:47 [ERROR] backend.api.routes: Product competitor search failed: 'list' object has no attribute 'lower'
+Traceback (most recent call last):
+  File "/Users/evw/dev/productComparison/donut-intel/backend/api/routes.py", line 1379, in _run
+    result = await run_product_competitor_search(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/product_search.py", line 640, in run_product_competitor_search
+    total_found += await _process_one_product(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/product_search.py", line 572, in _process_one_product
+    if not await _db_write_with_retry(_do_db_work):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/product_search.py", line 40, in _db_write_with_retry
+    return fn(db)
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/product_search.py", line 481, in _do_db_work
+    result = match_competitor_product(comp_dict, master_products, criteria)
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/matcher.py", line 74, in match_competitor_product
+    comp_mfr = _norm(competitor_product.get("manufacturer", ""))
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/matcher.py", line 50, in _norm
+    return s.lower().strip()
+           ^^^^^^^
+AttributeError: 'list' object has no attribute 'lower'
+2026-05-26 13:21:51 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 13:21:51 [INFO] backend.app: Donut Intel Platform shut down.
+2026-05-26 13:21:53 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 13:21:53 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 13:21:53 [INFO] backend.database.db: Database initialized
+2026-05-26 13:21:53 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 13:21:53 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 13:21:53 [INFO] backend.app: Scheduler started
+2026-05-26 13:21:53 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 13:21:53 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 13:21:53 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
