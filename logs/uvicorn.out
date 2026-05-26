@@ -12095,3 +12095,749 @@ AttributeError: 'dict' object has no attribute 'lower'
 2026-05-26 13:26:14 [INFO] backend.app: Log-tail broadcaster started
 2026-05-26 13:26:14 [INFO] backend.app: Dashboard: https://localhost:8743
 2026-05-26 13:26:14 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+2026-05-26 13:27:33 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '10 Quart Thunderbird Planetary Mixer ARM-01'  (id=128)
+2026-05-26 13:27:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '10 Quart Planetary Mixer ARM-01 buy'
+2026-05-26 13:27:40 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '10 Quart Planetary Mixer ARM-01 buy'
+2026-05-26 13:27:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 14 result URLs
+2026-05-26 13:27:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://kitchenrestock.com/products/thunderbird-arm-01-planetary-mixer-bench-model-10-quart-capacity
+2026-05-26 13:27:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$1935.98  confidence=41%
+2026-05-26 13:27:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://restaurantequipment.com/products/arm-01-thunderbird-10-qt-planetary-mixer
+2026-05-26 13:27:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantequipment.com  price=$1928.00  confidence=38%
+2026-05-26 13:27:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.restaurantkitchenhome.com/product/thunderbird-arm-01-10-quart-planetary-dough-mixer/
+2026-05-26 13:27:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:27:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.thunderbirdfm.com/ARM-01.html
+2026-05-26 13:27:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Thunderbird Food Machinery')
+2026-05-26 13:27:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.ebay.com/p/1104495829
+2026-05-26 13:27:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebay.com  price=no price  confidence=30%
+2026-05-26 13:27:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.russoequip.com/products/thunderbird-food-machinery-arm-01-mixer
+2026-05-26 13:27:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=russoequip.com  price=$1000000.00  confidence=62%
+2026-05-26 13:27:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.supersuppliesstore.com/product/thunderbird-arm-01-10-quart-planetary-dough-mixer/
+2026-05-26 13:27:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:27:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.yourkitchenonline.com/product/thunderbird-arm-01230150-10-quart-planetary-mixer/
+2026-05-26 13:28:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:28:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://en.m.wikipedia.org/wiki
+2026-05-26 13:28:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-26 13:28:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.computerhope.com/jargon/num
+2026-05-26 13:28:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:28:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.tenforums.com/tutorials
+2026-05-26 13:28:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:28:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://play.google.com/store/apps/details
+2026-05-26 13:28:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Not Found')
+2026-05-26 13:28:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.splashlearn.com/math-vocabulary/number-sense/ten
+2026-05-26 13:28:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:28:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.newworldencyclopedia.org/entry
+2026-05-26 13:28:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:28:53 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='10 Quart Thunderbird Planetary Mixer ARM-01'  visited=14  found=4/7
+2026-05-26 13:28:53 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '36 boxes-Full Pallet Superb Shortening Donut Frying Cube Oil - Soy -Palm Blend 50 Lb.'  (id=659)
+2026-05-26 13:28:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Stratas Foods 36 boxes-Full Pallet Superb Shortening Donut Frying Cube Oil buy'
+2026-05-26 13:29:01 [INFO] backend.search.engine: SerpAPI Shopping: 6 results for 'Stratas Foods 36 boxes-Full Pallet Superb Shortening Donut F'
+2026-05-26 13:29:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 16 result URLs
+2026-05-26 13:29:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.stationaryloveseats.com/product/36-boxes-full-pallet-superb-shortening-donut-frying-cube-oil-soy-palm-blend-50-lb/
+2026-05-26 13:29:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=stationaryloveseats.com  price=no price  confidence=30%
+2026-05-26 13:29:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.foodservex.com/product/superb-shortening-donut-frying-cube-oil-soy-palm-blend-50-lb/
+2026-05-26 13:29:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 13:29:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.stratasfoods.com/our-products/categories/superb-flex-palm-shortening
+2026-05-26 13:29:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Superb® Flex Palm Shortening | Products | Stratas Foods')
+2026-05-26 13:29:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.goldmedalsupplysteward.com/product/superb-commodity-donut-frying-cube-shortening-50-lb-1-case/
+2026-05-26 13:29:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:29:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://equipmentplus.myshopify.com/collections/oils-shortening
+2026-05-26 13:29:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Oils &amp; Shortening')
+2026-05-26 13:29:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.bakersauthority.com/collections/stratas
+2026-05-26 13:29:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Bulk and Wholesale Stratas Shortening for Baking Supply')
+2026-05-26 13:29:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.lapresse.ca/actualites/politique/serge-lamontagne-ex-dg-de
+2026-05-26 13:29:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page introuvable | La Presse')
+2026-05-26 13:29:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.journaldequebec.com/pdg-de-la-saaq-et-militant-liberal-serge
+2026-05-26 13:29:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:29:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.tvanouvelles.ca/menage-a-la-saaq--le-nouveau-pdg-serge
+2026-05-26 13:29:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:29:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.ledevoir.com/.../serge-lamontagne-devient-nouveau-patron-saaq
+2026-05-26 13:30:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:30:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://ici.radio-canada.ca/.../saaq-commission-gallant-numerique-lamontagne
+2026-05-26 13:30:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:30:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://saaq.gouv.qc.ca/saaq/gouvernance-structure-administrative
+2026-05-26 13:30:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:30:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.quebec.ca/nouvelles/actualites/details/nomination-de-m
+2026-05-26 13:30:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:30:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.noovo.info/.../serge-lamontagne-est-le-nouveau-pdg-de-la-saaq
+2026-05-26 13:31:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:31:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://www.motojournalweb.com/nomination-de-m-serge-lamontagne-a-titre-de
+2026-05-26 13:31:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:31:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://www.lesoleil.com/arts/tele-et-radio/itout-le-monde-en-parlei-un-pdg
+2026-05-26 13:31:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:31:39 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='36 boxes-Full Pallet Superb Shortening Donut Frying Cube Oil - Soy -Palm Blend 50 Lb.'  visited=16  found=1/7
+2026-05-26 13:31:39 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '12 x 18 Cutting Board White- Winco'  (id=1753)
+2026-05-26 13:31:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '12 x 18 Cutting Board White buy'
+2026-05-26 13:31:41 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '12 x 18 Cutting Board White buy'
+2026-05-26 13:31:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 15 result URLs
+2026-05-26 13:31:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.homedepot.com/p/Winco-12-in-x-18-in-x-1-2-in-White-Cutting-Board-with-Hook-CBN-1218WT/328547975
+2026-05-26 13:31:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:31:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.amazon.com/cutting-board-plastic-12x18/s?k=cutting+board+plastic+12x18
+2026-05-26 13:31:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com : cutting board plastic 12x18')
+2026-05-26 13:31:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.walmart.com/ip/Mainstays-12-X18-Non-Slip-Poly-Cutting-Board-White-Color/5192369941
+2026-05-26 13:31:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Mainstays 12&quot;X18&quot; Non-Slip Poly Cutting Board, Whi')
+2026-05-26 13:31:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.ebay.com/shop/12-x-18-cutting-board?_nkw=12+x+18+cutting+board
+2026-05-26 13:31:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '12x18 Cutting Board | eBay')
+2026-05-26 13:31:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.katom.com/080-CBWT1218.html
+2026-05-26 13:31:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:31:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.costco.com/p/-/winco-cutting-board-12-x-18-x-12-white/100641958
+2026-05-26 13:31:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:31:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.target.com/p/winco-cutting-board-rectangular-12-x-18-x-1-2-white/-/A-88677589
+2026-05-26 13:31:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=target.com  price=$35.00  confidence=29%
+2026-05-26 13:31:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.cuttingboardcompany.com/12-x-18-basic-white-poly-cutting-board/
+2026-05-26 13:31:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '12 x 18 Economy White Poly Cutting Board')
+2026-05-26 13:31:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.webstaurantstore.com/tablecraft-fcb1218w-12-x-18-white-flexible-cutting-board-pack/808FCB1218W.html
+2026-05-26 13:31:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebstaurantstore.com  price=no price  confidence=35%
+2026-05-26 13:31:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.cuttingboards.net/12-x-18-white-poly-cutting-board/
+2026-05-26 13:32:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: cuttingboards.net
+2026-05-26 13:32:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cuttingboards.net  price=$21.60  confidence=29%
+2026-05-26 13:32:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://en.wikipedia.org/wiki
+2026-05-26 13:32:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-26 13:32:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.britannica.com/science/the-number-twelve
+2026-05-26 13:32:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:32:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.vedantu.com/maths
+2026-05-26 13:32:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:32:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.calculatorsoup.com/calculators/math/basic.php
+2026-05-26 13:32:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:32:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://numbers.fandom.com/wiki
+2026-05-26 13:32:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:32:21 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='12 x 18 Cutting Board White- Winco'  visited=15  found=3/7
+2026-05-26 13:32:21 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '3 inch star 2 row cutter'  (id=2331)
+2026-05-26 13:32:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Practical Baker 3 inch star 2 row cutter buy'
+2026-05-26 13:32:27 [INFO] backend.search.engine: SerpAPI Shopping: 3 results for 'Practical Baker 3 inch star 2 row cutter buy'
+2026-05-26 13:32:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 11 result URLs
+2026-05-26 13:32:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.ebay.com/itm/157455199434
+2026-05-26 13:32:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:32:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://equipmentplus.myshopify.com/products/two-row-square-donut-cutters-4-sizes-available-in-variants
+2026-05-26 13:32:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: equipmentplus.myshopify.com
+2026-05-26 13:32:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=equipmentplus.myshopify.com  price=$681.40  confidence=90%
+2026-05-26 13:32:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://discountbakeryequip.com/product/practical-baker-donut-revolving-cutters/
+2026-05-26 13:32:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Practical Baker Donut Revolving Cutters')
+2026-05-26 13:32:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.walmart.com/c/kp/biscuit-cutters
+2026-05-26 13:32:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Biscuit Cutters')
+2026-05-26 13:32:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://shop.app/products/7917558071474/3-inch-star-2-row-cutter
+2026-05-26 13:32:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'We ran into an issue')
+2026-05-26 13:32:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.thefreedictionary.com/practical
+2026-05-26 13:32:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:32:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.collinsdictionary.com/us/dictionary/english/practical
+2026-05-26 13:32:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:32:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.thesaurus.com/browse/practica
+2026-05-26 13:32:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:32:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.oxfordlearnersdictionaries.com/definition/english/practical
+2026-05-26 13:32:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:32:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.vocabulary.com/dictionary/practical
+2026-05-26 13:32:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:32:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://en.wiktionary.org/wiki/practical
+2026-05-26 13:32:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:32:51 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='3 inch star 2 row cutter'  visited=11  found=1/7
+2026-05-26 13:32:51 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20 Quart Stainless Steel Floor Model Blakeslee Food Mixer Model F-20-SS'  (id=2346)
+2026-05-26 13:32:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20 Quart Stainless Steel Floor Model Food Mixer buy'
+2026-05-26 13:32:56 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '20 Quart Stainless Steel Floor Model Food Mixer buy'
+2026-05-26 13:32:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 17 result URLs
+2026-05-26 13:32:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.restaurantsupply.com/products/varimixer-v20kf-20-quart-food-mixer-with-bowl-and-attachments-floor-model-stainless-steel
+2026-05-26 13:32:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$9240.00  confidence=43%
+2026-05-26 13:32:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.amazon.com/20-quart-mixer/s?k=20+quart+mixer
+2026-05-26 13:32:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com : 20 quart mixer')
+2026-05-26 13:32:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.katom.com/147-V20KF.html
+2026-05-26 13:33:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:33:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://thechefstore.com/products/univex-srmf20-20-qt-floor-model-food-mixer-variable-speed
+2026-05-26 13:33:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Univex SRMF20+ 20 Qt Floor Model Food Mixer, Variable Speed')
+2026-05-26 13:33:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.webstaurantstore.com/univex-srmf20-20-qt-planetary-floor-mixer-with-guard-and-standard-accessories-115v-1-2-hp/22CSRMF20.html
+2026-05-26 13:33:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Univex SRMF20+ 20 Qt. Planetary Floor Mixer with Guard and S')
+2026-05-26 13:33:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.chefsdeal.com/p/commercial-mixers/univex-srmf20
+2026-05-26 13:33:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:33:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.homedepot.com/b/Appliances-Small-Kitchen-Appliances-Mixers-Stand-Mixers/Stainless-Steel/N-5yc1vZcf8qZ1z103qk
+2026-05-26 13:33:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Error Page')
+2026-05-26 13:33:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.hearthorigin.com/product/20-quart-stainless-steel-floor-model-blakeslee-food-mixer-model-f-20-ss/
+2026-05-26 13:33:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=hearthorigin.com  price=no price  confidence=30%
+2026-05-26 13:33:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.lowes.com/pl/small-appliances/mixers/stand-mixers/stainless-steel/floor/4294765372-4294780081-506647748
+2026-05-26 13:33:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:33:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.ebay.com/sch/i.html?_nkw=20+quarts+mixer&_sop=12
+2026-05-26 13:33:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:33:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://abc.com/show
+2026-05-26 13:33:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page not found - ABC.com')
+2026-05-26 13:33:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://en.m.wikipedia.org/wiki
+2026-05-26 13:33:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-26 13:33:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.disneyplus.com/browse
+2026-05-26 13:33:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:33:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://m.imdb.com/title
+2026-05-26 13:33:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:33:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://www.hulu.com/series
+2026-05-26 13:33:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:33:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://www.rollingstone.com/product-recommendations/lifestyle/how
+2026-05-26 13:33:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:33:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [17] Visiting: https://www.iheart.com/podcast
+2026-05-26 13:33:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:33:08 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20 Quart Stainless Steel Floor Model Blakeslee Food Mixer Model F-20-SS'  visited=17  found=2/7
+2026-05-26 13:33:08 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '6" X 3" Solid Spatula / Turner with wood handle'  (id=4103)
+2026-05-26 13:33:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Winco 6" X 3" Solid Spatula Turner with wood handle buy'
+2026-05-26 13:33:11 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Winco 6" X 3" Solid Spatula Turner with wood handle buy'
+2026-05-26 13:33:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 15 result URLs
+2026-05-26 13:33:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.walmart.com/ip/Winco-TN719-Medium-Stainless-Steel-Brown/138490921
+2026-05-26 13:33:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Winco TN719, Medium, Stainless Steel, Brown - Walmart.com')
+2026-05-26 13:33:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.globalindustrial.com/p/tn719-blade-hamburger-turner-6l-blade-3w-wooden-handle
+2026-05-26 13:33:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=globalindustrial.com  price=$54.48  confidence=60%
+2026-05-26 13:33:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.amazon.com/Winco-TN719-Stainless-Turner-Handle/dp/B0DY1GQTC7
+2026-05-26 13:33:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com: For Winco TN719 6 x 3 Stainless Steel Turner w/W')
+2026-05-26 13:33:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://totalsupply1.com/Kitchen/Baking-Supplies/Baking-Tools/Spatulas/Winco-TN719-[HL233HT]-Turner,-6"x-3"-Wood-HandleTN719-WINCOTN719-Winco/i/HL233HT
+2026-05-26 13:33:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:33:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.gofoodservice.com/c/spatulas-turners?brand=winco
+2026-05-26 13:33:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Winco Commercial Spatulas &amp; Turners')
+2026-05-26 13:33:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.acitydiscount.com/Winco-TN719-Wooden-Handle-Hamburger-Turner-3-x6-Blade.0.169100.1.1.htm
+2026-05-26 13:33:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 13:33:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.wincous.com/collections/turners
+2026-05-26 13:33:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:33:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.equippers.com/tn719-stiff-stainless-steel-turner-with-wood-handle-6-x-3
+2026-05-26 13:33:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Winco&#x20;TN719&#x20;Stiff&#x20;Stainless&#x20;Steel&#x20;T')
+2026-05-26 13:33:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.allpointsfps.com/75937-6-in-by-3-in-hamburger-turner-winco/
+2026-05-26 13:33:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:33:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://en.wikipedia.org/wiki/WinCo_Foods
+2026-05-26 13:33:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods - Wikipedia')
+2026-05-26 13:33:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.loc8nearme.com/texas/lewisville/winco
+2026-05-26 13:33:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Locations in Lewisville, TX - Loc8NearMe')
+2026-05-26 13:33:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.myweeklyads.net/winco-foods-sales
+2026-05-26 13:33:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:33:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.iweeklyads.com/winco-foods-weekly-ad-specials
+2026-05-26 13:33:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods Weekly Ad Specials')
+2026-05-26 13:33:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://brilliantmaps.com/us-locations/winco-foods-locations-us
+2026-05-26 13:33:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Map Of All 140 WinCo Foods Locations In The US By State')
+2026-05-26 13:33:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://www.chamberofcommerce.com/.../texas/lewisville/supermarket
+2026-05-26 13:33:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:33:39 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='6" X 3" Solid Spatula / Turner with wood handle'  visited=15  found=1/7
+2026-05-26 13:33:39 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '140 Quart Thunderbird Planetary Mixer ARM-140'  (id=4147)
+2026-05-26 13:33:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '140 Quart Planetary Mixer buy'
+2026-05-26 13:33:40 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '140 Quart Planetary Mixer buy'
+2026-05-26 13:33:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 10 result URLs
+2026-05-26 13:33:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.ebay.com/sch/i.html?_nkw=hobart+mixer+140+quart&_sop=12
+2026-05-26 13:33:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:33:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.restaurantsupply.com/products/hobart-hl1400-1std-140-quarts-electric-mixer-with-bowl-and-beater
+2026-05-26 13:33:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantsupply.com
+2026-05-26 13:33:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.chefsdeal.com/p/commercial-mixers/hobart-hl1400-1
+2026-05-26 13:33:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:33:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://edgefoodequipment.com/products/hobart-hl1400-140-qt-planetary-mixer-with-power-bowl-lift-200-240v-5-hp
+2026-05-26 13:33:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=edgefoodequipment.com
+2026-05-26 13:33:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://chumartusa.com/products/hobart-hl1400-legacy-140-qt-planetary-floor-mixer-with-guard-standard-accessories-240v-3-phase-5-hp
+2026-05-26 13:33:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Hobart HL1400 Legacy+ 140 Qt. Planetary Floor Mixer with Gua')
+2026-05-26 13:33:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.webstaurantstore.com/hobart-legacy-hl1400-1std-140-qt-commercial-planetary-floor-mixer-with-standard-accessories-200-240-50-60-3-phase-5-hp/425HL1400STD.html
+2026-05-26 13:33:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Hobart Legacy HL1400-1STD 140 Qt. Planetary Floor Mixer with')
+2026-05-26 13:33:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.katom.com/617-HL1400C1STD.html
+2026-05-26 13:33:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:33:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://bakeryequipment.com/category/178/
+2026-05-26 13:33:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Planetary Mixers')
+2026-05-26 13:33:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://shop.middleby.com/doyon-btl140h-freestanding-planetary-mixer-140-quarts-capacity-5-hp-belt-transmission-208-240v-3ph.html
+2026-05-26 13:33:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Doyon&#x20;BTL140H&#x20;Freestanding&#x20;Planetary&#x20;Mix')
+2026-05-26 13:33:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://sammarketplace.com/products/140qt-planetary-mixer-hobart-model-hl1400n-240-volt
+2026-05-26 13:34:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: sammarketplace.com
+2026-05-26 13:34:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=sammarketplace.com  price=$12000.00  confidence=32%
+2026-05-26 13:34:02 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='140 Quart Thunderbird Planetary Mixer ARM-140'  visited=10  found=3/7
+2026-05-26 13:34:02 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '4-in-1 Countdown Digital Timer'  (id=4210)
+2026-05-26 13:34:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'FMP 4-in-1 Countdown Digital Timer buy'
+2026-05-26 13:34:05 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'FMP 4-in-1 Countdown Digital Timer buy'
+2026-05-26 13:34:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 13 result URLs
+2026-05-26 13:34:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://rapidswholesale.com/fmp-4-in-1-digital-timer.html
+2026-05-26 13:34:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: rapidswholesale.com
+2026-05-26 13:34:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  price=$98.28  confidence=40%
+2026-05-26 13:34:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.webstaurantstore.com/fmp-151-7500-digital-4-channel-commercial-kitchen-countdown-timer/3591517500.html
+2026-05-26 13:34:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebstaurantstore.com  price=no price  confidence=26%
+2026-05-26 13:34:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.amazon.com/fmp-timer/s?k=fmp+timer
+2026-05-26 13:34:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com : fmp timer')
+2026-05-26 13:34:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.walmart.com/ip/FMP-Digital-4-Channel-Commercial-Kitchen-Countdown-Timer-Water-Resistant-7-inch-Height-White-C95/17492201464
+2026-05-26 13:34:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 13:34:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.ebay.com/itm/266101000191
+2026-05-26 13:34:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:34:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.cooksdirect.com/fmp-4-in-1-digital-timer-fm1242
+2026-05-26 13:34:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'FMP 151-7500 4-in-1 Digital Timer')
+2026-05-26 13:34:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://ecommerce.bellandsons.com/151-7500.html
+2026-05-26 13:34:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'FMP&#x20;ALL-POINTS&#x20;4-IN-1&#x20;DIGITAL&#x20;TIMER')
+2026-05-26 13:34:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.smallkitchenappliancestore.com/product/timer-4-in-1-digital-fmp/
+2026-05-26 13:34:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'smallkitchenappliancestore.com | 520: Web server is returnin')
+2026-05-26 13:34:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.socoldproducts.com/4-channel-10-hour-commercial-kitchen-countdown-timer/
+2026-05-26 13:34:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: socoldproducts.com
+2026-05-26 13:34:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=socoldproducts.com  price=$119.99  confidence=33%
+2026-05-26 13:34:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.factorymotorparts.com/customer-login
+2026-05-26 13:34:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:34:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.va.gov/health-care/foreign-medical-program
+2026-05-26 13:34:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:34:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.ifma.org/professional-development
+2026-05-26 13:34:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:34:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://site.financialmodelingprep.com/login
+2026-05-26 13:35:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:35:14 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='4-in-1 Countdown Digital Timer'  visited=13  found=3/7
+2026-05-26 13:35:14 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '16" Pail Opener by Tablecraft'  (id=4968)
+2026-05-26 13:35:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '16" Pail Opener by table buy'
+2026-05-26 13:35:15 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '16" Pail Opener by table buy'
+2026-05-26 13:35:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 17 result URLs
+2026-05-26 13:35:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.ebay.com/itm/267618664570
+2026-05-26 13:35:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:35:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.webstaurantstore.com/tablecraft-15e-z-16-pail-opener/808M1.html
+2026-05-26 13:35:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebstaurantstore.com  price=no price  confidence=48%
+2026-05-26 13:35:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.walmart.com/ip/TableCraft-Pail-Opener-Cast-Aluminum-16-Length-1-Each/112708016
+2026-05-26 13:35:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'TableCraft Pail Opener, Cast Aluminum, 16&quot; Length | 1 E')
+2026-05-26 13:35:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.restaurant-warehouse.com/product/tablecraft-cash-carry-pail-opener-16l/
+2026-05-26 13:35:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:35:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.partstown.com/tablecraft/tblc15
+2026-05-26 13:35:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:35:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.uskitchencenter.com/product/15-tablecraft-16-cast-aluminum-pail-opener/
+2026-05-26 13:35:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: uskitchencenter.com
+2026-05-26 13:35:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=uskitchencenter.com  price=$13.51  confidence=30%
+2026-05-26 13:35:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://shop.boelter.com/kitchen-supplies-s/tools-utensils/pail-openers/ez-pail-opener-16-inch-metal.html
+2026-05-26 13:35:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Tablecraft&#x20;15&#x20;Cast&#x20;Aluminum&#x20;Pail&#x20;Op')
+2026-05-26 13:35:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.chefstore.com/p/tablecraft-easy-pail-opener-aluminum-16-inch_1158716/
+2026-05-26 13:35:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=chefstore.com  price=$54.99  confidence=45%
+2026-05-26 13:35:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.chefsdeal.com/p/pail-openers/tablecraft-products-15
+2026-05-26 13:35:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:35:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.restaurantequipmall.com/product/tablecraft-15-e-z-pail-opener-16-132657/
+2026-05-26 13:35:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:35:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.apple.com/shop/buy-iphone
+2026-05-26 13:35:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Buy iPhone')
+2026-05-26 13:35:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.16personalities.com/personality-types
+2026-05-26 13:36:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:36:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://en.wikipedia.org/wiki
+2026-05-26 13:36:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-26 13:36:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.bestbuy.com/site/all-iphone
+2026-05-26 13:36:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:36:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://appleinsider.com/inside
+2026-05-26 13:36:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:36:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://www.att.com/buy/phones
+2026-05-26 13:36:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:36:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [17] Visiting: https://www.t-mobile.com/cell-phone
+2026-05-26 13:36:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:36:30 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='16" Pail Opener by Tablecraft'  visited=17  found=3/7
+2026-05-26 13:38:29 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'ACME 330DD Standard Donut Production Sheeter (200-240V) Right to Left Production'  (id=44)
+2026-05-26 13:38:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '330DD Standard Donut Production Sheeter Right to Left buy'
+2026-05-26 13:38:31 [INFO] backend.search.engine: SerpAPI Shopping: 25 results for '330DD Standard Donut Production Sheeter Right to Left buy'
+2026-05-26 13:38:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 8 result URLs
+2026-05-26 13:38:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://shop.app/products/8291520676130/acme-330dd-donut-production-sheeter-120v-right-to-left-production-96
+2026-05-26 13:38:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: shop.app
+2026-05-26 13:38:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=shop.app  price=$28452.05  confidence=50%
+2026-05-26 13:38:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://donut-equipment.draenoth.shop/product/acme-330dd-donut-production-sheeter-200-240v-right-to-left-production/
+2026-05-26 13:38:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:38:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://thechefstore.com/products/acme-330dd-donut-production-table-with-extended-cutting-conveyor
+2026-05-26 13:38:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Acme 330DD Donut Production Table with Extended Cutting Conv')
+2026-05-26 13:38:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.allbuyton.com/product/acme-330dd-donut-production-sheeter-120v-left-to-right-production/
+2026-05-26 13:38:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 13:38:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://cricketstoreonline.elythrandis.shop/product/acme-330dd-donut-production-sheeter-120v-left-to-right-production-96-1/
+2026-05-26 13:38:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:38:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://acmepbe.com/pdfs/330_spec.pdf
+2026-05-26 13:38:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:38:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://bakeryequipment.com/category/3329/
+2026-05-26 13:38:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Sheeters &amp; Moulders')
+2026-05-26 13:38:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.nybg.org/visit/admission
+2026-05-26 13:39:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:39:16 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='ACME 330DD Standard Donut Production Sheeter (200-240V) Right to Left Production'  visited=8  found=1/8
+2026-05-26 13:39:16 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'ACME 330DD Donut Production Sheeter (120V) Right To Left Production 96"'  (id=55)
+2026-05-26 13:39:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '330DD Donut Production Sheeter Right To Left Production buy'
+2026-05-26 13:39:17 [INFO] backend.search.engine: SerpAPI Shopping: 24 results for '330DD Donut Production Sheeter Right To Left Production buy'
+2026-05-26 13:39:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 8 result URLs
+2026-05-26 13:39:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://shop.app/products/8291520676130/acme-330dd-donut-production-sheeter-120v-right-to-left-production-96
+2026-05-26 13:39:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=shop.app
+2026-05-26 13:39:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://donut-equipment.draenoth.shop/product/acme-330dd-donut-production-sheeter-200-240v-right-to-left-production/
+2026-05-26 13:39:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:39:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.allbuyton.com/product/acme-330dd-donut-production-sheeter-120v-left-to-right-production/
+2026-05-26 13:39:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 13:39:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://thechefstore.com/products/acme-330dd-donut-production-table-with-extended-cutting-conveyor
+2026-05-26 13:39:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Acme 330DD Donut Production Table with Extended Cutting Conv')
+2026-05-26 13:39:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://nedlyaskuki.bronthelins.shop/product/acme-330dd-donut-production-sheeter-200-240v-left-to-right-production/
+2026-05-26 13:39:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:39:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://cricketstoreonline.elythrandis.shop/product/acme-330dd-donut-production-sheeter-120v-left-to-right-production-96-1/
+2026-05-26 13:39:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:39:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://acmepbe.com/pdfs/330_spec.pdf
+2026-05-26 13:39:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 13:39:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://worldofsolitaire.com/blog
+2026-05-26 13:39:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:39:54 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='ACME 330DD Donut Production Sheeter (120V) Right To Left Production 96"'  visited=8  found=1/8
+2026-05-26 13:39:54 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '10 Quart Thunderbird Planetary Mixer ARM-01'  (id=128)
+2026-05-26 13:39:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '10 Quart Planetary Mixer ARM-01 buy'
+2026-05-26 13:39:55 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '10 Quart Planetary Mixer ARM-01 buy'
+2026-05-26 13:39:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 8 result URLs
+2026-05-26 13:39:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://kitchenrestock.com/products/thunderbird-arm-01-planetary-mixer-bench-model-10-quart-capacity
+2026-05-26 13:39:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=kitchenrestock.com
+2026-05-26 13:39:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://restaurantequipment.com/products/arm-01-thunderbird-10-qt-planetary-mixer
+2026-05-26 13:39:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantequipment.com
+2026-05-26 13:39:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.restaurantkitchenhome.com/product/thunderbird-arm-01-10-quart-planetary-dough-mixer/
+2026-05-26 13:39:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:39:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.russoequip.com/products/thunderbird-food-machinery-arm-01-mixer
+2026-05-26 13:39:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=russoequip.com
+2026-05-26 13:39:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.thunderbirdfm.com/ARM-01.html
+2026-05-26 13:40:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Thunderbird Food Machinery')
+2026-05-26 13:40:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.ebay.com/p/1104495829
+2026-05-26 13:40:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=ebay.com
+2026-05-26 13:40:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.supersuppliesstore.com/product/thunderbird-arm-01-10-quart-planetary-dough-mixer/
+2026-05-26 13:40:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:40:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.stationaryloveseats.com/product/10-quart-thunderbird-planetary-mixer-arm-01/
+2026-05-26 13:40:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=stationaryloveseats.com  price=no price  confidence=30%
+2026-05-26 13:40:05 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='10 Quart Thunderbird Planetary Mixer ARM-01'  visited=8  found=5/8
+2026-05-26 13:40:05 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '36 boxes-Full Pallet Superb Shortening Donut Frying Cube Oil - Soy -Palm Blend 50 Lb.'  (id=659)
+2026-05-26 13:40:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Stratas Foods 36 boxes-Full Pallet Superb Shortening Donut Frying Cube Oil buy'
+2026-05-26 13:40:05 [INFO] backend.search.engine: SerpAPI Shopping: 6 results for 'Stratas Foods 36 boxes-Full Pallet Superb Shortening Donut F'
+2026-05-26 13:40:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 6 result URLs
+2026-05-26 13:40:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.stationaryloveseats.com/product/36-boxes-full-pallet-superb-shortening-donut-frying-cube-oil-soy-palm-blend-50-lb/
+2026-05-26 13:40:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=stationaryloveseats.com
+2026-05-26 13:40:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.foodservex.com/product/superb-shortening-donut-frying-cube-oil-soy-palm-blend-50-lb/
+2026-05-26 13:40:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 13:40:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.stratasfoods.com/our-products/categories/superb-flex-palm-shortening
+2026-05-26 13:40:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Superb® Flex Palm Shortening | Products | Stratas Foods')
+2026-05-26 13:40:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.goldmedalsupplysteward.com/product/superb-commodity-donut-frying-cube-shortening-50-lb-1-case/
+2026-05-26 13:40:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:40:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://equipmentplus.myshopify.com/collections/oils-shortening
+2026-05-26 13:40:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Oils &amp; Shortening')
+2026-05-26 13:40:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.bakersauthority.com/collections/stratas
+2026-05-26 13:40:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Bulk and Wholesale Stratas Shortening for Baking Supply')
+2026-05-26 13:40:11 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='36 boxes-Full Pallet Superb Shortening Donut Frying Cube Oil - Soy -Palm Blend 50 Lb.'  visited=6  found=1/8
+2026-05-26 13:40:11 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'  (id=683)
+2026-05-26 13:40:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'DX Deck Oven with Steam deck tray buy'
+2026-05-26 13:40:11 [INFO] backend.search.engine: SerpAPI Shopping: 30 results for 'DX Deck Oven with Steam deck tray buy'
+2026-05-26 13:40:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 9 result URLs
+2026-05-26 13:40:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.restaurantsupply.com/products/belshaw-00799579-74-inch-dx-deck-oven-with-steam-electric-4-deck-3-tray
+2026-05-26 13:40:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantsupply.com
+2026-05-26 13:40:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.chefsdeal.com/p/deck-ovens/belshaw-00799579
+2026-05-26 13:40:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:40:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://kitchenrestock.com/products/belshaw-00799579-480-dx-deck-oven-with-steam-4-deck-3-tray
+2026-05-26 13:40:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=kitchenrestock.com
+2026-05-26 13:40:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.foodservex.com/product/belshaw-00799579-dx-deck-oven-with-steam-4-deck-3-tray-208-240v-60-3-ph/
+2026-05-26 13:40:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 13:40:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.belshaw.com/products/dx-eco-touch-deck-oven
+2026-05-26 13:40:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'DX Eco-Touch Deck Oven | Belshaw')
+2026-05-26 13:40:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.hearthorigin.com/product/belshaw-00799322-dx-deck-oven-with-steam-3-deck-3-tray-480v-60-3-ph/
+2026-05-26 13:40:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=hearthorigin.com
+2026-05-26 13:40:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://shop.app/products/8628997718194/belshaw-0079958332301-dx-deck-oven-with-steam-4-deck-2-tray-208-240v
+2026-05-26 13:40:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'We ran into an issue')
+2026-05-26 13:40:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.ebay.com/sch/i.html?_nkw=deck+oven+with+steam&_sop=12
+2026-05-26 13:40:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:40:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.fryerzone.com/products
+2026-05-26 13:40:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '404 Not Found')
+2026-05-26 13:40:23 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'  visited=9  found=3/8
+2026-05-26 13:40:23 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '12 x 18 Cutting Board White- Winco'  (id=1753)
+2026-05-26 13:40:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '12 x 18 Cutting Board White buy'
+2026-05-26 13:40:23 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '12 x 18 Cutting Board White buy'
+2026-05-26 13:40:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 11 result URLs
+2026-05-26 13:40:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.walmart.com/ip/Mainstays-12-X18-Non-Slip-Poly-Cutting-Board-White-Color/5192369941
+2026-05-26 13:40:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Mainstays 12&quot;X18&quot; Non-Slip Poly Cutting Board, Whi')
+2026-05-26 13:40:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.homedepot.com/p/Winco-12-in-x-18-in-x-1-2-in-White-Cutting-Board-with-Hook-CBN-1218WT/328547975
+2026-05-26 13:40:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:40:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.amazon.com/cutting-board-plastic-12x18/s?k=cutting+board+plastic+12x18
+2026-05-26 13:40:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com : cutting board plastic 12x18')
+2026-05-26 13:40:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.cuttingboardcompany.com/12-x-18-white-cutting-board/
+2026-05-26 13:40:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: cuttingboardcompany.com
+2026-05-26 13:40:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cuttingboardcompany.com  price=no price  confidence=26%
+2026-05-26 13:40:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.costco.com/p/-/winco-cutting-board-12-x-18-x-12-white/100641958
+2026-05-26 13:40:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:40:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.katom.com/080-CBWT1218.html
+2026-05-26 13:40:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:40:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.cuttingboards.net/12-x-18-white-poly-cutting-board/
+2026-05-26 13:40:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=cuttingboards.net
+2026-05-26 13:40:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.restaurantsupply.com/products/tablecraft-cb1218wa-18-inch-dishwasher-safe-cutting-board-polyethylene-white
+2026-05-26 13:40:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$9.38  confidence=28%
+2026-05-26 13:40:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.target.com/p/winco-cutting-board-rectangular-12-x-18-x-1-2-white/-/A-88677589
+2026-05-26 13:40:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=target.com
+2026-05-26 13:40:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://rapidswholesale.com/cutting-board-12-x-18-x-1-2-thick.html
+2026-05-26 13:40:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  price=$9.59  confidence=45%
+2026-05-26 13:40:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.ebay.com/shop
+2026-05-26 13:40:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebay.com  price=$8.00  confidence=29%
+2026-05-26 13:40:39 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='12 x 18 Cutting Board White- Winco'  visited=11  found=6/8
+2026-05-26 13:40:39 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'  (id=2313)
+2026-05-26 13:40:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '48" Black Horizontal Island Open Air Cooler with buy'
+2026-05-26 13:40:41 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '48" Black Horizontal Island Open Air Cooler with buy'
+2026-05-26 13:40:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 14 result URLs
+2026-05-26 13:40:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.smartovenhub.com/products/turbo-air-tiom-36rsrb-n-48-black-horizontal-island-open-air-cooler-with-4-levels-220v-1ph/
+2026-05-26 13:40:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=smartovenhub.com  price=no price  confidence=30%
+2026-05-26 13:40:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.katom.com/083-TIOM48RSRBN.html
+2026-05-26 13:40:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:40:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.nishienterprise.com/products/turbo-air-tiom-48rsrs-n-48-horizontal-island-open-air-merchandiser-220v
+2026-05-26 13:41:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:41:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.webstaurantstore.com/54811/horizontal-vertical-air-curtain-merchandisers.html
+2026-05-26 13:41:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Open Air Refrigerator Merchandisers')
+2026-05-26 13:41:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://shop.app/products/9371925512422/turbo-air-tiom-48rsb-n-48-black-horizontal-island-open-air-cooler-with
+2026-05-26 13:41:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'We ran into an issue')
+2026-05-26 13:41:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.ebay.com/sch/i.html?_nkw=48+open+air+cooler&_sop=12
+2026-05-26 13:41:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:41:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.allbuyton.com/product/turbo-air-tiom-48rsrb-n-48-black-horizontal-island-open-air-cooler-4-level-display-220v/
+2026-05-26 13:41:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 13:41:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.cbsnews.com/full-episodes
+2026-05-26 13:41:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:41:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.cbs.com/shows
+2026-05-26 13:41:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:41:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://en.wikipedia.org/wiki
+2026-05-26 13:41:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-26 13:41:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.paramountplus.com/shows/episodes
+2026-05-26 13:41:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:41:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://pluto.tv/us/on-demand/series
+2026-05-26 13:41:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:41:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.calculateme.com/length/inches/to-feet
+2026-05-26 13:41:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:41:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.usatoday.com/story/entertainment/tv
+2026-05-26 13:41:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:41:33 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'  visited=14  found=1/8
+2026-05-26 13:41:33 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'  (id=2324)
+2026-05-26 13:41:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Robot® Mark VI Standard buy'
+2026-05-26 13:41:35 [INFO] backend.search.engine: SerpAPI Shopping: 21 results for 'Donut Robot® Mark VI Standard buy'
+2026-05-26 13:41:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 15 result URLs
+2026-05-26 13:41:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.belshaw.com/products/category/mark-vi
+2026-05-26 13:41:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Donut Robot® Mark VI System for Cake & Yeast Raised Donuts |')
+2026-05-26 13:41:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.katom.com/797-MARKVI226803.html
+2026-05-26 13:41:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:41:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://discountbakeryequip.com/product/belshaw-donut-robot-mark-6/
+2026-05-26 13:41:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=discountbakeryequip.com  price=no price  confidence=26%
+2026-05-26 13:41:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.restaurantsupply.com/products/belshaw-mark-vi-52-inch-electric-donut-robot-deep-fryer-106-lb-oil-capacity
+2026-05-26 13:41:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$285.31  confidence=35%
+2026-05-26 13:41:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://kitchenrestock.com/products/belshaw-mark-vi-donut-robot-mark-vi-automatic-donut-machine-electric-106-lb-oil-capacity
+2026-05-26 13:41:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$285.31  confidence=34%
+2026-05-26 13:41:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.machinio.com/cat/donut-robots
+2026-05-26 13:41:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:41:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.strattonsales.com/belshaw-mark-6-donut-robot/
+2026-05-26 13:41:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=strattonsales.com
+2026-05-26 13:41:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://shop.app/products/8917550465254/belshaw-donut-robot-mark-vi-3-3-4-flight-bar-with-dual-star
+2026-05-26 13:41:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'We ran into an issue')
+2026-05-26 13:41:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://en.wikipedia.org/wiki/Doughnut
+2026-05-26 13:41:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Doughnut - Wikipedia')
+2026-05-26 13:41:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.dunkindonuts.com/en/m-menu
+2026-05-26 13:41:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:41:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://shipleydonuts.com/locations
+2026-05-26 13:41:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:41:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.wikihow.com/Types-of-Donuts
+2026-05-26 13:41:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:41:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.britannica.com/topic/doughnut
+2026-05-26 13:41:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:41:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://tastylicious.com/types-of-donuts
+2026-05-26 13:41:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '34 Types Of Donuts - The Ultimate Guide - Tastylicious')
+2026-05-26 13:41:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://www.tasteofhome.com/recipes/dishes
+2026-05-26 13:41:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page not found | Taste of Home')
+2026-05-26 13:41:51 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'  visited=15  found=4/8
+2026-05-26 13:41:51 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '3 inch star 2 row cutter'  (id=2331)
+2026-05-26 13:41:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Practical Baker 3 inch star 2 row cutter buy'
+2026-05-26 13:41:52 [INFO] backend.search.engine: SerpAPI Shopping: 3 results for 'Practical Baker 3 inch star 2 row cutter buy'
+2026-05-26 13:41:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 6 result URLs
+2026-05-26 13:41:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://equipmentplus.myshopify.com/products/two-row-square-donut-cutters-4-sizes-available-in-variants
+2026-05-26 13:41:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=equipmentplus.myshopify.com
+2026-05-26 13:41:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://discountbakeryequip.com/product/practical-baker-donut-revolving-cutters/
+2026-05-26 13:41:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Practical Baker Donut Revolving Cutters')
+2026-05-26 13:41:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.ebay.com/itm/157455199434
+2026-05-26 13:41:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:41:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://shop.app/products/7917558071474/3-inch-star-2-row-cutter
+2026-05-26 13:41:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'We ran into an issue')
+2026-05-26 13:41:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://donut-supplies.hymnaxys.shop/product/3-inch-star-2-row-cutter/
+2026-05-26 13:41:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:41:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.walmart.com/kp/biscuit-cutters
+2026-05-26 13:41:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 13:41:56 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='3 inch star 2 row cutter'  visited=6  found=1/8
+2026-05-26 13:41:56 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20 Quart Stainless Steel Floor Model Blakeslee Food Mixer Model F-20-SS'  (id=2346)
+2026-05-26 13:41:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20 Quart Stainless Steel Floor Model Food Mixer buy'
+2026-05-26 13:41:56 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '20 Quart Stainless Steel Floor Model Food Mixer buy'
+2026-05-26 13:41:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 11 result URLs
+2026-05-26 13:41:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.restaurantsupply.com/products/varimixer-v20kf-20-quart-food-mixer-with-bowl-and-attachments-floor-model-stainless-steel
+2026-05-26 13:41:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantsupply.com
+2026-05-26 13:41:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://thechefstore.com/products/univex-srmf20-20-qt-floor-model-food-mixer-variable-speed
+2026-05-26 13:41:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Univex SRMF20+ 20 Qt Floor Model Food Mixer, Variable Speed')
+2026-05-26 13:41:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.homedepot.com/b/Appliances-Small-Kitchen-Appliances-Mixers-Stand-Mixers/Stainless-Steel/N-5yc1vZcf8qZ1z103qk
+2026-05-26 13:42:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Error Page')
+2026-05-26 13:42:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.chefsdeal.com/p/commercial-mixers/uniworld-upm-20hlet
+2026-05-26 13:42:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:42:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.hearthorigin.com/product/20-quart-stainless-steel-floor-model-blakeslee-food-mixer-model-f-20-ss/
+2026-05-26 13:42:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=hearthorigin.com
+2026-05-26 13:42:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.ebay.com/sch/i.html?_nkw=20+quarts+mixer&_sop=12
+2026-05-26 13:42:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:42:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.amazon.com/20-quart-mixer/s?k=20+quart+mixer
+2026-05-26 13:42:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com : 20 quart mixer')
+2026-05-26 13:42:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.katom.com/147-V20KF.html
+2026-05-26 13:42:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:42:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.walmart.com/ip/20Qt-Commercial-Food-Mixer-750W-3-Speed-Adjustable-Stainless-Steel-Bowl-Mixer-Bakery-Restaurant-Pizza-Dough-Kneading-Includes-Dough-Hook-Beater-Whisk/19688714367
+2026-05-26 13:42:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 13:42:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.smartovenhub.com/products/20-quart-stainless-steel-floor-model-blakeslee-food-mixer-model-f-20-ss/
+2026-05-26 13:42:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=smartovenhub.com  price=no price  confidence=30%
+2026-05-26 13:42:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.lowes.com/pl/small-appliances/mixers
+2026-05-26 13:42:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:42:08 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20 Quart Stainless Steel Floor Model Blakeslee Food Mixer Model F-20-SS'  visited=11  found=3/8
+2026-05-26 13:42:08 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '6" X 3" Solid Spatula / Turner with wood handle'  (id=4103)
+2026-05-26 13:42:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Winco 6" X 3" Solid Spatula Turner with wood handle buy'
+2026-05-26 13:42:08 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Winco 6" X 3" Solid Spatula Turner with wood handle buy'
+2026-05-26 13:42:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 9 result URLs
+2026-05-26 13:42:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.walmart.com/ip/Winco-TN719-Medium-Stainless-Steel-Brown/138490921
+2026-05-26 13:42:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Winco TN719, Medium, Stainless Steel, Brown - Walmart.com')
+2026-05-26 13:42:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.amazon.com/Winco-TN719-Stainless-Turner-Handle/dp/B0DY1GQTC7
+2026-05-26 13:42:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com: For Winco TN719 6 x 3 Stainless Steel Turner w/W')
+2026-05-26 13:42:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://totalsupply1.com/Kitchen/Baking-Supplies/Baking-Tools/Spatulas/Winco-TN719-[HL233HT]-Turner,-6"x-3"-Wood-HandleTN719-WINCOTN719-Winco/i/HL233HT
+2026-05-26 13:42:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:42:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.gofoodservice.com/c/spatulas-turners?brand=winco
+2026-05-26 13:42:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Winco Commercial Spatulas &amp; Turners')
+2026-05-26 13:42:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.wincous.com/collections/turners
+2026-05-26 13:42:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:42:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.globalindustrial.com/p/tn719-blade-hamburger-turner-6l-blade-3w-wooden-handle
+2026-05-26 13:42:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=globalindustrial.com
+2026-05-26 13:42:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.acitydiscount.com/Winco-TN719-Wooden-Handle-Hamburger-Turner-3-x6-Blade.0.169100.1.1.htm
+2026-05-26 13:42:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 13:42:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.equippers.com/tn719-stiff-stainless-steel-turner-with-wood-handle-6-x-3
+2026-05-26 13:42:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Winco&#x20;TN719&#x20;Stiff&#x20;Stainless&#x20;Steel&#x20;T')
+2026-05-26 13:42:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.allpointsfps.com/75937-6-in-by-3-in-hamburger-turner-winco/
+2026-05-26 13:42:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: allpointsfps.com
+2026-05-26 13:42:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=allpointsfps.com  price=$8.50  confidence=26%
+2026-05-26 13:42:18 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='6" X 3" Solid Spatula / Turner with wood handle'  visited=9  found=2/8
+2026-05-26 13:42:18 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '140 Quart Thunderbird Planetary Mixer ARM-140'  (id=4147)
+2026-05-26 13:42:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '140 Quart Planetary Mixer buy'
+2026-05-26 13:42:19 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '140 Quart Planetary Mixer buy'
+2026-05-26 13:42:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 10 result URLs
+2026-05-26 13:42:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.ebay.com/sch/i.html?_nkw=hobart+mixer+140+quart&_sop=12
+2026-05-26 13:42:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:42:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.chefsdeal.com/p/commercial-mixers/hobart-hl1400-1
+2026-05-26 13:42:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:42:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.restaurantsupply.com/products/hobart-hl1400-70std-140-quart-floor-model-mixer-with-bowl-beater-dough-arm-whip
+2026-05-26 13:42:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$59849.30  confidence=29%
+2026-05-26 13:42:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://edgefoodequipment.com/products/hobart-hl1400-140-qt-planetary-mixer-with-power-bowl-lift-200-240v-5-hp
+2026-05-26 13:42:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=edgefoodequipment.com
+2026-05-26 13:42:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://chumartusa.com/products/hobart-hl1400-legacy-140-qt-planetary-floor-mixer-with-guard-standard-accessories-240v-3-phase-5-hp
+2026-05-26 13:42:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Hobart HL1400 Legacy+ 140 Qt. Planetary Floor Mixer with Gua')
+2026-05-26 13:42:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.webstaurantstore.com/hobart-legacy-hl1400-1std-140-qt-commercial-planetary-floor-mixer-with-standard-accessories-200-240-50-60-3-phase-5-hp/425HL1400STD.html
+2026-05-26 13:42:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Hobart Legacy HL1400-1STD 140 Qt. Planetary Floor Mixer with')
+2026-05-26 13:42:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.katom.com/617-HL1400C1STD.html
+2026-05-26 13:42:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:42:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://bakeryequipment.com/category/810/
+2026-05-26 13:42:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '140qt Mixer')
+2026-05-26 13:42:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://doyonbaking.com/product/btl-series/
+2026-05-26 13:42:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'BTL Series - Doyon')
+2026-05-26 13:42:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://shop.middleby.com/doyon-btl140h-freestanding-planetary-mixer-140-quarts-capacity-5-hp-belt-transmission-208-240v-3ph.html
+2026-05-26 13:42:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Doyon&#x20;BTL140H&#x20;Freestanding&#x20;Planetary&#x20;Mix')
+2026-05-26 13:42:35 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='140 Quart Thunderbird Planetary Mixer ARM-140'  visited=10  found=2/8
+2026-05-26 13:42:35 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw'  (id=4152)
+2026-05-26 13:42:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Small Package for Automated Cake Donut Production Sugaring icing buy'
+2026-05-26 13:42:37 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Small Package for Automated Cake Donut Production Sugaring i'
+2026-05-26 13:42:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 14 result URLs
+2026-05-26 13:42:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.moline.com/donuts/donut-finishing-systems/
+2026-05-26 13:42:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Donut Finishing Systems - Moline Machinery')
+2026-05-26 13:42:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.belshaw.com/products/category/icing-glazing-filling-and-sugaring
+2026-05-26 13:42:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Icing, Glazing, Filling & Sugaring | Belshaw')
+2026-05-26 13:42:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://equipmentplus.myshopify.com/collections/packages-bundles-for-equipment
+2026-05-26 13:42:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Packages &amp; Bundles for Equipment')
+2026-05-26 13:42:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.bakon.com/usa-donut-icing-glazing-decoration/
+2026-05-26 13:42:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Donut Icing / Glazing &amp; Decoration | Bakon Food Equipmen')
+2026-05-26 13:42:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://axisautomation.com/products/donuts/
+2026-05-26 13:43:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:43:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://rfbakery.com/Product/m7081/icing-high-production-belshaw-model-hi18f-120v
+2026-05-26 13:43:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Icing, High Production, Model HI18F, 120V - Belshaw')
+2026-05-26 13:43:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.katom.com/cat/donut-icing-filling-equipment.html
+2026-05-26 13:43:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:43:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.ebay.com/b/Commercial-Donut-Machines/95085/bn_7683437
+2026-05-26 13:43:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Commercial Donut Machines for sale | eBay')
+2026-05-26 13:43:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.collinsdictionary.com/us/dictionary/english/small
+2026-05-26 13:43:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:43:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.thefreedictionary.com/small
+2026-05-26 13:43:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:43:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.wordreference.com/definition/small
+2026-05-26 13:43:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:43:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://en.m.wiktionary.org/wiki/small
+2026-05-26 13:43:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:43:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.yourdictionary.com/small
+2026-05-26 13:43:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:43:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.oed.com/dictionary/small_adj
+2026-05-26 13:43:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:43:56 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw'  visited=14  found=0/8
+2026-05-26 13:43:56 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '4-in-1 Countdown Digital Timer'  (id=4210)
+2026-05-26 13:43:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'FMP 4-in-1 Countdown Digital Timer buy'
+2026-05-26 13:43:56 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'FMP 4-in-1 Countdown Digital Timer buy'
+2026-05-26 13:43:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 10 result URLs
+2026-05-26 13:43:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.amazon.com/Digital-Channel-Commercial-Kitchen-Timer/dp/B0FVMLL6VT
+2026-05-26 13:43:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=amazon.com  price=no price  confidence=26%
+2026-05-26 13:44:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.walmart.com/ip/fmp-151-7500-digital-4-channel-commercial-kitchen-countdown-timer-water-resistant/662405290
+2026-05-26 13:44:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'fmp 151-7500 digital 4 -channel commercial kitchen countdown')
+2026-05-26 13:44:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.ebay.com/itm/235439237675
+2026-05-26 13:44:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:44:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.smallkitchenappliancestore.com/product/timer-4-in-1-digital-fmp/
+2026-05-26 13:44:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'smallkitchenappliancestore.com | 520: Web server is returnin')
+2026-05-26 13:44:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://rapidswholesale.com/fmp-4-in-1-digital-timer.html
+2026-05-26 13:44:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=rapidswholesale.com
+2026-05-26 13:44:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.rwsmithco.com/p17736/fmp-digital-timer-4-in-1-10-hour-countdown/
+2026-05-26 13:44:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:44:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.professionalcookingsupplies.com/product/timer-4-in-1-digital-fmp/
+2026-05-26 13:44:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:44:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.cooksdirect.com/fmp-4-in-1-digital-timer-fm1242
+2026-05-26 13:44:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'FMP 151-7500 4-in-1 Digital Timer')
+2026-05-26 13:44:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.shopatdean.com/products/digital-timer-fmp
+2026-05-26 13:44:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=shopatdean.com  price=$108.13  confidence=63%
+2026-05-26 13:44:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://homeharboronline.com/product/fmp-1517500-4in1-digital-timer/
+2026-05-26 13:44:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:44:56 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='4-in-1 Countdown Digital Timer'  visited=10  found=3/8
+2026-05-26 13:44:56 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Thunderbird Bowl Lifter / Tilter'  (id=4217)
+2026-05-26 13:44:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Bowl Lifter Tilter buy'
+2026-05-26 13:44:58 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Bowl Lifter Tilter buy'
+2026-05-26 13:44:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 16 result URLs
+2026-05-26 13:44:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://savagebros.com/product/liftiltruk-a/
+2026-05-26 13:45:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:45:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://bakeryequipment.com/product/19780/
+2026-05-26 13:45:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'LifTILTruk Model &quot;C&quot; Bowl Lift')
+2026-05-26 13:45:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.bakedeco.com/detail.asp?id=35922
+2026-05-26 13:45:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$7200.00  confidence=32%
+2026-05-26 13:45:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.ebay.com/itm/261872975720
+2026-05-26 13:45:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:45:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://goodlifemachine.com/Product/bakery-machines/bowl-lifter
+2026-05-26 13:45:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:45:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.sigmaequipment.com/equipment/processing/bowl-lifts/
+2026-05-26 13:45:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Used Bowl Lifts For Sale')
+2026-05-26 13:45:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://bakeharbor.com/bowl-lift-tilt-machine/
+2026-05-26 13:45:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:45:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.thunderbirdfm.com/BL-60200.html
+2026-05-26 13:45:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Thunderbird Food Machinery')
+2026-05-26 13:45:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://mbfoodequipment.com/portfolio-item/savage-automatic-kettle-bowl-lift-tilt-truck/
+2026-05-26 13:46:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:46:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.toprestaurantsupplies.com/products/thunderbird-bl-60200-bowl-lifter-tilter-for-all-thunderbird-arm-model-planetary-mixers
+2026-05-26 13:46:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=toprestaurantsupplies.com  price=$16403.00  confidence=90%
+2026-05-26 13:46:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.ncaa.com/news/football/article
+2026-05-26 13:46:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:46:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.nbcsports.com/college-football/news/college
+2026-05-26 13:46:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:46:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.cbssports.com/college-football/news/college
+2026-05-26 13:46:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:46:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.sportingnews.com/us/ncaa-football/news
+2026-05-26 13:46:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:46:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://en.wikipedia.org/wiki/List_of_college_bowl_games
+2026-05-26 13:46:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'List of college bowl games - Wikipedia')
+2026-05-26 13:46:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://www.usatoday.com/story/sports/ncaaf
+2026-05-26 13:46:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:46:44 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Thunderbird Bowl Lifter / Tilter'  visited=16  found=2/8
+2026-05-26 13:46:44 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Turbo Air TIOM-48RRS-N 48" Stainless Steel Vertical Round Island Open Air Cooler with (3) Levels, 220v/1ph'  (id=4755)
+2026-05-26 13:46:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '48" Stainless Steel Vertical Round Island Open Air cooler buy'
+2026-05-26 13:46:49 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '48" Stainless Steel Vertical Round Island Open Air cooler bu'
+2026-05-26 13:46:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 15 result URLs
+2026-05-26 13:46:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.webstaurantstore.com/turbo-air-self-serve-merchandiser-tiom-48rrs-n-48-stainless-steel-open-air-round-island-display-case/902TIOM48RRS.html
+2026-05-26 13:46:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebstaurantstore.com  price=no price  confidence=28%
+2026-05-26 13:46:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.smartovenhub.com/products/turbo-air-tiom-48rrs-n-48-stainless-steel-vertical-round-island-open-air-cooler-with-3-levels-220v-1ph/
+2026-05-26 13:46:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=smartovenhub.com  price=no price  confidence=30%
+2026-05-26 13:46:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.katom.com/083-TIOM36RSRSN.html
+2026-05-26 13:46:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:46:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.chefsdeal.com/p/open-air-merchandiser-coolers/omcan-usa-48273
+2026-05-26 13:46:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:46:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.nishienterprise.com/products/turbo-air-tiom-20rsrs-n-48-island-open-air-cooler-220v
+2026-05-26 13:46:55 [ERROR] backend.api.routes: Product competitor search failed: 'int' object has no attribute 'lower'
+Traceback (most recent call last):
+  File "/Users/evw/dev/productComparison/donut-intel/backend/api/routes.py", line 1379, in _run
+    result = await run_product_competitor_search(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/product_search.py", line 645, in run_product_competitor_search
+    total_found += await _process_one_product(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/product_search.py", line 577, in _process_one_product
+    if not await _db_write_with_retry(_do_db_work):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/product_search.py", line 40, in _db_write_with_retry
+    return fn(db)
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/product_search.py", line 486, in _do_db_work
+    result = match_competitor_product(comp_dict, master_products, criteria)
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/matcher.py", line 73, in match_competitor_product
+    comp_model = _norm(competitor_product.get("model_number", "") or competitor_product.get("sku", ""))
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/matcher.py", line 50, in _norm
+    return s.lower().strip()
+           ^^^^^^^
+AttributeError: 'int' object has no attribute 'lower'
+2026-05-26 13:48:36 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 13:48:36 [INFO] backend.app: Donut Intel Platform shut down.
+2026-05-26 13:48:37 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 13:48:37 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 13:48:37 [INFO] backend.database.db: Database initialized
+2026-05-26 13:48:37 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 13:48:37 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 13:48:37 [INFO] backend.app: Scheduler started
+2026-05-26 13:48:37 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 13:48:37 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 13:48:37 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
