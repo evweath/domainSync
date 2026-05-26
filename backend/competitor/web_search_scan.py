@@ -538,11 +538,15 @@ async def run_web_search_scan(
                 }
 
             raw_mfr = page_data.get('manufacturer')
+            if isinstance(raw_mfr, list):
+                raw_mfr = raw_mfr[0] if raw_mfr else None
+            if isinstance(raw_mfr, dict):
+                raw_mfr = raw_mfr.get('name') or raw_mfr.get('@value') or None
             comp_dict = {
                 'title': page_data.get('title', ''),
                 'price': page_data.get('price'),
                 'model_number': page_data.get('model_number'),
-                'manufacturer': raw_mfr[0] if isinstance(raw_mfr, list) else raw_mfr,
+                'manufacturer': raw_mfr if isinstance(raw_mfr, str) else None,
                 'sku': page_data.get('sku'),
                 'description': item.get('body', ''),
                 'image_hash': None,
