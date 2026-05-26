@@ -14864,3 +14864,311 @@ INFO:     connection open
 2026-05-26 18:17:30 [INFO] watchfiles.main: 3 changes detected
 2026-05-26 18:18:01 [INFO] watchfiles.main: 3 changes detected
 2026-05-26 18:19:11 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 18:19:39 [INFO] watchfiles.main: 69 changes detected
+INFO:     127.0.0.1:54153 - "GET / HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:54153 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54154 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54155 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54157 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54154 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54155 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54154 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54154 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54154 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54155 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54158 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54158 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54158 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54158 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54155 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54157 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54154 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54159 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54158 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54160 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54153 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54157 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54155 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET / HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     connection closed
+INFO:     127.0.0.1:54158 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54157 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54155 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54154 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54157 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54158 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54158 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54154 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54157 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54157 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54154 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54158 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54158 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54158 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54157 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54155 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54154 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54158 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54186 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54157 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54187 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54154 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54155 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54153 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54156 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-26 18:20:36 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20 Quart Blakeslee Food MIxer Bench Model B-20-CA'  (id=307)
+2026-05-26 18:20:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20 Quart Food MIxer Bench Model B-20-CA buy'
+INFO:     127.0.0.1:54502 - "POST /api/products/competitor-search HTTP/1.1" 200 OK
+2026-05-26 18:20:38 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '20 Quart Food MIxer Bench Model B-20-CA buy'
+2026-05-26 18:20:47 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Blakeslee mix buy'
+2026-05-26 18:20:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Total candidate URLs: 14
+2026-05-26 18:20:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — disneyplus.com
+2026-05-26 18:20:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — rollingstone.com
+2026-05-26 18:20:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — hulu.com
+2026-05-26 18:20:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-26 18:20:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 18:20:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — accuweather.com
+2026-05-26 18:20:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — iheart.com
+2026-05-26 18:20:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — eatherbug.com
+2026-05-26 18:20:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — oodpellets.net
+2026-05-26 18:20:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — eatherworld.com
+2026-05-26 18:20:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — foxweather.com
+2026-05-26 18:20:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — localconditions.com
+2026-05-26 18:20:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page not found - ABC.com')
+2026-05-26 18:20:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'About Blakeslee Commercial Kitchen Equipment')
+INFO:     127.0.0.1:54764 - "POST /api/products/competitor-search/resume HTTP/1.1" 200 OK
+2026-05-26 18:21:04 [INFO] backend.search.engine: SerpAPI Shopping: 17 results for 'Blakeslee mix price compare buy'
+2026-05-26 18:21:06 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '20 Quart Food MIxer Bench Model B-20-CA buy alternatives sim'
+2026-05-26 18:21:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Extended search URLs: 0
+2026-05-26 18:21:06 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20 Quart Blakeslee Food MIxer Bench Model B-20-CA'  visited=14  found=0/9
+2026-05-26 18:21:06 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20 Quart Thunderbird Planetary Mixer ARM-02'  (id=475)
+2026-05-26 18:21:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20 Quart Planetary Mixer ARM-02 buy'
+2026-05-26 18:21:12 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '20 Quart Planetary Mixer ARM-02 buy'
+2026-05-26 18:21:13 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Thunderbird planetary mixer buy'
+2026-05-26 18:21:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Total candidate URLs: 14
+2026-05-26 18:21:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — rollingstone.com
+2026-05-26 18:21:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — disneyplus.com
+2026-05-26 18:21:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — iheart.com
+2026-05-26 18:21:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — hulu.com
+2026-05-26 18:21:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — thunderbird.net
+2026-05-26 18:21:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 18:21:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — support.mozilla.org
+2026-05-26 18:21:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-26 18:21:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — gizmodo.com
+2026-05-26 18:21:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — motohunt.com
+2026-05-26 18:21:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — techspot.com
+2026-05-26 18:21:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — ikihow.com
+2026-05-26 18:21:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page not found - ABC.com')
+INFO:     127.0.0.1:55033 - "POST /api/products/competitor-search/resume HTTP/1.1" 200 OK
+2026-05-26 18:21:30 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Thunderbird planetary mixer price compare buy'
+2026-05-26 18:21:32 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '20 Quart Planetary Mixer ARM-02 buy alternatives similar'
+2026-05-26 18:21:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Extended search URLs: 0
+2026-05-26 18:21:32 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20 Quart Thunderbird Planetary Mixer ARM-02'  visited=13  found=0/9
+2026-05-26 18:21:32 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '2 pound bakery bags- 500 count'  (id=623)
+2026-05-26 18:21:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Okie Packaging "79594510028" 2 pound bakery bags 500 count buy'
+2026-05-26 18:21:35 [INFO] backend.search.engine: SerpAPI Shopping: 6 results for 'Okie Packaging "79594510028" 2 pound bakery bags 500 count b'
+2026-05-26 18:21:38 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '"79594510028" buy price'
+2026-05-26 18:21:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Total candidate URLs: 13
+2026-05-26 18:21:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — sublearn.com
+2026-05-26 18:21:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — latimes.com
+2026-05-26 18:21:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — okhistory.org
+2026-05-26 18:21:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Okie - Wikipedia')
+2026-05-26 18:21:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — soundproofstore.com
+2026-05-26 18:21:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — paulsvalley.com
+2026-05-26 18:21:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — momentumtextilesandwalls.com
+2026-05-26 18:21:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — bettersleeptools.com
+2026-05-26 18:21:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — ayfair.com
+2026-05-26 18:21:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — commercialwalldecor.com
+2026-05-26 18:21:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 18:21:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page Not Found')
+2026-05-26 18:21:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'etsy.com')
+INFO:     127.0.0.1:55235 - "POST /api/products/competitor-search/resume HTTP/1.1" 200 OK
+2026-05-26 18:21:45 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '"79594510028" competitors price compare buy'
+2026-05-26 18:21:46 [INFO] backend.search.engine: SerpAPI Shopping: 5 results for 'Okie Packaging "79594510028" 2 pound bakery bags 500 count b'
+2026-05-26 18:21:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Extended search URLs: 1
+2026-05-26 18:21:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — forum.lowyat.net
+2026-05-26 18:21:46 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='2 pound bakery bags- 500 count'  visited=14  found=0/9
+2026-05-26 18:21:46 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20 Quart Stainless Steel Floor Model Blakeslee Food Mixer Model F-20-SS'  (id=2346)
+2026-05-26 18:21:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20 Quart Stainless Steel Floor Model Food Mixer buy'
+2026-05-26 18:21:52 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '20 Quart Stainless Steel Floor Model Food Mixer buy'
+2026-05-26 18:21:53 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Blakeslee mix buy'
+2026-05-26 18:21:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Total candidate URLs: 14
+2026-05-26 18:21:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 18:21:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 18:21:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Collections')
+2026-05-26 18:21:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 18:21:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — accuweather.com
+2026-05-26 18:21:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — localconditions.com
+2026-05-26 18:21:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — oodpellets.net
+2026-05-26 18:21:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — eatherbug.com
+2026-05-26 18:21:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — foxweather.com
+2026-05-26 18:21:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — eatherworld.com
+2026-05-26 18:21:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 18:21:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Collections')
+2026-05-26 18:21:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Product Removal and Recycling')
+2026-05-26 18:21:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'About Blakeslee Commercial Kitchen Equipment')
+INFO:     127.0.0.1:55420 - "POST /api/products/competitor-search/resume HTTP/1.1" 200 OK
+2026-05-26 18:21:57 [INFO] backend.search.engine: SerpAPI Shopping: 17 results for 'Blakeslee mix price compare buy'
+2026-05-26 18:22:00 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '20 Quart Stainless Steel Floor Model Food Mixer buy alternat'
+2026-05-26 18:22:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Extended search URLs: 7
+2026-05-26 18:22:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — rollingstone.com
+2026-05-26 18:22:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — iheart.com
+2026-05-26 18:22:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — disneyplus.com
+2026-05-26 18:22:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — hulu.com
+2026-05-26 18:22:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-26 18:22:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 18:22:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page not found - ABC.com')
+2026-05-26 18:22:02 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20 Quart Stainless Steel Floor Model Blakeslee Food Mixer Model F-20-SS'  visited=21  found=0/9
+2026-05-26 18:22:02 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20-1/2 x 14-1/2 x 5 in  50 Count -Bakery Box'  (id=6671)
+2026-05-26 18:22:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Rios 20-1 2 x 14-1 2 x 5 in 50 Count Bakery Box buy'
+2026-05-26 18:22:03 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Rios 20-1 2 x 14-1 2 x 5 in 50 Count Bakery Box buy'
+2026-05-26 18:22:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Total candidate URLs: 4
+2026-05-26 18:22:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — linkedin.com
+2026-05-26 18:22:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — abcnews.com
+2026-05-26 18:22:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — driscollchildrens.org
+2026-05-26 18:22:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'R&amp; - Wikipedia')
+INFO:     127.0.0.1:55515 - "POST /api/products/competitor-search/resume HTTP/1.1" 200 OK
+2026-05-26 18:22:06 [INFO] backend.search.engine: SerpAPI Shopping: 5 results for 'Rios 20-1 2 x 14-1 2 x 5 in 50 Count Bakery Box buy alternat'
+2026-05-26 18:22:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Extended search URLs: 0
+2026-05-26 18:22:06 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20-1/2 x 14-1/2 x 5 in  50 Count -Bakery Box'  visited=4  found=0/9
+INFO:     127.0.0.1:55515 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55533 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55532 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55534 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+2026-05-26 18:32:05 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/search/engine.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 18:32:06 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 18:32:06 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [5197]
+INFO:     Started server process [7173]
+INFO:     Waiting for application startup.
+2026-05-26 18:32:06 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 18:32:06 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:32:06 [INFO] backend.database.db: Database initialized
+2026-05-26 18:32:06 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:32:06 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 18:32:06 [INFO] backend.app: Scheduler started
+2026-05-26 18:32:06 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 18:32:06 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 18:32:06 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 18:32:06 [INFO] watchfiles.main: 2 changes detected
+INFO:     127.0.0.1:61051 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61052 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61053 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:61054 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 18:32:19 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/search/engine.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 18:32:19 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 18:32:19 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [7173]
+INFO:     Started server process [7199]
+INFO:     Waiting for application startup.
+2026-05-26 18:32:19 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 18:32:19 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:32:19 [INFO] backend.database.db: Database initialized
+2026-05-26 18:32:19 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:32:19 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 18:32:19 [INFO] backend.app: Scheduler started
+2026-05-26 18:32:19 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 18:32:19 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 18:32:19 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 18:32:19 [INFO] watchfiles.main: 2 changes detected
+INFO:     127.0.0.1:61146 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61147 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+2026-05-26 18:32:23 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/search/engine.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-26 18:32:23 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 18:32:23 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [7199]
+INFO:     Started server process [7227]
+INFO:     Waiting for application startup.
+2026-05-26 18:32:23 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 18:32:23 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:32:23 [INFO] backend.database.db: Database initialized
+2026-05-26 18:32:23 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:32:23 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 18:32:23 [INFO] backend.app: Scheduler started
+2026-05-26 18:32:23 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 18:32:23 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 18:32:23 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 18:32:23 [INFO] watchfiles.main: 2 changes detected
+INFO:     127.0.0.1:61189 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:61190 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 18:34:03 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/competitor/product_search.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 18:34:03 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 18:34:03 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [7227]
+INFO:     Started server process [7310]
+INFO:     Waiting for application startup.
+2026-05-26 18:34:04 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 18:34:04 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:34:04 [INFO] backend.database.db: Database initialized
+2026-05-26 18:34:04 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 18:34:04 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 18:34:04 [INFO] backend.app: Scheduler started
+2026-05-26 18:34:04 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 18:34:04 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 18:34:04 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 18:34:04 [INFO] watchfiles.main: 2 changes detected
+INFO:     127.0.0.1:62106 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62107 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62121 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:62122 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 18:39:27 [INFO] watchfiles.main: 6 changes detected

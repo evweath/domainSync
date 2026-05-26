@@ -508,6 +508,82 @@ async def _google_shopping_search(query: str, max_results: int) -> List[Dict[str
         return []
 
 
+async def _bing_shopping_search(query: str, max_results: int) -> List[Dict[str, Any]]:
+    """Scrape Bing Shopping SERP via curl."""
+    try:
+        q = quote_plus(query)
+        url = f"https://www.bing.com/shop?q={q}&count={min(max_results * 2, 40)}&cc=US&setlang=en-US"
+        html = await _curl_get(url)
+        if not html:
+            return []
+        results: List[Dict[str, Any]] = []
+        seen: set = set()
+        stripped = re.sub(r'<(?:script|style)[^>]*>.*?</(?:script|style)>', ' ', html, flags=re.DOTALL | re.I)
+        for m in re.finditer(r'href="(https?://(?!(?:www\.)?bing\.com)[^"]+)"', stripped, re.I):
+            href = m.group(1)
+            domain = _domain(href)
+            if not domain or domain in _NOISE_DOMAINS or href in seen:
+                continue
+            ctx = stripped[max(0, m.start() - 300): m.end() + 600]
+            price_m = _PRICE_RE.search(ctx)
+            if not price_m:
+                continue
+            title_m = re.search(r'(?:title|aria-label)="([^"]{5,200})"', ctx, re.I) or \
+                      re.search(r'<(?:h[2-4]|strong)[^>]*>(.*?)</(?:h[2-4]|strong)>', ctx, re.DOTALL | re.I)
+            title = re.sub(r'<[^>]+>', '', title_m.group(1)).strip()[:200] if title_m else domain
+            seen.add(href)
+            results.append({
+                'href': href, 'url': href, 'domain': domain,
+                'title': title, 'body': price_m.group(0).strip(),
+                'price': price_m.group(0).strip(), 'source': 'bing_shopping',
+            })
+            if len(results) >= max_results:
+                break
+        logger.debug('Bing Shopping: %d results for %r', len(results), query[:60])
+        return results
+    except Exception as exc:
+        logger.debug('Bing Shopping failed: %s', exc)
+        return []
+
+
+async def _yahoo_shopping_search(query: str, max_results: int) -> List[Dict[str, Any]]:
+    """Scrape Yahoo Shopping (shopping.yahoo.com) via curl."""
+    try:
+        q = quote_plus(query)
+        url = f"https://shopping.yahoo.com/search?p={q}"
+        html = await _curl_get(url)
+        if not html:
+            return []
+        results: List[Dict[str, Any]] = []
+        seen: set = set()
+        stripped = re.sub(r'<(?:script|style)[^>]*>.*?</(?:script|style)>', ' ', html, flags=re.DOTALL | re.I)
+        for m in re.finditer(r'href="(https?://(?!(?:shopping\.)?yahoo\.com)[^"]+)"', stripped, re.I):
+            href = m.group(1)
+            domain = _domain(href)
+            if not domain or domain in _NOISE_DOMAINS or href in seen:
+                continue
+            ctx = stripped[max(0, m.start() - 300): m.end() + 600]
+            price_m = _PRICE_RE.search(ctx)
+            if not price_m:
+                continue
+            title_m = re.search(r'(?:title|aria-label)="([^"]{5,200})"', ctx, re.I) or \
+                      re.search(r'<(?:h[2-4]|strong)[^>]*>(.*?)</(?:h[2-4]|strong)>', ctx, re.DOTALL | re.I)
+            title = re.sub(r'<[^>]+>', '', title_m.group(1)).strip()[:200] if title_m else domain
+            seen.add(href)
+            results.append({
+                'href': href, 'url': href, 'domain': domain,
+                'title': title, 'body': price_m.group(0).strip(),
+                'price': price_m.group(0).strip(), 'source': 'yahoo_shopping',
+            })
+            if len(results) >= max_results:
+                break
+        logger.debug('Yahoo Shopping: %d results for %r', len(results), query[:60])
+        return results
+    except Exception as exc:
+        logger.debug('Yahoo Shopping failed: %s', exc)
+        return []
+
+
 # URL patterns to try when searching a competitor's own site, ordered by likelihood.
 _SITE_SEARCH_PATTERNS = [
     '/search?q={q}',
@@ -655,13 +731,13 @@ async def multi_engine_search(
     ranked by cross-engine agreement.
     """
     if engines is None:
-        engines = ['ddg', 'bing', 'google', 'yahoo', 'shopping']
+        engines = ['ddg', 'bing', 'google', 'yahoo', 'shopping', 'bing_shopping', 'yahoo_shopping']
     exclude = exclude_domains or set()
     fetch = max_results * 3  # over-fetch to account for filtering
 
-    # Build tasks, noting which index belongs to shopping.
+    # Build tasks; track which indices are shopping sources.
     tasks: List = []
-    shopping_idx: Optional[int] = None
+    shopping_indices: List[int] = []
     if 'ddg' in engines:
         tasks.append(_text_search(query, max_results=fetch))
     if 'bing' in engines:
@@ -671,16 +747,24 @@ async def multi_engine_search(
     if 'yahoo' in engines:
         tasks.append(_yahoo_search(query, max_results=fetch))
     if 'shopping' in engines:
-        shopping_idx = len(tasks)
+        shopping_indices.append(len(tasks))
         tasks.append(_google_shopping_search(query, max_results=fetch))
+    if 'bing_shopping' in engines:
+        shopping_indices.append(len(tasks))
+        tasks.append(_bing_shopping_search(query, max_results=fetch))
+    if 'yahoo_shopping' in engines:
+        shopping_indices.append(len(tasks))
+        tasks.append(_yahoo_shopping_search(query, max_results=fetch))
 
     raw = await asyncio.gather(*tasks, return_exceptions=True)
 
     # --- Pass 1: collect all Shopping results (URL-keyed, multiple per domain allowed) ---
     shopping_results: List[Dict[str, Any]] = []
     seen_shopping_urls: set = set()
-    if shopping_idx is not None and not isinstance(raw[shopping_idx], Exception):
-        for item in (raw[shopping_idx] or []):
+    for sidx in shopping_indices:
+        if isinstance(raw[sidx], Exception):
+            continue
+        for item in (raw[sidx] or []):
             url = item.get('href', '') or item.get('url', '')
             if not url or _is_homepage(url) or url in seen_shopping_urls:
                 continue
@@ -698,7 +782,7 @@ async def multi_engine_search(
     # --- Pass 2: score organic results at domain level, skip URLs already in Shopping ---
     domain_score: Dict[str, int] = {}
     domain_best: Dict[str, Dict] = {}
-    organic_indices = [i for i in range(len(tasks)) if i != shopping_idx]
+    organic_indices = [i for i in range(len(tasks)) if i not in shopping_indices]
 
     for i in organic_indices:
         engine_results = raw[i]

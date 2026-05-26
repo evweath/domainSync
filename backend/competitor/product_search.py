@@ -406,15 +406,21 @@ async def _process_one_product(
     search_query_override: Optional[str] = None,
     log_prefix: str = '[PROD-SEARCH]',
 ) -> int:
-    """Search the web for competitor listings of a single product and persist matches.
+    """Search for competitor listings of one product, looping through multiple query
+    rounds until *max_competitors* matches are found.
 
-    Uses *num_fetchers* concurrent HTTP workers. When *enable_pause* is True,
-    after exhausting the initial URL pool the backend emits a pause event so the
-    UI can ask the user whether to continue searching with additional query variants.
-
-    Returns the number of NEW competitor-domain matches recorded.
+    Each round runs a different query against Google/Bing/Yahoo Shopping plus organic
+    engines. *num_fetchers* concurrent HTTP workers are used per round. After every
+    *pause_after* unique domains visited without reaching the target, the UI is
+    notified so the user can choose to continue or stop.
     """
     query_str = _build_query(_P(snap), search_query_override)
+    model = snap.get('model_number', '')
+    manufacturer = snap.get('manufacturer', '')
+    product_type = _extract_product_type(snap['title'])
+    clean_model = re.sub(r'[^\w\-]', '', model) if model else ''
+    looks_like_upc = clean_model.isdigit() and len(clean_model) >= 12
+
     logger.info('%s ── Product: %r  (id=%d)', log_prefix, snap['title'], snap['id'])
     logger.info('%s    Query:   %r', log_prefix, query_str)
 
@@ -423,56 +429,31 @@ async def _process_one_product(
         'phase': 'searching', 'found': 0, 'max': max_competitors,
     })
 
-    # Accumulate URLs from multiple queries; shopping results are prioritised by
-    # multi_engine_search internally.
-    seen_urls: set = set()
-    search_results: List[Dict[str, Any]] = []
+    # Build an ordered list of (query, engines) search rounds.
+    # Shopping engines come first in every round; organic fills gaps.
+    shopping_engines = ['shopping', 'bing_shopping', 'yahoo_shopping']
+    rounds: List[tuple] = []
+    rounds.append((query_str, None))  # all engines (shopping first by default)
+    if clean_model and not looks_like_upc:
+        rounds.append((f'"{clean_model}" buy', shopping_engines + ['bing', 'google']))
+        rounds.append((f'"{clean_model}" price compare', shopping_engines + ['bing', 'google', 'ddg']))
+    if manufacturer and product_type:
+        rounds.append((f'{manufacturer} {product_type} buy', shopping_engines + ['bing', 'google']))
+    if product_type:
+        rounds.append((f'commercial {product_type} buy price', shopping_engines))
+    rounds.append((f'{query_str} alternatives where to buy', shopping_engines + ['bing', 'google', 'ddg']))
 
-    async def _add_results(q: str, engines: Optional[List[str]] = None) -> None:
-        kwargs: Dict[str, Any] = {
-            'query': q,
-            'max_results': max(60, max_urls // 2),
-            'exclude_domains': source_domains,
-        }
-        if engines:
-            kwargs['engines'] = engines
-        for r in await multi_engine_search(**kwargs):
-            url = r.get('href') or r.get('url', '')
-            if url and url not in seen_urls:
-                seen_urls.add(url)
-                search_results.append(r)
-
-    # Primary search — all engines, shopping first
-    await _add_results(query_str)
-
-    # Supplement with a shopping-focused pass to approach the pause_after threshold
-    if len(search_results) < pause_after:
-        model = snap.get('model_number', '')
-        manufacturer = snap.get('manufacturer', '')
-        product_type = _extract_product_type(snap['title'])
-        clean_model = re.sub(r'[^\w\-]', '', model) if model else ''
-        looks_like_upc = clean_model.isdigit() and len(clean_model) >= 12
-        if clean_model and not looks_like_upc:
-            await _add_results(f'"{clean_model}" buy price', engines=['shopping', 'bing', 'google'])
-        elif manufacturer and product_type:
-            await _add_results(f'{manufacturer} {product_type} buy', engines=['shopping', 'bing', 'google'])
-
-    logger.info('%s    Total candidate URLs: %d', log_prefix, len(search_results))
-
-    if not search_results:
-        logger.info('%s    No search results — skipping', log_prefix)
-        await emit('product_comp_search_product_done', {
-            'product_id': snap['id'], 'product_title': snap['title'],
-            'found': 0, 'visited': 0,
-        })
-        return 0
-
-    # Shared mutable state; asyncio lock prevents concurrent mutation
+    # Shared mutable state
     found_count = 0
     visited_domains: set = set()
+    all_seen_urls: set = set()
     lock = asyncio.Lock()
     fetch_sem = asyncio.Semaphore(num_fetchers)
+    last_pause_at = 0  # visited count at last pause checkpoint
 
+    # ------------------------------------------------------------------ #
+    # Inner URL processor (shared across all rounds)                       #
+    # ------------------------------------------------------------------ #
     async def _process_url(item: dict) -> None:
         nonlocal found_count
 
@@ -498,7 +479,7 @@ async def _process_one_product(
             html = await _curl_fetch(url)
 
         if not html:
-            logger.info('%s       Fetch failed — %s', log_prefix, domain)
+            logger.debug('%s       Fetch failed — %s', log_prefix, domain)
             return
 
         page_data = _parse_jsonld(html) or _parse_meta(html)
@@ -533,7 +514,7 @@ async def _process_one_product(
             if result is None:
                 result = match_similar_product(comp_dict, master_products)
             if result is None:
-                logger.info('[PROD-SEARCH]       No match  (page title: %r)', comp_dict.get('title', '')[:60])
+                logger.debug('[PROD-SEARCH]       No match  (page title: %r)', comp_dict.get('title', '')[:60])
                 return False
 
             competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
@@ -568,7 +549,7 @@ async def _process_one_product(
                     existing.scanned_at = datetime.utcnow()
                     db.add(PriceHistory(match_id=existing.id, price=price, in_stock=in_stock))
                 else:
-                    logger.info('[PROD-SEARCH]       Already stored  domain=%s', domain)
+                    logger.debug('[PROD-SEARCH]       Already stored  domain=%s', domain)
             else:
                 logger.info('[PROD-SEARCH]       MATCH  domain=%s  price=%s  confidence=%d%%', domain, price_str, int(result.confidence or 0))
                 match = CompetitorProductMatch(
@@ -614,52 +595,58 @@ async def _process_one_product(
                 'domain': domain, 'url': url, 'price': page_data.get('price'),
             })
 
-    # Launch all URL tasks; fetch_sem caps simultaneous network I/O to num_fetchers
-    await asyncio.gather(*[_process_url(item) for item in search_results], return_exceptions=True)
+    # ------------------------------------------------------------------ #
+    # Main round loop — keeps going until target met or all rounds done   #
+    # ------------------------------------------------------------------ #
+    for round_idx, (round_query, round_engines) in enumerate(rounds):
+        if found_count >= max_competitors or _comp_search_control['stopped']:
+            break
 
-    visited_count = len(visited_domains)
-
-    # If enabled and target not met, pause and ask the user whether to continue
-    if enable_pause and found_count < max_competitors and not _comp_search_control['stopped']:
-        resume_ev = asyncio.Event()
-        _comp_search_control['resume_event'] = resume_ev
-        await emit('product_comp_search_pause', {
+        await emit('product_comp_search_progress', {
             'product_id': snap['id'], 'product_title': snap['title'],
-            'found': found_count, 'visited': visited_count, 'max': max_competitors,
+            'phase': 'searching', 'found': found_count, 'max': max_competitors,
         })
-        await resume_ev.wait()
-        _comp_search_control['resume_event'] = None
 
-        # On resume (not stop), try additional query variants for this product
-        if not _comp_search_control['stopped']:
-            extended: List[Dict[str, Any]] = []
-            ext_seen = set(seen_urls)
+        kwargs: Dict[str, Any] = {'query': round_query, 'max_results': 60, 'exclude_domains': source_domains}
+        if round_engines:
+            kwargs['engines'] = round_engines
+        raw_results = await multi_engine_search(**kwargs)
 
-            async def _add_ext(q: str, engines: Optional[List[str]] = None) -> None:
-                kwargs: Dict[str, Any] = {'query': q, 'max_results': 60, 'exclude_domains': source_domains}
-                if engines:
-                    kwargs['engines'] = engines
-                for r in await multi_engine_search(**kwargs):
-                    u = r.get('href') or r.get('url', '')
-                    if u and u not in ext_seen:
-                        ext_seen.add(u)
-                        extended.append(r)
+        # Keep only URLs not seen in previous rounds
+        new_items = []
+        for r in raw_results:
+            url = r.get('href') or r.get('url', '')
+            if url and url not in all_seen_urls:
+                all_seen_urls.add(url)
+                new_items.append(r)
 
-            model = snap.get('model_number', '')
-            manufacturer = snap.get('manufacturer', '')
-            product_type = _extract_product_type(snap['title'])
-            clean_model = re.sub(r'[^\w\-]', '', model) if model else ''
-            looks_like_upc = clean_model.isdigit() and len(clean_model) >= 12
+        logger.info('%s    Round %d %r: %d new URLs', log_prefix, round_idx + 1, round_query[:40], len(new_items))
 
-            if clean_model and not looks_like_upc:
-                await _add_ext(f'"{clean_model}" competitors price compare buy')
-            if manufacturer and product_type:
-                await _add_ext(f'{manufacturer} {product_type} price compare buy')
-            await _add_ext(f'{query_str} alternatives similar', engines=['shopping', 'bing', 'google'])
+        if not new_items:
+            continue
 
-            logger.info('%s    Extended search URLs: %d', log_prefix, len(extended))
-            if extended:
-                await asyncio.gather(*[_process_url(item) for item in extended], return_exceptions=True)
+        # Process this round's URLs with num_fetchers concurrent workers
+        await asyncio.gather(*[_process_url(r) for r in new_items], return_exceptions=True)
+
+        total_visited = len(visited_domains)
+
+        if found_count >= max_competitors or _comp_search_control['stopped']:
+            break
+
+        # After every pause_after unique domains visited, check in with the user
+        if enable_pause and total_visited >= last_pause_at + pause_after and found_count < max_competitors:
+            last_pause_at = total_visited
+            resume_ev = asyncio.Event()
+            _comp_search_control['resume_event'] = resume_ev
+            await emit('product_comp_search_pause', {
+                'product_id': snap['id'], 'product_title': snap['title'],
+                'found': found_count, 'visited': total_visited, 'max': max_competitors,
+            })
+            await resume_ev.wait()
+            _comp_search_control['resume_event'] = None
+            if _comp_search_control['stopped']:
+                break
+            # User said continue — resume the round loop
 
     visited_count = len(visited_domains)
     logger.info(
