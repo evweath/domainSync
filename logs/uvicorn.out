@@ -12872,3 +12872,338 @@ AttributeError: 'int' object has no attribute 'lower'
 2026-05-26 13:51:12 [INFO] backend.app: Log-tail broadcaster started
 2026-05-26 13:51:12 [INFO] backend.app: Dashboard: https://localhost:8743
 2026-05-26 13:51:12 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+2026-05-26 13:52:52 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Square Mesh Skimmer 6-3/4"'  (id=300)
+2026-05-26 13:52:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Winco Square Mesh Skimmer 6-3 4" buy'
+2026-05-26 13:52:55 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Winco Square Mesh Skimmer 6-3 4" buy'
+2026-05-26 13:52:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 16 result URLs
+2026-05-26 13:52:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.amazon.com/Winco-SCF-6S-Square-Skimmer-6-75-Inch/dp/B001VZ5E9K
+2026-05-26 13:52:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com: Winco Square Mesh Skimmer, 6.75-Inch, Medium, Ni')
+2026-05-26 13:52:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.katom.com/080-SCF6S.html
+2026-05-26 13:52:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:52:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.wincous.com/products/scf-6s
+2026-05-26 13:52:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:52:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://restaurantandmore.com/wincoscf-6s-97.html
+2026-05-26 13:53:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:53:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.restaurantsupply.com/products/winco-scf-6s-6-3-4-inch-square-skimmer-with-nickel-plated-mesh-handle
+2026-05-26 13:53:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$2.79  confidence=47%
+2026-05-26 13:53:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.eliterestaurantequipment.com/product/winco-mesh-skimmer-scf-6s
+2026-05-26 13:53:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Attention Required! | Cloudflare')
+2026-05-26 13:53:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.kitchenall.com/winco-scf-6s-6-3-4-inches-square-mesh-skimmer.html
+2026-05-26 13:53:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$4.79  confidence=90%
+2026-05-26 13:53:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://restaurantequipment.com/products/scf-6s-winco-6-3-4-round-mesh-skimmer
+2026-05-26 13:53:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantequipment.com  price=$3.52  confidence=44%
+2026-05-26 13:53:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.foodservicedirect.com/winco-nickel-plated-square-mesh-skimmer--6-3-4-x-6-3-4-inch----12-per-case-23011609.html
+2026-05-26 13:53:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:53:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.globalindustrial.com/p/scf-6s-square-mesh-skimmer-6-3-4d
+2026-05-26 13:53:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=globalindustrial.com  price=$46.80  confidence=60%
+2026-05-26 13:53:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://en.wikipedia.org/wiki/WinCo_Foods
+2026-05-26 13:53:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods - Wikipedia')
+2026-05-26 13:53:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.loc8nearme.com/texas/lewisville/winco
+2026-05-26 13:53:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Locations in Lewisville, TX - Loc8NearMe')
+2026-05-26 13:53:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.myweeklyads.net/winco-foods-sales
+2026-05-26 13:53:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:53:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.iweeklyads.com/winco-foods-weekly-ad-specials
+2026-05-26 13:53:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods Weekly Ad Specials')
+2026-05-26 13:53:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://brilliantmaps.com/us-locations/winco-foods-locations-us
+2026-05-26 13:53:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Map Of All 140 WinCo Foods Locations In The US By State')
+2026-05-26 13:53:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://www.chamberofcommerce.com/.../texas/lewisville/supermarket
+2026-05-26 13:53:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:53:41 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Square Mesh Skimmer 6-3/4"'  visited=16  found=4/8
+2026-05-26 13:53:41 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Pastel Spring Sprinkles 26 oz'  (id=1441)
+2026-05-26 13:53:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'DecoPac Pastel Spring Sprinkles 26 oz buy'
+2026-05-26 13:53:42 [INFO] backend.search.engine: SerpAPI Shopping: 8 results for 'DecoPac Pastel Spring Sprinkles 26 oz buy'
+2026-05-26 13:53:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 8 result URLs
+2026-05-26 13:53:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.decopac.com/products/spring-pastel-sprinkles-mix
+2026-05-26 13:53:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:53:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.walmart.com/ip/26-oz-Spring-Pastel-Sprinkles-Mix/207298807
+2026-05-26 13:53:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=almart.com  price=no price  confidence=26%
+2026-05-26 13:54:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.amazon.com/DECOPAC-Sprinkles-Sprinkle-Handheld-Container/dp/B0844NX571
+2026-05-26 13:54:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=amazon.com  price=no price  confidence=26%
+2026-05-26 13:54:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.usapremiumchocolate.com/products/decopac-sprinkels-spring-pastel-26oz-tub/
+2026-05-26 13:54:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:54:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://valleycakesupplies.com/product/pastel-spring-sprinkles-26-ounce-container/
+2026-05-26 13:54:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:54:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.michaels.com/product/pastel-spring-sprinkles-26oz-308945172649607172
+2026-05-26 13:54:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:54:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.truegether.com/decopac-candy-sprinkles-extra-large-26oz-pack-pastel-colors-sprinkle-mix-spring-sprinkles-in-handheld-container-edible-decoration-for-cakes-cupcakes-cookies-pink-purple-yellow-white/USER.9c093692-aa17-4eff-84b4-36ba50fe8ef5/listing.html
+2026-05-26 13:55:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:55:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.shopcakeandcraft.com/products/spring-pastel-mix-jimmies-26-oz
+2026-05-26 13:55:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:55:26 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Pastel Spring Sprinkles 26 oz'  visited=8  found=2/8
+2026-05-26 13:55:26 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Square Cover for 8-qt Storage Containers'  (id=1653)
+2026-05-26 13:55:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Winco Square Cover for 8-qt Storage Containers buy'
+2026-05-26 13:55:36 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Winco Square Cover for 8-qt Storage Containers buy'
+2026-05-26 13:55:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 16 result URLs
+2026-05-26 13:55:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.wincous.com/products/pecc-68
+2026-05-26 13:55:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:55:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.target.com/p/winco-cover-for-square-storage-container-red-fits-6-and-8-quart/-/A-89779142
+2026-05-26 13:55:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=target.com  price=$35.00  confidence=31%
+2026-05-26 13:55:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.chefsdeal.com/p/commercial-food-storage-containers/winco-pecc-68
+2026-05-26 13:55:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:55:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.katom.com/080-PECC68.html
+2026-05-26 13:55:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:55:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.restaurantsupply.com/products/winco-pecc-68-9-1-8-inch-container-cover-for-6-and-8-quart-square-storage-red-polyethylene
+2026-05-26 13:55:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$1.52  confidence=37%
+2026-05-26 13:55:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.cooksdirect.com/winco-pecc-68p-fits-6-and-8-qt-square-storage-containers-container-cover
+2026-05-26 13:55:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: cooksdirect.com
+2026-05-26 13:55:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cooksdirect.com  price=no price  confidence=26%
+2026-05-26 13:55:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.amazon.com/Winco-Square-Storage-Container-8-Quart/dp/B002XG2SJU
+2026-05-26 13:55:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com: Winco 8qt Square Storage Container, White, PP : ')
+2026-05-26 13:55:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.kitchenall.com/winco-pecc-m-white-container-cover-fits-6-8-qt-square-storage-containers.html
+2026-05-26 13:55:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$2.67  confidence=43%
+2026-05-26 13:55:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.culinarydepotinc.com/winco-pecc-68-container-cover-fits-6-8-qt/
+2026-05-26 13:55:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:55:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://srtrestaurantsolutions.com/products/winco-square-cover-for-68-qt-storage-containers-polyethylene-red
+2026-05-26 13:56:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:56:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://en.wikipedia.org/wiki/WinCo_Foods
+2026-05-26 13:56:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods - Wikipedia')
+2026-05-26 13:56:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.loc8nearme.com/texas/lewisville/winco
+2026-05-26 13:56:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Locations in Lewisville, TX - Loc8NearMe')
+2026-05-26 13:56:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.myweeklyads.net/winco-foods-sales
+2026-05-26 13:56:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:56:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.iweeklyads.com/winco-foods-weekly-ad-specials
+2026-05-26 13:56:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods Weekly Ad Specials')
+2026-05-26 13:56:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://brilliantmaps.com/us-locations/winco-foods-locations-us
+2026-05-26 13:56:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Map Of All 140 WinCo Foods Locations In The US By State')
+2026-05-26 13:56:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://www.chamberofcommerce.com/.../texas/lewisville/supermarket
+2026-05-26 13:56:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:56:07 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Square Cover for 8-qt Storage Containers'  visited=16  found=4/8
+2026-05-26 13:56:07 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Instant Rise Dry Yeast- Bella Rise Yeast- Single 1 pound pack'  (id=2438)
+2026-05-26 13:56:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Instant Dry Yeast Yeast Single 1 pound pack buy'
+2026-05-26 13:56:10 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Instant Dry Yeast Yeast Single 1 pound pack buy'
+2026-05-26 13:56:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 16 result URLs
+2026-05-26 13:56:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.amazon.com/instant-dry-yeast/s?k=instant+dry+yeast
+2026-05-26 13:56:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com : instant dry yeast')
+2026-05-26 13:56:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.walmart.com/ip/Fleischmann-s-Instant-Dry-Yeast-1lb-bag/148954377
+2026-05-26 13:56:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Fleischmann&#x27;s Instant Dry Yeast 1lb bag - Walmart.com')
+2026-05-26 13:56:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.samsclub.com/ip/members-mark-red-instant-dry-yeast-1-lb-2-pk/18824662752
+2026-05-26 13:56:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:56:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.bakersauthority.com/products/fleishmanns-instant-yeast
+2026-05-26 13:56:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakersauthority.com  price=$4.87  confidence=30%
+2026-05-26 13:56:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.ebay.com/itm/168383801838
+2026-05-26 13:56:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:56:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.costco.com/p/-/saf-instant-yeast-1-lb/100446780
+2026-05-26 13:56:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:56:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.weisenberger.com/products/saf-instant-yeast-1-lb
+2026-05-26 13:56:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:56:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.alisonspantry.com/saf-instant-yeast-1-lb-package-each
+2026-05-26 13:57:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:57:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.instacart.com/products/2227166-fleischmann-s-yeast-instant-dry-yeast-1-lb
+2026-05-26 13:57:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: instacart.com
+2026-05-26 13:57:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=instacart.com  price=$4.39  confidence=35%
+2026-05-26 13:57:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://redstaryeast.com/products/
+2026-05-26 13:57:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Discover Top Yeast Products for Home Bakers | Red Star Yeast')
+2026-05-26 13:57:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://office.instant.co/login
+2026-05-26 13:57:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:57:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.collinsdictionary.com/us/dictionary/english/instant
+2026-05-26 13:57:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:57:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://about.instagram.com/blog/announcements
+2026-05-26 13:57:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:57:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.thefreedictionary.com/instant
+2026-05-26 13:57:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:57:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://www.wordreference.com/definition/instant
+2026-05-26 13:57:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:57:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://apps.apple.com/us/app/instants-an-instagram-app
+2026-05-26 13:57:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 13:57:42 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Instant Rise Dry Yeast- Bella Rise Yeast- Single 1 pound pack'  visited=16  found=2/8
+2026-05-26 13:57:42 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Donut/Sandwich Serving Basket-SOLD BY THE DOZEN- Black'  (id=3755)
+2026-05-26 13:57:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Winco Donut Sandwich Serving Basket-SOLD BY THE DOZEN Black buy'
+2026-05-26 13:57:45 [INFO] backend.search.engine: SerpAPI Shopping: 13 results for 'Winco Donut Sandwich Serving Basket-SOLD BY THE DOZEN Black '
+2026-05-26 13:57:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 14 result URLs
+2026-05-26 13:57:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.target.com/p/winco-doughnut-basket-12-x-18-x-2/-/A-89729581
+2026-05-26 13:57:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=target.com  price=$35.00  confidence=30%
+2026-05-26 13:57:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.amazon.com/Winco-DB-1218-Doughnut-12-Inch-18-Inch/dp/B0015S8C7E
+2026-05-26 13:57:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com: Winco Doughnut Basket, 12-Inch by 18-Inch by 2-I')
+2026-05-26 13:57:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.instacart.com/products/46633547-winco-doughnut-basket-12-x-18-x-2-inch-1-each
+2026-05-26 13:57:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 13:57:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.wincous.com/products/db-1218
+2026-05-26 13:57:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:57:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.ablekitchen.com/doughnut-basket-12-x-18-x-2.html
+2026-05-26 13:58:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:58:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.ebay.com/p/1702200809
+2026-05-26 13:58:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Winware by Winco Doughnut Display Basket 2&quot; High Size 1')
+2026-05-26 13:58:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.tigerchef.com/winco-db-1218-doughnut-basket.html
+2026-05-26 13:58:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:58:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.bakedeco.com/detail.asp?id=9972
+2026-05-26 13:58:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$11.30  confidence=28%
+2026-05-26 13:58:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://en.wikipedia.org/wiki/WinCo_Foods
+2026-05-26 13:58:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods - Wikipedia')
+2026-05-26 13:58:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.loc8nearme.com/texas/lewisville/winco
+2026-05-26 13:58:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Locations in Lewisville, TX - Loc8NearMe')
+2026-05-26 13:58:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.myweeklyads.net/winco-foods-sales
+2026-05-26 13:58:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:58:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.iweeklyads.com/winco-foods-weekly-ad-specials
+2026-05-26 13:58:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods Weekly Ad Specials')
+2026-05-26 13:58:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://brilliantmaps.com/us-locations/winco-foods-locations-us
+2026-05-26 13:58:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Map Of All 140 WinCo Foods Locations In The US By State')
+2026-05-26 13:58:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.chamberofcommerce.com/.../texas/lewisville/supermarket
+2026-05-26 13:58:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:58:17 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Donut/Sandwich Serving Basket-SOLD BY THE DOZEN- Black'  visited=14  found=2/8
+2026-05-26 13:58:17 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '1 pound loaf pan, non-stick coating'  (id=4383)
+2026-05-26 13:58:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Winco 1 pound loaf pan non-stick coating buy'
+2026-05-26 13:58:19 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Winco 1 pound loaf pan non-stick coating buy'
+2026-05-26 13:58:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 16 result URLs
+2026-05-26 13:58:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.amazon.com/WINCO-HLF-100-Non-Stick-Pound-Aluminized/dp/B00C0N85CK
+2026-05-26 13:58:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com: Winco Non-Stick Loaf Pan, 1 Pound, Aluminized St')
+2026-05-26 13:58:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.homedepot.com/p/Winco-1-lb-Loaf-Pan-HLF-100/330837294
+2026-05-26 13:58:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 13:58:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.wincous.com/products/hlf-100
+2026-05-26 13:58:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:58:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.chefsdeal.com/p/bread-loaf-pans/winco-hlf-100
+2026-05-26 13:58:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:58:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.restosupplydirect.com/product/winco-hlf-100-1-pound-loaf-pan-non-stick-coating/
+2026-05-26 13:58:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:58:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.cooksdirect.com/winco-hlf-100-1-lb-loaf-bakeware-loaf-pan
+2026-05-26 13:58:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Winco HLF-100 1 Lb. Loaf Bakeware Loaf Pan')
+2026-05-26 13:58:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.gofoodservice.com/p/winco-hlf-100
+2026-05-26 13:58:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$11.24  confidence=51%
+2026-05-26 13:58:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.katom.com/080-HLF100.html
+2026-05-26 13:58:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:58:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.kitchenall.com/winco-hlf-100-non-stick-aluminized-steel-1-lb-heavy-duty-loaf-pan.html
+2026-05-26 13:58:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$14.72  confidence=54%
+2026-05-26 13:58:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.thecookspace.com/product/winco-hlf-100-loaf-pan-1-lb-non-stick68026/
+2026-05-26 13:59:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:59:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://en.wikipedia.org/wiki/WinCo_Foods
+2026-05-26 13:59:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods - Wikipedia')
+2026-05-26 13:59:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.loc8nearme.com/texas/lewisville/winco
+2026-05-26 13:59:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Locations in Lewisville, TX - Loc8NearMe')
+2026-05-26 13:59:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.myweeklyads.net/winco-foods-sales
+2026-05-26 13:59:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:59:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.iweeklyads.com/winco-foods-weekly-ad-specials
+2026-05-26 13:59:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods Weekly Ad Specials')
+2026-05-26 13:59:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://brilliantmaps.com/us-locations/winco-foods-locations-us
+2026-05-26 13:59:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Map Of All 140 WinCo Foods Locations In The US By State')
+2026-05-26 13:59:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://www.chamberofcommerce.com/.../texas/lewisville/supermarket
+2026-05-26 13:59:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:59:03 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='1 pound loaf pan, non-stick coating'  visited=16  found=2/8
+2026-05-26 13:59:03 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Cleaning Bucket, 3-Quart, Red Sanitizing Solution'  (id=4547)
+2026-05-26 13:59:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Winco Cleaning Bucket 3-Quart Red Sanitizing Solution buy'
+2026-05-26 13:59:05 [INFO] backend.search.engine: SerpAPI Shopping: 20 results for 'Winco Cleaning Bucket 3-Quart Red Sanitizing Solution buy'
+2026-05-26 13:59:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 16 result URLs
+2026-05-26 13:59:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.walmart.com/ip/Winco-PPL-3R-3-Qt-Red-Sanitizing-Pail-Each/918048069
+2026-05-26 13:59:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Winco PPL-3R 3 Qt Red Sanitizing Pail-Each - Walmart.com')
+2026-05-26 13:59:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.wincous.com/products/ppl-3r
+2026-05-26 13:59:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:59:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://mywinco.shop/products/ppl-3r
+2026-05-26 13:59:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:59:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.restaurantsupply.com/products/winco-ppl-3r-3-quart-sanitizing-bucket-polypropylene-red
+2026-05-26 13:59:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$4.32  confidence=44%
+2026-05-26 13:59:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.katom.com/080-PPL3R.html
+2026-05-26 13:59:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:59:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.friendlywc.com/p/PPL-3R/Winco-Cleaning-Bucket-For-Sanitizing-Solution-3-Qt-Red/
+2026-05-26 13:59:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:59:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.foodservicedirect.com/winco-red-sanitizing-solution-cleaning-bucket--3-quart----12-per-case-23012205.html
+2026-05-26 13:59:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 13:59:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.cooksdirect.com/winco-ppl-3r-cleaning-bucket-3-qt-winc-ppl-3r
+2026-05-26 13:59:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Winco PPL-3R Cleaning Bucket 3 Qt.')
+2026-05-26 13:59:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.amazon.com/Winco-PPL-3R-Cleaning-Sanitizing-Solution/dp/B0CDNTJYXS
+2026-05-26 13:59:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=amazon.com  price=no price  confidence=30%
+2026-05-26 14:00:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.chefsdeal.com/p/buckets-pails/winco-ppl-3r
+2026-05-26 14:00:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 14:00:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://en.wikipedia.org/wiki/WinCo_Foods
+2026-05-26 14:00:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods - Wikipedia')
+2026-05-26 14:00:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.loc8nearme.com/texas/lewisville/winco
+2026-05-26 14:00:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Locations in Lewisville, TX - Loc8NearMe')
+2026-05-26 14:00:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.myweeklyads.net/winco-foods-sales
+2026-05-26 14:00:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 14:00:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.iweeklyads.com/winco-foods-weekly-ad-specials
+2026-05-26 14:00:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods Weekly Ad Specials')
+2026-05-26 14:00:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://brilliantmaps.com/us-locations/winco-foods-locations-us
+2026-05-26 14:00:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Map Of All 140 WinCo Foods Locations In The US By State')
+2026-05-26 14:00:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://www.chamberofcommerce.com/.../texas/lewisville/supermarket
+2026-05-26 14:00:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 14:00:03 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Cleaning Bucket, 3-Quart, Red Sanitizing Solution'  visited=16  found=2/8
+2026-05-26 14:00:03 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'DP-12 Stainless Steel Squeeze Ice Cream Disher, 2.66 oz'  (id=7188)
+2026-05-26 14:00:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Winco DP-12 Stainless Steel Squeeze Ice Cream Disher 2.66 oz buy'
+2026-05-26 14:00:06 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Winco DP-12 Stainless Steel Squeeze Ice Cream Disher 2.66 oz'
+2026-05-26 14:00:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 14 result URLs
+2026-05-26 14:00:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.hearthorigin.com/product/dp-12-stainless-steel-squeeze-ice-cream-disher-2-66-oz/
+2026-05-26 14:00:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=hearthorigin.com  price=no price  confidence=30%
+2026-05-26 14:00:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.wincous.com/collections/dishers
+2026-05-26 14:00:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 14:00:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.amazon.com/Winco-ICD-12-Disher-Plastic-Handle/dp/B001PZ7FSO
+2026-05-26 14:00:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com: Winco Ice Cream Disher, Size 12, Plastic Hdl, Gr')
+2026-05-26 14:00:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.wbmason.com/pd/WNCICOP12?ItemDesc=Winco-Ice-Cream-Disher-Size-12-2-67-oz-Stainless-Steel-Green-Handle&uom=EA
+2026-05-26 14:00:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 14:00:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.target.com/p/winco-ice-cream-disher-stainless-steel-plastic-handle-green-size-12-pack-of-1/-/A-88686373
+2026-05-26 14:00:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=target.com  price=$35.00  confidence=32%
+2026-05-26 14:00:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.chefsdeal.com/p/ice-cream-dishers/winco-icd-12
+2026-05-26 14:00:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 14:00:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.carolinarestaurantsupply.com/p/ISS-12/Winco-Stainless-Steel-Squeeze-Disher-Portioner-Size-12/
+2026-05-26 14:00:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 14:00:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://donut-equipment.draenoth.shop/product/dp-12-stainless-steel-squeeze-ice-cream-disher-2-66-oz/
+2026-05-26 14:00:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 14:00:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://en.wikipedia.org/wiki/WinCo_Foods
+2026-05-26 14:00:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods - Wikipedia')
+2026-05-26 14:00:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.loc8nearme.com/texas/lewisville/winco
+2026-05-26 14:00:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Locations in Lewisville, TX - Loc8NearMe')
+2026-05-26 14:00:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.myweeklyads.net/winco-foods-sales
+2026-05-26 14:00:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 14:00:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.iweeklyads.com/winco-foods-weekly-ad-specials
+2026-05-26 14:00:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'WinCo Foods Weekly Ad Specials')
+2026-05-26 14:00:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://brilliantmaps.com/us-locations/winco-foods-locations-us
+2026-05-26 14:00:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Map Of All 140 WinCo Foods Locations In The US By State')
+2026-05-26 14:00:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.chamberofcommerce.com/.../texas/lewisville/supermarket
+2026-05-26 14:00:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 14:00:47 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='DP-12 Stainless Steel Squeeze Ice Cream Disher, 2.66 oz'  visited=14  found=2/8
+2026-05-26 14:02:53 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Instant Rise Dry Yeast- Bella Rise Yeast- Single 1 pound pack'  (id=2438)
+2026-05-26 14:02:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Instant Dry Yeast Yeast Single 1 pound pack buy'
+2026-05-26 14:02:53 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Instant Dry Yeast Yeast Single 1 pound pack buy'
+2026-05-26 14:02:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 11 result URLs
+2026-05-26 14:02:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.amazon.com/instant-dry-yeast/s?k=instant+dry+yeast
+2026-05-26 14:02:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com : instant dry yeast')
+2026-05-26 14:02:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.walmart.com/ip/Fleischmann-s-Instant-Dry-Yeast-1lb-bag/148954377
+2026-05-26 14:02:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Fleischmann&#x27;s Instant Dry Yeast 1lb bag - Walmart.com')
+2026-05-26 14:02:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.samsclub.com/ip/members-mark-red-instant-dry-yeast-1-lb-2-pk/18824662752
+2026-05-26 14:03:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: "Member's Mark Red Instant Dry Yeast, 1 lb., 2 pk.")
+2026-05-26 14:03:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.bakersauthority.com/products/fleishmanns-instant-yeast
+2026-05-26 14:03:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=bakersauthority.com
+2026-05-26 14:03:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.ebay.com/shop/1lb-yeast?_nkw=1lb+yeast
+2026-05-26 14:03:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '1lb. Yeast | eBay')
+2026-05-26 14:03:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.weisenberger.com/products/saf-instant-yeast-1-lb
+2026-05-26 14:03:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: eisenberger.com
+2026-05-26 14:03:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=eisenberger.com  price=$7.95  confidence=29%
+2026-05-26 14:03:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.instacart.com/products/2227166-fleischmann-s-yeast-instant-dry-yeast-1-lb
+2026-05-26 14:03:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=instacart.com
+2026-05-26 14:03:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.costco.com/p/-/saf-instant-yeast-1-lb/100446780
+2026-05-26 14:03:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 14:03:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.alisonspantry.com/saf-instant-yeast-1-lb-package-each
+2026-05-26 14:03:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 14:03:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.warehouse115.com/fleischmann-s-instant-yeast-1-lb.html
+2026-05-26 14:03:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 14:03:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://redstaryeast.com/products
+2026-05-26 14:03:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Discover Top Yeast Products for Home Bakers | Red Star Yeast')
+2026-05-26 14:03:40 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Instant Rise Dry Yeast- Bella Rise Yeast- Single 1 pound pack'  visited=11  found=3/8
+2026-05-26 14:04:53 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Instant Rise Dry Yeast- Bella Rise Yeast- Single 1 pound pack'  (id=2438)
+2026-05-26 14:04:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Instant Dry Yeast Yeast Single 1 pound pack buy'
+2026-05-26 14:04:53 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Instant Dry Yeast Yeast Single 1 pound pack buy'
+2026-05-26 14:04:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 11 result URLs
+2026-05-26 14:04:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.walmart.com/ip/Fleischmann-s-Instant-Dry-Yeast-1lb-bag/148954377
+2026-05-26 14:04:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Fleischmann&#x27;s Instant Dry Yeast 1lb bag - Walmart.com')
+2026-05-26 14:04:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.amazon.com/yeast/s?k=yeast
+2026-05-26 14:04:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com : yeast')
+2026-05-26 14:04:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.samsclub.com/ip/members-mark-red-instant-dry-yeast-1-lb-2-pk/18824662752
+2026-05-26 14:04:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: "Member's Mark Red Instant Dry Yeast, 1 lb., 2 pk.")
+2026-05-26 14:04:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.ebay.com/shop/1lb-yeast?_nkw=1lb+yeast
+2026-05-26 14:05:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '1lb. Yeast | eBay')
+2026-05-26 14:05:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.bakersauthority.com/products/fleishmanns-instant-yeast
+2026-05-26 14:05:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=bakersauthority.com
+2026-05-26 14:05:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.weisenberger.com/products/saf-instant-yeast-1-lb
+2026-05-26 14:05:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=eisenberger.com
+2026-05-26 14:05:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.instacart.com/products/2227166-fleischmann-s-yeast-instant-dry-yeast-1-lb
+2026-05-26 14:05:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=instacart.com
+2026-05-26 14:05:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.costco.com/p/-/saf-instant-yeast-1-lb/100446780
+2026-05-26 14:05:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 14:05:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.alisonspantry.com/saf-instant-yeast-1-lb-package-each
+2026-05-26 14:05:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '')
+2026-05-26 14:05:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://sameday.costcobusinessdelivery.com/store/costco-business-center/products/53781-saf-instant-yeast-instant-16-oz
+2026-05-26 14:05:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Costco Business Center Same-Day')
+2026-05-26 14:05:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://redstaryeast.com/products
+2026-05-26 14:05:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Discover Top Yeast Products for Home Bakers | Red Star Yeast')
+2026-05-26 14:05:16 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Instant Rise Dry Yeast- Bella Rise Yeast- Single 1 pound pack'  visited=11  found=3/8
+2026-05-26 14:08:11 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '"18609124270" buy price'
+2026-05-26 14:08:11 [INFO] backend.competitor.discovery: Query '"18609124270" buy price': 9 hits, 9 total competitors so far
+2026-05-26 14:08:15 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '"18609124577" buy price'
+2026-05-26 14:08:15 [INFO] backend.competitor.discovery: Query '"18609124577" buy price': 2 hits, 11 total competitors so far
+2026-05-26 14:08:17 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '"00684766317819" buy price'
+2026-05-26 14:08:17 [INFO] backend.competitor.discovery: Query '"00684766317819" buy price': 10 hits, 20 total competitors so far
