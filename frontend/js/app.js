@@ -245,6 +245,8 @@ function app() {
     shopifyCredentials: {},    // domain -> { shopify_store_url, shopify_api_key, shopify_access_token }
     shopifyTestStatus: {},     // domain -> 'idle'|'testing'|'ok'|'error'
     shopifyTestMessage: {},    // domain -> string
+    managedLists: { manufacturers: [], excluded: [], competitors: [] },
+    newManagedUrl: { manufacturer: '', excluded: '', competitor: '' },
 
     // WebSocket
     ws: null,
@@ -266,6 +268,7 @@ function app() {
         this.loadFilterOptions(),
         this.loadScanSessions(),
         this.loadSettings(),
+        this.loadManagedLists(),
         this.loadCompetitors(),
         this.loadJobs(),
         this.loadExportHistory(),
@@ -2004,6 +2007,37 @@ function app() {
           this.webhookForm.events = wh.events || [];
         }
       } catch {}
+    },
+
+    async loadManagedLists() {
+      try {
+        this.managedLists = await this.api('/api/competitors/managed-lists') || { manufacturers: [], excluded: [], competitors: [] };
+      } catch {}
+    },
+
+    async addManagedUrl(type, raw) {
+      const url = (raw || '').trim();
+      if (!url) return;
+      try {
+        await this.api('/api/competitors/bulk-import', {
+          method: 'POST',
+          body: JSON.stringify({ domains: [url], domain_type: type }),
+        });
+        this.newManagedUrl[type] = '';
+        await this.loadManagedLists();
+        this.toast(`Added to ${type} list`, 'success', 2000);
+      } catch (e) { this.toast('Failed to add URL: ' + e.message, 'error'); }
+    },
+
+    async removeManagedDomain(domain) {
+      try {
+        await this.api('/api/competitors/by-domain', {
+          method: 'DELETE',
+          body: JSON.stringify({ domain }),
+        });
+        await this.loadManagedLists();
+        this.toast(`Removed ${domain}`, 'success', 2000);
+      } catch (e) { this.toast('Failed to remove: ' + e.message, 'error'); }
     },
 
     async saveSetting(keys, value) {

@@ -982,6 +982,7 @@ async def discover_competitors(req: DiscoverCompetitorsRequest, db: Session = De
 class BulkImportRequest(BaseModel):
     domains: List[str]
     session_name: Optional[str] = None
+    domain_type: str = "competitor"  # "competitor" | "manufacturer" | "excluded"
 
 
 class CompetitorBulkDeleteRequest(BaseModel):
@@ -995,11 +996,13 @@ async def bulk_import_competitors(req: BulkImportRequest, db: Session = Depends(
     from backend.competitor.discovery import bulk_import_competitors as _bulk
     parsed = await _bulk(req.domains)
     added = 0
+    updated = 0
     skipped_as_source: List[str] = []
     session_name = req.session_name or f"Bulk Import {datetime.utcnow().strftime('%Y-%m-%d %H:%M')}"
+    is_mfr = req.domain_type == "manufacturer"
+    is_excl = req.domain_type in ("manufacturer", "excluded")
     for comp_data in parsed:
         if _is_source_site(comp_data["domain"]):
-            # One of our own source sites — never a competitor.
             skipped_as_source.append(comp_data["domain"])
             continue
         existing = db.query(Competitor).filter(Competitor.domain == comp_data["domain"]).first()
@@ -1007,10 +1010,32 @@ async def bulk_import_competitors(req: BulkImportRequest, db: Session = Depends(
             db.add(Competitor(
                 domain=comp_data["domain"], name=comp_data["name"],
                 base_url=comp_data["base_url"], scan_session_name=session_name,
+                is_manufacturer=is_mfr,
+                excluded_from_search=is_excl,
+                is_active=not is_excl,
             ))
             added += 1
+        else:
+            # Reclassify if the type differs from what's stored
+            changed = False
+            if is_mfr and not existing.is_manufacturer:
+                existing.is_manufacturer = True
+                existing.excluded_from_search = True
+                existing.is_active = False
+                changed = True
+            elif req.domain_type == "excluded" and not existing.excluded_from_search:
+                existing.excluded_from_search = True
+                existing.is_active = False
+                changed = True
+            elif req.domain_type == "competitor" and (existing.excluded_from_search or existing.is_manufacturer):
+                existing.is_manufacturer = False
+                existing.excluded_from_search = False
+                existing.is_active = True
+                changed = True
+            if changed:
+                updated += 1
     db.commit()
-    return {"added": added, "parsed": len(parsed), "skipped_as_source": skipped_as_source}
+    return {"added": added, "updated": updated, "parsed": len(parsed), "skipped_as_source": skipped_as_source}
 
 
 @router.post("/api/competitors/bulk-delete")
@@ -1104,6 +1129,43 @@ def list_competitors(
             for c in competitors
         ],
     }
+
+
+@router.get("/api/competitors/managed-lists")
+def get_managed_competitor_lists(db: Session = Depends(get_db_session)):
+    """Return all competitors grouped by type for settings page management."""
+    all_comps = db.query(Competitor).order_by(Competitor.domain).all()
+    manufacturers, excluded, competitors = [], [], []
+    for c in all_comps:
+        entry = {"id": c.id, "domain": c.domain, "base_url": c.base_url or f"https://{c.domain}"}
+        if c.is_manufacturer:
+            manufacturers.append(entry)
+        elif c.excluded_from_search:
+            excluded.append(entry)
+        else:
+            competitors.append(entry)
+    return {"manufacturers": manufacturers, "excluded": excluded, "competitors": competitors}
+
+
+class RemoveByDomainRequest(BaseModel):
+    domain: str
+
+
+@router.delete("/api/competitors/by-domain")
+def remove_competitor_by_domain(req: RemoveByDomainRequest, db: Session = Depends(get_db_session)):
+    """Hard-delete a competitor record by domain, including all related data."""
+    comp = db.query(Competitor).filter(Competitor.domain == req.domain).first()
+    if not comp:
+        raise HTTPException(status_code=404, detail="Domain not found")
+    match_ids = [r[0] for r in db.query(CompetitorProductMatch.id)
+                 .filter(CompetitorProductMatch.competitor_id == comp.id).all()]
+    if match_ids:
+        db.query(PriceHistory).filter(PriceHistory.match_id.in_(match_ids)).delete(synchronize_session=False)
+    db.query(CompetitorProductMatch).filter(CompetitorProductMatch.competitor_id == comp.id).delete(synchronize_session=False)
+    db.query(CompetitorScan).filter(CompetitorScan.competitor_id == comp.id).delete(synchronize_session=False)
+    db.query(CompetitorScrapingProfile).filter(CompetitorScrapingProfile.competitor_id == comp.id).delete(synchronize_session=False)
+    db.delete(comp)
+    return {"status": "deleted", "domain": req.domain}
 
 
 @router.get("/api/competitors/{competitor_id}")

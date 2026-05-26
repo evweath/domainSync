@@ -11173,3 +11173,199 @@ INFO:     127.0.0.1:60073 - "GET /api/products?per_page=2 HTTP/1.1" 401 Unauthor
 INFO:     127.0.0.1:60077 - "GET /api/products?per_page=2 HTTP/1.1" 401 Unauthorized
 INFO:     127.0.0.1:60079 - "POST /api/auth/login HTTP/1.1" 200 OK
 INFO:     127.0.0.1:60081 - "GET /api/products?per_page=2&sort_by=price&sort_order=desc HTTP/1.1" 200 OK
+2026-05-26 12:14:32 [INFO] watchfiles.main: 77 changes detected
+2026-05-26 12:15:16 [INFO] watchfiles.main: 2 changes detected
+2026-05-26 12:15:29 [INFO] watchfiles.main: 16 changes detected
+2026-05-26 12:15:38 [INFO] watchfiles.main: 21 changes detected
+2026-05-26 12:15:46 [INFO] watchfiles.main: 4 changes detected
+2026-05-26 12:15:50 [INFO] watchfiles.main: 33 changes detected
+INFO:     Will watch for changes in these directories: ['/Users/evw/dev/productComparison/donut-intel']
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     Started reloader process [11887] using WatchFiles
+INFO:     Started server process [11891]
+INFO:     Waiting for application startup.
+2026-05-26 12:16:05 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:16:05 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:16:05 [INFO] backend.database.db: Database initialized
+2026-05-26 12:16:05 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:16:05 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:16:05 [INFO] backend.app: Scheduler started
+2026-05-26 12:16:05 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:16:05 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:16:05 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:16:05 [INFO] watchfiles.main: 1 change detected
+2026-05-26 12:16:13 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:60256 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60256 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60257 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60258 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60259 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60260 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60256 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60258 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60257 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60259 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60257 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60261 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60258 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60257 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60261 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60259 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60256 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60260 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60258 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60261 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60262 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60257 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60263 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60263 - "GET /api/products?page=1&per_page=50&sort_by=price&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60264 - "GET /api/products?page=1&per_page=50&sort_by=price&sort_order=desc HTTP/1.1" 200 OK
+2026-05-26 12:17:30 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'  (id=152)
+2026-05-26 12:17:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Belshaw Adamatic Belshaw DX Deck Oven with Steam deck tray 480 60 3-ph buy'
+INFO:     127.0.0.1:60333 - "POST /api/products/competitor-search HTTP/1.1" 200 OK
+2026-05-26 12:17:33 [INFO] backend.search.engine: SerpAPI Shopping: 6 results for 'Belshaw Adamatic Belshaw DX Deck Oven with Steam deck tray 4'
+2026-05-26 12:17:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 8 result URLs
+2026-05-26 12:17:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.belshaw.com/products/dx-eco-touch-deck-oven
+2026-05-26 12:17:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'DX Eco-Touch Deck Oven | Belshaw')
+2026-05-26 12:17:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.restaurantsupply.com/products/belshaw-00799322-74-inch-dx-deck-oven-with-steam-stainless-steel-3-deck-3-tray
+2026-05-26 12:17:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$43450.00  confidence=39%
+2026-05-26 12:17:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.chefsdeal.com/p/deck-ovens/belshaw-00799579
+2026-05-26 12:17:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 12:17:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://kitchenrestock.com/products/belshaw-00799579-480-dx-deck-oven-with-steam-4-deck-3-tray
+2026-05-26 12:17:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$53536.00  confidence=41%
+2026-05-26 12:17:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.hearthorigin.com/product/belshaw-00799322-dx-deck-oven-with-steam-3-deck-3-tray-480v-60-3-ph-2/
+2026-05-26 12:17:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: hearthorigin.com
+2026-05-26 12:17:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=hearthorigin.com  price=no price  confidence=30%
+2026-05-26 12:17:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://kroslakfamily.com/product/belshaw-adamatic-dx-eco-touch-deck-oven/
+2026-05-26 12:17:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 12:17:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.daniweb.com/.../microsoft-windows/threads/help-retreving-lost-aol …
+2026-05-26 12:17:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 12:17:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 12:17:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 12:17:57 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'  visited=8  found=3/10
+2026-05-26 12:17:57 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'  (id=2255)
+2026-05-26 12:17:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Belshaw Adamatic Belshaw DX Deck Oven with Steam deck tray 208- 60 3-ph buy'
+2026-05-26 12:18:01 [INFO] backend.search.engine: SerpAPI Shopping: 5 results for 'Belshaw Adamatic Belshaw DX Deck Oven with Steam deck tray 2'
+2026-05-26 12:18:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 18 result URLs
+2026-05-26 12:18:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.belshaw.com/products/dx-eco-touch-deck-oven
+2026-05-26 12:18:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'DX Eco-Touch Deck Oven | Belshaw')
+2026-05-26 12:18:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.restaurantsupply.com/products/belshaw-00799583-55-inch-dx-deck-oven-with-steam-3-deck-2-tray-electric
+2026-05-26 12:18:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$37472.00  confidence=37%
+2026-05-26 12:18:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.chefsdeal.com/p/deck-ovens/belshaw-00799579
+2026-05-26 12:18:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 12:18:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.foodservex.com/product/belshaw-00799579-dx-deck-oven-with-steam-4-deck-3-tray-208-240v-60-3-ph/
+2026-05-26 12:18:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 12:18:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://kitchenrestock.com/products/belshaw-00799271-dx-deck-oven-with-steam-3-deck-3-tray
+2026-05-26 12:18:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$41470.00  confidence=39%
+2026-05-26 12:18:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://kroslakfamily.com/product/belshaw-adamatic-dx-eco-touch-deck-oven/
+2026-05-26 12:18:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Belshaw- Adamatic -DX Eco-touch Deck Oven')
+2026-05-26 12:18:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://shop.app/products/8628997718194/belshaw-0079958332301-dx-deck-oven-with-steam-4-deck-2-tray-208-240v
+2026-05-26 12:18:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'We ran into an issue')
+2026-05-26 12:18:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.nba.com/standings
+2026-05-26 12:18:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 12:18:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.espn.com/nba/standings
+2026-05-26 12:18:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 12:18:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.basketball-reference.com/leagues
+2026-05-26 12:18:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 12:18:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.foxsports.com/nba/standings
+2026-05-26 12:18:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 12:18:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://sportsdata.usatoday.com/basketball/nba/standings
+2026-05-26 12:18:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 12:18:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://sports.yahoo.com/articles
+2026-05-26 12:18:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Yahoo Sports: News, Scores, Video, Fantasy Games, Schedules ')
+2026-05-26 12:18:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.cbssports.com/nba/standings
+2026-05-26 12:18:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 12:18:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://www.si.com/nba/standings
+2026-05-26 12:18:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 12:18:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://www.sportingnews.com/us/nba/news
+2026-05-26 12:18:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 12:18:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [17] Visiting: https://nbaplayoffpass.com/standings
+2026-05-26 12:19:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 12:19:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [18] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 12:19:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (10 ideas) – Yahoo Feedback')
+2026-05-26 12:19:02 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'  visited=18  found=2/10
+INFO:     127.0.0.1:60419 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60420 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+2026-05-26 12:25:53 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 12:25:53 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 12:25:53 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11891]
+INFO:     Started server process [12547]
+INFO:     Waiting for application startup.
+2026-05-26 12:25:53 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:25:53 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:25:53 [INFO] backend.database.db: Database initialized
+2026-05-26 12:25:53 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:25:53 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:25:53 [INFO] backend.app: Scheduler started
+2026-05-26 12:25:53 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:25:53 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:25:53 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:25:53 [INFO] watchfiles.main: 6 changes detected
+INFO:     127.0.0.1:60822 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60823 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 12:26:07 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 12:26:07 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 12:26:07 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [12547]
+INFO:     Started server process [12573]
+INFO:     Waiting for application startup.
+2026-05-26 12:26:07 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:26:07 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:26:07 [INFO] backend.database.db: Database initialized
+2026-05-26 12:26:07 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:26:07 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:26:07 [INFO] backend.app: Scheduler started
+2026-05-26 12:26:07 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:26:07 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:26:07 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:26:07 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:60826 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60827 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 12:26:19 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 12:26:19 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 12:26:19 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [12573]
+INFO:     Started server process [12597]
+INFO:     Waiting for application startup.
+2026-05-26 12:26:19 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:26:19 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:26:19 [INFO] backend.database.db: Database initialized
+2026-05-26 12:26:19 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:26:19 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:26:19 [INFO] backend.app: Scheduler started
+2026-05-26 12:26:19 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:26:19 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:26:19 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:26:20 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:60828 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60829 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 12:26:31 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 12:26:36 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 12:26:50 [INFO] watchfiles.main: 3 changes detected
+INFO:     127.0.0.1:60836 - "GET /api/products?page=1&per_page=50&sort_by=price&sort_order=desc HTTP/1.1" 200 OK
+2026-05-26 12:27:25 [INFO] watchfiles.main: 3 changes detected
+INFO:     127.0.0.1:60947 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
