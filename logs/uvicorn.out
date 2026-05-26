@@ -13218,3 +13218,1130 @@ AttributeError: 'int' object has no attribute 'lower'
 2026-05-26 14:28:48 [INFO] backend.app: Log-tail broadcaster started
 2026-05-26 14:28:48 [INFO] backend.app: Dashboard: https://localhost:8743
 2026-05-26 14:28:48 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+2026-05-26 14:33:11 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 14:33:12 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on 85cbakerycafe.com  (max_pages=100)
+2026-05-26 14:33:49 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://85cbakerycafe.com
+2026-05-26 14:33:49 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on 85cbakerycafe.com
+2026-05-26 14:33:49 [INFO] backend.competitor.scraper: 85cbakerycafe.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-26 14:33:49 [INFO] backend.competitor.scraper: Skipping acmemarkets.com — too soon (next allowed: 2026-05-26T20:39:21.519645)
+2026-05-26 14:33:49 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 14:33:49 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on acmerents.com  (max_pages=100)
+2026-05-26 14:34:12 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://acmerents.com
+2026-05-26 14:34:12 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on acmerents.com
+2026-05-26 14:34:12 [INFO] backend.competitor.scraper: acmerents.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-26 14:34:12 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 14:34:12 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on acmestores.com  (max_pages=100)
+2026-05-26 14:34:33 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://acmestores.com/sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmestores.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:35:03 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://acmestores.com/sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmestores.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:35:38 [ERROR] backend.scrapers.base_scraper: Failed https://acmestores.com/sitemap.xml after 2 retries: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmestores.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:35:58 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://acmestores.com/sitemap_index.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmestores.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:36:29 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://acmestores.com/sitemap_index.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmestores.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:37:04 [ERROR] backend.scrapers.base_scraper: Failed https://acmestores.com/sitemap_index.xml after 2 retries: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmestores.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:37:24 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://acmestores.com/product-sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmestores.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:37:54 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://acmestores.com/product-sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmestores.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:38:29 [ERROR] backend.scrapers.base_scraper: Failed https://acmestores.com/product-sitemap.xml after 2 retries: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmestores.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:38:50 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://acmestores.com: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmestores.com/", waiting until "domcontentloaded"
+
+2026-05-26 14:39:20 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://acmestores.com: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmestores.com/", waiting until "domcontentloaded"
+
+2026-05-26 14:39:55 [ERROR] backend.scrapers.base_scraper: Failed https://acmestores.com after 2 retries: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmestores.com/", waiting until "domcontentloaded"
+
+2026-05-26 14:39:55 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://acmestores.com
+2026-05-26 14:39:55 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on acmestores.com
+2026-05-26 14:39:55 [INFO] backend.competitor.scraper: acmestores.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-26 14:39:55 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 14:39:56 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on acmetools.com  (max_pages=100)
+2026-05-26 14:40:34 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://acmetools.com: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://acmetools.com/", waiting until "domcontentloaded"
+
+2026-05-26 14:41:08 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://acmetools.com
+2026-05-26 14:41:08 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on acmetools.com
+2026-05-26 14:41:08 [INFO] backend.competitor.scraper: acmetools.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-26 14:41:09 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 14:41:09 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on actasenlinea.jalisco.gob.mx  (max_pages=100)
+2026-05-26 14:41:29 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://actasenlinea.jalisco.gob.mx/sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:41:44 [WARNING] backend.scrapers.base_scraper: Context error on https://actasenlinea.jalisco.gob.mx/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/sitemap.xml
+2026-05-26 14:41:44 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 14:41:44 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://actasenlinea.jalisco.gob.mx/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:41:59 [WARNING] backend.scrapers.base_scraper: Context error on https://actasenlinea.jalisco.gob.mx/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/sitemap.xml
+2026-05-26 14:41:59 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 14:41:59 [ERROR] backend.scrapers.base_scraper: Failed https://actasenlinea.jalisco.gob.mx/sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:41:59 [WARNING] backend.scrapers.base_scraper: Context error on https://actasenlinea.jalisco.gob.mx/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/sitemap_ind
+2026-05-26 14:41:59 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 14:41:59 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://actasenlinea.jalisco.gob.mx/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:42:09 [WARNING] backend.scrapers.base_scraper: Context error on https://actasenlinea.jalisco.gob.mx/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/sitemap_ind
+2026-05-26 14:42:09 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 14:42:09 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://actasenlinea.jalisco.gob.mx/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:42:24 [WARNING] backend.scrapers.base_scraper: Context error on https://actasenlinea.jalisco.gob.mx/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/sitemap_ind
+2026-05-26 14:42:24 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 14:42:24 [ERROR] backend.scrapers.base_scraper: Failed https://actasenlinea.jalisco.gob.mx/sitemap_index.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:42:25 [WARNING] backend.scrapers.base_scraper: Context error on https://actasenlinea.jalisco.gob.mx/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/product-sit
+2026-05-26 14:42:25 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 14:42:25 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://actasenlinea.jalisco.gob.mx/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:42:35 [WARNING] backend.scrapers.base_scraper: Context error on https://actasenlinea.jalisco.gob.mx/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/product-sit
+2026-05-26 14:42:35 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 14:42:35 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://actasenlinea.jalisco.gob.mx/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:42:50 [WARNING] backend.scrapers.base_scraper: Context error on https://actasenlinea.jalisco.gob.mx/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/product-sit
+2026-05-26 14:42:50 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 14:42:50 [ERROR] backend.scrapers.base_scraper: Failed https://actasenlinea.jalisco.gob.mx/product-sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:42:50 [WARNING] backend.scrapers.base_scraper: Context error on https://actasenlinea.jalisco.gob.mx: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/", waiting 
+2026-05-26 14:42:50 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 14:42:50 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://actasenlinea.jalisco.gob.mx: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/", waiting until "domcontentloaded"
+
+2026-05-26 14:43:00 [WARNING] backend.scrapers.base_scraper: Context error on https://actasenlinea.jalisco.gob.mx: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/", waiting 
+2026-05-26 14:43:00 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 14:43:00 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://actasenlinea.jalisco.gob.mx: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/", waiting until "domcontentloaded"
+
+2026-05-26 14:43:16 [WARNING] backend.scrapers.base_scraper: Context error on https://actasenlinea.jalisco.gob.mx: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/", waiting 
+2026-05-26 14:43:16 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 14:43:16 [ERROR] backend.scrapers.base_scraper: Failed https://actasenlinea.jalisco.gob.mx after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://actasenlinea.jalisco.gob.mx/", waiting until "domcontentloaded"
+
+2026-05-26 14:43:16 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://actasenlinea.jalisco.gob.mx
+2026-05-26 14:43:16 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on actasenlinea.jalisco.gob.mx
+2026-05-26 14:43:16 [INFO] backend.competitor.scraper: actasenlinea.jalisco.gob.mx: 0 products found (no errors) — 3-day cooldown started
+2026-05-26 14:43:16 [INFO] backend.competitor.scraper: Using Shopify JSON API for ald.kitchen
+2026-05-26 14:43:16 [WARNING] backend.competitor.scraper: Shopify products.json page 1 failed: All connection attempts failed
+2026-05-26 14:43:16 [INFO] backend.competitor.scraper: ald.kitchen: 0 products found (no errors) — 3-day cooldown started
+2026-05-26 14:43:17 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 14:43:17 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on alessibakery.com  (max_pages=100)
+2026-05-26 14:43:44 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://alessibakery.com
+2026-05-26 14:43:44 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on alessibakery.com
+2026-05-26 14:43:44 [INFO] backend.competitor.scraper: alessibakery.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-26 14:43:44 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 14:43:44 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on alibaba.com  (max_pages=100)
+2026-05-26 14:44:05 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://www.alibaba.com/sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://www.alibaba.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:44:41 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://www.alibaba.com
+2026-05-26 14:44:41 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on alibaba.com
+2026-05-26 14:44:41 [INFO] backend.competitor.scraper: alibaba.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-26 14:44:42 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 14:44:42 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on allbaketech.com  (max_pages=100)
+2026-05-26 14:45:02 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://allbaketech.com/sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://allbaketech.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:45:32 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://allbaketech.com/sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://allbaketech.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:46:29 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://allbaketech.com
+2026-05-26 14:46:29 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on allbaketech.com
+2026-05-26 14:46:29 [INFO] backend.competitor.scraper: allbaketech.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-26 14:46:29 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 14:46:29 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on allpointsfps.com  (max_pages=100)
+2026-05-26 14:46:50 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://allpointsfps.com/sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://allpointsfps.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:47:20 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://allpointsfps.com/sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://allpointsfps.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:48:13 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://allpointsfps.com/sitemap_index.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://allpointsfps.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:48:43 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://allpointsfps.com/sitemap_index.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://allpointsfps.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:49:19 [ERROR] backend.scrapers.base_scraper: Failed https://allpointsfps.com/sitemap_index.xml after 2 retries: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://allpointsfps.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-26 14:50:00 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://allpointsfps.com: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://allpointsfps.com/", waiting until "domcontentloaded"
+
+2026-05-26 14:50:34 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://allpointsfps.com
+2026-05-26 14:50:34 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on allpointsfps.com
+2026-05-26 14:50:34 [INFO] backend.competitor.scraper: allpointsfps.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-26 14:50:34 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 14:50:34 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on allrecipes.com  (max_pages=100)
+2026-05-26 14:50:58 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://allrecipes.com
+2026-05-26 14:50:58 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on allrecipes.com
+2026-05-26 14:50:58 [INFO] backend.competitor.scraper: allrecipes.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-26 14:50:58 [INFO] backend.competitor.scraper: Skipping almart.com — too soon (next allowed: 2026-05-26T20:42:32.424229)
+2026-05-26 14:50:58 [INFO] backend.competitor.scraper: Skipping amazon.com — too soon (next allowed: 2026-05-26T20:46:51.674871)
+2026-05-26 14:50:58 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 14:50:59 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on avilavera.com  (max_pages=100)
+2026-05-26 14:51:26 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://avilavera.com
+2026-05-26 14:51:26 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on avilavera.com
+2026-05-26 14:51:26 [INFO] backend.competitor.scraper: avilavera.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-26 14:51:26 [INFO] backend.competitor.scraper: Skipping bakedeco.com — too soon (next allowed: 2026-05-26T21:07:53.398908)
+2026-05-26 14:51:26 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 14:51:26 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on bakell.com  (max_pages=100)
+2026-05-26 15:01:19 [INFO] backend.scrapers.base_scraper: Discovered 441 product URLs on https://bakell.com
+2026-05-26 15:01:19 [INFO] backend.competitor.scraper: [SCRAPE] Found 441 product URLs on bakell.com
+2026-05-26 15:05:28 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/new-edible-food-grade-silver-tinker-dust-4g: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://bakell.com/products/new-edible-food-grade-silver-tinker-dust-4g", waiting until "domcontentloaded"
+
+2026-05-26 15:10:03 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/12-vine-gold-lace-cupcake-liners-wrappers-regular-size: Page.goto: The request timed out.
+Call log:
+  - navigating to "https://bakell.com/products/12-vine-gold-lace-cupcake-liners-wrappers-regular-size", waiting until "domcontentloaded"
+
+2026-05-26 15:13:14 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/shimmering-pink-rimming-salt-by-the-case-bulk-sizes: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/shimmering-pink-rimming-salt-by-the-case-bulk-sizes", waiting until "domcontentloaded"
+
+2026-05-26 15:13:24 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/products/shimmering-pink-rimming-salt-by-the-case-bulk-sizes: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/shimmering-pink-rimming-salt-by-the-case-bulk-sizes", waiting until "domcontentloaded"
+
+2026-05-26 15:13:40 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-26 15:13:40 [WARNING] backend.scrapers.base_scraper: Browser context is broken — rebuilding context...
+2026-05-26 15:13:40 [INFO] backend.scrapers.base_scraper: Browser context rebuilt successfully.
+2026-05-26 15:13:40 [ERROR] backend.scrapers.base_scraper: Failed https://bakell.com/products/shimmering-pink-rimming-salt-by-the-case-bulk-sizes after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/shimmering-pink-rimming-salt-by-the-case-bulk-sizes", waiting until "domcontentloaded"
+
+2026-05-26 15:13:40 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/baby-shower-its-a-boy-4-5-x-4-5-round-cookie-stencil: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/baby-shower-its-a-boy-4-5-x-4-5-round-cookie-stencil", waiting until "domcontentloaded"
+
+2026-05-26 15:13:50 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/products/baby-shower-its-a-boy-4-5-x-4-5-round-cookie-stencil: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/baby-shower-its-a-boy-4-5-x-4-5-round-cookie-stencil", waiting until "domcontentloaded"
+
+2026-05-26 15:14:05 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-26 15:14:05 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 15:14:05 [ERROR] backend.scrapers.base_scraper: Failed https://bakell.com/products/baby-shower-its-a-boy-4-5-x-4-5-round-cookie-stencil after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/baby-shower-its-a-boy-4-5-x-4-5-round-cookie-stencil", waiting until "domcontentloaded"
+
+2026-05-26 15:14:05 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/holiday-collection-brew-glitter-combo-pack-b-4-pc-set: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/holiday-collection-brew-glitter-combo-pack-b-4-pc-set", waiting until "domcontentloaded"
+
+2026-05-26 15:14:15 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/products/holiday-collection-brew-glitter-combo-pack-b-4-pc-set: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/holiday-collection-brew-glitter-combo-pack-b-4-pc-set", waiting until "domcontentloaded"
+
+2026-05-26 15:14:31 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-26 15:14:31 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 15:14:31 [ERROR] backend.scrapers.base_scraper: Failed https://bakell.com/products/holiday-collection-brew-glitter-combo-pack-b-4-pc-set after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/holiday-collection-brew-glitter-combo-pack-b-4-pc-set", waiting until "domcontentloaded"
+
+2026-05-26 15:14:31 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/bbqthingz-meat-thermometer: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/bbqthingz-meat-thermometer", waiting until "domcontentloaded"
+
+2026-05-26 15:14:41 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/products/bbqthingz-meat-thermometer: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/bbqthingz-meat-thermometer", waiting until "domcontentloaded"
+
+2026-05-26 15:14:56 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-26 15:14:56 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 15:14:56 [ERROR] backend.scrapers.base_scraper: Failed https://bakell.com/products/bbqthingz-meat-thermometer after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/bbqthingz-meat-thermometer", waiting until "domcontentloaded"
+
+2026-05-26 15:14:56 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/deep-pink-edible-luster-dust-4g-pump: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/deep-pink-edible-luster-dust-4g-pump", waiting until "domcontentloaded"
+
+2026-05-26 15:15:07 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/products/deep-pink-edible-luster-dust-4g-pump: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/deep-pink-edible-luster-dust-4g-pump", waiting until "domcontentloaded"
+
+2026-05-26 15:15:22 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-26 15:15:22 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-26 15:15:22 [ERROR] backend.scrapers.base_scraper: Failed https://bakell.com/products/deep-pink-edible-luster-dust-4g-pump after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/deep-pink-edible-luster-dust-4g-pump", waiting until "domcontentloaded"
+
+2026-05-26 15:15:22 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/light-blue-pearl-8mm-beads: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/light-blue-pearl-8mm-beads", waiting until "domcontentloaded"
+
+2026-05-26 15:39:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Starting web search scan: 100 products, max_results=20
+2026-05-26 15:39:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting'  query='Belshaw Automated Cake and Raised production Machine rolling buy'
+2026-05-26 15:39:37 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Belshaw Automated Cake and Raised production Machine rolling'
+2026-05-26 15:39:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 7 results for 'Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting'
+2026-05-26 15:39:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting machinio.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-26 15:39:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting ebay.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-26 15:39:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting katom.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-26 15:39:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-26 15:39:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-26 15:39:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: chefsdeal.com
+2026-05-26 15:39:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  query='Belshaw Adamatic INSIDER Ventless Donut System Mark V GP buy'
+2026-05-26 15:39:44 [INFO] backend.search.engine: SerpAPI Shopping: 21 results for 'Belshaw Adamatic INSIDER Ventless Donut System Mark V GP buy'
+2026-05-26 15:39:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 8 results for 'BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'
+2026-05-26 15:39:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Skipping belshaw.com — detected as manufacturer domain
+2026-05-26 15:39:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting crispfryer.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting eliterestaurantequipment.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting russoequip.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting emequip.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Upgraded eliterestaurantequipment.com to category competitor
+2026-05-26 15:39:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Upgraded kitchenrestock.com to category competitor
+2026-05-26 15:39:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Upgraded russoequip.com to category competitor
+2026-05-26 15:39:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Upgraded crispfryer.com to category competitor
+2026-05-26 15:39:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=emequip.com  product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  price=no price  confidence=30%
+2026-05-26 15:39:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Upgraded restaurantsupply.com to category competitor
+2026-05-26 15:39:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  query='Belshaw Adamatic INSIDER Ventless Donut System Mark V GP buy'
+2026-05-26 15:39:49 [INFO] backend.search.engine: SerpAPI Shopping: 21 results for 'Belshaw Adamatic INSIDER Ventless Donut System Mark V GP buy'
+2026-05-26 15:39:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 7 results for 'BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'
+2026-05-26 15:39:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting crispfryer.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting eliterestaurantequipment.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting russoequip.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting emequip.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-26 15:39:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System'  query='Belshaw Adamatic INSIDER Ventless Donut System buy'
+2026-05-26 15:40:01 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Belshaw Adamatic INSIDER Ventless Donut System buy'
+2026-05-26 15:40:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 6 results for 'BELSHAW INSIDER Ventless Donut System'
+2026-05-26 15:40:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting zhidao.baidu.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting eliterestaurantequipment.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting monoequip.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting machinio.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting crispfryer.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on zhidao.baidu.com — recorded as excluded
+2026-05-26 15:40:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Upgraded crispfryer.com from category to direct competitor
+2026-05-26 15:40:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System'  query='Belshaw Adamatic INSIDER Ventless Donut System buy'
+2026-05-26 15:40:05 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Belshaw Adamatic INSIDER Ventless Donut System buy'
+2026-05-26 15:40:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 5 results for 'BELSHAW INSIDER Ventless Donut System'
+2026-05-26 15:40:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting eliterestaurantequipment.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting monoequip.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting machinio.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting crispfryer.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=crispfryer.com  product='BELSHAW INSIDER Ventless Donut System'  price=no price  confidence=30%
+2026-05-26 15:40:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System'  query='Belshaw Adamatic INSIDER Ventless Donut System buy'
+2026-05-26 15:40:11 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Belshaw Adamatic INSIDER Ventless Donut System buy'
+2026-05-26 15:40:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 5 results for 'BELSHAW INSIDER Ventless Donut System'
+2026-05-26 15:40:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting eliterestaurantequipment.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting monoequip.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting machinio.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting crispfryer.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-26 15:40:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:24 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 5 results for 'Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'
+2026-05-26 15:40:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting allegiantair.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on allegiantair.com — recorded as excluded
+2026-05-26 15:40:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Upgraded kitchenrestock.com from category to direct competitor
+2026-05-26 15:40:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Upgraded restaurantsupply.com from category to direct competitor
+2026-05-26 15:40:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=restaurantsupply.com  product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'  price=$30859.00  confidence=38%
+2026-05-26 15:40:27 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:28 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 12 results for 'Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting summitracing.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting ebay.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting autozone.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting store.440source.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting jegs.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting store.mopar.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting shop.advanceautoparts.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting ebay.ca  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on jegs.com — recorded as excluded
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: summitracing.com
+2026-05-26 15:40:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on store.mopar.com — recorded as excluded
+2026-05-26 15:40:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on shop.advanceautoparts.com — recorded as excluded
+2026-05-26 15:40:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on autozone.com — recorded as excluded
+2026-05-26 15:40:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: store.440source.com
+2026-05-26 15:40:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on ebay.ca — recorded as excluded
+2026-05-26 15:40:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:32 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 5 results for 'Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'
+2026-05-26 15:40:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting canva.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on canva.com — recorded as excluded
+2026-05-26 15:40:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:35 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 4 results for 'Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'
+2026-05-26 15:40:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:39 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 5 results for 'Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'
+2026-05-26 15:40:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting sqorebda3.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:40:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on sqorebda3.com — recorded as excluded
+2026-05-26 15:40:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:43 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'
+2026-05-26 15:40:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph')
+2026-05-26 15:40:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Upgraded restaurantsupply.com to category competitor
+2026-05-26 15:40:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Upgraded kitchenrestock.com to category competitor
+2026-05-26 15:40:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling'  query='Belshaw Package for Semi-automated Cake and Raised buy'
+2026-05-26 15:40:49 [INFO] backend.search.engine: SerpAPI Shopping: 31 results for 'Belshaw Package for Semi-automated Cake and Raised buy'
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 9 results for 'Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling'
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting newportnavalhousing.com  (product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling')
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting cnrma.cnic.navy.mil  (product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling')
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting mapquest.com  (product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling')
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting usna.edu  (product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling')
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting basedirectory.com  (product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling')
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting aoml.noaa.gov  (product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling')
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting usnwc.edu  (product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling')
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting govtribe.com  (product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling')
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting installations.militaryonesource.mil  (product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling')
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: aoml.noaa.gov
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: govtribe.com
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on mapquest.com — recorded as excluded
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on basedirectory.com — recorded as excluded
+2026-05-26 15:40:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on cnrma.cnic.navy.mil — recorded as excluded
+2026-05-26 15:40:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: usnwc.edu
+2026-05-26 15:40:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on usna.edu — recorded as excluded
+2026-05-26 15:40:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: installations.militaryonesource.mil
+2026-05-26 15:40:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on newportnavalhousing.com — recorded as excluded
+2026-05-26 15:40:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling'  query='Package for Belshaw Non-automated cake and raised production buy'
+2026-05-26 15:40:53 [INFO] backend.search.engine: SerpAPI Shopping: 13 results for 'Package for Belshaw Non-automated cake and raised production'
+2026-05-26 15:40:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling'
+2026-05-26 15:40:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting parcelsapp.com  (product='Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling')
+2026-05-26 15:40:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting ups.com  (product='Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling')
+2026-05-26 15:40:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting thefreedictionary.com  (product='Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling')
+2026-05-26 15:40:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on ups.com — recorded as excluded
+2026-05-26 15:40:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:56 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph'
+2026-05-26 15:40:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:40:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:40:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:40:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:59 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:40:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph'
+2026-05-26 15:40:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:40:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:40:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:41:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:02 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph'
+2026-05-26 15:41:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:41:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:41:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:41:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:06 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph'
+2026-05-26 15:41:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:09 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph'
+2026-05-26 15:41:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:13 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph'
+2026-05-26 15:41:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:16 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'
+2026-05-26 15:41:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:19 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'
+2026-05-26 15:41:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:22 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'
+2026-05-26 15:41:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:24 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'
+2026-05-26 15:41:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:27 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:27 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'
+2026-05-26 15:41:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 4.2-Avalon Package for Semi-automated Cake and Raised production Hand Cutting and Rolling'  query='Avalon Package for Semi-automated Cake and Raised production buy'
+2026-05-26 15:41:31 [INFO] backend.search.engine: SerpAPI Shopping: 5 results for 'Avalon Package for Semi-automated Cake and Raised production'
+2026-05-26 15:41:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 2 results for 'Small 4.2-Avalon Package for Semi-automated Cake and Raised production Hand Cutting and Rolling'
+2026-05-26 15:41:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Skipping avaloncommunities.com — detected as manufacturer domain
+2026-05-26 15:41:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting en.wikipedia.org  (product='Small 4.2-Avalon Package for Semi-automated Cake and Raised production Hand Cutting and Rolling')
+2026-05-26 15:41:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: en.wikipedia.org
+2026-05-26 15:41:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:34 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph'
+2026-05-26 15:41:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:41:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:41:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:41:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:37 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph'
+2026-05-26 15:41:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:41:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:41:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:41:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:40 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph'
+2026-05-26 15:41:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:41:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:41:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:41:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:43 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph'
+2026-05-26 15:41:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:45 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:41:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph'
+2026-05-26 15:41:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:41:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'  query='Belshaw Adamatic 22306W Thermoglaze Frozen Donut System 50-75 Donuts buy'
+2026-05-26 15:41:50 [INFO] backend.search.engine: SerpAPI Shopping: 9 results for 'Belshaw Adamatic 22306W Thermoglaze Frozen Donut System 50-7'
+2026-05-26 15:41:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'
+2026-05-26 15:41:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting answers.com  (product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph')
+2026-05-26 15:41:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on answers.com — recorded as excluded
+2026-05-26 15:41:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'  query='Belshaw Adamatic 22306W Thermoglaze Frozen Donut System 50-75 Donuts buy'
+2026-05-26 15:41:53 [INFO] backend.search.engine: SerpAPI Shopping: 9 results for 'Belshaw Adamatic 22306W Thermoglaze Frozen Donut System 50-7'
+2026-05-26 15:41:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 10 results for 'Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'
+2026-05-26 15:41:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting mlb.com  (product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph')
+2026-05-26 15:41:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting espn.com  (product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph')
+2026-05-26 15:41:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting fantasyteamadvice.com  (product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph')
+2026-05-26 15:41:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting sportingnews.com  (product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph')
+2026-05-26 15:41:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting 365scores.com  (product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph')
+2026-05-26 15:41:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting sports-schedules.com  (product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph')
+2026-05-26 15:41:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting sportsdata.usatoday.com  (product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph')
+2026-05-26 15:41:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting foxsports.com  (product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph')
+2026-05-26 15:41:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting sports.yahoo.com  (product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph')
+2026-05-26 15:41:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting thescore.com  (product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph')
+2026-05-26 15:41:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on sportingnews.com — recorded as excluded
+2026-05-26 15:41:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: 365scores.com
+2026-05-26 15:41:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on fantasyteamadvice.com — recorded as excluded
+2026-05-26 15:41:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: espn.com
+2026-05-26 15:41:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on sports-schedules.com — recorded as excluded
+2026-05-26 15:41:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on thescore.com — recorded as excluded
+2026-05-26 15:41:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on foxsports.com — recorded as excluded
+2026-05-26 15:41:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on mlb.com — recorded as excluded
+2026-05-26 15:41:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on sportsdata.usatoday.com — recorded as excluded
+2026-05-26 15:41:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on sports.yahoo.com — recorded as excluded
+2026-05-26 15:41:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'  query='Belshaw Adamatic 22306W Thermoglaze Frozen Donut System 50-75 Donuts buy'
+2026-05-26 15:41:57 [INFO] backend.search.engine: SerpAPI Shopping: 9 results for 'Belshaw Adamatic 22306W Thermoglaze Frozen Donut System 50-7'
+2026-05-26 15:41:58 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'
+2026-05-26 15:41:58 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph' — skipping
+2026-05-26 15:42:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:42:00 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:42:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph'
+2026-05-26 15:42:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:42:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:42:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:42:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:42:03 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:42:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph'
+2026-05-26 15:42:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:42:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:42:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:42:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:42:06 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:42:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph'
+2026-05-26 15:42:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:42:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:42:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:42:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 3.2-Package for Avalon Non-automated cake and raised production hand cutting and rolling'  query='Package for Avalon Non-automated cake and raised production buy'
+2026-05-26 15:42:10 [INFO] backend.search.engine: SerpAPI Shopping: 1 results for 'Package for Avalon Non-automated cake and raised production '
+2026-05-26 15:42:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 2 results for 'Small 3.2-Package for Avalon Non-automated cake and raised production hand cutting and rolling'
+2026-05-26 15:42:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting parcelsapp.com  (product='Small 3.2-Package for Avalon Non-automated cake and raised production hand cutting and rolling')
+2026-05-26 15:42:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting thefreedictionary.com  (product='Small 3.2-Package for Avalon Non-automated cake and raised production hand cutting and rolling')
+2026-05-26 15:42:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw'  query='Small Package for Automated Cake Donut Production Sugaring buy'
+2026-05-26 15:42:19 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Small Package for Automated Cake Donut Production Sugaring b'
+2026-05-26 15:42:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 6 results for 'Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw'
+2026-05-26 15:42:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting collinsdictionary.com  (product='Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw')
+2026-05-26 15:42:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting thefreedictionary.com  (product='Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw')
+2026-05-26 15:42:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting ordreference.com  (product='Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw')
+2026-05-26 15:42:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting en.m.wiktionary.org  (product='Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw')
+2026-05-26 15:42:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yourdictionary.com  (product='Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw')
+2026-05-26 15:42:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting oed.com  (product='Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw')
+2026-05-26 15:42:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on ordreference.com — recorded as excluded
+2026-05-26 15:42:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on en.m.wiktionary.org — recorded as excluded
+2026-05-26 15:42:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on yourdictionary.com — recorded as excluded
+2026-05-26 15:42:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799322), DX Deck Oven with Steam, (3) deck, (3) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:42:22 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:42:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799322), DX Deck Oven with Steam, (3) deck, (3) tray, 480v/60/3-ph'
+2026-05-26 15:42:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799322), DX Deck Oven with Steam, (3) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:42:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799322), DX Deck Oven with Steam, (3) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:42:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799322), DX Deck Oven with Steam, (3) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:42:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production'  query='Belshaw Adamatic Donut Robot® Mark VI with Dual Star Depositor 1-9 buy'
+2026-05-26 15:42:32 [INFO] backend.search.engine: SerpAPI Shopping: 20 results for 'Belshaw Adamatic Donut Robot® Mark VI with Dual Star Deposit'
+2026-05-26 15:42:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production'
+2026-05-26 15:42:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting hitepages.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on hitepages.com — recorded as excluded
+2026-05-26 15:42:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production'  query='Belshaw Adamatic Donut Robot® Mark VI with Dual Plain Depositor 1-9 buy'
+2026-05-26 15:42:39 [INFO] backend.search.engine: SerpAPI Shopping: 21 results for 'Belshaw Adamatic Donut Robot® Mark VI with Dual Plain Deposi'
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 10 results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production'
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting tractorbynet.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting messicks.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting manualslib.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting cdn-assets.greatplainsmfg.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting greentractortalk.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting summit-hydraulics.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting landpride.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting lanesharkusa.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting insidetheyard.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting store.wrlonginc.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on messicks.com — recorded as excluded
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on summit-hydraulics.com — recorded as excluded
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on lanesharkusa.com — recorded as excluded
+2026-05-26 15:42:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on greentractortalk.com — recorded as excluded
+2026-05-26 15:42:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on store.wrlonginc.com — recorded as excluded
+2026-05-26 15:42:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on landpride.com — recorded as excluded
+2026-05-26 15:42:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on manualslib.com — recorded as excluded
+2026-05-26 15:42:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on cdn-assets.greatplainsmfg.com — recorded as excluded
+2026-05-26 15:42:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on tractorbynet.com — recorded as excluded
+2026-05-26 15:42:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on insidetheyard.com — recorded as excluded
+2026-05-26 15:42:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production'  query='Belshaw Adamatic Donut Robot® Mark VI with Dual Star Depositor 1-9 buy'
+2026-05-26 15:42:42 [INFO] backend.search.engine: SerpAPI Shopping: 20 results for 'Belshaw Adamatic Donut Robot® Mark VI with Dual Star Deposit'
+2026-05-26 15:42:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 2 results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production'
+2026-05-26 15:42:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting apps.apple.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting dailythemedcrosswordanswers.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on dailythemedcrosswordanswers.com — recorded as excluded
+2026-05-26 15:42:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on apps.apple.com — recorded as excluded
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production'  query='Belshaw Adamatic Donut Robot® Mark VI with Dual Star Depositor 1-9 buy'
+2026-05-26 15:42:45 [INFO] backend.search.engine: SerpAPI Shopping: 20 results for 'Belshaw Adamatic Donut Robot® Mark VI with Dual Star Deposit'
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 9 results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production'
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting stoxx.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting pl.investing.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting finanzen.net  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting en.wikipedia.org  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting blackrock.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting analizy.pl  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting pl.tradingview.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting marketwatch.com  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting finanznachrichten.de  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on pl.investing.com — recorded as excluded
+2026-05-26 15:42:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on pl.tradingview.com — recorded as excluded
+2026-05-26 15:42:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on stoxx.com — recorded as excluded
+2026-05-26 15:42:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on marketwatch.com — recorded as excluded
+2026-05-26 15:42:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on blackrock.com — recorded as excluded
+2026-05-26 15:42:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: finanzen.net
+2026-05-26 15:42:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on finanznachrichten.de — recorded as excluded
+2026-05-26 15:42:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on analizy.pl — recorded as excluded
+2026-05-26 15:42:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production'  query='Belshaw Adamatic Donut Robot® Mark VI with Dual Plain Depositor 1-9 buy'
+2026-05-26 15:42:48 [INFO] backend.search.engine: SerpAPI Shopping: 21 results for 'Belshaw Adamatic Donut Robot® Mark VI with Dual Plain Deposi'
+2026-05-26 15:42:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production'
+2026-05-26 15:42:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting translate.google.com.mx  (product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production')
+2026-05-26 15:42:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on translate.google.com.mx — recorded as excluded
+2026-05-26 15:42:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='140 Quart Thunderbird Planetary Mixer ARM-140'  query='Thunderbird 140 Quart Planetary Mixer buy'
+2026-05-26 15:42:57 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Thunderbird 140 Quart Planetary Mixer buy'
+2026-05-26 15:42:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 7 results for '140 Quart Thunderbird Planetary Mixer ARM-140'
+2026-05-26 15:42:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Skipping thunderbird.net — detected as manufacturer domain
+2026-05-26 15:42:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting support.mozilla.org  (product='140 Quart Thunderbird Planetary Mixer ARM-140')
+2026-05-26 15:42:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting en.wikipedia.org  (product='140 Quart Thunderbird Planetary Mixer ARM-140')
+2026-05-26 15:42:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting gizmodo.com  (product='140 Quart Thunderbird Planetary Mixer ARM-140')
+2026-05-26 15:42:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting motohunt.com  (product='140 Quart Thunderbird Planetary Mixer ARM-140')
+2026-05-26 15:42:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting ikihow.com  (product='140 Quart Thunderbird Planetary Mixer ARM-140')
+2026-05-26 15:42:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting techspot.com  (product='140 Quart Thunderbird Planetary Mixer ARM-140')
+2026-05-26 15:42:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on techspot.com — recorded as excluded
+2026-05-26 15:42:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on ikihow.com — recorded as excluded
+2026-05-26 15:42:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on gizmodo.com — recorded as excluded
+2026-05-26 15:42:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on support.mozilla.org — recorded as excluded
+2026-05-26 15:42:58 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Auto-created competitor: motohunt.com
+2026-05-26 15:42:58 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=motohunt.com  product='140 Quart Thunderbird Planetary Mixer ARM-140'  price=$3995.00  confidence=31%
+2026-05-26 15:43:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='140 Quart Thunderbird Planetary Mixer ARM-140'  query='Thunderbird 140 Quart Planetary Mixer buy'
+2026-05-26 15:43:00 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Thunderbird 140 Quart Planetary Mixer buy'
+2026-05-26 15:43:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 2 results for '140 Quart Thunderbird Planetary Mixer ARM-140'
+2026-05-26 15:43:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting en.wikipedia.org  (product='140 Quart Thunderbird Planetary Mixer ARM-140')
+2026-05-26 15:43:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting motohunt.com  (product='140 Quart Thunderbird Planetary Mixer ARM-140')
+2026-05-26 15:43:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='140 Quart Thunderbird Planetary Mixer ARM-140'  query='Thunderbird 140 Quart Planetary Mixer buy'
+2026-05-26 15:43:03 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Thunderbird 140 Quart Planetary Mixer buy'
+2026-05-26 15:43:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 2 results for '140 Quart Thunderbird Planetary Mixer ARM-140'
+2026-05-26 15:43:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting en.wikipedia.org  (product='140 Quart Thunderbird Planetary Mixer ARM-140')
+2026-05-26 15:43:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting motohunt.com  (product='140 Quart Thunderbird Planetary Mixer ARM-140')
+2026-05-26 15:43:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production'  query='Belshaw Adamatic Donut Robot® Mark VI with Dual Plain Depositor 1 " buy'
+2026-05-26 15:43:06 [INFO] backend.search.engine: SerpAPI Shopping: 18 results for 'Belshaw Adamatic Donut Robot® Mark VI with Dual Plain Deposi'
+2026-05-26 15:43:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production'
+2026-05-26 15:43:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting cs-help.wish.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting ish.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting home.wish.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on ish.com — recorded as excluded
+2026-05-26 15:43:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on cs-help.wish.com — recorded as excluded
+2026-05-26 15:43:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on home.wish.com — recorded as excluded
+2026-05-26 15:43:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production'  query='Belshaw Adamatic Donut Robot® Mark VI with Dual Plain Depositor 1 " buy'
+2026-05-26 15:43:09 [INFO] backend.search.engine: SerpAPI Shopping: 18 results for 'Belshaw Adamatic Donut Robot® Mark VI with Dual Plain Deposi'
+2026-05-26 15:43:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 7 results for 'Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production'
+2026-05-26 15:43:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting finance.yahoo.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting stockanalysis.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting morningstar.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting barchart.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting barrons.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting finviz.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting fool.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on stockanalysis.com — recorded as excluded
+2026-05-26 15:43:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on barchart.com — recorded as excluded
+2026-05-26 15:43:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on barrons.com — recorded as excluded
+2026-05-26 15:43:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on finviz.com — recorded as excluded
+2026-05-26 15:43:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on morningstar.com — recorded as excluded
+2026-05-26 15:43:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on fool.com — recorded as excluded
+2026-05-26 15:43:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on finance.yahoo.com — recorded as excluded
+2026-05-26 15:43:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production'  query='Belshaw Adamatic Donut Robot® Mark VI with Dual Plain Depositor 1 " buy'
+2026-05-26 15:43:13 [INFO] backend.search.engine: SerpAPI Shopping: 18 results for 'Belshaw Adamatic Donut Robot® Mark VI with Dual Plain Deposi'
+2026-05-26 15:43:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 5 results for 'Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production'
+2026-05-26 15:43:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting tlc-dmz-gateway.ext.gm.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting gmglobalconnect.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting centerlearning.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting eb.connectnetwork.com  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting sdfportal1.globalconnect.net  (product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production')
+2026-05-26 15:43:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on sdfportal1.globalconnect.net — recorded as excluded
+2026-05-26 15:43:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on tlc-dmz-gateway.ext.gm.com — recorded as excluded
+2026-05-26 15:43:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on gmglobalconnect.com — recorded as excluded
+2026-05-26 15:43:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on eb.connectnetwork.com — recorded as excluded
+2026-05-26 15:43:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on centerlearning.com — recorded as excluded
+2026-05-26 15:43:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small Package for Automated Cake Donut Production Sugaring Only-2-1 Belshaw'  query='Small Package for Automated Cake Donut Production Sugaring buy'
+2026-05-26 15:43:16 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Small Package for Automated Cake Donut Production Sugaring b'
+2026-05-26 15:43:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Small Package for Automated Cake Donut Production Sugaring Only-2-1 Belshaw'
+2026-05-26 15:43:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting collinsdictionary.com  (product='Small Package for Automated Cake Donut Production Sugaring Only-2-1 Belshaw')
+2026-05-26 15:43:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting thefreedictionary.com  (product='Small Package for Automated Cake Donut Production Sugaring Only-2-1 Belshaw')
+2026-05-26 15:43:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting oed.com  (product='Small Package for Automated Cake Donut Production Sugaring Only-2-1 Belshaw')
+2026-05-26 15:43:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'  query='Turbo Air 48" Stainless Steel Horizontal Island Open Air buy'
+2026-05-26 15:43:23 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Stainless Steel Horizontal Island Open Air buy'
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 7 results for 'Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Skipping turbo.ai — detected as manufacturer domain
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting netflix.com  (product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v')
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting dailymotion.com  (product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v')
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting en.m.wikipedia.org  (product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v')
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v')
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting m.imdb.com  (product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v')
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting justwatch.com  (product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v')
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on netflix.com — recorded as excluded
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Auto-created competitor: att.com
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=att.com  product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'  price=$7.00  confidence=29%
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on m.imdb.com — recorded as excluded
+2026-05-26 15:43:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on dailymotion.com — recorded as excluded
+2026-05-26 15:43:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on en.m.wikipedia.org — recorded as excluded
+2026-05-26 15:43:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on justwatch.com — recorded as excluded
+2026-05-26 15:43:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'  query='Turbo Air 48" Stainless Steel Horizontal Island Open Air buy'
+2026-05-26 15:43:26 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Stainless Steel Horizontal Island Open Air buy'
+2026-05-26 15:43:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'
+2026-05-26 15:43:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v')
+2026-05-26 15:43:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'  query='Turbo Air 48" Stainless Steel Horizontal Island Open Air buy'
+2026-05-26 15:43:28 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Stainless Steel Horizontal Island Open Air buy'
+2026-05-26 15:43:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'
+2026-05-26 15:43:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v')
+2026-05-26 15:43:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:43:31 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:43:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph'
+2026-05-26 15:43:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:43:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:43:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:43:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:43:34 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:43:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph'
+2026-05-26 15:43:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:43:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:43:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:43:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:43:37 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:43:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph'
+2026-05-26 15:43:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:43:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:43:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:43:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:43:40 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:43:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph'
+2026-05-26 15:43:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:43:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:43:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:43:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:43:42 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:43:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph'
+2026-05-26 15:43:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:43:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:43:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:43:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:43:45 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:43:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph'
+2026-05-26 15:43:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:43:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:43:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:43:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case'  query='Turbo Air Self-Serve Merchandiser 48" Stainless Steel Open buy'
+2026-05-26 15:43:51 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air Self-Serve Merchandiser 48" Stainless Steel Open b'
+2026-05-26 15:43:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case'
+2026-05-26 15:43:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case')
+2026-05-26 15:43:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case'  query='Turbo Air Self-Serve Merchandiser 48" Stainless Steel Open buy'
+2026-05-26 15:44:05 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air Self-Serve Merchandiser 48" Stainless Steel Open b'
+2026-05-26 15:44:08 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case'
+2026-05-26 15:44:08 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case')
+2026-05-26 15:44:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case'  query='Turbo Air Self-Serve Merchandiser 48" Stainless Steel Open buy'
+2026-05-26 15:44:12 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air Self-Serve Merchandiser 48" Stainless Steel Open b'
+2026-05-26 15:44:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case'
+2026-05-26 15:44:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case')
+2026-05-26 15:44:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air 84" Square Glass Island Open Air Merchandiser 36 buy'
+2026-05-26 15:44:20 [INFO] backend.search.engine: SerpAPI Shopping: 26 results for 'Turbo Air 84" Square Glass Island Open Air Merchandiser 36 b'
+2026-05-26 15:44:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'
+2026-05-26 15:44:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v')
+2026-05-26 15:44:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air 84" Square Glass Island Open Air Merchandiser 36 buy'
+2026-05-26 15:44:22 [INFO] backend.search.engine: SerpAPI Shopping: 26 results for 'Turbo Air 84" Square Glass Island Open Air Merchandiser 36 b'
+2026-05-26 15:44:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'
+2026-05-26 15:44:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v')
+2026-05-26 15:44:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air 48" Stainless Steel Vertical Island Open Air buy'
+2026-05-26 15:44:26 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Stainless Steel Vertical Island Open Air buy'
+2026-05-26 15:44:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-05-26 15:44:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph')
+2026-05-26 15:44:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air 48" Stainless Steel Vertical Island Open Air buy'
+2026-05-26 15:44:28 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Stainless Steel Vertical Island Open Air buy'
+2026-05-26 15:44:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-05-26 15:44:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph')
+2026-05-26 15:44:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air 48" Stainless Steel Vertical Island Open Air buy'
+2026-05-26 15:44:31 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Stainless Steel Vertical Island Open Air buy'
+2026-05-26 15:44:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-05-26 15:44:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph')
+2026-05-26 15:44:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v'  query='Turbo Air 48" Black Horizontal Island Open Air Cooler – 4 buy'
+2026-05-26 15:44:47 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Black Horizontal Island Open Air Cooler – 4 bu'
+2026-05-26 15:44:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v'
+2026-05-26 15:44:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v')
+2026-05-26 15:44:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v'  query='Turbo Air 48" Black Horizontal Island Open Air Cooler – 4 buy'
+2026-05-26 15:44:50 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Black Horizontal Island Open Air Cooler – 4 bu'
+2026-05-26 15:44:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v'
+2026-05-26 15:44:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v')
+2026-05-26 15:44:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:44:53 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:44:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph'
+2026-05-26 15:44:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:44:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:44:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:44:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:44:55 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:44:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph'
+2026-05-26 15:44:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:44:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:44:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:44:58 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:44:58 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:44:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph'
+2026-05-26 15:44:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:44:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:44:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:45:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:45:01 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:45:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph'
+2026-05-26 15:45:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:45:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:45:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph')
+2026-05-26 15:45:04 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:45:12 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:45:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph'
+2026-05-26 15:45:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:45:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:45:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:45:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:45:25 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:45:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph'
+2026-05-26 15:45:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:45:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:45:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph')
+2026-05-26 15:45:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:45:33 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:45:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 4 results for 'Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph'
+2026-05-26 15:45:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:45:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:45:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:45:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph')
+2026-05-26 15:45:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI Standard (4 variables in Variants)'  query='Belshaw Adamatic Donut Robot® Mark VI Standard buy'
+2026-05-26 15:45:39 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Belshaw Adamatic Donut Robot® Mark VI Standard buy'
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 9 results for 'Belshaw Donut Robot® Mark VI Standard (4 variables in Variants)'
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting listado.mercadolibre.com.mx  (product='Belshaw Donut Robot® Mark VI Standard (4 variables in Variants)')
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting hergom-medical.com  (product='Belshaw Donut Robot® Mark VI Standard (4 variables in Variants)')
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting elchallynstore.mx  (product='Belshaw Donut Robot® Mark VI Standard (4 variables in Variants)')
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting beracahmedica.mx  (product='Belshaw Donut Robot® Mark VI Standard (4 variables in Variants)')
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting pardell.es  (product='Belshaw Donut Robot® Mark VI Standard (4 variables in Variants)')
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting zaraorto.com  (product='Belshaw Donut Robot® Mark VI Standard (4 variables in Variants)')
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting absequipomedico.com  (product='Belshaw Donut Robot® Mark VI Standard (4 variables in Variants)')
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting studocu.com  (product='Belshaw Donut Robot® Mark VI Standard (4 variables in Variants)')
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting quiminet.com  (product='Belshaw Donut Robot® Mark VI Standard (4 variables in Variants)')
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on beracahmedica.mx — recorded as excluded
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on studocu.com — recorded as excluded
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on zaraorto.com — recorded as excluded
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on quiminet.com — recorded as excluded
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Auto-created competitor: hergom-medical.com
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=hergom-medical.com  product='Belshaw Donut Robot® Mark VI Standard (4 variables in Variants)'  price=$474.00  confidence=29%
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on elchallynstore.mx — recorded as excluded
+2026-05-26 15:45:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on listado.mercadolibre.com.mx — recorded as excluded
+2026-05-26 15:45:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on absequipomedico.com — recorded as excluded
+2026-05-26 15:45:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on pardell.es — recorded as excluded
+2026-05-26 15:45:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'  query='Belshaw Adamatic Donut Robot® Mark VI Standard buy'
+2026-05-26 15:45:42 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Belshaw Adamatic Donut Robot® Mark VI Standard buy'
+2026-05-26 15:45:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 8 results for 'Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'
+2026-05-26 15:45:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting palmettostatearmory.com  (product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)')
+2026-05-26 15:45:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting amazon.com  (product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)')
+2026-05-26 15:45:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting shootingsurplus.com  (product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)')
+2026-05-26 15:45:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting budsgunshop.com  (product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)')
+2026-05-26 15:45:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting opticsplanet.com  (product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)')
+2026-05-26 15:45:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting pewpewtactical.com  (product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)')
+2026-05-26 15:45:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting ebay.com  (product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)')
+2026-05-26 15:45:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting brownells.com  (product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)')
+2026-05-26 15:45:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on palmettostatearmory.com — recorded as excluded
+2026-05-26 15:45:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on shootingsurplus.com — recorded as excluded
+2026-05-26 15:45:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Auto-created competitor: budsgunshop.com
+2026-05-26 15:45:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=budsgunshop.com  product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'  price=$169.99  confidence=32%
+2026-05-26 15:45:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on pewpewtactical.com — recorded as excluded
+2026-05-26 15:45:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on opticsplanet.com — recorded as excluded
+2026-05-26 15:45:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on brownells.com — recorded as excluded
+2026-05-26 15:45:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=ebay.com  product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'  price=$8.00  confidence=29%
+2026-05-26 15:45:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'  query='Belshaw Adamatic Donut Robot® Mark VI Standard buy'
+2026-05-26 15:45:50 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Belshaw Adamatic Donut Robot® Mark VI Standard buy'
+2026-05-26 15:45:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'
+2026-05-26 15:45:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting aupetitcoinbreton.ca  (product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)')
+2026-05-26 15:45:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on aupetitcoinbreton.ca — recorded as excluded
+2026-05-26 15:45:58 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:45:58 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:45:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph'
+2026-05-26 15:45:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:45:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:45:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:46:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:46:02 [INFO] backend.search.engine: SerpAPI Shopping: 10 results for 'Belshaw Adamatic DX Deck Oven with Steam deck tray buy'
+2026-05-26 15:46:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph'
+2026-05-26 15:46:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:46:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:46:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph')
+2026-05-26 15:46:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph'  query='Turbo Air 49-5 8" Straight Glass Full-Service Freezer Bakery buy'
+2026-05-26 15:46:16 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 49-5 8" Straight Glass Full-Service Freezer Bakery'
+2026-05-26 15:46:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph'
+2026-05-26 15:46:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph')
+2026-05-26 15:46:18 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph'  query='Turbo Air 49-5 8" Straight Glass Full-Service Freezer Bakery buy'
+2026-05-26 15:46:18 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 49-5 8" Straight Glass Full-Service Freezer Bakery'
+2026-05-26 15:46:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph'
+2026-05-26 15:46:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph')
+2026-05-26 15:46:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph'  query='Turbo Air 49-5 8" Straight Glass Full-Service Freezer Bakery buy'
+2026-05-26 15:46:21 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 49-5 8" Straight Glass Full-Service Freezer Bakery'
+2026-05-26 15:46:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph'
+2026-05-26 15:46:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph')
+2026-05-26 15:46:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small Package for Non-automated Cake Donut Production Only-1 -2 Avalon'  query='Small Package for Non-automated Cake Donut Production Only-1 buy'
+2026-05-26 15:46:33 [INFO] backend.search.engine: SerpAPI Shopping: 4 results for 'Small Package for Non-automated Cake Donut Production Only-1'
+2026-05-26 15:46:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Small Package for Non-automated Cake Donut Production Only-1 -2 Avalon'
+2026-05-26 15:46:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting collinsdictionary.com  (product='Small Package for Non-automated Cake Donut Production Only-1 -2 Avalon')
+2026-05-26 15:46:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting thefreedictionary.com  (product='Small Package for Non-automated Cake Donut Production Only-1 -2 Avalon')
+2026-05-26 15:46:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting oed.com  (product='Small Package for Non-automated Cake Donut Production Only-1 -2 Avalon')
+2026-05-26 15:46:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Donut Shop Consulting, Floor Plans, Production Training, Equipment List'  query='DCI Donut Shop Consulting Floor Plans Production Training buy'
+2026-05-26 15:46:45 [INFO] backend.search.engine: SerpAPI Shopping: 5 results for 'DCI Donut Shop Consulting Floor Plans Production Training bu'
+2026-05-26 15:46:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 5 results for 'Donut Shop Consulting, Floor Plans, Production Training, Equipment List'
+2026-05-26 15:46:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting isdoj.gov  (product='Donut Shop Consulting, Floor Plans, Production Training, Equipment List')
+2026-05-26 15:46:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting en.wikipedia.org  (product='Donut Shop Consulting, Floor Plans, Production Training, Equipment List')
+2026-05-26 15:46:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting doc.wi.gov  (product='Donut Shop Consulting, Floor Plans, Production Training, Equipment List')
+2026-05-26 15:46:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting drum-corps.net  (product='Donut Shop Consulting, Floor Plans, Production Training, Equipment List')
+2026-05-26 15:46:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting drumcorpsplanet.com  (product='Donut Shop Consulting, Floor Plans, Production Training, Equipment List')
+2026-05-26 15:46:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: drumcorpsplanet.com
+2026-05-26 15:46:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on drum-corps.net — recorded as excluded
+2026-05-26 15:46:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No match on doc.wi.gov — recorded as excluded
+2026-05-26 15:46:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Category competitor recorded: isdoj.gov
+2026-05-26 15:46:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List'  query='DCI Expert Donut Shop Consulting Floor Plans Production Training buy'
+2026-05-26 15:47:00 [INFO] backend.search.engine: SerpAPI Shopping: 3 results for 'DCI Expert Donut Shop Consulting Floor Plans Production Trai'
+2026-05-26 15:47:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List'
+2026-05-26 15:47:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting isdoj.gov  (product='Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List')
+2026-05-26 15:47:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting en.wikipedia.org  (product='Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List')
+2026-05-26 15:47:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting drumcorpsplanet.com  (product='Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List')
+2026-05-26 15:47:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List'  query='DCI Expert Donut Shop Consulting Floor Plans Production Training buy'
+2026-05-26 15:47:03 [INFO] backend.search.engine: SerpAPI Shopping: 3 results for 'DCI Expert Donut Shop Consulting Floor Plans Production Trai'
+2026-05-26 15:47:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 3 results for 'Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List'
+2026-05-26 15:47:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting isdoj.gov  (product='Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List')
+2026-05-26 15:47:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting en.wikipedia.org  (product='Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List')
+2026-05-26 15:47:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting drumcorpsplanet.com  (product='Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List')
+2026-05-26 15:47:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air 84" Square Glass Island Open Air Merchandiser 36 buy'
+2026-05-26 15:47:06 [INFO] backend.search.engine: SerpAPI Shopping: 26 results for 'Turbo Air 84" Square Glass Island Open Air Merchandiser 36 b'
+2026-05-26 15:47:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'
+2026-05-26 15:47:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v')
+2026-05-26 15:47:08 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air 84" Square Glass Island Open Air Merchandiser 36 buy'
+2026-05-26 15:47:09 [INFO] backend.search.engine: SerpAPI Shopping: 26 results for 'Turbo Air 84" Square Glass Island Open Air Merchandiser 36 b'
+2026-05-26 15:47:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'
+2026-05-26 15:47:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v')
+2026-05-26 15:47:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air 84" Square Glass Island Open Air Merchandiser 36 buy'
+2026-05-26 15:47:11 [INFO] backend.search.engine: SerpAPI Shopping: 26 results for 'Turbo Air 84" Square Glass Island Open Air Merchandiser 36 b'
+2026-05-26 15:47:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'
+2026-05-26 15:47:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v')
+2026-05-26 15:47:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air 48" Black Horizontal Island Open Air Cooler with buy'
+2026-05-26 15:47:17 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Black Horizontal Island Open Air Cooler with b'
+2026-05-26 15:47:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-05-26 15:47:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph')
+2026-05-26 15:47:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air 48" Black Horizontal Island Open Air Cooler with buy'
+2026-05-26 15:47:20 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Black Horizontal Island Open Air Cooler with b'
+2026-05-26 15:47:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-05-26 15:47:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph')
+2026-05-26 15:47:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air 48" Black Horizontal Island Open Air Cooler with buy'
+2026-05-26 15:47:23 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Black Horizontal Island Open Air Cooler with b'
+2026-05-26 15:47:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-05-26 15:47:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph')
+2026-05-26 15:47:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air 72" Square Glass Island Open Air Merchandiser 24 buy'
+2026-05-26 15:47:28 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 72" Square Glass Island Open Air Merchandiser 24 b'
+2026-05-26 15:47:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v'
+2026-05-26 15:47:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v')
+2026-05-26 15:47:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air 72" Square Glass Island Open Air Merchandiser 24 buy'
+2026-05-26 15:47:30 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 72" Square Glass Island Open Air Merchandiser 24 b'
+2026-05-26 15:47:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v'
+2026-05-26 15:47:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v')
+2026-05-26 15:47:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air 48" Black Vertical Island Open Air Cooler with buy'
+2026-05-26 15:47:37 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Black Vertical Island Open Air Cooler with buy'
+2026-05-26 15:47:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-05-26 15:47:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph')
+2026-05-26 15:47:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air 48" Black Vertical Island Open Air Cooler with buy'
+2026-05-26 15:47:39 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for 'Turbo Air 48" Black Vertical Island Open Air Cooler with buy'
+2026-05-26 15:47:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 1 results for 'Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-05-26 15:47:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting att.com  (product='Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph')
+2026-05-26 15:47:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Complete: 100 products processed
+2026-05-26 15:53:19 [INFO] backend.competitor.scraper: Skipping bakemark.com — too soon (next allowed: 2026-05-26T21:53:57.461451)
+2026-05-26 15:53:19 [INFO] backend.competitor.scraper: Skipping bakemarketing.com — too soon (next allowed: 2026-05-26T21:54:32.088027)
+2026-05-26 15:53:20 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 15:53:20 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on bakersauthority.com  (max_pages=100)
+2026-05-26 16:03:56 [INFO] backend.scrapers.base_scraper: Discovered 1187 product URLs on https://bakersauthority.com
+2026-05-26 16:03:56 [INFO] backend.competitor.scraper: [SCRAPE] Found 1187 product URLs on bakersauthority.com
+2026-05-26 16:06:14 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://www.bakersauthority.com/products/ceylon-cinnamon-oil: Page.goto: The Internet connection appears to be offline.
+Call log:
+  - navigating to "https://www.bakersauthority.com/products/ceylon-cinnamon-oil", waiting until "domcontentloaded"
+
+2026-05-26 16:06:24 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://www.bakersauthority.com/products/ceylon-cinnamon-oil: Page.goto: The Internet connection appears to be offline.
+Call log:
+  - navigating to "https://www.bakersauthority.com/products/ceylon-cinnamon-oil", waiting until "domcontentloaded"
+
+2026-05-26 16:06:39 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-26 16:06:39 [WARNING] backend.scrapers.base_scraper: Browser context is broken — rebuilding context...
+2026-05-26 16:06:39 [INFO] backend.scrapers.base_scraper: Browser context rebuilt successfully.
+2026-05-26 16:06:39 [ERROR] backend.scrapers.base_scraper: Failed https://www.bakersauthority.com/products/ceylon-cinnamon-oil after 2 retries: Page.goto: The Internet connection appears to be offline.
+Call log:
+  - navigating to "https://www.bakersauthority.com/products/ceylon-cinnamon-oil", waiting until "domcontentloaded"
+
+2026-05-26 16:06:39 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://www.bakersauthority.com/products/ocean-spray-cranberry-juice-cs-6-96oz: Page.goto: The Internet connection appears to be offline.
+Call log:
+  - navigating to "https://www.bakersauthority.com/products/ocean-spray-cranberry-juice-cs-6-96oz", waiting until "domcontentloaded"
+
+2026-05-26 16:06:49 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://www.bakersauthority.com/products/ocean-spray-cranberry-juice-cs-6-96oz: Page.goto: The Internet connection appears to be offline.
+Call log:
+  - navigating to "https://www.bakersauthority.com/products/ocean-spray-cranberry-juice-cs-6-96oz", waiting until "domcontentloaded"
+
+2026-05-26 16:07:04 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 16:07:04 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Will watch for changes in these directories: ['/Users/evw/dev/productComparison/donut-intel']
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     Started reloader process [1405] using WatchFiles
+INFO:     Started server process [1414]
+INFO:     Waiting for application startup.
+2026-05-26 17:42:48 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 17:42:48 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 17:42:48 [INFO] backend.database.db: Database initialized
+2026-05-26 17:42:48 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 17:42:48 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 17:42:48 [INFO] backend.app: Scheduler started
+2026-05-26 17:42:48 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 17:42:48 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 17:42:48 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 17:42:48 [INFO] watchfiles.main: 1 change detected
