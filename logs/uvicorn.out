@@ -11369,3 +11369,8 @@ INFO:     connection open
 INFO:     127.0.0.1:60836 - "GET /api/products?page=1&per_page=50&sort_by=price&sort_order=desc HTTP/1.1" 200 OK
 2026-05-26 12:27:25 [INFO] watchfiles.main: 3 changes detected
 INFO:     127.0.0.1:60947 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+2026-05-26 12:29:18 [INFO] watchfiles.main: 61 changes detected
+2026-05-26 12:29:50 [INFO] watchfiles.main: 2 changes detected
+2026-05-26 12:29:54 [INFO] watchfiles.main: 16 changes detected
+2026-05-26 12:30:04 [INFO] watchfiles.main: 21 changes detected
+2026-05-26 12:30:10 [INFO] watchfiles.main: 4 changes detected
