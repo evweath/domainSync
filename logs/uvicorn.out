@@ -9961,3 +9961,735 @@ INFO:     Application startup complete.
 2026-05-25 18:15:38 [INFO] watchfiles.main: 17 changes detected
 2026-05-25 18:15:41 [INFO] watchfiles.main: 3 changes detected
 2026-05-25 18:15:50 [INFO] watchfiles.main: 27 changes detected
+2026-05-25 18:15:52 [INFO] watchfiles.main: 36 changes detected
+2026-05-25 18:20:27 [INFO] watchfiles.main: 4 changes detected
+2026-05-25 18:20:34 [INFO] watchfiles.main: 33 changes detected
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-25 18:21:08 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-25 18:21:08 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [39239]
+INFO:     Stopping reloader process [21308]
+INFO:     Will watch for changes in these directories: ['/Users/evw/dev/productComparison/donut-intel']
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     Started reloader process [39680] using WatchFiles
+INFO:     Started server process [39690]
+INFO:     Waiting for application startup.
+2026-05-25 18:21:09 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-25 18:21:09 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-25 18:21:09 [INFO] backend.database.db: Database initialized
+2026-05-25 18:21:09 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-25 18:21:09 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-25 18:21:09 [INFO] backend.app: Scheduler started
+2026-05-25 18:21:09 [INFO] backend.app: Log-tail broadcaster started
+2026-05-25 18:21:09 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-25 18:21:09 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-25 18:21:09 [INFO] watchfiles.main: 1 change detected
+2026-05-25 18:21:19 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:59556 - "POST /api/auth/login HTTP/1.1" 200 OK
+2026-05-25 18:31:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Starting web search scan: 5 products, max_results=20
+2026-05-25 18:31:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting'  query='Belshaw Automated Cake and Raised production Machine rolling buy'
+INFO:     127.0.0.1:59560 - "POST /api/competitors/web-search-scan HTTP/1.1" 200 OK
+2026-05-25 18:31:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 10 results for 'Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting'
+2026-05-25 18:31:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting machinio.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-25 18:31:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting allbaketech.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-25 18:31:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting chefsdeal.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-25 18:31:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting discountbakeryequip.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-25 18:31:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting ebay.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-25 18:31:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting bakeryequipment.net  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-25 18:31:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting katom.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-25 18:31:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting equipmentplus.myshopify.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-25 18:31:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting')
+2026-05-25 18:31:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  query='BELSHAW INSIDER Ventless Donut System Mark V GP Ph buy'
+INFO:     127.0.0.1:59586 - "GET /api/scan/sessions HTTP/1.1" 200 OK
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 16 results for 'BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting belshaw.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting crispfryer.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting eliterestaurantequipment.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting emequip.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting smartovenhub.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting guinnessworldrecords.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting en.wikipedia.org  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting history.howstuffworks.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting onderslist.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting greekreporter.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting usatoday.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting tallestly.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting businessinsider.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:31:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=restaurantsupply.com  product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  price=$549.28  confidence=35%
+2026-05-25 18:31:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=smartovenhub.com  product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  price=no price  confidence=30%
+2026-05-25 18:31:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=crispfryer.com  product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  price=no price  confidence=30%
+2026-05-25 18:31:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=kitchenrestock.com  product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  price=$549.28  confidence=34%
+INFO:     127.0.0.1:59624 - "GET /api/scan/sessions?limit=5 HTTP/1.1" 200 OK
+2026-05-25 18:32:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Auto-created competitor: emequip.com
+2026-05-25 18:32:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Match found  domain=emequip.com  product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  price=no price  confidence=30%
+2026-05-25 18:32:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  query='BELSHAW INSIDER Ventless Donut System Mark V GP Ph buy'
+2026-05-25 18:32:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 6 results for 'BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'
+2026-05-25 18:32:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting stackoverflow.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:32:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting belshaw.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:32:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting kitchenrestock.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:32:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting restaurantsupply.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:32:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting crispfryer.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:32:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph')
+2026-05-25 18:32:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System'  query='BELSHAW INSIDER Ventless Donut System buy'
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 13 results for 'BELSHAW INSIDER Ventless Donut System'
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting hostinger.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting rumahweb.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting exabytes.co.id  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting blog.dewaweb.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting fanruan.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting en.wikipedia.org  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting dibimbing.id  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting sitespirit.co  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting belshaw.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting eliterestaurantequipment.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting bakeryequipment.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting machinio.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System'  query='BELSHAW INSIDER Ventless Donut System buy'
+2026-05-25 18:32:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 5 results for 'BELSHAW INSIDER Ventless Donut System'
+2026-05-25 18:32:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting belshaw.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting eliterestaurantequipment.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting bakeryequipment.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting machinio.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Visiting yahoo.uservoice.com  (product='BELSHAW INSIDER Ventless Donut System')
+2026-05-25 18:32:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Complete: 5 products processed
+2026-05-25 18:34:28 [INFO] watchfiles.main: 33 changes detected
+2026-05-25 18:37:36 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:60122 - "GET /api/logs/tail?lines=50 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:60123 - "GET /api/logs/tail?lines=50 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:60124 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60125 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-25 18:48:20 [INFO] watchfiles.main: 3 changes detected
+2026-05-25 18:48:24 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/config.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-25 18:48:25 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-25 18:48:25 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [39690]
+2026-05-25 18:48:25 [INFO] watchfiles.main: 6 changes detected
+INFO:     Started server process [41681]
+INFO:     Waiting for application startup.
+2026-05-25 18:48:25 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-25 18:48:25 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-25 18:48:25 [INFO] backend.database.db: Database initialized
+2026-05-25 18:48:25 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-25 18:48:25 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-25 18:48:25 [INFO] backend.app: Scheduler started
+2026-05-25 18:48:25 [INFO] backend.app: Log-tail broadcaster started
+2026-05-25 18:48:25 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-25 18:48:25 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-25 18:48:25 [INFO] watchfiles.main: 1 change detected
+INFO:     127.0.0.1:60255 - "GET /api/logs/tail?lines=50 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:60256 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60257 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-25 18:48:38 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/search/engine.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-25 18:48:38 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-25 18:48:38 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [41681]
+2026-05-25 18:48:39 [INFO] watchfiles.main: 2 changes detected
+INFO:     Started server process [41708]
+INFO:     Waiting for application startup.
+2026-05-25 18:48:39 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-25 18:48:39 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-25 18:48:39 [INFO] backend.database.db: Database initialized
+2026-05-25 18:48:39 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-25 18:48:39 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-25 18:48:39 [INFO] backend.app: Scheduler started
+2026-05-25 18:48:39 [INFO] backend.app: Log-tail broadcaster started
+2026-05-25 18:48:39 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-25 18:48:39 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-25 18:48:39 [INFO] watchfiles.main: 1 change detected
+INFO:     127.0.0.1:60258 - "GET /api/logs/tail?lines=50 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:60261 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60262 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-25 18:49:02 [INFO] watchfiles.main: 3 changes detected
+2026-05-25 18:49:13 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/competitor/web_search_scan.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-25 18:49:13 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-25 18:49:13 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [41708]
+2026-05-25 18:49:13 [INFO] watchfiles.main: 2 changes detected
+INFO:     Started server process [41808]
+INFO:     Waiting for application startup.
+2026-05-25 18:49:13 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-25 18:49:13 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-25 18:49:13 [INFO] backend.database.db: Database initialized
+2026-05-25 18:49:13 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-25 18:49:13 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-25 18:49:13 [INFO] backend.app: Scheduler started
+2026-05-25 18:49:13 [INFO] backend.app: Log-tail broadcaster started
+2026-05-25 18:49:13 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-25 18:49:13 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-25 18:49:14 [INFO] watchfiles.main: 1 change detected
+INFO:     127.0.0.1:60267 - "GET /api/logs/tail?lines=50 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:60268 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60269 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-25 18:49:22 [INFO] watchfiles.main: 6 changes detected
+2026-05-25 18:49:52 [INFO] watchfiles.main: 65 changes detected
+INFO:     127.0.0.1:60392 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60395 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60397 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60394 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60395 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60397 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60396 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60393 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60394 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60392 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60397 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60395 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60400 - "POST /api/auth/logout HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:60400 - "GET /api/logs/tail?lines=50 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:60400 - "GET / HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:60400 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60401 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60402 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60403 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60404 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60400 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60401 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60402 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60405 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60407 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60408 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60410 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60408 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60407 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60410 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60409 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60406 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60405 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60407 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60411 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60408 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60412 - "PUT /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60412 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60412 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60412 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-25 18:52:38 [INFO] watchfiles.main: 1 change detected
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping 85cbakerycafe.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping acmemarkets.com — too soon (next allowed: 2026-05-26T20:39:21.519645)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping acmerents.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping acmestores.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping acmetools.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping actasenlinea.jalisco.gob.mx — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping ald.kitchen — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping alessibakery.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping alibaba.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping allrecipes.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping almart.com — too soon (next allowed: 2026-05-26T20:42:32.424229)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping amazon.com — too soon (next allowed: 2026-05-26T20:46:51.674871)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping avilavera.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-25 18:52:46 [INFO] backend.competitor.scraper: Skipping bakedeco.com — too soon (next allowed: 2026-05-26T21:07:53.398908)
+INFO:     127.0.0.1:60413 - "POST /api/competitors/scan HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60413 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60413 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60414 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60415 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60417 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60416 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60413 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60418 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60416 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60415 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60414 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60418 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-25 18:52:47 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+INFO:     127.0.0.1:60415 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60417 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60416 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60418 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60413 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60414 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60416 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60413 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60414 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60415 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60418 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60417 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60413 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60415 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60416 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60414 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-25 18:52:47 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on bakell.com  (max_pages=100)
+2026-05-25 18:53:46 [INFO] watchfiles.main: 2 changes detected
+2026-05-25 18:54:05 [INFO] watchfiles.main: 17 changes detected
+2026-05-25 18:54:15 [INFO] watchfiles.main: 26 changes detected
+2026-05-25 18:54:20 [INFO] watchfiles.main: 4 changes detected
+2026-05-25 18:54:24 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:60642 - "GET /api/products?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60643 - "GET /api/products?per_page=20&search=proo HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60643 - "GET /api/products?per_page=20&search=proofer HTTP/1.1" 200 OK
+2026-05-25 19:00:14 [WARNING] backend.search.engine: DDG image search failed (images will be missing): ConnectError: ConnectError('error sending request for url (https://duckduckgo.com/?q=buy+Belshaw+%28CP1%29+120%2F50%2F1+Phase+17-shelf+cabinet+proofer+with+%27Dutch%27+Doors+Belshaw+%28CP-2%2F+CP-1002%29+208-240+Volts%2C+50-60+hz%2C+1-phase+17-shelf+cabinet+proofer+with+%282%29%27Dutch%27+Doors+with+Autowater) > client error (Connect) > Socket is not connected (os error 57)')
+2026-05-25 19:00:25 [INFO] backend.search.engine: SerpAPI Shopping: 20 results for 'buy proofer'
+2026-05-25 19:00:26 [INFO] backend.search.engine: SerpAPI Shopping: 5 results for 'buy Belshaw (CP1) 120/50/1 Phase 17-shelf cabinet proofer wi'
+INFO:     127.0.0.1:60644 - "POST /api/search/find-product HTTP/1.1" 200 OK
+2026-05-25 19:02:35 [INFO] backend.scrapers.base_scraper: Discovered 378 product URLs on https://bakell.com
+2026-05-25 19:02:35 [INFO] backend.competitor.scraper: [SCRAPE] Found 378 product URLs on bakell.com
+2026-05-25 19:04:04 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: "Belshaw (CP1) 120/50/1 Phase 17-shelf cabinet proofer with 'Dutch' Doors"  (id=73)
+2026-05-25 19:04:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   "Belshaw Adamatic Belshaw 120 50 1 Phase 17-shelf cabinet proofer with 'Dutch' buy"
+INFO:     127.0.0.1:60763 - "POST /api/products/competitor-search HTTP/1.1" 200 OK
+2026-05-25 19:04:07 [INFO] backend.search.engine: SerpAPI Shopping: 7 results for 'Belshaw Adamatic Belshaw 120 50 1 Phase 17-shelf cabinet pro'
+2026-05-25 19:04:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 8 result URLs
+2026-05-25 19:04:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.foodservex.com/product/belshaw-cp1-120-50-1-phase-17-shelf-cabinet-proofer-with-dutch-doors/
+2026-05-25 19:04:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-25 19:04:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://shop.app/products/7528641298610/belshaw-cp1-120-50-1-phase-17-shelf-cabinet-proofer-with-dutch-doors
+2026-05-25 19:04:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'We ran into an issue')
+2026-05-25 19:04:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.belshaw.com/products/category/proofing
+2026-05-25 19:04:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Proofing | We Take Great Care of Your Bakery | Belshaw')
+2026-05-25 19:04:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.ebay.com/sch/i.html?_nkw=belshaw+proofer&_sop=12
+2026-05-25 19:04:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-25 19:04:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://donut-equipment.draenoth.shop/product/belshaw-cp1-120-50-1-phase-17-shelf-cabinet-proofer-with-2-dutch-doors/
+2026-05-25 19:04:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-25 19:04:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.zhihu.com/question
+2026-05-25 19:04:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '403: Forbidden')
+2026-05-25 19:04:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.sat4all.com/forums/topic
+2026-05-25 19:04:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'sat4all')
+2026-05-25 19:04:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-25 19:04:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (9 ideas) – Yahoo Feedback')
+2026-05-25 19:04:23 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product="Belshaw (CP1) 120/50/1 Phase 17-shelf cabinet proofer with 'Dutch' Doors"  visited=8  found=0/36
+2026-05-25 19:04:23 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: "Belshaw (CP-2/ CP-1002) 208-240 Volts, 50-60 hz, 1-phase 17-shelf cabinet proofer with (2)'Dutch' Doors with Autowater"  (id=229)
+2026-05-25 19:04:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   "Belshaw Adamatic Belshaw Volts 1-phase 17-shelf cabinet proofer with 'Dutch' buy"
+2026-05-25 19:04:25 [INFO] backend.search.engine: SerpAPI Shopping: 7 results for 'Belshaw Adamatic Belshaw Volts 1-phase 17-shelf cabinet proo'
+2026-05-25 19:04:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 10 result URLs
+2026-05-25 19:04:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.belshaw.com/products/category/proofing
+2026-05-25 19:04:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Proofing | We Take Great Care of Your Bakery | Belshaw')
+2026-05-25 19:04:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://shop.app/products/7941045846194/belshaw-17-shelf-cabinet-proofer-with-2-dutch-doors-cp3-208-240-volts
+2026-05-25 19:04:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'We ran into an issue')
+2026-05-25 19:04:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.eliterestaurantequipment.com/product/belshaw-adamatic-proofer-ep-18-24
+2026-05-25 19:04:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Attention Required! | Cloudflare')
+2026-05-25 19:04:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.foodservex.com/product/belshaw-cp1-120-50-1-phase-17-shelf-cabinet-proofer-with-dutch-doors/
+2026-05-25 19:04:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-25 19:04:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.restaurantsupply.com/products/belshaw-ep18-24-208v-aw-28-inch-wide-proofer-cabinet-mobile-with-17-shelves-stainless-steel
+2026-05-25 19:04:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantsupply.com
+2026-05-25 19:05:32 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 1/4 in 3s
+2026-05-25 19:05:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantsupply.com
+2026-05-25 19:06:35 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 2/4 in 6s
+INFO:     127.0.0.1:60790 - "GET / HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:60790 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60791 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60794 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60792 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60793 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60790 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60791 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60792 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60791 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60790 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60795 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60790 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60791 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60792 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60791 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60792 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60792 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60794 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60792 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60794 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60792 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60791 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60793 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60795 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60790 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60794 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60796 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60791 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60797 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:60795 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60792 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60793 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+2026-05-25 19:06:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantsupply.com
+2026-05-25 19:07:42 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 3/4 in 12s
+2026-05-25 19:07:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantsupply.com
+INFO:     Will watch for changes in these directories: ['/Users/evw/dev/productComparison/donut-intel']
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     Started reloader process [6881] using WatchFiles
+INFO:     Started server process [6892]
+INFO:     Waiting for application startup.
+2026-05-26 10:48:49 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 10:48:49 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 10:48:49 [INFO] backend.database.db: Database initialized
+2026-05-26 10:48:49 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 10:48:49 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 10:48:49 [INFO] backend.app: Scheduler started
+2026-05-26 10:48:49 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 10:48:49 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 10:48:49 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 10:48:49 [INFO] watchfiles.main: 1 change detected
+2026-05-26 10:48:56 [INFO] watchfiles.main: 33 changes detected
+2026-05-26 10:49:23 [INFO] watchfiles.main: 33 changes detected
+2026-05-26 10:59:30 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 10:59:35 [INFO] watchfiles.main: 4 changes detected
+2026-05-26 10:59:36 [INFO] watchfiles.main: 2 changes detected
+2026-05-26 11:00:01 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 11:00:04 [INFO] watchfiles.main: 2 changes detected
+2026-05-26 11:00:11 [INFO] watchfiles.main: 41 changes detected
+INFO:     Will watch for changes in these directories: ['/Users/evw/dev/productComparison/donut-intel']
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     Started reloader process [7900] using WatchFiles
+INFO:     Started server process [7904]
+INFO:     Waiting for application startup.
+2026-05-26 11:13:13 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 11:13:13 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 11:13:13 [INFO] backend.database.db: Database initialized
+2026-05-26 11:13:13 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 11:13:14 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 11:13:14 [INFO] backend.app: Scheduler started
+2026-05-26 11:13:14 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 11:13:14 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 11:13:14 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 11:13:14 [INFO] watchfiles.main: 1 change detected
+2026-05-26 11:13:18 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:55377 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55377 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55378 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55379 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55381 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55380 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55377 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55378 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55379 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55420 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55423 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55425 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55422 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55423 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55425 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55424 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55422 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55421 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55420 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55426 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:55425 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55423 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55457 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55458 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping 85cbakerycafe.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping acmemarkets.com — too soon (next allowed: 2026-05-26T20:39:21.519645)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping acmerents.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping acmestores.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping acmetools.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping actasenlinea.jalisco.gob.mx — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping ald.kitchen — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping alessibakery.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping alibaba.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping allrecipes.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping almart.com — too soon (next allowed: 2026-05-26T20:42:32.424229)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping amazon.com — too soon (next allowed: 2026-05-26T20:46:51.674871)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping avilavera.com — 3-day empty-scan cooldown (resets 2026-05-26)
+2026-05-26 11:15:17 [INFO] backend.competitor.scraper: Skipping bakedeco.com — too soon (next allowed: 2026-05-26T21:07:53.398908)
+INFO:     127.0.0.1:55459 - "POST /api/competitors/scan HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55459 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55459 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55460 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55464 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55464 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55459 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55464 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55462 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55462 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55464 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55464 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55464 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-26 11:15:17 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-26 11:15:18 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on bakell.com  (max_pages=100)
+INFO:     127.0.0.1:55463 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55463 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55463 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55460 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55460 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55460 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55461 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55461 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55461 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55459 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55459 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55464 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55459 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55462 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55459 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55462 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55462 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55462 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55463 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55463 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55463 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55461 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55461 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55461 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55460 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55459 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55462 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55464 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55463 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55461 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55460 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55832 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55833 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55925 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-26 11:20:52 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '14 x 14 x 5 in 50 Count -Bakery Box'  (id=72)
+2026-05-26 11:20:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Rios 14 x 14 x 5 in 50 Count -Bakery Box buy'
+INFO:     127.0.0.1:55952 - "POST /api/products/competitor-search HTTP/1.1" 200 OK
+2026-05-26 11:20:59 [INFO] backend.search.engine: SerpAPI Shopping: 26 results for 'Rios 14 x 14 x 5 in 50 Count -Bakery Box buy'
+2026-05-26 11:20:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 17 result URLs
+2026-05-26 11:20:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.amazon.com/14-x-boxes/s?k=14+x+14+boxes
+2026-05-26 11:21:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com : 14 x 14 boxes')
+2026-05-26 11:21:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.walmart.com/ip/14x14x5-New-Corrugated-Boxes-for-Moving-or-Shipping-Needs-32-ECT/723978873
+2026-05-26 11:21:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: '14x14x5 Kraft Brown Corrugated Shipping Boxes, 32 ECT Single')
+2026-05-26 11:21:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.packagingsupplies.com/products/14-x-14-x-5-corrugated-boxes
+2026-05-26 11:22:09 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 1/4 in 3s
+2026-05-26 11:22:59 [INFO] watchfiles.main: 2 changes detected
+2026-05-26 11:23:03 [INFO] watchfiles.main: 2 changes detected
+2026-05-26 11:23:12 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 2/4 in 6s
+INFO:     127.0.0.1:56100 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-26 11:23:13 [INFO] watchfiles.main: 33 changes detected
+2026-05-26 11:24:19 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 3/4 in 12s
+INFO:     127.0.0.1:56211 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-26 11:25:32 [ERROR] backend.api.routes: Product competitor search failed: (sqlite3.OperationalError) database is locked
+[SQL: INSERT INTO competitors (domain, name, base_url, first_scanned_at, last_scanned_at, total_matching_products, scan_session_name, is_active, excluded_from_search, notes, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP) RETURNING id, added_at]
+[parameters: ('packagingsupplies.com', 'packagingsupplies.com', 'https://packagingsupplies.com', None, None, 0, None, 1, 0, None)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Traceback (most recent call last):
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/evw/dev/productComparison/donut-intel/backend/api/routes.py", line 1288, in _run
+    result = await run_product_competitor_search(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/product_search.py", line 613, in run_product_competitor_search
+    total_found += await _process_one_product(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/product_search.py", line 545, in _process_one_product
+    if not await _db_write_with_retry(_do_db_work):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/product_search.py", line 40, in _db_write_with_retry
+    return fn(db)
+  File "/Users/evw/dev/productComparison/donut-intel/backend/competitor/product_search.py", line 474, in _do_db_work
+    db.flush()
+    ~~~~~~~~^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4331, in flush
+    self._flush(objects)
+    ~~~~~~~~~~~^^^^^^^^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4466, in _flush
+    with util.safe_reraise():
+         ~~~~~~~~~~~~~~~~~^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/util/langhelpers.py", line 121, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/orm/session.py", line 4427, in _flush
+    flush_context.execute()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.mapper,
+        ^^^^^^^^^^^^
+        uow.states_for_mapper_hierarchy(self.mapper, False, False),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        uow,
+        ^^^^
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        base_mapper,
+        ^^^^^^^^^^^^
+    ...<3 lines>...
+        insert,
+        ^^^^^^^
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+        statement,
+        params,
+        execution_options=execution_options,
+    )
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) database is locked
+[SQL: INSERT INTO competitors (domain, name, base_url, first_scanned_at, last_scanned_at, total_matching_products, scan_session_name, is_active, excluded_from_search, notes, added_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP) RETURNING id, added_at]
+[parameters: ('packagingsupplies.com', 'packagingsupplies.com', 'https://packagingsupplies.com', None, None, 0, None, 1, 0, None)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+INFO:     127.0.0.1:56317 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56318 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+2026-05-26 11:28:50 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/competitor/scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 11:28:50 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 11:28:50 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [7904]
+INFO:     Started server process [8839]
+INFO:     Waiting for application startup.
+2026-05-26 11:28:51 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 11:28:51 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 11:28:51 [INFO] backend.database.db: Database initialized
+2026-05-26 11:28:51 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 11:28:51 [INFO] watchfiles.main: 5 changes detected
+2026-05-26 11:28:51 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 11:28:51 [INFO] backend.app: Scheduler started
+2026-05-26 11:28:51 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 11:28:51 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 11:28:51 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     127.0.0.1:56584 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56585 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 11:28:57 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/competitor/scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 11:28:57 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 11:28:57 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [8839]
+INFO:     Started server process [8865]
+INFO:     Waiting for application startup.
+2026-05-26 11:28:57 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 11:28:57 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 11:28:57 [INFO] backend.database.db: Database initialized
+2026-05-26 11:28:57 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 11:28:57 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 11:28:57 [INFO] backend.app: Scheduler started
+2026-05-26 11:28:57 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 11:28:57 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 11:28:57 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     127.0.0.1:56596 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+2026-05-26 11:28:57 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:56617 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 11:30:14 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/competitor/scraper.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 11:30:14 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 11:30:14 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [8865]
+INFO:     Started server process [8892]
+INFO:     Waiting for application startup.
+2026-05-26 11:30:15 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 11:30:15 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 11:30:15 [INFO] backend.database.db: Database initialized
+2026-05-26 11:30:15 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 11:30:15 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 11:30:15 [INFO] backend.app: Scheduler started
+2026-05-26 11:30:15 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 11:30:15 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 11:30:15 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 11:30:15 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:56699 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56726 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open

@@ -7,12 +7,13 @@ import asyncio
 import json
 import logging
 import re
+import types as _types
 from datetime import datetime
 from typing import Callable, List, Optional
 from urllib.parse import urlparse
 
 import httpx
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from backend.competitor.matcher import MatchCriteria, match_competitor_product, match_similar_product
 from backend.database.db import session_scope
@@ -97,6 +98,19 @@ async def scrape_shopify_store(
     return products, rate_limited
 
 
+def _snap_master(p) -> _types.SimpleNamespace:
+    """Snapshot a Product ORM object into a plain namespace so it's usable after session close."""
+    return _types.SimpleNamespace(
+        id=p.id,
+        model_number=p.model_number,
+        sku=p.sku,
+        manufacturer=p.manufacturer,
+        canonical_title=p.canonical_title,
+        price_canonical=p.price_canonical,
+        images=[_types.SimpleNamespace(image_hash=img.image_hash) for img in (p.images or [])],
+    )
+
+
 async def run_competitor_scan(
     competitor_id: int,
     session_name: str,
@@ -120,12 +134,24 @@ async def run_competitor_scan(
 
     criteria = MatchCriteria.from_dict(criteria_dict) if criteria_dict else MatchCriteria()
 
+    # ── Phase 1: read state, validate, create scan record ────────────────────
+    # Session is kept open only long enough to read/write the scan record.
+    # Releasing the write lock before the multi-minute scrape prevents other
+    # writers (product search, etc.) from hitting "database is locked".
+    from datetime import timedelta
+    scan_id: Optional[int] = None
+    domain: str = ""
+    base_url: str = ""
+    effective_max_pages: int = max_pages
+    effective_delay_ms: int = 0
+    preferred_scraper: str = "auto"
+    master_products: list = []
+
     with session_scope() as db:
         competitor = db.get(Competitor, competitor_id)
         if not competitor:
             raise ValueError(f"Competitor {competitor_id} not found")
 
-        # Load or create scraping profile
         profile = competitor.scraping_profile
         if profile is None:
             profile = CompetitorScrapingProfile(competitor_id=competitor_id)
@@ -134,7 +160,6 @@ async def run_competitor_scan(
 
         # Enforce minimum crawl interval
         if profile.min_crawl_interval_hours and profile.last_success_at:
-            from datetime import timedelta
             next_allowed = profile.last_success_at + timedelta(hours=profile.min_crawl_interval_hours)
             if datetime.utcnow() < next_allowed:
                 logger.info(
@@ -150,11 +175,11 @@ async def run_competitor_scan(
                     "next_allowed_at": next_allowed.isoformat(),
                 }
 
-        # 3-day empty-scan cooldown: skip if last clean (0-product, 0-error) scan was recent
-        from datetime import timedelta
+        # 3-day empty-scan cooldown — compare dates only so the cooldown expires
+        # on the reset day itself rather than at the exact stored time-of-day.
         if profile.last_empty_scan_at:
             cooldown_until = profile.last_empty_scan_at + timedelta(days=3)
-            if datetime.utcnow() < cooldown_until:
+            if datetime.utcnow().date() < cooldown_until.date():
                 logger.info(
                     "Skipping %s — 3-day empty-scan cooldown (resets %s)",
                     competitor.domain, cooldown_until.date().isoformat()
@@ -169,7 +194,6 @@ async def run_competitor_scan(
                     "cooldown_until": cooldown_until.isoformat(),
                 }
 
-        # Skip sites that have failed too many times consecutively
         if (profile.consecutive_failures or 0) >= 10:
             logger.info(
                 "Skipping %s — %d consecutive failures (site may be blocking)",
@@ -184,79 +208,94 @@ async def run_competitor_scan(
                 "skipped_reason": "too_many_failures",
             }
 
-        # Apply profile overrides
+        # Capture config we need outside this session
         effective_max_pages = profile.max_pages_per_scan or max_pages
         effective_delay_ms = profile.request_delay_ms if profile.request_delay_ms is not None else 0
+        preferred_scraper = profile.preferred_scraper or "auto"
+        domain = competitor.domain
+        base_url = competitor.base_url or f"https://{domain}"
 
+        # Create the scan record and stamp the competitor
         comp_scan = CompetitorScan(
             competitor_id=competitor_id,
             session_name=session_name,
             status="running",
         )
         db.add(comp_scan)
-        db.flush()
-        scan_id = comp_scan.id
-
         competitor.last_scanned_at = datetime.utcnow()
         if not competitor.first_scanned_at:
             competitor.first_scanned_at = datetime.utcnow()
+        db.flush()
+        scan_id = comp_scan.id
 
-        # Load master catalog
-        master_products = db.query(Product).filter(Product.is_active == True).all()
+        # Snapshot master catalog as plain objects — session will close before scraping starts
+        raw_products = (
+            db.query(Product)
+            .options(joinedload(Product.images))
+            .filter(Product.is_active == True)
+            .all()
+        )
+        master_products = [_snap_master(p) for p in raw_products]
+    # ── session commits here, write lock released before any network I/O ──────
 
-        await emit("competitor_scan_start", {
-            "competitor": competitor.domain,
-            "scan_id": scan_id,
-            "master_products": len(master_products),
+    await emit("competitor_scan_start", {
+        "competitor": domain,
+        "scan_id": scan_id,
+        "master_products": len(master_products),
+    })
+
+    # ── Phase 2: scrape — no DB session open ─────────────────────────────────
+    try:
+        learned_platform: Optional[str] = None
+        learned_preferred_scraper: Optional[str] = None
+        rate_limited = False
+
+        if preferred_scraper == "shopify_api" or (
+            preferred_scraper == "auto" and await _is_shopify_store(base_url)
+        ):
+            logger.info("Using Shopify JSON API for %s", domain)
+            learned_platform = "shopify"
+            learned_preferred_scraper = "shopify_api"
+            scraped_products, rate_limited = await scrape_shopify_store(
+                base_url, domain, request_delay_ms=effective_delay_ms
+            )
+        else:
+            learned_platform = "playwright"
+            if preferred_scraper == "auto":
+                learned_preferred_scraper = "playwright"
+            scraper = BaseScraper()
+            if effective_delay_ms:
+                scraper.delay = effective_delay_ms / 1000.0
+            async with scraper:
+                logger.info("[SCRAPE] Discovering product URLs on %s  (max_pages=%d)", domain, effective_max_pages)
+                product_urls = await scraper.discover_product_urls(
+                    base_url=base_url,
+                    max_pages=effective_max_pages,
+                )
+                logger.info("[SCRAPE] Found %d product URLs on %s", len(product_urls), domain)
+                await emit("competitor_urls_discovered", {
+                    "competitor": domain,
+                    "count": len(product_urls),
+                })
+                scraped_products = []
+                for url in product_urls:
+                    try:
+                        sp = await scraper.extract_product(url, source_site=domain)
+                        if sp and sp.is_valid():
+                            scraped_products.append(sp)
+                    except Exception:
+                        logger.debug("[SCRAPE] Failed to extract product from %s", url)
+                        continue
+
+        await emit("competitor_products_found", {
+            "competitor": domain,
+            "count": len(scraped_products),
         })
 
-        try:
-            base_url = competitor.base_url or f"https://{competitor.domain}"
-            rate_limited = False
+        # ── Phase 3: match and write results ─────────────────────────────────
+        matches_found = 0
 
-            if profile.preferred_scraper == "shopify_api" or (
-                profile.preferred_scraper == "auto" and await _is_shopify_store(base_url)
-            ):
-                logger.info("Using Shopify JSON API for %s", competitor.domain)
-                profile.platform = "shopify"
-                profile.preferred_scraper = "shopify_api"
-                scraped_products, rate_limited = await scrape_shopify_store(
-                    base_url, competitor.domain, request_delay_ms=effective_delay_ms
-                )
-            else:
-                profile.platform = "playwright"
-                if profile.preferred_scraper == "auto":
-                    profile.preferred_scraper = "playwright"
-                scraper = BaseScraper()
-                if effective_delay_ms:
-                    scraper.delay = effective_delay_ms / 1000.0
-                async with scraper:
-                    logger.info("[SCRAPE] Discovering product URLs on %s  (max_pages=%d)", competitor.domain, effective_max_pages)
-                    product_urls = await scraper.discover_product_urls(
-                        base_url=base_url,
-                        max_pages=effective_max_pages,
-                    )
-                    logger.info("[SCRAPE] Found %d product URLs on %s", len(product_urls), competitor.domain)
-                    await emit("competitor_urls_discovered", {
-                        "competitor": competitor.domain,
-                        "count": len(product_urls),
-                    })
-                    scraped_products = []
-                    for url in product_urls:
-                        try:
-                            sp = await scraper.extract_product(url, source_site=competitor.domain)
-                            if sp and sp.is_valid():
-                                scraped_products.append(sp)
-                        except Exception:
-                            logger.debug("[SCRAPE] Failed to extract product from %s", url)
-                            continue
-
-            await emit("competitor_products_found", {
-                "competitor": competitor.domain,
-                "count": len(scraped_products),
-            })
-
-            matches_found = 0
+        with session_scope() as db:
             for sp in scraped_products:
                 comp_dict = {
                     "title": sp.title,
@@ -268,21 +307,16 @@ async def run_competitor_scan(
                     "image_hash": None,
                 }
 
-                # Try exact match first
                 result = match_competitor_product(comp_dict, master_products, criteria)
-
-                # Fall back to similar match
                 if result is None and find_similar:
                     result = match_similar_product(comp_dict, master_products)
-
                 if result is None:
                     continue
 
                 price_str = f"${sp.price:.2f}" if sp.price else "no price"
                 logger.info("[SCRAPE] Match  domain=%s  product=%r  page=%r  price=%s  confidence=%d%%",
-                            competitor.domain, sp.title[:60], sp.url, price_str, int(result.confidence or 0))
+                            domain, sp.title[:60], sp.url, price_str, int(result.confidence or 0))
 
-                # Check if match already exists
                 existing = (
                     db.query(CompetitorProductMatch)
                     .filter(
@@ -294,14 +328,13 @@ async def run_competitor_scan(
                 )
 
                 if existing:
-                    # Update price if changed
                     if sp.price and existing.competitor_price != sp.price:
                         old_price = existing.competitor_price
                         existing.competitor_price = sp.price
                         existing.scanned_at = datetime.utcnow()
                         db.add(PriceHistory(match_id=existing.id, price=sp.price, in_stock=sp.in_stock))
                         logger.info(
-                            f"Price change on {competitor.domain}: "
+                            f"Price change on {domain}: "
                             f"{old_price} -> {sp.price} for {sp.title[:50]}"
                         )
                 else:
@@ -326,11 +359,12 @@ async def run_competitor_scan(
                         db.add(PriceHistory(match_id=match.id, price=sp.price, in_stock=sp.in_stock))
                     matches_found += 1
 
-            # Update scan record and competitor stats
-            comp_scan.status = "completed"
-            comp_scan.completed_at = datetime.utcnow()
-            comp_scan.products_found = len(scraped_products)
-            comp_scan.matches_found = matches_found
+            # Update scan record
+            comp_scan_rec = db.get(CompetitorScan, scan_id)
+            comp_scan_rec.status = "completed"
+            comp_scan_rec.completed_at = datetime.utcnow()
+            comp_scan_rec.products_found = len(scraped_products)
+            comp_scan_rec.matches_found = matches_found
 
             total_matches = (
                 db.query(CompetitorProductMatch)
@@ -340,56 +374,58 @@ async def run_competitor_scan(
                 )
                 .count()
             )
-            competitor.total_matching_products = total_matches
-            competitor.scan_session_name = session_name
 
-            # Update scraping profile with learned data
+            competitor_rec = db.get(Competitor, competitor_id)
+            competitor_rec.total_matching_products = total_matches
+            competitor_rec.scan_session_name = session_name
+
+            profile_rec = db.query(CompetitorScrapingProfile).filter_by(competitor_id=competitor_id).first()
             now = datetime.utcnow()
             if rate_limited:
-                profile.last_429_at = now
-                profile.rate_limit_count = (profile.rate_limit_count or 0) + 1
-            profile.last_success_at = now
-            profile.consecutive_failures = 0
-            if len(scraped_products) > (profile.best_product_count or 0):
-                profile.best_product_count = len(scraped_products)
-            # Track empty scans: 0 products found with 0 errors → start 3-day cooldown
-            if len(scraped_products) == 0 and comp_scan.errors == 0:
-                profile.last_empty_scan_at = now
-                logger.info(
-                    "%s: 0 products found (no errors) — 3-day cooldown started",
-                    competitor.domain
-                )
+                profile_rec.last_429_at = now
+                profile_rec.rate_limit_count = (profile_rec.rate_limit_count or 0) + 1
+            profile_rec.last_success_at = now
+            profile_rec.consecutive_failures = 0
+            if learned_platform:
+                profile_rec.platform = learned_platform
+            if learned_preferred_scraper and learned_preferred_scraper != "auto":
+                profile_rec.preferred_scraper = learned_preferred_scraper
+            if len(scraped_products) > (profile_rec.best_product_count or 0):
+                profile_rec.best_product_count = len(scraped_products)
+            if len(scraped_products) == 0 and comp_scan_rec.errors == 0:
+                profile_rec.last_empty_scan_at = now
+                logger.info("%s: 0 products found (no errors) — 3-day cooldown started", domain)
+        # ── session commits here ──────────────────────────────────────────────
 
-            await emit("competitor_scan_complete", {
-                "competitor": competitor.domain,
-                "scan_id": scan_id,
-                "products_found": len(scraped_products),
-                "matches_found": matches_found,
-            })
+        await emit("competitor_scan_complete", {
+            "competitor": domain,
+            "scan_id": scan_id,
+            "products_found": len(scraped_products),
+            "matches_found": matches_found,
+        })
 
-            return {
-                "scan_id": scan_id,
-                "competitor": competitor.domain,
-                "products_scraped": len(scraped_products),
-                "matches_found": matches_found,
-            }
+        return {
+            "scan_id": scan_id,
+            "competitor": domain,
+            "products_scraped": len(scraped_products),
+            "matches_found": matches_found,
+        }
 
-        except Exception as exc:
-            logger.exception(f"Competitor scan failed for {competitor.domain}: {exc}")
-            # Commit failure tracking in its own session so it survives the rollback
-            with session_scope() as _fail_db:
-                _fail_comp_scan = _fail_db.get(CompetitorScan, scan_id)
-                if _fail_comp_scan:
-                    _fail_comp_scan.status = "failed"
-                    _fail_comp_scan.completed_at = datetime.utcnow()
-                    _fail_comp_scan.errors = 1
-                _fail_profile = _fail_db.query(CompetitorScrapingProfile).filter_by(competitor_id=competitor_id).first()
-                if _fail_profile:
-                    _fail_profile.last_error_at = datetime.utcnow()
-                    _fail_profile.last_error_message = str(exc)[:500]
-                    _fail_profile.consecutive_failures = (_fail_profile.consecutive_failures or 0) + 1
-            await emit("competitor_scan_error", {
-                "competitor": competitor.domain,
-                "error": str(exc),
-            })
-            raise
+    except Exception as exc:
+        logger.exception(f"Competitor scan failed for {domain}: {exc}")
+        with session_scope() as _fail_db:
+            _fail_comp_scan = _fail_db.get(CompetitorScan, scan_id)
+            if _fail_comp_scan:
+                _fail_comp_scan.status = "failed"
+                _fail_comp_scan.completed_at = datetime.utcnow()
+                _fail_comp_scan.errors = 1
+            _fail_profile = _fail_db.query(CompetitorScrapingProfile).filter_by(competitor_id=competitor_id).first()
+            if _fail_profile:
+                _fail_profile.last_error_at = datetime.utcnow()
+                _fail_profile.last_error_message = str(exc)[:500]
+                _fail_profile.consecutive_failures = (_fail_profile.consecutive_failures or 0) + 1
+        await emit("competitor_scan_error", {
+            "competitor": domain,
+            "error": str(exc),
+        })
+        raise
