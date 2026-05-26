@@ -10693,3 +10693,8 @@ INFO:     Application startup complete.
 INFO:     127.0.0.1:56699 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:56726 - "WebSocket /ws/scan-progress" [accepted]
 INFO:     connection open
+2026-05-26 11:30:31 [INFO] watchfiles.main: 45 changes detected
+2026-05-26 11:31:39 [INFO] watchfiles.main: 2 changes detected
+2026-05-26 11:31:53 [INFO] watchfiles.main: 16 changes detected
+2026-05-26 11:31:56 [INFO] watchfiles.main: 2 changes detected
+2026-05-26 11:32:03 [INFO] watchfiles.main: 21 changes detected
