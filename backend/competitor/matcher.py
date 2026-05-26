@@ -44,9 +44,11 @@ class MatchResult:
     similarity_reason: str = ""
 
 
-def _norm(s: Optional[str]) -> str:
-    if not s:
+def _norm(s) -> str:
+    if s is None:
         return ""
+    if not isinstance(s, str):
+        s = str(s)
     return s.lower().strip()
 
 
