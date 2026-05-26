@@ -2823,6 +2823,28 @@
             </button>
           </div>
         </div>
+        <!-- Checkpoint banner -->
+        <div x-show="webSearchCheckpoint" x-cloak
+          class="mt-3 flex items-center justify-between gap-4 bg-amber-50 dark:bg-amber-900/30 border border-amber-300 dark:border-amber-700 rounded-lg px-4 py-3">
+          <div class="flex items-center gap-2 text-sm text-amber-800 dark:text-amber-200">
+            <span class="text-lg">🚦</span>
+            <span>
+              Checkpoint reached — <strong x-text="webSearchCheckpoint?.total_urls_visited"></strong> URLs visited,
+              <strong x-text="webSearchCheckpoint?.total_matches"></strong> matches found so far.
+              Continue searching or stop now.
+            </span>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <button @click="webSearchCheckpoint = null"
+              class="bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded text-xs font-medium">
+              Continue
+            </button>
+            <button @click="stopWebSearchScan(); webSearchCheckpoint = null"
+              class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded text-xs font-medium">
+              Stop
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Competitor List -->

@@ -127,18 +127,23 @@ async def _curl_fetch(url: str, timeout: int = 15) -> str:
 
 
 def _clean_title_for_search(title: str) -> str:
+    # Remove everything inside parentheses: (00799579), (APPROX- 226 DOZEN/HR), (4), etc.
     title = re.sub(r'\([^)]*\)', '', title)
-    title = re.sub(r'\b\d+[/\-]\d+[/\-]?\d*\s*[Vv]?[Hh][Zz]?\S*', '', title)
-    title = re.sub(r'\b\d+\s*(?:V|v|Hz|hz|Ph|ph|KW|kW)\b', '', title)
+    # Compound electrical/voltage specs: 208-240v/60/3-ph, 480V/60Hz/3Ph, 208v
+    title = re.sub(r'\b\d+[-/]?\d*\s*[Vv]\b(?:[-/]\d+[\w-]*)*', '', title)
+    # Remaining standalone: 60Hz, 3ph, 3-phase, 5kW
+    title = re.sub(r'\b\d+\s*[-]?\s*(?:hz|ph|phase|kw|kva)\b[\w/-]*', '', title, flags=re.I)
+    # Leading size/package codes: "Small 5.1 ", "3.1-"
     title = re.sub(r'^(?:Small|Medium|Large)?\s*\d+\.\d+[-\s]', '', title, flags=re.I)
+    # Standalone part numbers (all-caps/digits with dashes, 6+ chars)
     title = re.sub(r'\b[A-Z0-9]{2,}-[A-Z0-9\-]{3,}\b', '', title)
+    # Leftover punctuation noise
     title = re.sub(r'[,;:/]', ' ', title)
-    title = re.sub(r'\s[-–]\s', ' ', title)
+    title = re.sub(r'(?<!\w)-|-(?!\w)', ' ', title)
     title = ' '.join(title.split())
     if len(title) > 60:
         words = title.split()
-        result = []
-        length = 0
+        result, length = [], 0
         for word in words:
             if length + len(word) + (1 if result else 0) > 60:
                 break
@@ -177,6 +182,10 @@ def _build_query(product: Any, override: Optional[str]) -> str:
     use_model = bool(clean_model) and not looks_like_upc
 
     mfg_in_title = bool(mfg) and mfg.lower() in cleaned_title.lower()
+    if mfg_in_title:
+        # Strip manufacturer from title so it only appears once in the final query
+        cleaned_title = re.sub(r'(?i)\b' + re.escape(mfg) + r'\b', '', cleaned_title)
+        cleaned_title = ' '.join(cleaned_title.split())
 
     if use_model:
         if mfg and not mfg_in_title:

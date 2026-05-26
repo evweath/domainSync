@@ -1284,6 +1284,14 @@ async def start_web_search_scan(req: WebSearchScanRequest):
     return {"status": "scan_started", "session_name": session_name, "max_results": max_results}
 
 
+@router.post("/api/competitors/web-search-scan/stop")
+def stop_web_search_scan():
+    """Signal the running web search scan to stop after the current product."""
+    from backend.competitor.web_search_scan import request_stop
+    request_stop()
+    return {"status": "stop_requested"}
+
+
 class ProductCompetitorSearchRequest(BaseModel):
     product_ids: List[int]
     search_query: Optional[str] = None  # override; None = use product title

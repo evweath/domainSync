@@ -41,6 +41,14 @@ logger = logging.getLogger(__name__)
 COOLDOWN_DAYS = 3
 _FETCH_CONCURRENCY = 10
 _SEARCH_CONCURRENCY = 5
+_CHECKPOINT_THRESHOLD = 100  # emit a checkpoint event after this many URLs visited
+
+_stop_requested: bool = False
+
+
+def request_stop() -> None:
+    global _stop_requested
+    _stop_requested = True
 
 _PRICE_RE = re.compile(r'\$\s*([\d,]+(?:\.\d{1,2})?)')
 _MODEL_RE = re.compile(r'(?:model|part|item)[#\s:]+([A-Z0-9][\w\-]{2,})', re.I)
@@ -59,25 +67,26 @@ def _domain(url: str) -> str:
 
 def _clean_title_for_search(title: str) -> str:
     """Strip noise from product titles to produce clean search queries."""
-    # Remove parenthetical groups: (0079957904), (APPROX- 226 DOZEN/HR), (4) deck
+    # Remove everything inside parentheses: (00799579), (APPROX- 226 DOZEN/HR), (4), etc.
     title = re.sub(r'\([^)]*\)', '', title)
-    # Remove electrical/voltage specs: 208/240/60Hz/1 Ph, 480/60/3-ph, 208v, 60Hz
-    title = re.sub(r'\b\d+[/\-]\d+[/\-]?\d*\s*[Vv]?[Hh][Zz]?\S*', '', title)
-    title = re.sub(r'\b\d+\s*(?:V|v|Hz|hz|Ph|ph|KW|kW)\b', '', title)
-    # Remove leading package/size codes like "Small 5.1 ", "Small 4.1-", "3.1-"
+    # Remove compound electrical/voltage specs: 208-240v/60/3-ph, 480V/60Hz/3Ph, 208v, etc.
+    # Pattern: digits optionally followed by more digit groups, then a V/v word-boundary,
+    # optionally followed by slash-separated sub-specs (Hz, ph, kW, etc.)
+    title = re.sub(r'\b\d+[-/]?\d*\s*[Vv]\b(?:[-/]\d+[\w-]*)*', '', title)
+    # Remaining standalone electrical tokens: 60Hz, 3ph, 3-phase, 1-Ph, 5kW
+    title = re.sub(r'\b\d+\s*[-]?\s*(?:hz|ph|phase|kw|kva)\b[\w/-]*', '', title, flags=re.I)
+    # Remove leading package/size codes: "Small 5.1 ", "3.1-"
     title = re.sub(r'^(?:Small|Medium|Large)?\s*\d+\.\d+[-\s]', '', title, flags=re.I)
     # Remove standalone part numbers (all-caps/digits with dashes, 6+ chars)
     title = re.sub(r'\b[A-Z0-9]{2,}-[A-Z0-9\-]{3,}\b', '', title)
-    # Strip punctuation noise: commas, standalone dashes, slashes, colons
+    # Strip leftover punctuation: commas, standalone dashes, slashes, colons
     title = re.sub(r'[,;:/]', ' ', title)
-    title = re.sub(r'\s[-–]\s', ' ', title)
-    # Collapse whitespace
+    title = re.sub(r'(?<!\w)-|-(?!\w)', ' ', title)  # dash not flanked by word chars
     title = ' '.join(title.split())
-    # Cut at word boundary within ~60 chars
+    # Trim to ~60 chars at a word boundary
     if len(title) > 60:
         words = title.split()
-        result = []
-        length = 0
+        result, length = [], 0
         for word in words:
             if length + len(word) + (1 if result else 0) > 60:
                 break
@@ -100,11 +109,12 @@ def _build_query(product: Product) -> str:
         title = _clean_title_for_search(product.canonical_title or '')
         mfr = (product.manufacturer or '').strip()
         if mfr:
-            # Strip manufacturer name from front of title if it's repeated there
-            if title.upper().startswith(mfr.upper()):
-                title = title[len(mfr):].strip()
+            # Remove all occurrences of manufacturer name from title so it only appears once
+            title = re.sub(r'(?i)\b' + re.escape(mfr) + r'\b', '', title)
+            title = ' '.join(title.split())
             parts.append(mfr)
-        parts.append(title)
+        if title:
+            parts.append(title)
     parts.append('buy')
     return ' '.join(parts)
 
@@ -340,6 +350,8 @@ async def run_web_search_scan(
     Returns:
         Summary dict with total_products, total_urls_visited, total_matches.
     """
+    global _stop_requested
+    _stop_requested = False
     max_results = max(1, min(100, max_results))
     cbs = callbacks or []
     source_domains = _get_source_domains()
@@ -628,9 +640,15 @@ async def run_web_search_scan(
 
     # Process products one at a time — DDG rate-limits aggressively under concurrent load
     search_sem_outer = asyncio.Semaphore(1)
+    checkpoint_emitted = False
 
     async def bounded_process(snap: dict) -> None:
+        nonlocal checkpoint_emitted
+        if _stop_requested:
+            return
         async with search_sem_outer:
+            if _stop_requested:
+                return
             visited, found = await process_product(snap)
             await emit('web_search_product_done', {
                 'product_id': snap['id'],
@@ -638,7 +656,17 @@ async def run_web_search_scan(
                 'urls_visited': visited,
                 'matches_found': found,
             })
-            await asyncio.sleep(2)  # brief pause between products to stay under DDG rate limits
+            # Emit a checkpoint after _CHECKPOINT_THRESHOLD total URLs so the UI can
+            # offer the user a chance to stop. The scan continues automatically.
+            if not checkpoint_emitted and total_urls_visited >= _CHECKPOINT_THRESHOLD:
+                checkpoint_emitted = True
+                await emit('web_search_scan_checkpoint', {
+                    'total_urls_visited': total_urls_visited,
+                    'total_matches': total_matches,
+                    'session_name': session_name,
+                })
+            if not _stop_requested:
+                await asyncio.sleep(2)
 
     await asyncio.gather(*[bounded_process(snap) for snap in product_snapshots])
 

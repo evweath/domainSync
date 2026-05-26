@@ -195,6 +195,7 @@ function app() {
     competitorScanForm: { ids: [], session_name: '', find_similar: false, max_pages: 100, criteria: {} },
     competitorScanRunning: false,
     webSearchRunning: false,
+    webSearchCheckpoint: null,
     webSearchMaxResults: 20,
     webSearchProductLimit: 100,
     competitorProfile: null,
@@ -1658,6 +1659,7 @@ function app() {
       const limit = parseInt(this.webSearchProductLimit) || null;
       this.webSearchMaxResults = n;
       this.webSearchRunning = true;
+      this.webSearchCheckpoint = null;
       try {
         await this.api('/api/competitors/web-search-scan', {
           method: 'POST',
@@ -1668,6 +1670,15 @@ function app() {
       } catch (e) {
         this.webSearchRunning = false;
         this.toast('Failed to start web search scan: ' + e.message, 'error');
+      }
+    },
+
+    async stopWebSearchScan() {
+      try {
+        await this.api('/api/competitors/web-search-scan/stop', { method: 'POST' });
+        this.toast('Stop requested — scan will halt after current product', 'info');
+      } catch (e) {
+        this.toast('Failed to stop scan: ' + e.message, 'error');
       }
     },
 
@@ -2164,14 +2175,23 @@ function app() {
           if (msg.matches_found > 0)
             this.toast(`${msg.product_title?.slice(0,40)}: ${msg.matches_found} match(es) found`, 'success', 2500);
           break;
+        case 'web_search_scan_checkpoint':
+          this.webSearchCheckpoint = {
+            total_urls_visited: msg.total_urls_visited,
+            total_matches: msg.total_matches,
+            session_name: msg.session_name,
+          };
+          break;
         case 'web_search_scan_complete':
           this.webSearchRunning = false;
+          this.webSearchCheckpoint = null;
           this.toast(`Web search scan complete — ${msg.total_matches_in_db} total matches in DB`, 'success');
           this.loadCompetitors(); this.loadStats();
           if (this.currentView === 'pricing') this.loadPriceMatrix(this.priceMatrixPage);
           break;
         case 'web_search_scan_error':
           this.webSearchRunning = false;
+          this.webSearchCheckpoint = null;
           this.toast(`Web search scan error: ${msg.error}`, 'error'); break;
         case 'product_comp_search_progress':
           this.productCompProgress = msg;
