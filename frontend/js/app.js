@@ -196,6 +196,7 @@ function app() {
     competitorScanRunning: false,
     webSearchRunning: false,
     webSearchCheckpoint: null,
+    webSearchUrlLog: [],
     webSearchMaxResults: 20,
     webSearchProductLimit: 100,
     competitorProfile: null,
@@ -2174,6 +2175,19 @@ function app() {
         case 'web_search_product_done':
           if (msg.matches_found > 0)
             this.toast(`${msg.product_title?.slice(0,40)}: ${msg.matches_found} match(es) found`, 'success', 2500);
+          break;
+        case 'web_search_url_attempted':
+          this.webSearchUrlLog.push({
+            url: msg.url,
+            domain: msg.domain,
+            status: msg.status,
+            product_title: msg.product_title,
+            ts: new Date().toLocaleTimeString(),
+          });
+          this.$nextTick(() => {
+            const el = document.getElementById('webSearchUrlLog');
+            if (el) el.scrollTop = el.scrollHeight;
+          });
           break;
         case 'web_search_scan_checkpoint':
           this.webSearchCheckpoint = {

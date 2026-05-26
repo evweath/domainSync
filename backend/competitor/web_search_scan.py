@@ -465,9 +465,18 @@ async def run_web_search_scan(
             if not domain:
                 return
 
+            async def _log(status: str) -> None:
+                await emit('web_search_url_attempted', {
+                    'url': url,
+                    'domain': domain,
+                    'status': status,
+                    'product_title': snap['title'],
+                })
+
             # Fast-path: skip domains already known to be irrelevant this scan
             if domain in skip_domains:
                 logger.debug("[WEB-SCAN] Skipping %s — in skip list", domain)
+                await _log('skipped')
                 return
 
             # Check DB status and cooldown
@@ -476,9 +485,11 @@ async def run_web_search_scan(
                 if competitor:
                     if competitor.excluded_from_search or competitor.is_manufacturer:
                         skip_domains.add(domain)
+                        await _log('skipped')
                         return
                     if competitor.scraping_profile and _is_in_cooldown(competitor.scraping_profile, force=force):
                         logger.debug("[WEB-SCAN] Skipping %s (3-day cooldown)", domain)
+                        await _log('cooldown')
                         return
 
             # Manufacturer domain detection — skip OEM websites, record them so we never revisit
@@ -491,6 +502,7 @@ async def run_web_search_scan(
                             domain=domain, name=domain, base_url=f"https://{domain}",
                             is_manufacturer=True, excluded_from_search=True, is_active=False,
                         ))
+                await _log('manufacturer')
                 return
 
             logger.info("[WEB-SCAN] Visiting %s  (product=%r)", domain, snap['title'])
@@ -521,6 +533,7 @@ async def run_web_search_scan(
                 'image_hash': None,
             }
 
+            _url_status = 'no_match'
             with session_scope() as db:
                 master_products = db.query(Product).filter(Product.is_active == True).all()
                 result = match_competitor_product(comp_dict, master_products, criteria)
@@ -555,83 +568,87 @@ async def run_web_search_scan(
                         else:
                             logger.info("[WEB-SCAN] No match on %s — recorded as excluded", domain)
                             skip_domains.add(domain)
-                    return
+                    _url_status = 'category' if is_category_hit else 'no_match'
 
-                # Product match found — upsert competitor record
-                competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
-                if competitor is None:
-                    competitor = Competitor(
-                        domain=domain, name=domain, base_url=f"https://{domain}", is_active=True,
-                    )
-                    db.add(competitor)
-                    db.flush()
-                    logger.info("[WEB-SCAN] Auto-created competitor: %s", domain)
-                elif competitor.is_category_only:
-                    # Upgrade from category-only to direct competitor
-                    competitor.is_category_only = False
-                    logger.info("[WEB-SCAN] Upgraded %s from category to direct competitor", domain)
-
-                competitor_id = competitor.id
-
-                existing = (
-                    db.query(CompetitorProductMatch)
-                    .filter(
-                        CompetitorProductMatch.master_product_id == result.master_product_id,
-                        CompetitorProductMatch.competitor_id == competitor_id,
-                        CompetitorProductMatch.competitor_url == url,
-                    )
-                    .first()
-                )
-
-                price = page_data.get('price')
-                in_stock = page_data.get('in_stock', True)
-                price_str = f"${price:.2f}" if price else "no price"
-
-                if existing:
-                    if price and existing.competitor_price != price:
-                        logger.info("[WEB-SCAN] Price update  domain=%s  product=%r  price=%s", domain, snap['title'], price_str)
-                        existing.competitor_price = price
-                        existing.scanned_at = datetime.utcnow()
-                        db.add(PriceHistory(match_id=existing.id, price=price, in_stock=in_stock))
-                    else:
-                        logger.debug("[WEB-SCAN] Match already stored  domain=%s  product=%r", domain, snap['title'])
                 else:
-                    logger.info("[WEB-SCAN] Match found  domain=%s  product=%r  price=%s  confidence=%d%%",
-                                domain, snap['title'], price_str, int(result.confidence or 0))
-                    match = CompetitorProductMatch(
-                        master_product_id=result.master_product_id,
-                        competitor_id=competitor_id,
-                        competitor_url=url,
-                        competitor_title=page_data.get('title', '')[:500],
-                        competitor_price=price,
-                        match_type='|'.join(result.match_types),
-                        match_confidence=result.confidence,
-                        match_reasons_json=json.dumps(result.reasons),
-                        in_stock=in_stock,
-                        is_similar=result.is_similar,
-                        similarity_reason=result.similarity_reason,
-                        scanned_at=datetime.utcnow(),
-                    )
-                    db.add(match)
-                    db.flush()
-                    if price:
-                        db.add(PriceHistory(match_id=match.id, price=price, in_stock=in_stock))
+                    # Product match found — upsert competitor record
+                    competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
+                    if competitor is None:
+                        competitor = Competitor(
+                            domain=domain, name=domain, base_url=f"https://{domain}", is_active=True,
+                        )
+                        db.add(competitor)
+                        db.flush()
+                        logger.info("[WEB-SCAN] Auto-created competitor: %s", domain)
+                    elif competitor.is_category_only:
+                        # Upgrade from category-only to direct competitor
+                        competitor.is_category_only = False
+                        logger.info("[WEB-SCAN] Upgraded %s from category to direct competitor", domain)
 
-                total_matches_count = (
-                    db.query(CompetitorProductMatch)
-                    .filter(
-                        CompetitorProductMatch.competitor_id == competitor_id,
-                        CompetitorProductMatch.is_active == True,
-                    )
-                    .count()
-                )
-                competitor.total_matching_products = total_matches_count
-                competitor.last_scanned_at = datetime.utcnow()
-                if not competitor.first_scanned_at:
-                    competitor.first_scanned_at = datetime.utcnow()
-                competitor.scan_session_name = session_name
+                    competitor_id = competitor.id
 
-                matches += 1
+                    existing = (
+                        db.query(CompetitorProductMatch)
+                        .filter(
+                            CompetitorProductMatch.master_product_id == result.master_product_id,
+                            CompetitorProductMatch.competitor_id == competitor_id,
+                            CompetitorProductMatch.competitor_url == url,
+                        )
+                        .first()
+                    )
+
+                    price = page_data.get('price')
+                    in_stock = page_data.get('in_stock', True)
+                    price_str = f"${price:.2f}" if price else "no price"
+
+                    if existing:
+                        if price and existing.competitor_price != price:
+                            logger.info("[WEB-SCAN] Price update  domain=%s  product=%r  price=%s", domain, snap['title'], price_str)
+                            existing.competitor_price = price
+                            existing.scanned_at = datetime.utcnow()
+                            db.add(PriceHistory(match_id=existing.id, price=price, in_stock=in_stock))
+                        else:
+                            logger.debug("[WEB-SCAN] Match already stored  domain=%s  product=%r", domain, snap['title'])
+                    else:
+                        logger.info("[WEB-SCAN] Match found  domain=%s  product=%r  price=%s  confidence=%d%%",
+                                    domain, snap['title'], price_str, int(result.confidence or 0))
+                        match = CompetitorProductMatch(
+                            master_product_id=result.master_product_id,
+                            competitor_id=competitor_id,
+                            competitor_url=url,
+                            competitor_title=page_data.get('title', '')[:500],
+                            competitor_price=price,
+                            match_type='|'.join(result.match_types),
+                            match_confidence=result.confidence,
+                            match_reasons_json=json.dumps(result.reasons),
+                            in_stock=in_stock,
+                            is_similar=result.is_similar,
+                            similarity_reason=result.similarity_reason,
+                            scanned_at=datetime.utcnow(),
+                        )
+                        db.add(match)
+                        db.flush()
+                        if price:
+                            db.add(PriceHistory(match_id=match.id, price=price, in_stock=in_stock))
+
+                    total_matches_count = (
+                        db.query(CompetitorProductMatch)
+                        .filter(
+                            CompetitorProductMatch.competitor_id == competitor_id,
+                            CompetitorProductMatch.is_active == True,
+                        )
+                        .count()
+                    )
+                    competitor.total_matching_products = total_matches_count
+                    competitor.last_scanned_at = datetime.utcnow()
+                    if not competitor.first_scanned_at:
+                        competitor.first_scanned_at = datetime.utcnow()
+                    competitor.scan_session_name = session_name
+
+                    matches += 1
+                    _url_status = 'match'
+
+            await _log(_url_status)
 
         # Visit all URLs for this product concurrently
         await asyncio.gather(*[visit_url(item) for item in search_results])
@@ -643,13 +660,15 @@ async def run_web_search_scan(
     checkpoint_emitted = False
 
     async def bounded_process(snap: dict) -> None:
-        nonlocal checkpoint_emitted
+        nonlocal checkpoint_emitted, total_urls_visited, total_matches
         if _stop_requested:
             return
         async with search_sem_outer:
             if _stop_requested:
                 return
             visited, found = await process_product(snap)
+            total_urls_visited += visited
+            total_matches += found
             await emit('web_search_product_done', {
                 'product_id': snap['id'],
                 'product_title': snap['title'],
