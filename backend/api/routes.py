@@ -184,6 +184,14 @@ def get_stats(db: Session = Depends(get_db_session)):
 # Products
 # ---------------------------------------------------------------------------
 
+_PRODUCT_SORT_COLS = {
+    "title":        lambda: Product.canonical_title,
+    "price":        lambda: Product.price_canonical,
+    "manufacturer": lambda: Product.manufacturer,
+    "model_number": lambda: Product.model_number,
+}
+
+
 @router.get("/api/products")
 def list_products(
     search: Optional[str] = None,
@@ -195,6 +203,8 @@ def list_products(
     unique_by_title: bool = True,
     page: int = 1,
     per_page: int = 50,
+    sort_by: str = "title",
+    sort_order: str = "asc",
     db: Session = Depends(get_db_session),
 ):
     per_page = min(per_page, 200)
@@ -221,7 +231,10 @@ def list_products(
         min_ids = [row[0] for row in query.with_entities(func.min(Product.id)).group_by(Product.canonical_title).all()]
         query = db.query(Product).filter(Product.id.in_(min_ids))
     total = query.count()
-    products = query.order_by(Product.canonical_title).offset((page - 1) * per_page).limit(per_page).all()
+    sort_col_fn = _PRODUCT_SORT_COLS.get(sort_by, _PRODUCT_SORT_COLS["title"])
+    sort_col = sort_col_fn()
+    order_expr = sort_col.desc().nullslast() if sort_order == "desc" else sort_col.asc().nullsfirst()
+    products = query.order_by(order_expr).offset((page - 1) * per_page).limit(per_page).all()
     return {
         "total": total, "page": page, "per_page": per_page,
         "pages": (total + per_page - 1) // per_page,
@@ -915,6 +928,12 @@ async def discover_competitors(req: DiscoverCompetitorsRequest, db: Session = De
     # auto-discovery can never propose donut-supplies/donut-equipment/etc.
     already_known = {c.domain for c in db.query(Competitor).all()}
     already_known |= _source_site_domains()
+    # Never re-propose manufacturer or explicitly excluded domains
+    already_known |= {
+        c.domain for c in db.query(Competitor).filter(
+            or_(Competitor.is_manufacturer == True, Competitor.excluded_from_search == True)
+        ).all()
+    }
 
     # Build queries from master catalog
     from backend.competitor.discovery import build_discovery_queries
@@ -1077,6 +1096,8 @@ def list_competitors(
                 "scan_session_name": c.scan_session_name,
                 "is_active": c.is_active,
                 "excluded_from_search": c.excluded_from_search or False,
+                "is_manufacturer": c.is_manufacturer or False,
+                "is_category_only": c.is_category_only or False,
                 "scan_count": len(c.scans),
                 "cooldown_until": _cooldown_until(c),
             }

@@ -10698,3 +10698,478 @@ INFO:     connection open
 2026-05-26 11:31:53 [INFO] watchfiles.main: 16 changes detected
 2026-05-26 11:31:56 [INFO] watchfiles.main: 2 changes detected
 2026-05-26 11:32:03 [INFO] watchfiles.main: 21 changes detected
+2026-05-26 11:32:05 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:56878 - "GET / HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:56878 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56879 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56880 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56882 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56881 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56878 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56879 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56880 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56879 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56883 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56878 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56879 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56883 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56883 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56880 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56883 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56883 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56883 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56883 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56880 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56883 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56882 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56879 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56878 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56881 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56880 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56884 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:56882 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56885 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:56878 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56879 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56883 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56881 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-26 11:33:03 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20 Quart Blakeslee Food MIxer Bench Model B-20-CA'  (id=307)
+2026-05-26 11:33:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20 Quart Blakeslee Food MIxer Bench Model B-20-CA buy'
+INFO:     127.0.0.1:56943 - "POST /api/products/competitor-search HTTP/1.1" 200 OK
+2026-05-26 11:33:06 [INFO] backend.search.engine: SerpAPI Shopping: 18 results for '20 Quart Blakeslee Food MIxer Bench Model B-20-CA buy'
+2026-05-26 11:33:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 9 result URLs
+2026-05-26 11:33:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://blakesleeinc.com/products/b-20-ca-d
+2026-05-26 11:33:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=blakesleeinc.com
+2026-05-26 11:33:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://shop.app/products/7238533316786/20-quart-blakeslee-food-mixer-bench-model-b-20-ca
+2026-05-26 11:33:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'We ran into an issue')
+2026-05-26 11:33:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.chefsdeal.com/p/commercial-mixers/blakeslee-b-20-ca
+2026-05-26 11:33:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 11:33:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.amazon.com/Blakeslee-B-20-CA-Quart-Planetary-Mounted/dp/B007LCG086
+2026-05-26 11:33:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Amazon.com: Blakeslee (B-20-CA) 20 Quart Planetary Mixer Ben')
+2026-05-26 11:33:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.restaurantsupply.com/products/blakeslee-b-20-ca-20-quart-bench-model-mixer-with-timer-and-attachments
+2026-05-26 11:33:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantsupply.com
+2026-05-26 11:33:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.cooksdirect.com/blakeslee-b-20-ca-planetary-mixer-bench-model-bl-b-20-ca
+2026-05-26 11:33:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Blakeslee B-20-CA Planetary Mixer Bench-Model | Cook&#39;s D')
+2026-05-26 11:33:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://kitchenrestock.com/products/blakeslee-b-20-ca-planetary-mixer-bench-model-20-quart-bowl-capacity
+2026-05-26 11:33:17 [INFO] watchfiles.main: 4 changes detected
+2026-05-26 11:33:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=kitchenrestock.com
+2026-05-26 11:33:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.ebay.com/sch/i.html?_nkw=blakeslee+mixer+20qt.&_sop=12
+2026-05-26 11:33:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 11:33:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 11:33:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (9 ideas) – Yahoo Feedback')
+2026-05-26 11:33:19 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20 Quart Blakeslee Food MIxer Bench Model B-20-CA'  visited=9  found=3/10
+2026-05-26 11:33:19 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20 Quart Thunderbird Planetary Mixer ARM-02'  (id=475)
+2026-05-26 11:33:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20 Quart Thunderbird Planetary Mixer ARM-02 buy'
+2026-05-26 11:33:20 [INFO] watchfiles.main: 33 changes detected
+2026-05-26 11:33:23 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '20 Quart Thunderbird Planetary Mixer ARM-02 buy'
+2026-05-26 11:33:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 16 result URLs
+2026-05-26 11:33:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://restaurantequipment.com/products/arm-02-thunderbird-20-qt-planetary-mixer
+2026-05-26 11:33:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantequipment.com  price=$2334.00  confidence=36%
+2026-05-26 11:33:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.thunderbirdfm.com/ARM-02.html
+2026-05-26 11:33:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Thunderbird Food Machinery')
+2026-05-26 11:33:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.equippers.com/thunderbird-arm-02-20-quart-heavy-duty-3-speed-0-75-hp-mixer
+2026-05-26 11:33:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Thunderbird&#x20;ARM-02&#x20;20-Quart&#x20;Heavy&#x20;Duty&#')
+2026-05-26 11:33:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.amazon.com/Thunderbird-Quart-Planetary-Dough-ARM-02/dp/B01H6BY1BE
+2026-05-26 11:33:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=amazon.com  price=no price  confidence=30%
+2026-05-26 11:33:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.restaurantkitchenhome.com/product/thunderbird-arm-02-20-quart-planetary-dough-mixer/
+2026-05-26 11:33:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 11:33:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://kitchenrestock.com/products/thunderbird-arm-02-planetary-mixer-bench-model-20-quart-capacity
+2026-05-26 11:33:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$3273.31  confidence=49%
+2026-05-26 11:33:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://restaurantstock.com/products/thunderbird-arm-02-planetary-mixer-20-qt-capacity-1
+2026-05-26 11:33:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: restaurantstock.com
+2026-05-26 11:33:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantstock.com  price=$2350.00  confidence=85%
+2026-05-26 11:33:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://www.maxkitchenequipment.com/product/thunderbird-arm-02-gear-driven-mixer-20qt/
+2026-05-26 11:33:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 11:33:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://abc.com/show
+2026-05-26 11:33:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Page not found - ABC.com')
+2026-05-26 11:33:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://en.m.wikipedia.org/wiki
+2026-05-26 11:33:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Wikipedia, the free encyclopedia')
+2026-05-26 11:33:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.disneyplus.com/browse
+2026-05-26 11:33:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 11:33:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://m.imdb.com/title
+2026-05-26 11:33:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 11:33:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.hulu.com/series
+2026-05-26 11:33:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 11:33:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://www.rollingstone.com/product-recommendations/lifestyle/how
+2026-05-26 11:33:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 11:33:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://www.iheart.com/podcast
+2026-05-26 11:33:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 11:33:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [16] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 11:33:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (9 ideas) – Yahoo Feedback')
+2026-05-26 11:33:58 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20 Quart Thunderbird Planetary Mixer ARM-02'  visited=16  found=4/10
+2026-05-26 11:33:58 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20 Quart Stainless Steel Floor Model Blakeslee Food Mixer Model F-20-SS'  (id=2346)
+2026-05-26 11:33:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20 Quart Stainless Steel Floor Model Blakeslee Food Mixer buy'
+2026-05-26 11:34:06 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '20 Quart Stainless Steel Floor Model Blakeslee Food Mixer bu'
+2026-05-26 11:34:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 13 result URLs
+2026-05-26 11:34:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://blakesleeinc.com/products/f-20-20-quart-floor-planetary-mixer
+2026-05-26 11:34:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=blakesleeinc.com
+2026-05-26 11:34:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.chefsdeal.com/p/commercial-mixers/blakeslee-f-20-ss
+2026-05-26 11:34:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 11:34:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.restaurantsupply.com/products/blakeslee-f-20-ss-20-quart-planetary-mixer-floor-model-stainless-steel-with-timer-and-attachments
+2026-05-26 11:34:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantsupply.com
+2026-05-26 11:34:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.usaequipmentdirect.com/shop/f-20-ca-blakeslee-commercial-20-qt-planetary-floor-mounted-mixer-f-20-ca-25800
+2026-05-26 11:34:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Blakeslee Commercial 20 QT Planetary Floor Mounted Mixer F-2')
+2026-05-26 11:34:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://kitchenrestock.com/products/blakeslee-f-20-ss-planetary-mixer-floor-model-20-quart-bowl-capacity
+2026-05-26 11:34:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=kitchenrestock.com
+2026-05-26 11:34:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.truechefessentials.com/product/blakeslee-f-20-ss-20-quart-planetary-mixer-floor-model-stainless-steel-with-timer-and-attachments/
+2026-05-26 11:34:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 11:34:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.ebay.com/sch/i.html?_nkw=blakeslee+mixer+20qt.&_sop=12
+2026-05-26 11:34:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Access Denied')
+2026-05-26 11:34:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://shopusars.com/products/blakeslee-f-20-ss-planetary-mixers
+2026-05-26 11:34:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=shopusars.com
+2026-05-26 11:34:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://www.ckitchen.com/p/blakeslee-f-20-ss-planetary-mixer-floor-model.html
+2026-05-26 11:34:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ckitchen.com  price=$8199.45  confidence=86%
+2026-05-26 11:34:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.serveandchafe.com/product/blakeslee-f-20-ss-planetary-mixer-floor-model-20-quart-bowl-capacity/
+2026-05-26 11:34:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: serveandchafe.com
+2026-05-26 11:34:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=serveandchafe.com  price=no price  confidence=25%
+2026-05-26 11:34:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://www.cudakitchen.com/blakeslee-f-20ss-planetary-food-mixer-floor-model-type-20-qt-5-hp-3-speed-stainless-steel
+2026-05-26 11:34:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=cudakitchen.com
+2026-05-26 11:34:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://www.russoequip.com/products/blakeslee-f-20-ss-mixer
+2026-05-26 11:34:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=russoequip.com  price=$1000000.00  confidence=90%
+2026-05-26 11:34:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 11:34:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (9 ideas) – Yahoo Feedback')
+2026-05-26 11:34:24 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20 Quart Stainless Steel Floor Model Blakeslee Food Mixer Model F-20-SS'  visited=13  found=8/10
+2026-05-26 11:34:24 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20 Quart Floor Model Blakeslee Food Mixer Model F-20-CA'  (id=3916)
+2026-05-26 11:34:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20 Quart Floor Model Blakeslee Food Mixer Model F-20-CA buy'
+2026-05-26 11:34:25 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '20 Quart Floor Model Blakeslee Food Mixer Model F-20-CA buy'
+2026-05-26 11:34:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 11 result URLs
+2026-05-26 11:34:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://blakesleeinc.com/products/f-20-20-quart-floor-planetary-mixer
+2026-05-26 11:34:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=blakesleeinc.com
+2026-05-26 11:34:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.chefsdeal.com/p/commercial-mixers/blakeslee-f-20-ca
+2026-05-26 11:34:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 11:34:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.restaurantsupply.com/products/blakeslee-f-20-ca-20-quart-floor-model-planetary-mixer-with-timer-and-attachments
+2026-05-26 11:34:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantsupply.com
+2026-05-26 11:34:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://www.usaequipmentdirect.com/shop/f-20-ca-blakeslee-commercial-20-qt-planetary-floor-mounted-mixer-f-20-ca-25800
+2026-05-26 11:34:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Blakeslee Commercial 20 QT Planetary Floor Mounted Mixer F-2')
+2026-05-26 11:34:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.calwestservice.com/p/blakeslee-f-20-ca.html
+2026-05-26 11:34:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=calwestservice.com
+2026-05-26 11:34:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.ckitchen.com/p/blakeslee-f-20-ca-planetary-mixer-floor-model.html
+2026-05-26 11:34:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=ckitchen.com
+2026-05-26 11:34:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://www.foodservex.com/product/20-quart-floor-model-blakeslee-food-mixer-model-f-20-ca/
+2026-05-26 11:34:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 11:34:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://kitchenrestock.com/products/blakeslee-f-20-ca-planetary-mixer-floor-model-20-quart-bowl-capacity
+2026-05-26 11:34:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=kitchenrestock.com
+2026-05-26 11:34:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://shopusars.com/products/blakeslee-f-20-ca-planetary-mixers
+2026-05-26 11:34:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=shopusars.com
+2026-05-26 11:34:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://directkitchenequip.com/products
+2026-05-26 11:34:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Collections')
+2026-05-26 11:34:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 11:34:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (9 ideas) – Yahoo Feedback')
+2026-05-26 11:34:39 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20 Quart Floor Model Blakeslee Food Mixer Model F-20-CA'  visited=11  found=6/10
+2026-05-26 11:34:39 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '140 Quart Thunderbird Planetary Mixer ARM-140'  (id=4147)
+2026-05-26 11:34:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '140 Quart Thunderbird Planetary Mixer buy'
+2026-05-26 11:34:41 [INFO] backend.search.engine: SerpAPI Shopping: 40 results for '140 Quart Thunderbird Planetary Mixer buy'
+2026-05-26 11:34:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 15 result URLs
+2026-05-26 11:34:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.restaurantsupply.com/products/thunderbird-arm-140-planetary-mixer-floor-model-140-quart-capacity
+2026-05-26 11:34:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=restaurantsupply.com
+2026-05-26 11:34:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.toprestaurantsupplies.com/products/thunderbird-arm-140-planetary-mixer-140-qt-capacity-1
+2026-05-26 11:34:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=toprestaurantsupplies.com
+2026-05-26 11:34:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.ebay.com/p/1004509864
+2026-05-26 11:34:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=ebay.com
+2026-05-26 11:34:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [4] Visiting: https://directkitchenequip.com/products/thunderbird-food-machinery-arm-140-mixer-planetary
+2026-05-26 11:34:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Already stored  domain=directkitchenequip.com
+2026-05-26 11:34:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [5] Visiting: https://www.foodservex.com/product/140-quart-thunderbird-planetary-mixer-arm-140/
+2026-05-26 11:34:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Security Check')
+2026-05-26 11:34:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [6] Visiting: https://www.russoequip.com/products/thunderbird-food-machinery-arm-140-mixer
+2026-05-26 11:34:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=russoequip.com  price=$1000000.00  confidence=63%
+2026-05-26 11:34:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [7] Visiting: https://manifestlaw.com/blog
+2026-05-26 11:34:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Modern Immigration and employment blog Manifest Law')
+2026-05-26 11:34:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [8] Visiting: https://visagrader.com/uscis-processing-times
+2026-05-26 11:35:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 11:35:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [9] Visiting: https://csrc.nist.gov/pubs/fips/final
+2026-05-26 11:35:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 11:35:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [10] Visiting: https://www.sfchronicle.com/california/article
+2026-05-26 11:35:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 11:35:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [11] Visiting: https://abc7news.com/post/caltrans-considering
+2026-05-26 11:35:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 11:35:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [12] Visiting: https://ar15discounts.com/products
+2026-05-26 11:36:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Fetch failed — skipping
+2026-05-26 11:36:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [13] Visiting: https://www.thunderbirdfm.com/ARM-140.html
+2026-05-26 11:36:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Thunderbird Food Machinery')
+2026-05-26 11:36:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [14] Visiting: https://officeequipmentmachineshop.com/products/Preferred-Pack-ARM-140-Planetary-Mixers
+2026-05-26 11:36:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Food Processing Equipment | Thunderbird ARM-140 Planetary Mi')
+2026-05-26 11:36:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [15] Visiting: https://yahoo.uservoice.com/forums/193847-search
+2026-05-26 11:36:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'US Search Desktop: Hot (9 ideas) – Yahoo Feedback')
+2026-05-26 11:36:15 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='140 Quart Thunderbird Planetary Mixer ARM-140'  visited=15  found=5/10
+INFO:     127.0.0.1:57325 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57327 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57328 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57326 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57481 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-26 11:55:31 [INFO] watchfiles.main: 33 changes detected
+INFO:     127.0.0.1:59047 - "GET /api/products?page=2&per_page=50 HTTP/1.1" 200 OK
+2026-05-26 12:09:38 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/database/models.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 12:09:38 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 12:09:38 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [8892]
+2026-05-26 12:09:38 [INFO] watchfiles.main: 6 changes detected
+INFO:     Started server process [11017]
+INFO:     Waiting for application startup.
+2026-05-26 12:09:38 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:09:38 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:09:38 [INFO] backend.database.db: Database initialized
+2026-05-26 12:09:38 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:09:38 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:09:38 [INFO] backend.app: Scheduler started
+2026-05-26 12:09:38 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:09:38 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:09:38 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:09:39 [INFO] watchfiles.main: 1 change detected
+INFO:     127.0.0.1:59846 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59847 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59848 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:59849 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 12:09:45 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/database/db.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 12:09:45 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 12:09:45 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11017]
+INFO:     Started server process [11050]
+INFO:     Waiting for application startup.
+2026-05-26 12:09:45 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:09:45 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:09:45 [INFO] backend.database.db: Migration: added competitors.is_manufacturer
+2026-05-26 12:09:45 [INFO] backend.database.db: Migration: added competitors.is_category_only
+2026-05-26 12:09:45 [INFO] backend.database.db: Database initialized
+2026-05-26 12:09:45 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:09:45 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:09:45 [INFO] backend.app: Scheduler started
+2026-05-26 12:09:45 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:09:45 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:09:45 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:09:45 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:59850 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59851 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59852 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:59853 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 12:10:04 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 12:10:04 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 12:10:04 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11050]
+INFO:     Started server process [11086]
+INFO:     Waiting for application startup.
+2026-05-26 12:10:04 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:10:04 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:10:04 [INFO] backend.database.db: Database initialized
+2026-05-26 12:10:04 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:10:04 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:10:04 [INFO] backend.app: Scheduler started
+2026-05-26 12:10:04 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:10:04 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:10:04 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:10:05 [INFO] watchfiles.main: 6 changes detected
+INFO:     127.0.0.1:59856 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59857 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59858 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:59859 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 12:10:11 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 12:10:11 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 12:10:11 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11086]
+INFO:     Started server process [11114]
+INFO:     Waiting for application startup.
+2026-05-26 12:10:11 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:10:11 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:10:11 [INFO] backend.database.db: Database initialized
+2026-05-26 12:10:11 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:10:11 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:10:11 [INFO] backend.app: Scheduler started
+2026-05-26 12:10:11 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:10:11 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:10:11 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:10:11 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:59860 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59861 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59862 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:59863 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 12:10:17 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/api/routes.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 12:10:17 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 12:10:17 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11114]
+INFO:     Started server process [11138]
+INFO:     Waiting for application startup.
+2026-05-26 12:10:18 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:10:18 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:10:18 [INFO] backend.database.db: Database initialized
+2026-05-26 12:10:18 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:10:18 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:10:18 [INFO] backend.app: Scheduler started
+2026-05-26 12:10:18 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:10:18 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:10:18 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:10:18 [INFO] watchfiles.main: 5 changes detected
+INFO:     127.0.0.1:59866 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59867 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59868 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:59869 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 12:11:26 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/competitor/web_search_scan.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 12:11:26 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 12:11:26 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11138]
+INFO:     Started server process [11218]
+INFO:     Waiting for application startup.
+2026-05-26 12:11:27 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:11:27 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:11:27 [INFO] backend.database.db: Database initialized
+2026-05-26 12:11:27 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:11:27 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:11:27 [INFO] backend.app: Scheduler started
+2026-05-26 12:11:27 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:11:27 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:11:27 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:11:27 [INFO] watchfiles.main: 2 changes detected
+INFO:     127.0.0.1:59949 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59950 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59951 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:59952 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 12:11:41 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/competitor/web_search_scan.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 12:11:41 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 12:11:41 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11218]
+INFO:     Started server process [11243]
+INFO:     Waiting for application startup.
+2026-05-26 12:11:42 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:11:42 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:11:42 [INFO] backend.database.db: Database initialized
+2026-05-26 12:11:42 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:11:42 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:11:42 [INFO] backend.app: Scheduler started
+2026-05-26 12:11:42 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:11:42 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:11:42 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:11:42 [INFO] watchfiles.main: 2 changes detected
+INFO:     127.0.0.1:59955 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59956 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59957 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:59958 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 12:11:48 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/competitor/web_search_scan.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 12:11:48 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 12:11:48 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11243]
+INFO:     Started server process [11269]
+INFO:     Waiting for application startup.
+2026-05-26 12:11:48 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:11:48 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:11:48 [INFO] backend.database.db: Database initialized
+2026-05-26 12:11:48 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:11:48 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:11:48 [INFO] backend.app: Scheduler started
+2026-05-26 12:11:48 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:11:48 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:11:48 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:11:48 [INFO] watchfiles.main: 2 changes detected
+INFO:     127.0.0.1:59959 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59960 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59961 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:59962 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 12:12:36 [INFO] watchfiles.main: 3 changes detected
+WARNING:  WatchFiles detected changes in 'backend/competitor/web_search_scan.py'. Reloading...
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-26 12:12:36 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 12:12:36 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11269]
+INFO:     Started server process [11295]
+INFO:     Waiting for application startup.
+2026-05-26 12:12:37 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 12:12:37 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:12:37 [INFO] backend.database.db: Database initialized
+2026-05-26 12:12:37 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 12:12:37 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 12:12:37 [INFO] backend.app: Scheduler started
+2026-05-26 12:12:37 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 12:12:37 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 12:12:37 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+2026-05-26 12:12:37 [INFO] watchfiles.main: 2 changes detected
+INFO:     127.0.0.1:59985 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59986 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59987 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:59988 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-26 12:12:48 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 12:12:55 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 12:13:03 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 12:13:16 [INFO] watchfiles.main: 3 changes detected
+INFO:     127.0.0.1:60073 - "GET /api/products?per_page=2 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:60077 - "GET /api/products?per_page=2 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:60079 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60081 - "GET /api/products?per_page=2&sort_by=price&sort_order=desc HTTP/1.1" 200 OK

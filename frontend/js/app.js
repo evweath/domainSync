@@ -492,12 +492,16 @@ function app() {
       this.loadingProducts = true;
       try {
         const params = new URLSearchParams({ page, per_page: 50 });
-        if (this.productFilters.search)      params.set('search', this.productFilters.search);
+        if (this.productFilters.search)       params.set('search', this.productFilters.search);
         if (this.productFilters.manufacturer) params.set('manufacturer', this.productFilters.manufacturer);
         if (this.productFilters.category)     params.set('category', this.productFilters.category);
         if (this.productFilters.source_site)  params.set('source_site', this.productFilters.source_site);
         if (this.productFilters.min_price)    params.set('min_price', this.productFilters.min_price);
         if (this.productFilters.max_price)    params.set('max_price', this.productFilters.max_price);
+        if (this.productSort.col) {
+          params.set('sort_by', this.productSort.col);
+          params.set('sort_order', this.productSort.dir);
+        }
         this.productData = await this.api(`/api/products?${params}`) || { products: [], total: 0 };
       } catch (e) { this.toast('Failed to load products: ' + e.message, 'error'); }
       finally { this.loadingProducts = false; }
@@ -1716,21 +1720,15 @@ function app() {
     setSort(state, col) {
       if (state.col === col) state.dir = state.dir === 'asc' ? 'desc' : 'asc';
       else { state.col = col; state.dir = 'asc'; }
+      if (state === this.productSort) this.loadProducts(1);
     },
     sortIcon(state, col) {
       if (state.col !== col) return '⇅';
       return state.dir === 'asc' ? '↑' : '↓';
     },
     sortedProducts() {
-      const rows = this.productData?.products || [];
-      return this._sortRows(rows, this.productSort.col, this.productSort.dir, (p, col) => {
-        if (col === 'title') return p.title || '';
-        if (col === 'manufacturer') return p.manufacturer || '';
-        if (col === 'model_number') return p.model_number || '';
-        if (col === 'price') return p.price || 0;
-        if (col === 'sites') return (p.sources || []).length;
-        return '';
-      });
+      // Sort is server-side; return current page data as-is
+      return this.productData?.products || [];
     },
     sortedCompetitors() {
       const rows = this.competitors?.competitors || [];

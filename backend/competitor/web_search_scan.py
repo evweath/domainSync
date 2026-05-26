@@ -249,6 +249,52 @@ async def _fetch_product_data(url: str) -> Optional[Dict[str, Any]]:
     return data
 
 
+_CATEGORY_KEYWORDS_BASE = frozenset({
+    # Commercial bakery / foodservice equipment — supplement product-derived categories
+    'commercial mixer', 'planetary mixer', 'spiral mixer', 'floor mixer',
+    'commercial oven', 'convection oven', 'deck oven', 'rack oven', 'revolving oven',
+    'proofer', 'proof box', 'retarder proofer',
+    'donut fryer', 'commercial fryer', 'donut equipment',
+    'donut glaz', 'icing machine', 'glazing machine',
+    'donut depositor', 'dough depositor',
+    'bread slicer', 'dough divider', 'dough sheeter', 'dough rounder',
+    'display case', 'bakery display', 'refrigerated display',
+    'sheet pan', 'baking pan', 'bun pan',
+    'bakery equipment', 'bakery supplies', 'bakery wholesale',
+    'food service equipment', 'commercial kitchen', 'restaurant equipment',
+    'cake decorating', 'decorating supplies', 'pastry',
+    'packaging', 'bakery box', 'pastry box',
+    'donut shop', 'bakery',
+})
+
+
+def _build_category_keywords(db_categories: list) -> frozenset:
+    """Combine DB product categories with the hardcoded base keyword set."""
+    derived = set()
+    for cat in db_categories:
+        if not cat:
+            continue
+        for part in re.split(r'[/,|>]', cat.lower()):
+            part = part.strip()
+            if len(part) >= 4:
+                derived.add(part)
+    return _CATEGORY_KEYWORDS_BASE | frozenset(derived)
+
+
+def _is_manufacturer_domain(domain: str, manufacturer_names: frozenset) -> bool:
+    """True if the domain name is a fuzzy match for a known manufacturer's brand."""
+    # Normalize: strip TLD, dashes, spaces
+    d = re.sub(r'\.(com|net|org|us|co|biz|info|shop|store)$', '', domain.lower())
+    d = re.sub(r'[^a-z0-9]', '', d)
+    for mfr in manufacturer_names:
+        mfr_clean = re.sub(r'[^a-z0-9]', '', mfr.lower())
+        if len(mfr_clean) < 4:
+            continue
+        if mfr_clean in d or d.startswith(mfr_clean[:6]):
+            return True
+    return False
+
+
 def _is_in_cooldown(profile: Optional[CompetitorScrapingProfile], force: bool = False) -> bool:
     """Return True if this competitor's empty-scan cooldown is still active."""
     if force or profile is None:
@@ -305,17 +351,16 @@ async def run_web_search_scan(
             except Exception:
                 pass
 
-    # --- Load products ---
+    # --- Load products + build domain intelligence sets ---
     with session_scope() as db:
+        from sqlalchemy import or_ as _or
         q = db.query(Product).filter(Product.is_active == True)
         if product_ids:
             q = q.filter(Product.id.in_(product_ids))
-        # Order by price descending so the most valuable products are searched first
         q = q.order_by(Product.price_canonical.desc().nullslast())
         if product_limit:
             q = q.limit(product_limit)
         products = q.all()
-        # detach — we'll open new sessions per batch
         product_snapshots = [
             {
                 'id': p.id,
@@ -328,6 +373,27 @@ async def run_web_search_scan(
             }
             for p in products
         ]
+
+        # Domains to skip entirely this scan: source sites + explicitly excluded + manufacturers
+        excluded_comps = db.query(Competitor).filter(
+            _or(Competitor.excluded_from_search == True, Competitor.is_manufacturer == True)
+        ).all()
+        skip_domains: set = source_domains | {c.domain for c in excluded_comps}
+
+        # Unique manufacturer names for domain fuzzy-matching
+        manufacturer_names: frozenset = frozenset(
+            p.manufacturer for p in
+            db.query(Product).filter(Product.is_active == True, Product.manufacturer != None).all()
+            if p.manufacturer
+        )
+
+        # Category keywords derived from product categories + hardcoded base
+        db_categories = [
+            p.category for p in
+            db.query(Product).filter(Product.is_active == True, Product.category != None).all()
+            if p.category
+        ]
+    category_keywords = _build_category_keywords(db_categories)
 
     total_products = len(product_snapshots)
     logger.info("[WEB-SCAN] Starting web search scan: %d products, max_results=%d", total_products, max_results)
@@ -366,7 +432,7 @@ async def run_web_search_scan(
             search_results = await multi_engine_search(
                 query=query,
                 max_results=max_results,
-                exclude_domains=source_domains,
+                exclude_domains=skip_domains,
             )
 
         logger.info("[WEB-SCAN] Search returned %d results for %r", len(search_results), snap['title'])
@@ -386,21 +452,34 @@ async def run_web_search_scan(
             domain = _domain(url)
             if not domain:
                 return
-            # Skip results that land on one of our own source sites.
-            # Without this, every web-search hit on (e.g.) bakerywholesalers.com
-            # auto-creates a `Competitor` row and inserts CompetitorProductMatches
-            # for products that are already master records — the matrix then
-            # shows our own catalog as a competitor.
-            if domain in source_domains:
-                logger.debug("[WEB-SCAN] Skipping %s — configured source site", domain)
+
+            # Fast-path: skip domains already known to be irrelevant this scan
+            if domain in skip_domains:
+                logger.debug("[WEB-SCAN] Skipping %s — in skip list", domain)
                 return
 
+            # Check DB status and cooldown
             with session_scope() as db:
                 competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
-                if competitor and competitor.scraping_profile:
-                    if _is_in_cooldown(competitor.scraping_profile, force=force):
+                if competitor:
+                    if competitor.excluded_from_search or competitor.is_manufacturer:
+                        skip_domains.add(domain)
+                        return
+                    if competitor.scraping_profile and _is_in_cooldown(competitor.scraping_profile, force=force):
                         logger.debug("[WEB-SCAN] Skipping %s (3-day cooldown)", domain)
                         return
+
+            # Manufacturer domain detection — skip OEM websites, record them so we never revisit
+            if _is_manufacturer_domain(domain, manufacturer_names):
+                logger.info("[WEB-SCAN] Skipping %s — detected as manufacturer domain", domain)
+                skip_domains.add(domain)
+                with session_scope() as db:
+                    if not db.query(Competitor).filter(Competitor.domain == domain).first():
+                        db.add(Competitor(
+                            domain=domain, name=domain, base_url=f"https://{domain}",
+                            is_manufacturer=True, excluded_from_search=True, is_active=False,
+                        ))
+                return
 
             logger.info("[WEB-SCAN] Visiting %s  (product=%r)", domain, snap['title'])
             async with fetch_sem:
@@ -409,7 +488,6 @@ async def run_web_search_scan(
             urls_visited += 1
 
             if not page_data or not page_data.get('title'):
-                logger.debug("[WEB-SCAN] No product data extracted from %s", domain)
                 page_data = {
                     'title': item.get('title', ''),
                     'price': _extract_price(item.get('body', '')),
@@ -436,21 +514,50 @@ async def run_web_search_scan(
                 result = match_competitor_product(comp_dict, master_products, criteria)
                 if result is None:
                     result = match_similar_product(comp_dict, master_products)
+
                 if result is None:
-                    logger.debug("[WEB-SCAN] No match on %s for product=%r  page_title=%r", domain, snap['title'], comp_dict.get('title', '')[:60])
+                    # No product match — check for category-level relevance signals
+                    snippet = ' '.join([
+                        item.get('title', ''),
+                        item.get('body', ''),
+                        page_data.get('title', ''),
+                    ]).lower()
+                    is_category_hit = any(kw in snippet for kw in category_keywords)
+
+                    existing = db.query(Competitor).filter(Competitor.domain == domain).first()
+                    if existing:
+                        # Upgrade to category competitor if we see relevant content
+                        if is_category_hit and not existing.is_category_only and not existing.excluded_from_search:
+                            existing.is_category_only = True
+                            logger.info("[WEB-SCAN] Upgraded %s to category competitor", domain)
+                    else:
+                        new_comp = Competitor(
+                            domain=domain, name=domain, base_url=f"https://{domain}",
+                            is_active=True,
+                            excluded_from_search=not is_category_hit,
+                            is_category_only=is_category_hit,
+                        )
+                        db.add(new_comp)
+                        if is_category_hit:
+                            logger.info("[WEB-SCAN] Category competitor recorded: %s", domain)
+                        else:
+                            logger.info("[WEB-SCAN] No match on %s — recorded as excluded", domain)
+                            skip_domains.add(domain)
                     return
 
+                # Product match found — upsert competitor record
                 competitor = db.query(Competitor).filter(Competitor.domain == domain).first()
                 if competitor is None:
                     competitor = Competitor(
-                        domain=domain,
-                        name=domain,
-                        base_url=f"https://{domain}",
-                        is_active=True,
+                        domain=domain, name=domain, base_url=f"https://{domain}", is_active=True,
                     )
                     db.add(competitor)
                     db.flush()
                     logger.info("[WEB-SCAN] Auto-created competitor: %s", domain)
+                elif competitor.is_category_only:
+                    # Upgrade from category-only to direct competitor
+                    competitor.is_category_only = False
+                    logger.info("[WEB-SCAN] Upgraded %s from category to direct competitor", domain)
 
                 competitor_id = competitor.id
 
@@ -477,7 +584,8 @@ async def run_web_search_scan(
                     else:
                         logger.debug("[WEB-SCAN] Match already stored  domain=%s  product=%r", domain, snap['title'])
                 else:
-                    logger.info("[WEB-SCAN] Match found  domain=%s  product=%r  price=%s  confidence=%d%%", domain, snap['title'], price_str, int(result.confidence or 0))
+                    logger.info("[WEB-SCAN] Match found  domain=%s  product=%r  price=%s  confidence=%d%%",
+                                domain, snap['title'], price_str, int(result.confidence or 0))
                     match = CompetitorProductMatch(
                         master_product_id=result.master_product_id,
                         competitor_id=competitor_id,

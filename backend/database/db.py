@@ -54,6 +54,8 @@ _MIGRATIONS = [
     # (table, column, sql_type)  — run ALTER TABLE idempotently on startup
     ("competitor_scraping_profiles", "last_empty_scan_at", "DATETIME"),
     ("competitors", "excluded_from_search", "BOOLEAN DEFAULT 0"),
+    ("competitors", "is_manufacturer", "BOOLEAN DEFAULT 0"),
+    ("competitors", "is_category_only", "BOOLEAN DEFAULT 0"),
 ]
 
 
