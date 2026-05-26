@@ -12852,3 +12852,23 @@ AttributeError: 'int' object has no attribute 'lower'
 2026-05-26 13:49:18 [INFO] backend.app: Log-tail broadcaster started
 2026-05-26 13:49:18 [INFO] backend.app: Dashboard: https://localhost:8743
 2026-05-26 13:49:18 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+2026-05-26 13:51:03 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw Donut Robot® Mark II GP (Gas) Propane or Natural Gas for Mini Donuts only'  (id=11)
+2026-05-26 13:51:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Robot® Mark II GP Propane or Natural Gas for buy'
+2026-05-26 13:51:08 [INFO] backend.search.engine: SerpAPI Shopping: 25 results for 'Donut Robot® Mark II GP Propane or Natural Gas for buy'
+2026-05-26 13:51:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Search returned 15 result URLs
+2026-05-26 13:51:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [1] Visiting: https://www.belshaw.com/products/donut-robot-mark-ii-gp-gas
+2026-05-26 13:51:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  price=no price  confidence=25%
+2026-05-26 13:51:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [2] Visiting: https://www.katom.com/797-MARKIIGPGAS22503.html
+2026-05-26 13:51:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]       No match  (page title: 'Just a moment...')
+2026-05-26 13:51:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    [3] Visiting: https://www.eliterestaurantequipment.com/product/belshaw-adamatic-mark-ii-gp-donut-fryer
+2026-05-26 13:51:10 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 13:51:10 [INFO] backend.app: Donut Intel Platform shut down.
+2026-05-26 13:51:12 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-26 13:51:12 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 13:51:12 [INFO] backend.database.db: Database initialized
+2026-05-26 13:51:12 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-26 13:51:12 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-26 13:51:12 [INFO] backend.app: Scheduler started
+2026-05-26 13:51:12 [INFO] backend.app: Log-tail broadcaster started
+2026-05-26 13:51:12 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-26 13:51:12 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
