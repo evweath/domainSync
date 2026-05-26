@@ -65,16 +65,23 @@ def _domain(url: str) -> str:
         return ''
 
 
+_GENERIC_MANUFACTURERS: frozenset = frozenset({
+    'multiple vendors', 'various', 'generic', 'n/a', 'unknown', 'assorted',
+})
+
+
 def _clean_title_for_search(title: str) -> str:
     """Strip noise from product titles to produce clean search queries."""
     # Remove everything inside parentheses: (00799579), (APPROX- 226 DOZEN/HR), (4), etc.
     title = re.sub(r'\([^)]*\)', '', title)
-    # Remove compound electrical/voltage specs: 208-240v/60/3-ph, 480V/60Hz/3Ph, 208v, etc.
-    # Pattern: digits optionally followed by more digit groups, then a V/v word-boundary,
-    # optionally followed by slash-separated sub-specs (Hz, ph, kW, etc.)
+    # Compound voltage/frequency specs with V suffix: 208-240v/60/3-ph, 480V/60Hz/3Ph, 208v
     title = re.sub(r'\b\d+[-/]?\d*\s*[Vv]\b(?:[-/]\d+[\w-]*)*', '', title)
-    # Remaining standalone electrical tokens: 60Hz, 3ph, 3-phase, 1-Ph, 5kW
-    title = re.sub(r'\b\d+\s*[-]?\s*(?:hz|ph|phase|kw|kva)\b[\w/-]*', '', title, flags=re.I)
+    # Standalone electrical tokens: 60Hz, 3ph, 3-phase, 1-Ph, 5kW
+    # NOTE: no trailing [\w/-]* — that greedily ate "/1" from "60Hz/1 Ph", orphaning "Ph"
+    title = re.sub(r'\b\d+\s*[-]?\s*(?:hz|ph|phase|kw|kva)\b', '', title, flags=re.I)
+    # Slash-paired voltage ranges left behind after unit removal: 208/240, 400/480
+    # Require ≥2 digits each side to avoid swallowing "1/2" fractions in specs like "1/2 HP"
+    title = re.sub(r'\b\d{2,}/\d{2,}\b', '', title)
     # Remove leading package/size codes: "Small 5.1 ", "3.1-"
     title = re.sub(r'^(?:Small|Medium|Large)?\s*\d+\.\d+[-\s]', '', title, flags=re.I)
     # Remove standalone part numbers (all-caps/digits with dashes, 6+ chars)
@@ -98,19 +105,26 @@ def _clean_title_for_search(title: str) -> str:
 
 def _build_query(product: Product) -> str:
     parts: List[str] = []
-    if product.manufacturer and product.model_number:
+    mfr = (product.manufacturer or '').strip()
+    # Treat generic/placeholder manufacturer values as absent
+    if mfr.lower() in _GENERIC_MANUFACTURERS:
+        mfr = ''
+    if mfr and product.model_number:
         model = re.sub(r'[^\w\-]', '', product.model_number)
-        parts.append(product.manufacturer)
+        parts.append(mfr)
         parts.append(f'"{model}"')
     elif product.model_number:
         model = re.sub(r'[^\w\-]', '', product.model_number)
         parts.append(f'"{model}"')
     else:
         title = _clean_title_for_search(product.canonical_title or '')
-        mfr = (product.manufacturer or '').strip()
         if mfr:
-            # Remove all occurrences of manufacturer name from title so it only appears once
+            # Remove full manufacturer phrase then individual words so "BELSHAW" is
+            # stripped when the manufacturer is "Belshaw Adamatic" and vice-versa
             title = re.sub(r'(?i)\b' + re.escape(mfr) + r'\b', '', title)
+            for word in mfr.split():
+                if len(word) > 3:
+                    title = re.sub(r'(?i)\b' + re.escape(word) + r'\b', '', title)
             title = ' '.join(title.split())
             parts.append(mfr)
         if title:

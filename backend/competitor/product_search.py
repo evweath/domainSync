@@ -126,13 +126,21 @@ async def _curl_fetch(url: str, timeout: int = 15) -> str:
         return ''
 
 
+_GENERIC_MANUFACTURERS: frozenset = frozenset({
+    'multiple vendors', 'various', 'generic', 'n/a', 'unknown', 'assorted',
+})
+
+
 def _clean_title_for_search(title: str) -> str:
     # Remove everything inside parentheses: (00799579), (APPROX- 226 DOZEN/HR), (4), etc.
     title = re.sub(r'\([^)]*\)', '', title)
-    # Compound electrical/voltage specs: 208-240v/60/3-ph, 480V/60Hz/3Ph, 208v
+    # Compound voltage/frequency specs with V suffix: 208-240v/60/3-ph, 480V/60Hz/3Ph, 208v
     title = re.sub(r'\b\d+[-/]?\d*\s*[Vv]\b(?:[-/]\d+[\w-]*)*', '', title)
-    # Remaining standalone: 60Hz, 3ph, 3-phase, 5kW
-    title = re.sub(r'\b\d+\s*[-]?\s*(?:hz|ph|phase|kw|kva)\b[\w/-]*', '', title, flags=re.I)
+    # Standalone electrical tokens: 60Hz, 3ph, 3-phase, 1-Ph, 5kW
+    # NOTE: no trailing [\w/-]* — that greedily ate "/1" from "60Hz/1 Ph", orphaning "Ph"
+    title = re.sub(r'\b\d+\s*[-]?\s*(?:hz|ph|phase|kw|kva)\b', '', title, flags=re.I)
+    # Slash-paired voltage ranges left behind after unit removal: 208/240, 400/480
+    title = re.sub(r'\b\d{2,}/\d{2,}\b', '', title)
     # Leading size/package codes: "Small 5.1 ", "3.1-"
     title = re.sub(r'^(?:Small|Medium|Large)?\s*\d+\.\d+[-\s]', '', title, flags=re.I)
     # Standalone part numbers (all-caps/digits with dashes, 6+ chars)
@@ -181,10 +189,20 @@ def _build_query(product: Any, override: Optional[str]) -> str:
     looks_like_upc = clean_model.isdigit() and len(clean_model) >= 12
     use_model = bool(clean_model) and not looks_like_upc
 
-    mfg_in_title = bool(mfg) and mfg.lower() in cleaned_title.lower()
+    if mfg.lower() in _GENERIC_MANUFACTURERS:
+        mfg = ''
+    # Consider manufacturer "in title" if its full phrase OR any significant word appears
+    mfg_in_title = bool(mfg) and (
+        mfg.lower() in cleaned_title.lower()
+        or any(w.lower() in cleaned_title.lower() for w in mfg.split() if len(w) > 3)
+    )
     if mfg_in_title:
-        # Strip manufacturer from title so it only appears once in the final query
+        # Strip full phrase then individual words so "BELSHAW" is removed when
+        # mfg is "Belshaw Adamatic" and only "BELSHAW" appears in the title
         cleaned_title = re.sub(r'(?i)\b' + re.escape(mfg) + r'\b', '', cleaned_title)
+        for word in mfg.split():
+            if len(word) > 3:
+                cleaned_title = re.sub(r'(?i)\b' + re.escape(word) + r'\b', '', cleaned_title)
         cleaned_title = ' '.join(cleaned_title.split())
 
     if use_model:
