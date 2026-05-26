@@ -466,11 +466,12 @@ async def _process_one_product(
                 page_data.setdefault('image', None)
                 page_data.setdefault('description', None)
 
+            raw_mfr = page_data.get('manufacturer')
             comp_dict = {
                 'title': page_data.get('title', ''),
                 'price': page_data.get('price'),
                 'model_number': page_data.get('model_number'),
-                'manufacturer': page_data.get('manufacturer'),
+                'manufacturer': raw_mfr[0] if isinstance(raw_mfr, list) else raw_mfr,
                 'sku': page_data.get('sku'),
                 'description': page_data.get('description', '') or item.get('body', ''),
                 'image_hash': None,
