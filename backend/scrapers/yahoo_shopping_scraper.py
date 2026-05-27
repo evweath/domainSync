@@ -1,6 +1,6 @@
 """
 Yahoo Shopping scraper — extracts Product Listing Ads (PLAs)
-from Yahoo Search results pages.
+from Yahoo Search results pages using httpx + lxml.
 """
 import base64
 import logging
@@ -9,13 +9,18 @@ from dataclasses import dataclass
 from typing import List, Optional
 from urllib.parse import parse_qs, unquote, urlparse
 
-from playwright.async_api import async_playwright
+import httpx
+from lxml import html as lxml_html
 
 from backend.config import config
 
 logger = logging.getLogger(__name__)
 
 YAHOO_SEARCH_URL = 'https://search.yahoo.com/search'
+_DEFAULT_UA = (
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '
+    'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+)
 
 
 @dataclass
@@ -31,31 +36,45 @@ class YahooPLAResult:
 
 
 def _resolve_url(href: str) -> str:
-    """Extract the actual retailer URL from Yahoo/bizrate tracking links."""
+    """
+    Extract the actual retailer URL from Yahoo/Bing tracking redirect chains.
+
+    Yahoo PLAs use: r.search.yahoo.com/rdclks/.../RU=<url-encoded-bing-url>/...
+    The Bing URL contains: u=<base64( url-encoded-actual-url )>
+    Older ads use rd.bizrate.com with b=<url-encoded-actual-url>.
+    """
     if not href or href.startswith('javascript'):
         return ''
-    parsed = urlparse(href)
-    qs = parse_qs(parsed.query)
 
-    # bizrate redirect: b= holds the actual URL (URL-encoded)
+    # Yahoo rdclks redirect: extract RU= path segment
+    ru_match = re.search(r'/RU=([^/]+)/', href)
+    if ru_match:
+        intermediate = unquote(ru_match.group(1))
+        # Bing aclick: u= parameter holds base64-encoded URL-encoded actual URL
+        if 'bing.com/aclick' in intermediate or 'u=' in intermediate:
+            qs = parse_qs(urlparse(intermediate).query)
+            u_vals = qs.get('u', [])
+            if u_vals:
+                try:
+                    b64 = u_vals[0]
+                    padding = '=' * (4 - len(b64) % 4)
+                    decoded = base64.b64decode(b64 + padding, validate=False).decode('utf-8', errors='ignore')
+                    actual = unquote(decoded)
+                    if actual.startswith('http'):
+                        return actual
+                except Exception:
+                    pass
+        # Fallback: return the intermediate URL if it looks real
+        if intermediate.startswith('http'):
+            return intermediate
+
+    # Bizrate redirect: b= parameter holds URL-encoded actual URL
+    parsed = urlparse(href)
     if 'bizrate.com' in parsed.netloc:
+        qs = parse_qs(parsed.query)
         b_vals = qs.get('b', [])
         if b_vals:
             return unquote(b_vals[0])
-
-    # Yahoo tracking with base64-encoded url= param
-    url_vals = qs.get('url', [])
-    if url_vals:
-        raw = url_vals[0]
-        try:
-            decoded = base64.b64decode(raw + '==').decode('utf-8', errors='ignore')
-            if decoded.startswith('http'):
-                return decoded
-        except Exception:
-            pass
-        decoded = unquote(raw)
-        if decoded.startswith('http'):
-            return decoded
 
     return href
 
@@ -82,91 +101,81 @@ def _parse_price(text: str) -> tuple[Optional[float], Optional[str]]:
     return None, raw
 
 
+def _user_agent() -> str:
+    active = config.get('browser', 'default_profile', default='chrome_mac')
+    profiles = config.get('browser', 'profiles', default={})
+    return profiles.get(active, {}).get('user_agent', _DEFAULT_UA)
+
+
 async def scrape_yahoo_shopping(
     query: str,
     max_results: int = 30,
 ) -> List[YahooPLAResult]:
-    """Load Yahoo search for *query* and return all PLA product cards found."""
+    """Fetch Yahoo search for *query* and return all PLA product cards found."""
     results: List[YahooPLAResult] = []
-
-    active = config.get('browser', 'default_profile', default='chrome_mac')
-    profiles = config.get('browser', 'profiles', default={})
-    profile = profiles.get(active, {})
-    engine_name = profile.get('engine', 'chromium')
-    user_agent = profile.get(
-        'user_agent',
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 '
-        '(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-    )
-    headless: bool = config.get('scraping', 'headless', default=True)
-
     search_url = f'{YAHOO_SEARCH_URL}?p={query.replace(" ", "+")}&fr=yfp-t'
     logger.info('Yahoo Shopping: %s', search_url)
 
-    async with async_playwright() as pw:
-        engine = {'chromium': pw.chromium, 'firefox': pw.firefox, 'webkit': pw.webkit}.get(
-            engine_name, pw.chromium
-        )
-        browser = await engine.launch(headless=headless)
-        ctx = await browser.new_context(
-            user_agent=user_agent,
-            viewport={'width': 1280, 'height': 800},
-        )
-        page = await ctx.new_page()
+    headers = {
+        'User-Agent': _user_agent(),
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+    }
 
+    async with httpx.AsyncClient(headers=headers, follow_redirects=True, timeout=20) as client:
         try:
-            await page.goto(search_url, wait_until='domcontentloaded', timeout=30_000)
-            await page.wait_for_selector('li.plaItem', timeout=10_000)
-        except Exception:
-            logger.warning('No Yahoo PLAs found for query: %r', query)
-            await browser.close()
+            resp = await client.get(search_url)
+            resp.raise_for_status()
+        except Exception as exc:
+            logger.warning('Yahoo Shopping fetch failed for %r: %s', query, exc)
             return results
 
-        items = await page.query_selector_all('li.plaItem')
-        logger.info('Yahoo PLAs: %d items for %r', len(items), query)
+    doc = lxml_html.fromstring(resp.text)
+    items = doc.xpath('//li[contains(@class,"plaItem")]')
+    logger.info('Yahoo PLAs: %d items for %r', len(items), query)
 
-        for item in items[:max_results]:
-            try:
-                link_el = await item.query_selector('a.td-hn')
-                href = await link_el.get_attribute('href') if link_el else ''
-                url = _resolve_url(href or '')
-                if not url:
-                    continue
-
-                domain = _extract_domain(url)
-                if not domain:
-                    continue
-
-                title_el = await item.query_selector('.fc-refblack span, .mh-48 span')
-                title = (await title_el.inner_text()).strip() if title_el else ''
-                if not title:
-                    continue
-
-                price_el = await item.query_selector('.current-price')
-                price_raw_text = (await price_el.inner_text()).strip() if price_el else ''
-                price, price_raw = _parse_price(price_raw_text)
-
-                seller_el = await item.query_selector('.seller')
-                merchant = (await seller_el.inner_text()).strip() if seller_el else domain
-
-                img_el = await item.query_selector('img.s-img')
-                image_url = await img_el.get_attribute('src') if img_el else None
-
-                results.append(YahooPLAResult(
-                    title=title,
-                    merchant=merchant,
-                    merchant_domain=domain,
-                    url=url,
-                    price=price,
-                    price_raw=price_raw,
-                    image_url=image_url,
-                ))
-
-            except Exception as exc:
-                logger.debug('Failed to parse PLA item: %s', exc)
+    for item in items[:max_results]:
+        try:
+            anchors = item.xpath('.//a[contains(@class,"td-hn")]')
+            if not anchors:
+                continue
+            href = anchors[0].get('href', '')
+            url = _resolve_url(href)
+            if not url:
                 continue
 
-        await browser.close()
+            domain = _extract_domain(url)
+            if not domain:
+                continue
+
+            title_spans = item.xpath('.//div[contains(@class,"fc-refblack")]//span')
+            title = title_spans[0].text_content().strip() if title_spans else ''
+            if not title:
+                continue
+
+            price_divs = item.xpath('.//div[contains(@class,"current-price")]')
+            price_text = price_divs[0].text_content().strip() if price_divs else ''
+            price, price_raw = _parse_price(price_text)
+
+            seller_divs = item.xpath('.//div[contains(@class,"seller")]')
+            merchant = seller_divs[0].text_content().strip() if seller_divs else domain
+
+            imgs = item.xpath('.//img[contains(@class,"s-img")]')
+            image_url = imgs[0].get('src') if imgs else None
+
+            results.append(YahooPLAResult(
+                title=title,
+                merchant=merchant,
+                merchant_domain=domain,
+                url=url,
+                price=price,
+                price_raw=price_raw,
+                image_url=image_url,
+            ))
+
+        except Exception as exc:
+            logger.debug('Failed to parse PLA item: %s', exc)
+            continue
 
     logger.info('Yahoo PLAs: extracted %d results for %r', len(results), query)
     return results
