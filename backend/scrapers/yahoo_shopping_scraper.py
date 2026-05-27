@@ -45,6 +45,106 @@ _BLOCKED_DOMAINS: frozenset[str] = frozenset({
     'brilliantsave.com',
     'isaveit.com',
     'digitalbuyer.com',
+    # Confirmed false positives — wrong niche (matched on Yahoo but not food-service equipment)
+    'stationaryloveseats.com',
+    'schoolspecialty.com',
+    'jtvplay.com',
+    'kippfix.de',
+    'pawfypets.com',
+    'hobbylobby.com',
+    'yesnocoffee.com',
+    'budsgunshop.com',
+    'mddcprint.com',
+    'poshmark.com',
+    'officesupply.com',
+    'tattootraveler.com',
+    'obsproject.com',
+    'productregistry.org',
+    'motohunt.com',
+    'hergom-medical.com',
+    'finditparts.com',
+    # Reference / encyclopedia / dictionary
+    'merriam-webster.com', 'thefreedictionary.com', 'collinsdictionary.com',
+    'oxfordlearnersdictionaries.com', 'wordreference.com', 'definitions.net',
+    'oed.com', 'dictionary.com', 'yourdictionary.com', 'en.m.wiktionary.org',
+    'ordreference.com', 'answers.com', 'en.wikipedia.org', 'en.m.wikipedia.org',
+    'manualslib.com',
+    # Grocery chains (sell food, not equipment)
+    'wincous.com', 'wincofoods.com', 'talent.wincofoods.com', 'grocery.com',
+    'acmetools.com', 'acmemarkets.com', 'acmestores.com', 'storeopeninghours.com',
+    'theweeklyad.com', 'acmerents.com', 'offermate.us', 'weeklyadsale.com',
+    'weeklyadlist.com',
+    # Unrelated industrial / hardware
+    'wesco.com', 'westescocw.com', 'westcohomefurnishings.com', 'westco.coop',
+    'westcobrewing.com', 'westcochemicals.com', 'westsorestaurant.com',
+    # Entertainment / streaming / media
+    'revolt.tv', 'music.apple.com', 'mediatakeout.com', 'netflix.com',
+    'm.imdb.com', 'dailymotion.com', 'justwatch.com', 'apps.apple.com',
+    'gizmodo.com', 'ikihow.com', 'support.mozilla.org',
+    # Tech news / consumer how-to
+    'techspot.com', 'pcmag.com', 'tomsguide.com', 'popularmechanics.com',
+    'marthastewart.com', 'realsimple.com', 'hp.com', 'nytimes.com',
+    'digitaltrends.com', 'corsair.com',
+    # Sports
+    'espn.com', 'mlb.com', 'foxsports.com', 'sportingnews.com', '365scores.com',
+    'fantasyteamadvice.com', 'sports-schedules.com', 'thescore.com',
+    'sportsdata.usatoday.com', 'sports.yahoo.com',
+    # Finance / investing
+    'blackrock.com', 'barrons.com', 'morningstar.com', 'fool.com',
+    'finance.yahoo.com', 'pl.investing.com', 'pl.tradingview.com', 'stoxx.com',
+    'marketwatch.com', 'finanzen.net', 'finanznachrichten.de', 'analizy.pl',
+    'stockanalysis.com', 'barchart.com', 'finviz.com',
+    # Auto parts
+    'autozone.com', 'shop.advanceautoparts.com', 'store.mopar.com',
+    'store.440source.com', 'jegs.com', 'summitracing.com',
+    # Firearms / tactical
+    'palmettostatearmory.com', 'shootingsurplus.com', 'pewpewtactical.com',
+    'opticsplanet.com', 'brownells.com',
+    # Government / health / medical
+    'ssa.gov', 'secure.ssa.gov', 'cdc.gov', 'drugs.com', 'nhs.uk', 'fda.gov',
+    'centerfortuberculosis.mayo.edu', 'scienceinsights.org', 'medicalnewstoday.com',
+    'who.int', 'medbox.iiab.me', 'doc.wi.gov', 'isdoj.gov', 'aoml.noaa.gov',
+    'govtribe.com',
+    # Military / government installations
+    'cnrma.cnic.navy.mil', 'usnwc.edu', 'usna.edu',
+    'installations.militaryonesource.mil', 'newportnavalhousing.com',
+    # Shipping / logistics
+    'fedex.com', 'ups.com', 'rastrearpaquete.com.mx', 'parcelsapp.com',
+    'guiapaqueteria.com', 'numeroservicioalcliente.com', 'sucursales24.com.mx',
+    'weship.com', 'facturaticket.mx', 'drenvio.com',
+    # Spanish-language / Mexico / Spain (unrelated verticals)
+    'actasenlinea.jalisco.gob.mx', 'instalasua.com', 'portalmx.infonavit.org.mx',
+    'kx.cloudingenium.com', 'avilavera.com', 'elconta.mx', 'bdomexico.com',
+    'contadormx.com', 'translate.google.com.mx', 'beracahmedica.mx', 'studocu.com',
+    'zaraorto.com', 'quiminet.com', 'elchallynstore.mx',
+    'listado.mercadolibre.com.mx', 'absequipomedico.com', 'pardell.es',
+    # Bakeries / donut chains (sell food, not equipment)
+    'magnoliabakery.com', '85cbakerycafe.com', 'pastriesalacarte.com',
+    'portosbakery.com', 'thisisraleigh.com', 'alessibakery.com', 'mcarthurs.com',
+    'fratellispastry.com', 'zingermansbakehouse.com', 'littlecaesars.com',
+    'krispykreme.com',
+    # Recipe / food content
+    'tastingtable.com', 'allrecipes.com', 'tasteofhome.com', 'tastylicious.com',
+    'foodnetwork.com',
+    # Real estate
+    'crexi.com', 'commercial.century21.com', 'loopnet.com', 'propertyshark.com',
+    'svnchicago.com',
+    # Chinese portals
+    'zhihu.com', 'hm.baidu.com', 'zhidao.baidu.com', 'so.qqdna.com', 'chaxunhaoma.com',
+    # Email / social / misc
+    'gmail.com', 'gmail.co.za', 'webrankinfo.com', 'geeky-gadgets.com', 'canva.com',
+    'data.attribytes.com', 'yahoo.uservoice.com', 'sqorebda3.com', 'mapquest.com',
+    'basedirectory.com', 'drumcorpsplanet.com', 'drum-corps.net',
+    'dailythemedcrosswordanswers.com', 'maryvilleforum.com', 'hitepages.com',
+    'ish.com', 'cs-help.wish.com', 'home.wish.com', 'sdfportal1.globalconnect.net',
+    'tlc-dmz-gateway.ext.gm.com', 'gmglobalconnect.com', 'eb.connectnetwork.com',
+    'centerlearning.com',
+    # Tractor / lawn / farm equipment
+    'messicks.com', 'summit-hydraulics.com', 'lanesharkusa.com', 'greentractortalk.com',
+    'store.wrlonginc.com', 'landpride.com', 'cdn-assets.greatplainsmfg.com',
+    'tractorbynet.com', 'insidetheyard.com',
+    # Marketing / SEO (not a retailer)
+    'bakemarketing.com',
 })
 
 # Domain-prefix patterns to block programmatically (in addition to the list above)
