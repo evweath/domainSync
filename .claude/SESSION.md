@@ -25,7 +25,8 @@
 
 ## Key Context
 
-- **Server start**: `.venv/bin/uvicorn backend.main:app --host 127.0.0.1 --port 8743 --ssl-keyfile config/key.pem --ssl-certfile config/cert.pem >> logs/uvicorn.out 2>&1 &`
+- **Server start**: `.venv/bin/uvicorn backend.app:app --host 127.0.0.1 --port 8743 --ssl-keyfile config/key.pem --ssl-certfile config/cert.pem >> logs/uvicorn.out 2>&1 &`
+- **SSL certs**: `config/key.pem` + `config/cert.pem` — self-signed, regenerate with `openssl req -x509 -newkey rsa:4096 -keyout config/key.pem -out config/cert.pem -days 365 -nodes -subj "/CN=localhost"` if missing
 - **Kill port before restart**: `lsof -ti :8743 | xargs kill -9`
 - **Auth**: cookie-based — POST `/api/auth/login` `{"username":"admin","password":"changeme"}`
 - **venv**: `.venv/bin/python3` (not system python3)

@@ -15454,3 +15454,1121 @@ INFO:     Waiting for application startup.
 2026-05-27 15:39:18 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
 INFO:     Application startup complete.
 INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     127.0.0.1:49888 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49888 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49889 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49890 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49891 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49892 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49888 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49889 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49890 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49894 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49897 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49896 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49897 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49896 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49897 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49898 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49899 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49896 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49895 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49894 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49900 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:49898 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49897 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50143 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50150 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50151 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50151 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50151 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50154 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=AcuRite HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50154 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Arctic+Air HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50178 - "POST /api/competitors/scan HTTP/1.1" 200 OK
+2026-05-27 15:54:37 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-27 15:54:38 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on acitydiscount.com  (max_pages=100)
+2026-05-27 15:54:38 [WARNING] backend.scrapers.base_scraper: Context error on https://acitydiscount.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/sitemap.xml", waiting
+2026-05-27 15:54:38 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:54:38 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://acitydiscount.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:54:49 [WARNING] backend.scrapers.base_scraper: Context error on https://acitydiscount.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/sitemap.xml", waiting
+2026-05-27 15:54:49 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:54:49 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://acitydiscount.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:55:04 [WARNING] backend.scrapers.base_scraper: Context error on https://acitydiscount.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/sitemap.xml", waiting
+2026-05-27 15:55:04 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:55:04 [ERROR] backend.scrapers.base_scraper: Failed https://acitydiscount.com/sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:55:04 [WARNING] backend.scrapers.base_scraper: Context error on https://acitydiscount.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/sitemap_index.xml", w
+2026-05-27 15:55:04 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:55:04 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://acitydiscount.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:55:14 [WARNING] backend.scrapers.base_scraper: Context error on https://acitydiscount.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/sitemap_index.xml", w
+2026-05-27 15:55:14 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:55:14 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://acitydiscount.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:55:29 [WARNING] backend.scrapers.base_scraper: Context error on https://acitydiscount.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/sitemap_index.xml", w
+2026-05-27 15:55:29 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:55:29 [ERROR] backend.scrapers.base_scraper: Failed https://acitydiscount.com/sitemap_index.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:55:30 [WARNING] backend.scrapers.base_scraper: Context error on https://acitydiscount.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/product-sitemap.xml",
+2026-05-27 15:55:30 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:55:30 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://acitydiscount.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:55:40 [WARNING] backend.scrapers.base_scraper: Context error on https://acitydiscount.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/product-sitemap.xml",
+2026-05-27 15:55:40 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:55:40 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://acitydiscount.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:55:55 [WARNING] backend.scrapers.base_scraper: Context error on https://acitydiscount.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/product-sitemap.xml",
+2026-05-27 15:55:55 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:55:55 [ERROR] backend.scrapers.base_scraper: Failed https://acitydiscount.com/product-sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:55:55 [WARNING] backend.scrapers.base_scraper: Context error on https://acitydiscount.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/", waiting until "dom
+2026-05-27 15:55:55 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:55:55 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://acitydiscount.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/", waiting until "domcontentloaded"
+
+2026-05-27 15:56:05 [WARNING] backend.scrapers.base_scraper: Context error on https://acitydiscount.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/", waiting until "dom
+2026-05-27 15:56:05 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:56:05 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://acitydiscount.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/", waiting until "domcontentloaded"
+
+2026-05-27 15:56:21 [WARNING] backend.scrapers.base_scraper: Context error on https://acitydiscount.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/", waiting until "dom
+2026-05-27 15:56:21 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:56:21 [ERROR] backend.scrapers.base_scraper: Failed https://acitydiscount.com after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://acitydiscount.com/", waiting until "domcontentloaded"
+
+2026-05-27 15:56:21 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://acitydiscount.com
+2026-05-27 15:56:21 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on acitydiscount.com
+2026-05-27 15:56:21 [INFO] backend.competitor.scraper: acitydiscount.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-27 15:56:21 [INFO] backend.competitor.scraper: Skipping ald.kitchen — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 15:56:21 [INFO] backend.competitor.scraper: Skipping alibaba.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 15:56:21 [INFO] backend.competitor.scraper: Skipping allbaketech.com — 3-day empty-scan cooldown (resets 2026-05-29)
+INFO:     127.0.0.1:50191 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50194 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50191 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50196 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Arctic+Air HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50193 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Arctic+Air HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50195 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50194 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50192 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50191 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Arctic+Air HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50196 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50193 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50194 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50192 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50191 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Arctic+Air HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50195 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Arctic+Air HTTP/1.1" 200 OK
+2026-05-27 15:56:31 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-27 15:56:31 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on allegiantair.com  (max_pages=100)
+2026-05-27 15:56:52 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://allegiantair.com/sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://allegiantair.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:57:22 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://allegiantair.com/sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://allegiantair.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:57:57 [ERROR] backend.scrapers.base_scraper: Failed https://allegiantair.com/sitemap.xml after 2 retries: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://allegiantair.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:58:17 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://allegiantair.com/sitemap_index.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://allegiantair.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:58:34 [WARNING] backend.scrapers.base_scraper: Context error on https://allegiantair.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/sitemap_index.xml", wa
+2026-05-27 15:58:34 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:58:34 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://allegiantair.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:58:50 [WARNING] backend.scrapers.base_scraper: Context error on https://allegiantair.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/sitemap_index.xml", wa
+2026-05-27 15:58:50 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:58:50 [ERROR] backend.scrapers.base_scraper: Failed https://allegiantair.com/sitemap_index.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:58:50 [WARNING] backend.scrapers.base_scraper: Context error on https://allegiantair.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/product-sitemap.xml", 
+2026-05-27 15:58:50 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:58:50 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://allegiantair.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:59:00 [WARNING] backend.scrapers.base_scraper: Context error on https://allegiantair.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/product-sitemap.xml", 
+2026-05-27 15:59:00 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:59:00 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://allegiantair.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:59:15 [WARNING] backend.scrapers.base_scraper: Context error on https://allegiantair.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/product-sitemap.xml", 
+2026-05-27 15:59:15 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:59:15 [ERROR] backend.scrapers.base_scraper: Failed https://allegiantair.com/product-sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 15:59:15 [WARNING] backend.scrapers.base_scraper: Context error on https://allegiantair.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/", waiting until "domc
+2026-05-27 15:59:15 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:59:15 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://allegiantair.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/", waiting until "domcontentloaded"
+
+INFO:     127.0.0.1:50221 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-27 15:59:25 [WARNING] backend.scrapers.base_scraper: Context error on https://allegiantair.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/", waiting until "domc
+2026-05-27 15:59:25 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:59:25 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://allegiantair.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/", waiting until "domcontentloaded"
+
+2026-05-27 15:59:41 [WARNING] backend.scrapers.base_scraper: Context error on https://allegiantair.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/", waiting until "domc
+2026-05-27 15:59:41 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 15:59:41 [ERROR] backend.scrapers.base_scraper: Failed https://allegiantair.com after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://allegiantair.com/", waiting until "domcontentloaded"
+
+2026-05-27 15:59:41 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://allegiantair.com
+2026-05-27 15:59:41 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on allegiantair.com
+2026-05-27 15:59:41 [INFO] backend.competitor.scraper: allegiantair.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-27 15:59:41 [INFO] backend.competitor.scraper: Skipping allpointsfps.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 15:59:41 [INFO] backend.competitor.scraper: Skipping almart.com — 3-day empty-scan cooldown (resets 2026-05-28)
+2026-05-27 15:59:41 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+INFO:     127.0.0.1:50228 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50230 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50232 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50228 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50229 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50233 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50231 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50230 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-27 15:59:41 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on amazon.com  (max_pages=100)
+2026-05-27 16:00:02 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://amazon.com/sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://amazon.com/sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     127.0.0.1:50238 - "POST /api/dedup/candidates/2224/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50238 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50238 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-27 16:00:43 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://amazon.com/sitemap_index.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://amazon.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+INFO:     127.0.0.1:50249 - "POST /api/dedup/candidates/2304/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50249 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50249 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50250 - "POST /api/dedup/candidates/2427/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50250 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50250 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-27 16:01:13 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://amazon.com/sitemap_index.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://amazon.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2495/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2230/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2518/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2567/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2134/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2451/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2528/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2532/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2155/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2273/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2377/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2414/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2366/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2392/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2449/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2177/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2369/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2422/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2322/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2193/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2205/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2456/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2232/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2185/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2504/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2353/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2132/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2181/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2468/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2214/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2379/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2395/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2133/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2182/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2425/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2174/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2117/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2294/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2354/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2140/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2441/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2204/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2393/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2361/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2245/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2509/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2439/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2111/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2310/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2136/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2355/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2122/resolve HTTP/1.1" 200 OK
+2026-05-27 16:01:48 [ERROR] backend.scrapers.base_scraper: Failed https://amazon.com/sitemap_index.xml after 2 retries: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://amazon.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2459/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2523/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2384/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2546/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2079/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2460/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2276/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2554/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2409/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2085/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2281/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2524/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2497/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2358/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2149/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2158/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2380/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2396/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2147/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-27 16:02:08 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://amazon.com/product-sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://amazon.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2162/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2454/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2284/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2228/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2223/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2399/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "POST /api/dedup/candidates/2487/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50251 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2485/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2402/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2172/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2343/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2453/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2434/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2315/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2346/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2179/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2340/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2235/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2350/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2420/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2119/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2530/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2286/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2383/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2575/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2201/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "POST /api/dedup/candidates/2443/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50360 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2125/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2435/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2308/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2218/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2287/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2167/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2202/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2297/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2271/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2254/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2212/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2151/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2291/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2255/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-27 16:02:39 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://amazon.com/product-sitemap.xml: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://amazon.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2240/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2526/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2559/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2269/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2257/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2553/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2084/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2513/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2514/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2142/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2200/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2557/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2437/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2300/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2381/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2359/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2092/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2093/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2198/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2515/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2501/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2505/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2148/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2094/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2430/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2431/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2231/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2118/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "POST /api/dedup/candidates/2249/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50361 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2252/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2484/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2433/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2500/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2503/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2248/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2251/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2233/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2492/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2493/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2099/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2262/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2203/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2209/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-27 16:03:14 [ERROR] backend.scrapers.base_scraper: Failed https://amazon.com/product-sitemap.xml after 2 retries: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://amazon.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2483/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2550/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2260/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2412/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2283/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2344/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "POST /api/dedup/candidates/2479/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50362 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-27 16:03:30 [INFO] backend.dedup.engine: Starting deduplication run
+INFO:     127.0.0.1:50363 - "POST /api/dedup/run HTTP/1.1" 200 OK
+2026-05-27 16:03:30 [INFO] backend.dedup.engine: Comparing 2240 products for duplicates
+2026-05-27 16:03:34 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://amazon.com: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://amazon.com/", waiting until "domcontentloaded"
+
+2026-05-27 16:03:56 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://amazon.com
+2026-05-27 16:03:56 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on amazon.com
+2026-05-27 16:03:56 [INFO] backend.competitor.scraper: amazon.com: 0 products found (no errors) — 3-day cooldown started
+INFO:     127.0.0.1:50383 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50385 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50384 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50382 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-27 16:04:00 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-27 16:04:00 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on aupetitcoinbreton.ca  (max_pages=100)
+2026-05-27 16:04:01 [WARNING] backend.scrapers.base_scraper: Context error on https://aupetitcoinbreton.ca/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/sitemap.xml", wait
+2026-05-27 16:04:01 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:04:01 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://aupetitcoinbreton.ca/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 16:04:11 [WARNING] backend.scrapers.base_scraper: Context error on https://aupetitcoinbreton.ca/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/sitemap.xml", wait
+2026-05-27 16:04:11 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:04:11 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://aupetitcoinbreton.ca/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 16:04:26 [WARNING] backend.scrapers.base_scraper: Context error on https://aupetitcoinbreton.ca/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/sitemap.xml", wait
+2026-05-27 16:04:26 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:04:26 [ERROR] backend.scrapers.base_scraper: Failed https://aupetitcoinbreton.ca/sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 16:04:26 [WARNING] backend.scrapers.base_scraper: Context error on https://aupetitcoinbreton.ca/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/sitemap_index.xml"
+2026-05-27 16:04:26 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:04:26 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://aupetitcoinbreton.ca/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-27 16:04:36 [WARNING] backend.scrapers.base_scraper: Context error on https://aupetitcoinbreton.ca/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/sitemap_index.xml"
+2026-05-27 16:04:36 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:04:36 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://aupetitcoinbreton.ca/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-27 16:04:52 [WARNING] backend.scrapers.base_scraper: Context error on https://aupetitcoinbreton.ca/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/sitemap_index.xml"
+2026-05-27 16:04:52 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:04:52 [ERROR] backend.scrapers.base_scraper: Failed https://aupetitcoinbreton.ca/sitemap_index.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-27 16:04:52 [WARNING] backend.scrapers.base_scraper: Context error on https://aupetitcoinbreton.ca/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/product-sitemap.xm
+2026-05-27 16:04:52 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:04:52 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://aupetitcoinbreton.ca/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 16:05:02 [WARNING] backend.scrapers.base_scraper: Context error on https://aupetitcoinbreton.ca/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/product-sitemap.xm
+2026-05-27 16:05:02 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:05:02 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://aupetitcoinbreton.ca/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 16:05:17 [WARNING] backend.scrapers.base_scraper: Context error on https://aupetitcoinbreton.ca/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/product-sitemap.xm
+2026-05-27 16:05:17 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:05:17 [ERROR] backend.scrapers.base_scraper: Failed https://aupetitcoinbreton.ca/product-sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-27 16:05:17 [WARNING] backend.scrapers.base_scraper: Context error on https://aupetitcoinbreton.ca: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/", waiting until "
+2026-05-27 16:05:17 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:05:17 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://aupetitcoinbreton.ca: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/", waiting until "domcontentloaded"
+
+2026-05-27 16:05:28 [WARNING] backend.scrapers.base_scraper: Context error on https://aupetitcoinbreton.ca: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/", waiting until "
+2026-05-27 16:05:28 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:05:28 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://aupetitcoinbreton.ca: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/", waiting until "domcontentloaded"
+
+2026-05-27 16:05:43 [WARNING] backend.scrapers.base_scraper: Context error on https://aupetitcoinbreton.ca: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/", waiting until "
+2026-05-27 16:05:43 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:05:43 [ERROR] backend.scrapers.base_scraper: Failed https://aupetitcoinbreton.ca after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://aupetitcoinbreton.ca/", waiting until "domcontentloaded"
+
+2026-05-27 16:05:43 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://aupetitcoinbreton.ca
+2026-05-27 16:05:43 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on aupetitcoinbreton.ca
+2026-05-27 16:05:43 [INFO] backend.competitor.scraper: aupetitcoinbreton.ca: 0 products found (no errors) — 3-day cooldown started
+2026-05-27 16:05:43 [INFO] backend.competitor.scraper: Skipping bakedeco.com — 3-day empty-scan cooldown (resets 2026-05-28)
+2026-05-27 16:05:47 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+INFO:     127.0.0.1:50423 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50425 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50421 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50424 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50420 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50422 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-27 16:05:47 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on bakell.com  (max_pages=100)
+INFO:     127.0.0.1:50428 - "GET /api/price-comparison?page=1&per_page=2&search=donut HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:50429 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50430 - "GET /api/price-comparison?page=1&per_page=2&search=donut HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50433 - "GET /api/price-comparison?page=1&per_page=2&search=donut HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50450 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50457 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Arctic+Air&category=AutoFiller HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50458 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-27 16:08:39 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/collections/decorating-tools: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://bakell.com/collections/decorating-tools", waiting until "domcontentloaded"
+
+INFO:     127.0.0.1:50467 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50468 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50469 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50468 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50470 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50468 - "GET /api/products?per_page=20 HTTP/1.1" 200 OK
+2026-05-27 16:09:48 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '(2) Edhard Donut Filler Spouts- Berliner Slanted Tip (F-3081)- Only for Double Outlet'  (id=3585)
+2026-05-27 16:09:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Filler Spouts Berliner Slanted Tip Only for buy'
+INFO:     127.0.0.1:50477 - "POST /api/products/competitor-search HTTP/1.1" 200 OK
+2026-05-27 16:10:03 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for 'Donut Filler Spouts Berliner Slanted Tip Only for buy'
+2026-05-27 16:10:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Donut Filler Spouts Berliner Slanted Tip': 60 new URLs
+2026-05-27 16:11:18 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Edhard donut filler buy'
+2026-05-27 16:11:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Edhard donut filler buy': 51 new URLs
+2026-05-27 16:11:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1695.00  confidence=31%
+2026-05-27 16:12:24 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 1/4 in 3s
+2026-05-27 16:12:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1695.00  confidence=31%
+2026-05-27 16:13:28 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 2/4 in 6s
+2026-05-27 16:13:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1695.00  confidence=31%
+2026-05-27 16:14:36 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 3/4 in 12s
+2026-05-27 16:14:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1695.00  confidence=31%
+INFO:     127.0.0.1:50749 - "GET /api/price-comparison?page=1&per_page=5&source_site=donut-supplies.com HTTP/1.1" 200 OK
+2026-05-27 16:16:00 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 15 results for 'commercial donut filler buy price'
+2026-05-27 16:16:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut filler buy price': 56 new URLs
+2026-05-27 16:16:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$489.90  confidence=31%
+2026-05-27 16:17:07 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 1/4 in 3s
+2026-05-27 16:17:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$489.90  confidence=31%
+2026-05-27 16:18:11 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 2/4 in 6s
+2026-05-27 16:18:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$489.90  confidence=31%
+2026-05-27 16:19:18 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 3/4 in 12s
+2026-05-27 16:19:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$489.90  confidence=31%
+2026-05-27 16:20:37 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 16 results for 'Donut Filler Spouts Berliner Slanted Tip Only for buy altern'
+2026-05-27 16:20:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Donut Filler Spouts Berliner Slanted Tip': 17 new URLs
+2026-05-27 16:20:38 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='(2) Edhard Donut Filler Spouts- Berliner Slanted Tip (F-3081)- Only for Double Outlet'  visited=41  found=0/14
+2026-05-27 16:20:38 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '(2) Edhard Donut Filler Spouts- Eclair with Plain Tip (F-3013)- Only for Double Outlet'  (id=3599)
+2026-05-27 16:20:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Filler Spouts Eclair with Plain Tip Only for buy'
+2026-05-27 16:20:45 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Donut Filler Spouts Eclair with Plain Tip Only for buy'
+2026-05-27 16:20:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Donut Filler Spouts Eclair with Plain Ti': 60 new URLs
+2026-05-27 16:20:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1695.00  confidence=31%
+2026-05-27 16:21:49 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 1/4 in 3s
+2026-05-27 16:21:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1695.00  confidence=31%
+2026-05-27 16:22:53 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 2/4 in 6s
+INFO:     127.0.0.1:50901 - "GET /api/price-comparison?page=1&per_page=25&search=donut HTTP/1.1" 200 OK
+2026-05-27 16:22:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1695.00  confidence=31%
+2026-05-27 16:24:00 [WARNING] backend.competitor.product_search: [PROD-SEARCH] DB locked, retry 3/4 in 12s
+2026-05-27 16:24:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1695.00  confidence=31%
+2026-05-27 16:25:14 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Edhard donut filler buy'
+2026-05-27 16:25:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Edhard donut filler buy': 49 new URLs
+2026-05-27 16:25:19 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 15 results for 'commercial donut filler buy price'
+2026-05-27 16:25:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut filler buy price': 56 new URLs
+2026-05-27 16:25:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$489.90  confidence=31%
+2026-05-27 16:25:32 [INFO] backend.dedup.engine: Deduplication complete: {'comparisons': 2468537, 'auto_merged': 0, 'flagged_for_review': 18, 'skipped_existing': 0}
+2026-05-27 16:25:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=1/14
+INFO:     127.0.0.1:50978 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50979 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-27 16:25:40 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for 'Donut Filler Spouts Eclair with Plain Tip Only for buy alter'
+2026-05-27 16:25:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Donut Filler Spouts Eclair with Plain Ti': 18 new URLs
+2026-05-27 16:25:40 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='(2) Edhard Donut Filler Spouts- Eclair with Plain Tip (F-3013)- Only for Double Outlet'  visited=35  found=1/14
+2026-05-27 16:25:40 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '(2) Edhard Donut Filler Spouts- Eclair Slitted with Plain Tip (F-3012)- Only for Double Outlet'  (id=4453)
+2026-05-27 16:25:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Filler Spouts Eclair Slitted with Plain Tip buy'
+2026-05-27 16:25:45 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Donut Filler Spouts Eclair Slitted with Plain Tip buy'
+2026-05-27 16:25:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Donut Filler Spouts Eclair Slitted with ': 63 new URLs
+2026-05-27 16:25:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1695.00  confidence=31%
+2026-05-27 16:25:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=1/14
+2026-05-27 16:25:50 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Edhard donut filler buy'
+INFO:     127.0.0.1:51074 - "GET /api/price-comparison?page=1&per_page=3 HTTP/1.1" 200 OK
+2026-05-27 16:25:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Edhard donut filler buy': 44 new URLs
+2026-05-27 16:25:57 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 15 results for 'commercial donut filler buy price'
+2026-05-27 16:25:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut filler buy price': 54 new URLs
+2026-05-27 16:25:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=2/14
+2026-05-27 16:26:13 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 10 results for 'Donut Filler Spouts Eclair Slitted with Plain Tip buy altern'
+2026-05-27 16:26:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Donut Filler Spouts Eclair Slitted with ': 19 new URLs
+2026-05-27 16:26:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$571.92  confidence=42%
+2026-05-27 16:26:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=3/14
+2026-05-27 16:26:15 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='(2) Edhard Donut Filler Spouts- Eclair Slitted with Plain Tip (F-3012)- Only for Double Outlet'  visited=29  found=3/14
+2026-05-27 16:26:15 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '(2) Edhard Donut Filler Spouts- Blueberry Slanted Tip (F-3014)- Only for Double Outlet'  (id=5272)
+2026-05-27 16:26:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Filler Spouts Blueberry Slanted Tip Only for buy'
+2026-05-27 16:26:31 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Donut Filler Spouts Blueberry Slanted Tip Only for buy'
+2026-05-27 16:26:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Donut Filler Spouts Blueberry Slanted Ti': 44 new URLs
+2026-05-27 16:26:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebstaurantstore.com  price=no price  confidence=40%
+2026-05-27 16:26:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebstaurantstore.com  found=1/14
+2026-05-27 16:26:36 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Edhard donut filler buy'
+2026-05-27 16:26:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Edhard donut filler buy': 53 new URLs
+2026-05-27 16:26:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1695.00  confidence=31%
+2026-05-27 16:26:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=2/14
+2026-05-27 16:26:40 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 15 results for 'commercial donut filler buy price'
+2026-05-27 16:26:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut filler buy price': 57 new URLs
+2026-05-27 16:26:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=3/14
+2026-05-27 16:26:52 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for 'Donut Filler Spouts Blueberry Slanted Tip Only for buy alter'
+2026-05-27 16:26:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Donut Filler Spouts Blueberry Slanted Ti': 16 new URLs
+2026-05-27 16:26:52 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='(2) Edhard Donut Filler Spouts- Blueberry Slanted Tip (F-3014)- Only for Double Outlet'  visited=38  found=3/14
+INFO:     127.0.0.1:51263 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Arctic+Air&category=AutoFiller HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51262 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-27 16:27:17 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/collections/shop-all-combo-packs?page=2&grid_list=grid-view: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://bakell.com/collections/shop-all-combo-packs?page=2&grid_list=grid-view", waiting until "domcontentloaded"
+
+2026-05-27 16:27:47 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/collections/shop-all-combo-packs?page=2&grid_list=grid-view: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://bakell.com/collections/shop-all-combo-packs?page=2&grid_list=grid-view", waiting until "domcontentloaded"
+
+2026-05-27 16:28:22 [ERROR] backend.scrapers.base_scraper: Failed https://bakell.com/collections/shop-all-combo-packs?page=2&grid_list=grid-view after 2 retries: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://bakell.com/collections/shop-all-combo-packs?page=2&grid_list=grid-view", waiting until "domcontentloaded"
+
+2026-05-27 16:28:42 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/collections/shop-all-combo-packs?page=3&grid_list=grid-view: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://bakell.com/collections/shop-all-combo-packs?page=3&grid_list=grid-view", waiting until "domcontentloaded"
+
+2026-05-27 16:29:12 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/collections/shop-all-combo-packs?page=3&grid_list=grid-view: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://bakell.com/collections/shop-all-combo-packs?page=3&grid_list=grid-view", waiting until "domcontentloaded"
+
+2026-05-27 16:29:48 [ERROR] backend.scrapers.base_scraper: Failed https://bakell.com/collections/shop-all-combo-packs?page=3&grid_list=grid-view after 2 retries: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://bakell.com/collections/shop-all-combo-packs?page=3&grid_list=grid-view", waiting until "domcontentloaded"
+
+INFO:     127.0.0.1:51280 - "GET /api/products?page=1&per_page=3 HTTP/1.1" 200 OK
+2026-05-27 16:33:10 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/collections/edible-sprinkles-shapes?page=2&grid_list=grid-view: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://bakell.com/collections/edible-sprinkles-shapes?page=2&grid_list=grid-view", waiting until "domcontentloaded"
+
+2026-05-27 16:33:40 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/collections/edible-sprinkles-shapes?page=2&grid_list=grid-view: Page.goto: Timeout 20000ms exceeded.
+Call log:
+  - navigating to "https://bakell.com/collections/edible-sprinkles-shapes?page=2&grid_list=grid-view", waiting until "domcontentloaded"
+
+2026-05-27 16:34:52 [INFO] backend.scrapers.base_scraper: Discovered 561 product URLs on https://bakell.com
+2026-05-27 16:34:52 [INFO] backend.competitor.scraper: [SCRAPE] Found 561 product URLs on bakell.com
+INFO:     connection closed
+2026-05-27 16:39:07 [WARNING] backend.scrapers.base_scraper: Context error on https://bakell.com/products/purple-purple-luster-dust-by-the-case-private-label: BrowserContext.new_page: Target page, context or browser has been closed
+2026-05-27 16:39:07 [WARNING] backend.scrapers.base_scraper: Browser context is broken — rebuilding context...
+2026-05-27 16:39:07 [WARNING] backend.scrapers.base_scraper: Context error on https://bakell.com/products/pearl-easter-bunnies-shaped-sprinkles: BrowserContext.new_page: Target page, context or browser has been closed
+2026-05-27 16:39:07 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:39:07 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/pearl-easter-bunnies-shaped-sprinkles: BrowserContext.new_page: Target page, context or browser has been closed
+2026-05-27 16:39:17 [WARNING] backend.scrapers.base_scraper: Context error on https://bakell.com/products/pearl-easter-bunnies-shaped-sprinkles: BrowserContext.new_page: Target page, context or browser has been closed
+2026-05-27 16:39:17 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 16:39:17 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/products/pearl-easter-bunnies-shaped-sprinkles: BrowserContext.new_page: Target page, context or browser has been closed
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-27 16:39:26 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-27 16:39:26 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [26714]
+ERROR:    Error loading ASGI app. Could not import module "backend.main".
+Traceback (most recent call last):
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/bin/uvicorn", line 6, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/click/core.py", line 1524, in __call__
+    return self.main(*args, **kwargs)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/click/core.py", line 1445, in main
+    rv = self.invoke(ctx)
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/click/core.py", line 1308, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/click/core.py", line 877, in invoke
+    return callback(*args, **kwargs)
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 441, in main
+    run(
+    ~~~^
+        app,
+        ^^^^
+    ...<48 lines>...
+        reset_contextvars=reset_contextvars,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/main.py", line 620, in run
+    server.run()
+    ~~~~~~~~~~^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/server.py", line 75, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+  File "/Users/evw/.pyenv/versions/3.13.13/lib/python3.13/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/Users/evw/.pyenv/versions/3.13.13/lib/python3.13/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/server.py", line 79, in serve
+    await self._serve(sockets)
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/server.py", line 86, in _serve
+    config.load()
+    ~~~~~~~~~~~^^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 448, in load
+    self.ssl = create_ssl_context(
+               ~~~~~~~~~~~~~~~~~~^
+        keyfile=self.ssl_keyfile,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        ciphers=self.ssl_ciphers,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/evw/dev/productComparison/donut-intel/.venv/lib/python3.13/site-packages/uvicorn/config.py", line 116, in create_ssl_context
+    ctx.load_cert_chain(certfile, keyfile, get_password)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory
+INFO:     Started server process [2625]
+INFO:     Waiting for application startup.
+2026-05-27 17:22:29 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-27 17:22:29 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-27 17:22:29 [INFO] backend.database.db: Database initialized
+2026-05-27 17:22:29 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-27 17:22:29 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-27 17:22:29 [INFO] backend.app: Scheduler started
+2026-05-27 17:22:29 [INFO] backend.app: Log-tail broadcaster started
+2026-05-27 17:22:29 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-27 17:22:29 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
