@@ -91,6 +91,36 @@ def cmd_competitor_scan(args):
 
 
 # ---------------------------------------------------------------------------
+# Yahoo Shopping scan
+# ---------------------------------------------------------------------------
+
+def cmd_yahoo_scan(args):
+    _setup()
+    from backend.competitor.yahoo_scan import run_yahoo_shopping_scan
+    from datetime import datetime, timezone
+
+    def progress(event, data):
+        if event == 'yahoo_scan_product':
+            print(f"  Searching: {data.get('query','')}", flush=True)
+        elif event == 'yahoo_scan_product_done':
+            print(f"    → {data.get('pla_count', 0)} PLAs found", flush=True)
+
+    print('Starting Yahoo Shopping scan...')
+    result = asyncio.run(run_yahoo_shopping_scan(
+        product_id=args.product_id,
+        query=args.query,
+        delay_between_queries=args.delay,
+        max_pla_results=args.max_results,
+        progress_callbacks=[lambda e, d: progress(e, d)],
+    ))
+    print(
+        f'\nDone: {result["products_searched"]} products searched, '
+        f'{result["pla_results"]} PLAs found, '
+        f'{result["matches_found"]} new matches stored.'
+    )
+
+
+# ---------------------------------------------------------------------------
 # Competitor import
 # ---------------------------------------------------------------------------
 
@@ -307,6 +337,14 @@ def main():
     p.add_argument("--session", default=None, help="Session name")
     p.add_argument("--similar", action="store_true", help="Also find similar products")
     p.set_defaults(func=cmd_competitor_scan)
+
+    # yahoo-scan
+    p = sub.add_parser('yahoo-scan', help='Search Yahoo PLAs for competitor prices')
+    p.add_argument('--product-id', type=int, default=None, dest='product_id', help='Scan a specific product ID only')
+    p.add_argument('--query', default=None, help='Override search query')
+    p.add_argument('--delay', type=float, default=3.0, help='Seconds between searches (default 3)')
+    p.add_argument('--max-results', type=int, default=30, dest='max_results', help='Max PLA results per query (default 30)')
+    p.set_defaults(func=cmd_yahoo_scan)
 
     # import
     p = sub.add_parser("import-competitors", help="Bulk import competitor domains")
