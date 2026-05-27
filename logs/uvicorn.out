@@ -16572,3 +16572,362 @@ INFO:     Waiting for application startup.
 2026-05-27 17:22:29 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
 INFO:     Application startup complete.
 INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     127.0.0.1:52032 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52032 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52033 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52036 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52034 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52035 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52032 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52033 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52034 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52032 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52037 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52032 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52037 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52037 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52032 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52038 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52037 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52039 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52034 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52033 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52040 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:52038 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52032 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52037 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52037 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52041 - "GET /api/price-comparison?page=1&per_page=25&category=Baking+Accessories HTTP/1.1" 200 OK
+2026-05-27 17:52:14 [INFO] backend.competitor.scraper: Skipping acitydiscount.com — too soon (next allowed: 2026-05-28T20:56:21.020097)
+2026-05-27 17:52:14 [INFO] backend.competitor.scraper: Skipping ald.kitchen — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 17:52:14 [INFO] backend.competitor.scraper: Skipping alibaba.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 17:52:14 [INFO] backend.competitor.scraper: Skipping allbaketech.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 17:52:14 [INFO] backend.competitor.scraper: Skipping allegiantair.com — too soon (next allowed: 2026-05-28T20:59:41.147127)
+2026-05-27 17:52:14 [INFO] backend.competitor.scraper: Skipping allpointsfps.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 17:52:14 [INFO] backend.competitor.scraper: Skipping almart.com — 3-day empty-scan cooldown (resets 2026-05-28)
+2026-05-27 17:52:14 [INFO] backend.competitor.scraper: Skipping amazon.com — too soon (next allowed: 2026-05-28T21:03:56.274273)
+2026-05-27 17:52:14 [INFO] backend.competitor.scraper: Skipping aupetitcoinbreton.ca — too soon (next allowed: 2026-05-28T21:05:43.271207)
+2026-05-27 17:52:14 [INFO] backend.competitor.scraper: Skipping bakedeco.com — 3-day empty-scan cooldown (resets 2026-05-28)
+2026-05-27 17:52:14 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+INFO:     127.0.0.1:52042 - "POST /api/competitors/scan HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52045 - "GET /api/price-comparison?page=1&per_page=25&category=Baking+Accessories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52042 - "GET /api/price-comparison?page=1&per_page=25&category=Baking+Accessories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52043 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52046 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52043 - "GET /api/price-comparison?page=1&per_page=25&category=Baking+Accessories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52045 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52046 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52045 - "GET /api/price-comparison?page=1&per_page=25&category=Baking+Accessories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52047 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52042 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52044 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52043 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52047 - "GET /api/price-comparison?page=1&per_page=25&category=Baking+Accessories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52044 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52045 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52046 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52043 - "GET /api/price-comparison?page=1&per_page=25&category=Baking+Accessories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52042 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52044 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52045 - "GET /api/price-comparison?page=1&per_page=25&category=Baking+Accessories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52042 - "GET /api/price-comparison?page=1&per_page=25&category=Baking+Accessories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52045 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52047 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52043 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52042 - "GET /api/price-comparison?page=1&per_page=25&category=Baking+Accessories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52044 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52046 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52043 - "GET /api/price-comparison?page=1&per_page=25&category=Baking+Accessories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52047 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52045 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-27 17:52:15 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on bakell.com  (max_pages=100)
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5703/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5704/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5705/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5706/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5707/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5708/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5709/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5710/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5715/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5717/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5718/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5711/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "POST /api/dedup/candidates/5702/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52048 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52049 - "POST /api/dedup/candidates/5701/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52049 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52049 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52049 - "POST /api/dedup/candidates/5714/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52049 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52049 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52050 - "POST /api/dedup/candidates/5713/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52050 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52050 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52050 - "POST /api/dedup/candidates/5712/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52050 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52050 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52050 - "POST /api/dedup/candidates/5716/resolve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52050 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52050 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52050 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52050 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52229 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52230 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52230 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52230 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52231 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52232 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-27 17:55:17 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '*Required Orbits Siphon Pump & Oil Can'  (id=1094)
+2026-05-27 17:55:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '*Required Siphon Pump & Oil Can buy'
+INFO:     127.0.0.1:52233 - "POST /api/products/competitor-search HTTP/1.1" 200 OK
+2026-05-27 17:55:36 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 20 results for '*Required Siphon Pump & Oil Can buy'
+2026-05-27 17:55:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '*Required Siphon Pump & Oil Can buy': 73 new URLs
+2026-05-27 17:55:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$50.90  confidence=28%
+2026-05-27 17:55:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=1/9
+2026-05-27 17:55:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=instacart.com  price=$18.89  confidence=31%
+2026-05-27 17:55:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=instacart.com  found=2/9
+2026-05-27 17:55:51 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 18 results for '*Required Siphon Pump & Oil Can buy alternatives where to bu'
+2026-05-27 17:55:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 '*Required Siphon Pump & Oil Can buy alte': 37 new URLs
+2026-05-27 17:55:51 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='*Required Orbits Siphon Pump & Oil Can'  visited=20  found=2/9
+2026-05-27 17:55:51 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '100LB/50 GPM GREASE TRAP'  (id=3538)
+2026-05-27 17:55:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'BK Resources 100LB 50 GPM GREASE TRAP buy'
+2026-05-27 17:56:02 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for 'BK Resources 100LB 50 GPM GREASE TRAP buy'
+2026-05-27 17:56:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'BK Resources 100LB 50 GPM GREASE TRAP bu': 30 new URLs
+2026-05-27 17:56:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$857.99  confidence=55%
+2026-05-27 17:56:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=1/9
+2026-05-27 17:56:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=almart.com  price=no price  confidence=25%
+2026-05-27 17:56:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=almart.com  found=2/9
+2026-05-27 17:56:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$759.00  confidence=84%
+2026-05-27 17:56:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=3/9
+2026-05-27 17:56:15 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 17 results for 'BK Resources 100LB 50 GPM GREASE TRAP buy alternatives where'
+2026-05-27 17:56:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'BK Resources 100LB 50 GPM GREASE TRAP bu': 24 new URLs
+2026-05-27 17:56:16 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='100LB/50 GPM GREASE TRAP'  visited=28  found=3/9
+2026-05-27 17:56:16 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '(2) Edhard Donut Filler Spouts- Berliner Slanted Tip (F-3081)- Only for Double Outlet'  (id=3585)
+2026-05-27 17:56:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Filler Spouts Berliner Slanted Tip Only for buy'
+2026-05-27 17:56:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Donut Filler Spouts Berliner Slanted Tip': 51 new URLs
+2026-05-27 17:56:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Edhard donut filler buy': 52 new URLs
+2026-05-27 17:56:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1695.00  confidence=31%
+2026-05-27 17:56:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=1/9
+2026-05-27 17:56:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut filler buy price': 49 new URLs
+2026-05-27 17:56:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$615.90  confidence=33%
+2026-05-27 17:56:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=2/9
+2026-05-27 17:56:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Donut Filler Spouts Berliner Slanted Tip': 6 new URLs
+2026-05-27 17:56:38 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='(2) Edhard Donut Filler Spouts- Berliner Slanted Tip (F-3081)- Only for Double Outlet'  visited=31  found=2/9
+2026-05-27 17:56:38 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '10 Quart Thunderbird Planetary Mixer ARM-01'  (id=4078)
+2026-05-27 17:56:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '10 Quart Planetary Mixer ARM-01 buy'
+2026-05-27 17:56:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '10 Quart Planetary Mixer ARM-01 buy': 38 new URLs
+2026-05-27 17:56:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$834.00  confidence=32%
+2026-05-27 17:56:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=1/9
+2026-05-27 17:56:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$572.90  confidence=33%
+2026-05-27 17:56:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=2/9
+2026-05-27 17:56:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$884.05  confidence=30%
+2026-05-27 17:56:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=3/9
+2026-05-27 17:56:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1034.00  confidence=30%
+2026-05-27 17:56:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=4/9
+2026-05-27 17:56:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantequipment.com  price=$1928.00  confidence=38%
+2026-05-27 17:56:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantequipment.com  found=5/9
+2026-05-27 17:56:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$1935.98  confidence=41%
+2026-05-27 17:56:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=6/9
+2026-05-27 17:56:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebay.com  price=no price  confidence=30%
+2026-05-27 17:56:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebay.com  found=7/9
+2026-05-27 17:56:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Thunderbird planetary mixer buy': 13 new URLs
+2026-05-27 17:57:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial planetary mixer buy price': 55 new URLs
+2026-05-27 17:57:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '10 Quart Planetary Mixer ARM-01 buy alte': 12 new URLs
+2026-05-27 17:57:03 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='10 Quart Thunderbird Planetary Mixer ARM-01'  visited=37  found=7/9
+2026-05-27 17:57:03 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '140 Quart Thunderbird Planetary Mixer ARM-140'  (id=4147)
+2026-05-27 17:57:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '140 Quart Planetary Mixer buy'
+2026-05-27 17:57:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '140 Quart Planetary Mixer buy': 60 new URLs
+2026-05-27 17:57:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$17850.00  confidence=31%
+2026-05-27 17:57:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=1/9
+2026-05-27 17:57:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$36925.04  confidence=33%
+2026-05-27 17:57:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=2/9
+2026-05-27 17:57:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=edgefoodequipment.com  found=3/9
+2026-05-27 17:57:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Thunderbird planetary mixer buy': 18 new URLs
+2026-05-27 17:57:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial planetary mixer buy price': 42 new URLs
+2026-05-27 17:57:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '140 Quart Planetary Mixer buy alternativ': 17 new URLs
+2026-05-27 17:57:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$619.90  confidence=32%
+2026-05-27 17:57:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=4/9
+2026-05-27 17:57:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=sharpteksupply.com  price=$1288.51  confidence=31%
+2026-05-27 17:57:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=sharpteksupply.com  found=5/9
+2026-05-27 17:57:29 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='140 Quart Thunderbird Planetary Mixer ARM-140'  visited=32  found=5/9
+2026-05-27 17:57:29 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '(2) Edhard Donut Filler Spouts- Frenchie Slanted Tip (F-3066)- Only for Double Outlet'  (id=4611)
+2026-05-27 17:57:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Filler Spouts Frenchie Slanted Tip Only for buy'
+2026-05-27 17:57:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Donut Filler Spouts Frenchie Slanted Tip': 41 new URLs
+2026-05-27 17:57:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1695.00  confidence=31%
+2026-05-27 17:57:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=1/9
+2026-05-27 17:57:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Edhard donut filler buy': 58 new URLs
+2026-05-27 17:57:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut filler buy price': 51 new URLs
+2026-05-27 17:57:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$573.90  confidence=32%
+2026-05-27 17:57:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=2/9
+2026-05-27 17:58:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Donut Filler Spouts Frenchie Slanted Tip': 10 new URLs
+2026-05-27 17:58:00 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='(2) Edhard Donut Filler Spouts- Frenchie Slanted Tip (F-3066)- Only for Double Outlet'  visited=36  found=2/9
+2026-05-27 17:58:00 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '20 Quart Stainless Steel Floor Model Blakeslee Food Mixer Model F-20-SS'  (id=4786)
+2026-05-27 17:58:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20 Quart Stainless Steel Floor Model Food Mixer buy'
+2026-05-27 17:58:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '20 Quart Stainless Steel Floor Model Foo': 67 new URLs
+2026-05-27 17:58:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$789.90  confidence=31%
+2026-05-27 17:58:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=1/9
+2026-05-27 17:58:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$1246.39  confidence=33%
+2026-05-27 17:58:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=2/9
+2026-05-27 17:58:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cudakitchen.com  price=no price  confidence=27%
+2026-05-27 17:58:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cudakitchen.com  found=3/9
+2026-05-27 17:58:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$14727.00  confidence=36%
+2026-05-27 17:58:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=4/9
+2026-05-27 17:58:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Blakeslee mix buy': 51 new URLs
+2026-05-27 17:58:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial mix buy price': 41 new URLs
+2026-05-27 17:58:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '20 Quart Stainless Steel Floor Model Foo': 12 new URLs
+2026-05-27 17:58:32 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='20 Quart Stainless Steel Floor Model Blakeslee Food Mixer Model F-20-SS'  visited=23  found=4/9
+2026-05-27 17:58:32 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: '(MK-0557-11.5) Belshaw Donut Robot Mark II, Mark V, and Mark VI Fryer Straight Drain Valve for Support Table (2 Variables in Variants)'  (id=5104)
+2026-05-27 17:58:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Robot Mark II Mark V and Mark VI Fryer buy'
+2026-05-27 17:58:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Donut Robot Mark II Mark V and Mark VI F': 16 new URLs
+2026-05-27 17:58:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  price=no price  confidence=26%
+2026-05-27 17:58:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  found=1/9
+2026-05-27 17:58:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=emequip.com  price=no price  confidence=28%
+2026-05-27 17:58:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=emequip.com  found=2/9
+2026-05-27 17:58:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Belshaw Adamatic donut robot buy': 15 new URLs
+2026-05-27 17:58:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$699.90  confidence=31%
+2026-05-27 17:58:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=3/9
+2026-05-27 17:58:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut robot buy price': 59 new URLs
+2026-05-27 17:58:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Donut Robot Mark II Mark V and Mark VI F': 13 new URLs
+2026-05-27 17:58:54 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='(MK-0557-11.5) Belshaw Donut Robot Mark II, Mark V, and Mark VI Fryer Straight Drain Valve for Support Table (2 Variables in Variants)'  visited=32  found=3/9
+INFO:     127.0.0.1:53266 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53267 - "GET /api/price-comparison?page=1&per_page=25&category=Baking+Accessories HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53417 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53418 - "GET /api/competitors/411 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53418 - "GET /api/competitors/411/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53567 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53568 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53568 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-27 18:02:20 [INFO] backend.scrapers.base_scraper: Discovered 318 product URLs on https://bakell.com
+2026-05-27 18:02:20 [INFO] backend.competitor.scraper: [SCRAPE] Found 318 product URLs on bakell.com
+INFO:     127.0.0.1:53569 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53570 - "GET /api/price-comparison?page=1&per_page=25&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53571 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-27 18:05:30 [INFO] backend.competitor.scraper: Skipping acitydiscount.com — too soon (next allowed: 2026-05-28T20:56:21.020097)
+2026-05-27 18:05:30 [INFO] backend.competitor.scraper: Skipping ald.kitchen — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 18:05:30 [INFO] backend.competitor.scraper: Skipping alibaba.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 18:05:30 [INFO] backend.competitor.scraper: Skipping allbaketech.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 18:05:30 [INFO] backend.competitor.scraper: Skipping allegiantair.com — too soon (next allowed: 2026-05-28T20:59:41.147127)
+2026-05-27 18:05:30 [INFO] backend.competitor.scraper: Skipping allpointsfps.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 18:05:30 [INFO] backend.competitor.scraper: Skipping almart.com — 3-day empty-scan cooldown (resets 2026-05-28)
+2026-05-27 18:05:30 [INFO] backend.competitor.scraper: Skipping amazon.com — too soon (next allowed: 2026-05-28T21:03:56.274273)
+2026-05-27 18:05:30 [INFO] backend.competitor.scraper: Skipping aupetitcoinbreton.ca — too soon (next allowed: 2026-05-28T21:05:43.271207)
+2026-05-27 18:05:30 [INFO] backend.competitor.scraper: Skipping bakedeco.com — 3-day empty-scan cooldown (resets 2026-05-28)
+2026-05-27 18:05:30 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+INFO:     127.0.0.1:53733 - "POST /api/competitors/scan HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53733 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53737 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53735 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53733 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53736 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53734 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53738 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53735 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53737 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53733 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53735 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53734 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53736 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53733 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53738 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53734 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53737 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53735 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53733 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53736 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-27 18:05:30 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on bakell.com  (max_pages=100)
+INFO:     127.0.0.1:53739 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=BakeMax&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53740 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Baker%27s+Pride&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53894 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=BK+Resources&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+2026-05-27 18:06:54 [INFO] backend.competitor.scraper: Skipping acitydiscount.com — too soon (next allowed: 2026-05-28T20:56:21.020097)
+2026-05-27 18:06:54 [INFO] backend.competitor.scraper: Skipping ald.kitchen — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 18:06:54 [INFO] backend.competitor.scraper: Skipping alibaba.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 18:06:54 [INFO] backend.competitor.scraper: Skipping allbaketech.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 18:06:54 [INFO] backend.competitor.scraper: Skipping allegiantair.com — too soon (next allowed: 2026-05-28T20:59:41.147127)
+2026-05-27 18:06:54 [INFO] backend.competitor.scraper: Skipping allpointsfps.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 18:06:54 [INFO] backend.competitor.scraper: Skipping almart.com — 3-day empty-scan cooldown (resets 2026-05-28)
+2026-05-27 18:06:54 [INFO] backend.competitor.scraper: Skipping amazon.com — too soon (next allowed: 2026-05-28T21:03:56.274273)
+2026-05-27 18:06:54 [INFO] backend.competitor.scraper: Skipping aupetitcoinbreton.ca — too soon (next allowed: 2026-05-28T21:05:43.271207)
+2026-05-27 18:06:54 [INFO] backend.competitor.scraper: Skipping bakedeco.com — 3-day empty-scan cooldown (resets 2026-05-28)
+2026-05-27 18:06:54 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+INFO:     127.0.0.1:53895 - "POST /api/competitors/scan HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53895 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=BK+Resources&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53898 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=BK+Resources&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53899 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53897 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53900 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53895 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53896 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53900 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53898 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53899 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=BK+Resources&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53897 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53900 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53895 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=BK+Resources&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53896 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53897 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53898 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=BK+Resources&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53896 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53900 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=BK+Resources&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53899 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53895 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53897 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=BK+Resources&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53895 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53896 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53898 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53900 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=BK+Resources&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+2026-05-27 18:06:54 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on bakell.com  (max_pages=100)
+INFO:     127.0.0.1:53899 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53896 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53897 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=BK+Resources&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53898 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=BK+Resources&source_site=bakerywholesalers.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53895 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-05-27 18:11:05 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-27 18:11:05 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2625]
+INFO:     Started server process [13458]
+INFO:     Waiting for application startup.
+2026-05-27 18:46:34 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-27 18:46:34 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-27 18:46:34 [INFO] backend.database.db: Database initialized
+2026-05-27 18:46:34 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-27 18:46:34 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-27 18:46:34 [INFO] backend.app: Scheduler started
+2026-05-27 18:46:34 [INFO] backend.app: Log-tail broadcaster started
+2026-05-27 18:46:34 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-27 18:46:34 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     127.0.0.1:56445 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56446 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
