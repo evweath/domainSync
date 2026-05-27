@@ -2,6 +2,7 @@
 Yahoo Shopping scraper — extracts Product Listing Ads (PLAs)
 from Yahoo Search results pages using httpx + lxml.
 """
+import asyncio
 import base64
 import logging
 import re
@@ -9,7 +10,6 @@ from dataclasses import dataclass
 from typing import List, Optional
 from urllib.parse import parse_qs, unquote, urlparse
 
-import httpx
 from lxml import html as lxml_html
 
 from backend.config import config
@@ -79,6 +79,29 @@ def _resolve_url(href: str) -> str:
     return href
 
 
+_TRACKING_PARAMS = frozenset({
+    'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+    'msclkid', 'gclid', 'fbclid', 'ref', 'tag',
+    'ma_campaign_id', 'ma_adgroup_id', 'cnxclid',
+    'trng',
+})
+
+
+def _clean_url(url: str) -> str:
+    """Strip click-tracking query parameters so the same product URL deduplicates."""
+    if not url:
+        return url
+    try:
+        p = urlparse(url)
+        qs = parse_qs(p.query, keep_blank_values=True)
+        clean = {k: v for k, v in qs.items() if k.lower() not in _TRACKING_PARAMS}
+        from urllib.parse import urlencode
+        new_query = urlencode(clean, doseq=True)
+        return p._replace(query=new_query).geturl()
+    except Exception:
+        return url
+
+
 def _extract_domain(url: str) -> str:
     if not url:
         return ''
@@ -102,9 +125,10 @@ def _parse_price(text: str) -> tuple[Optional[float], Optional[str]]:
 
 
 def _user_agent() -> str:
-    active = config.get('browser', 'default_profile', default='chrome_mac')
+    # Yahoo only serves PLAs to Chrome-identified clients; ignore project browser profile here.
     profiles = config.get('browser', 'profiles', default={})
-    return profiles.get(active, {}).get('user_agent', _DEFAULT_UA)
+    chrome_ua = profiles.get('chrome_mac', {}).get('user_agent')
+    return chrome_ua or _DEFAULT_UA
 
 
 async def scrape_yahoo_shopping(
@@ -116,21 +140,28 @@ async def scrape_yahoo_shopping(
     search_url = f'{YAHOO_SEARCH_URL}?p={query.replace(" ", "+")}&fr=yfp-t'
     logger.info('Yahoo Shopping: %s', search_url)
 
-    headers = {
-        'User-Agent': _user_agent(),
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.9',
-    }
-
-    async with httpx.AsyncClient(headers=headers, follow_redirects=True, timeout=20) as client:
-        try:
-            resp = await client.get(search_url)
-            resp.raise_for_status()
-        except Exception as exc:
-            logger.warning('Yahoo Shopping fetch failed for %r: %s', query, exc)
+    ua = _user_agent()
+    try:
+        proc = await asyncio.create_subprocess_exec(
+            'curl', '-s', '-L',
+            '-A', ua,
+            '-H', 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            '-H', 'Accept-Language: en-US,en;q=0.9',
+            '--max-time', '20',
+            search_url,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.DEVNULL,
+        )
+        stdout, _ = await proc.communicate()
+        if proc.returncode != 0 or not stdout:
+            logger.warning('Yahoo Shopping curl failed for %r (exit %s)', query, proc.returncode)
             return results
+        html_text = stdout.decode('utf-8', errors='replace')
+    except Exception as exc:
+        logger.warning('Yahoo Shopping fetch failed for %r: %s', query, exc)
+        return results
 
-    doc = lxml_html.fromstring(resp.text)
+    doc = lxml_html.fromstring(html_text)
     items = doc.xpath('//li[contains(@class,"plaItem")]')
     logger.info('Yahoo PLAs: %d items for %r', len(items), query)
 
@@ -140,7 +171,7 @@ async def scrape_yahoo_shopping(
             if not anchors:
                 continue
             href = anchors[0].get('href', '')
-            url = _resolve_url(href)
+            url = _clean_url(_resolve_url(href))
             if not url:
                 continue
 

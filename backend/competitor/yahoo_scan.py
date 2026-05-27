@@ -11,7 +11,8 @@ from typing import Callable, List, Optional
 
 from sqlalchemy.orm import Session, joinedload
 
-from backend.competitor.matcher import MatchCriteria, match_competitor_product
+from rapidfuzz import fuzz
+
 from backend.database.db import session_scope
 from backend.database.models import (
     Competitor,
@@ -22,6 +23,38 @@ from backend.database.models import (
 from backend.scrapers.yahoo_shopping_scraper import YahooPLAResult, scrape_yahoo_shopping
 
 logger = logging.getLogger(__name__)
+
+
+def _pla_match(
+    pla: YahooPLAResult, product: _types.SimpleNamespace
+) -> tuple[float, list[str], dict]:
+    """
+    Lightweight match scorer for Yahoo PLA results searched against a known product.
+    Yahoo already filtered results by our query; we just verify the PLA is actually
+    for this product (same manufacturer + similar title).
+
+    Returns (confidence 0-100, match_types, reasons). confidence < 25 → no match.
+    """
+    score = 0.0
+    match_types: list[str] = []
+    reasons: dict = {}
+
+    if product.manufacturer:
+        mfr_lower = product.manufacturer.lower()
+        if mfr_lower in pla.title.lower() or mfr_lower in pla.merchant_domain.lower():
+            score += 25.0
+            match_types.append('manufacturer')
+            reasons['manufacturer'] = product.manufacturer
+
+    title_sim = fuzz.token_sort_ratio(
+        product.canonical_title.lower(), pla.title.lower()
+    )
+    reasons['title_similarity'] = title_sim
+    if title_sim >= 45:
+        score += 30.0 * (title_sim / 100.0)
+        match_types.append('title_fuzzy')
+
+    return min(score, 100.0), match_types, reasons
 
 
 def _excluded_domains() -> set[str]:
@@ -120,7 +153,6 @@ def _upsert_match(
 async def run_yahoo_shopping_scan(
     product_id: Optional[int] = None,
     query: Optional[str] = None,
-    criteria_dict: Optional[dict] = None,
     delay_between_queries: float = 3.0,
     max_pla_results: int = 30,
     progress_callbacks: Optional[List[Callable]] = None,
@@ -140,7 +172,6 @@ async def run_yahoo_shopping_scan(
             except Exception:
                 pass
 
-    criteria = MatchCriteria.from_dict(criteria_dict) if criteria_dict else MatchCriteria()
     excluded = _excluded_domains()
 
     with session_scope() as db:
@@ -179,40 +210,30 @@ async def run_yahoo_shopping_scan(
                 if pla.merchant_domain in excluded:
                     continue
 
-                comp_dict = {
-                    'title': pla.title,
-                    'price': pla.price,
-                    'model_number': None,
-                    'manufacturer': None,
-                    'sku': None,
-                    'description': None,
-                    'image_hash': None,
-                }
-
-                match_result = match_competitor_product(comp_dict, [product], criteria)
-                if match_result is None:
+                confidence, match_types, reasons = _pla_match(pla, product)
+                if confidence < 25:
                     logger.debug(
-                        'No match: %r → %r (product_id=%d)',
-                        pla.title[:50], product.canonical_title[:50], product.id,
+                        'No match (conf=%.0f): %r → %r',
+                        confidence, pla.title[:50], product.canonical_title[:50],
                     )
                     continue
 
                 competitor_id = _get_or_create_competitor(db, pla.merchant_domain, pla.merchant)
                 created = _upsert_match(
                     db=db,
-                    master_product_id=match_result.master_product_id,
+                    master_product_id=product.id,
                     competitor_id=competitor_id,
                     pla=pla,
-                    confidence=match_result.confidence,
-                    match_types=match_result.match_types,
-                    match_reasons=match_result.reasons,
+                    confidence=confidence,
+                    match_types=match_types,
+                    match_reasons=reasons,
                 )
                 if created:
                     total_matches += 1
                     price_str = f'${pla.price:.2f}' if pla.price else 'no price'
                     logger.info(
                         'Yahoo PLA match: domain=%s  product=%r  price=%s  confidence=%d%%',
-                        pla.merchant_domain, pla.title[:60], price_str, int(match_result.confidence),
+                        pla.merchant_domain, pla.title[:60], price_str, int(confidence),
                     )
 
         await emit('yahoo_scan_product_done', {
