@@ -1,65 +1,41 @@
-# Session State — 2026-05-21T17:15:00-05:00
+# Session State — 2026-05-26T19:30:00-05:00
 
 ## Accomplished This Session
 
-- **Shopify API Credentials UI** (Settings page):
-  - Added `shopify_store_url`, `shopify_api_key`, `shopify_access_token` fields to each source site in `config/settings.yaml`
-  - `PUT /api/source-sites/{domain}/credentials` — persists credentials by patching the list entry directly (`config._settings["source_sites"]`) and calling `config._save()`
-  - `POST /api/source-sites/{domain}/test-connection` — verifies via `/admin/api/2024-01/shop.json`, returns shop name + plan
-  - Settings page section: one card per store, Store URL + API Key + Access Token inputs (password masked), Save + Test Connection buttons, inline connection status badge
+- **Bing Shopping scraper** (`backend/search/engine.py` → `_bing_shopping_search`): Fully rewritten. Bing Shopping merchant links use `class="br-offLink"` anchors whose `href` points to `https://www.bing.com/aclick?...&u=<URL-safe-base64>`. The `u=` param base64-decodes to the actual merchant URL. Scraper now finds these anchors, decodes the URL, and extracts title from `<span title="...">` and price from `class="br-price"`. **Returns 10 real merchant results with prices.**
 
-- **Live Sync pipeline** (`⚡ Live Sync` nav item, commit `52bc202`):
-  - `backend/shopify/client.py` — async Shopify Admin REST client, cursor-paginated, rate-limit back-off (leaky bucket), CRUD for products/variants/images/collections/metafields
-  - `backend/shopify/scanner.py` — full store scan into snapshot: `{shop, products (by handle), products_by_id, collections, collects, product_collections, collection_products, metafields}`
-  - `backend/shopify/differ.py` — diff engine: scalar fields, tags (set diff with MERGE/replace), variants, images, collection memberships; each transaction has `risk_level` (LOW/MEDIUM/HIGH/CRITICAL), `warnings[]`, `affected_relationships[]`
-  - `backend/shopify/executor.py` — executes approved transactions: CREATE/UPDATE products, merge/replace tags, add/remove collection memberships, delete images/products
-  - New endpoints: `POST /api/shopify-live/scan`, `GET /api/shopify-live/scan-status`, `POST /api/shopify-live/diff`, `POST /api/shopify-live/execute`
-  - Scan cache: `_scan_cache` dict in routes.py — in-memory per server process, keyed by domain
-  - UI: 5-step workflow (Configure → Diff → Review → Execute → Done), warnings default ON with confirmation-gated disable, per-transaction approve/reject toggle, bulk approve/reject visible or all, filter by risk level or approval state
+- **Google Shopping / SerpAPI** (`_serpapi_shopping_search`): Rewritten with two-stage fallback:
+  - Stage 1: `engine=google` organic — harvests `inline_shopping_results[].link` (direct merchant URLs, query-dependent; sometimes absent)
+  - Stage 2: `engine=google_shopping` + concurrent `serpapi_immersive_product_api` calls — fetches `product_results.stores[].link` and `stores[].price` for top 8 results. **Returns 8 real merchant results with prices.**
 
-- **Shopify Sync CSV page** (`🛍️ Shopify Sync`, commit `929c4ee`):
-  - 13 attribute groups with MERGE/REPLACE/SKIP per group
-  - Preview (product count + row count + 10-row sample) and CSV export
-  - Uses scraped `ProductSource` data from DB — not live Shopify API
+- **Yahoo Shopping replacement** (`_yahoo_shopping_search`): Yahoo Shopping desktop redirects to "Yahoo Scout" (AI chat); mobile has no product data in server-rendered HTML. Replaced with **Walmart** scraper that parses `__NEXT_DATA__` JSON at `props.pageProps.initialData.searchResult.itemStacks[N].items[M]`. **Returns 10 results with prices.**
+  - User asked to retry Yahoo — unblocked sites, retested, confirmed no product data in any Yahoo Shopping URL variant. Will revisit tomorrow.
 
-- **Store Compare page** (`🔀 Store Compare`, commit `b09fe52`):
-  - Accordion comparing canonical vs per-source attributes, amber diffs, "Use" button → `PUT /api/products/{id}/canonical`
-
-- **Beat This Price fix** (commit `b09fe52`):
-  - `find_suppliers()` now uses `multi_engine_search` (DDG + Bing + Google + Yahoo) — was DDG-only
-
-- **Security**: Anthropic API key was inadvertently committed in `settings.yaml` via the session backup hook, caught by GitHub push protection, scrubbed from the amend before push. Key is now blank in repo — must be re-entered in Settings → AI Categorization.
+- Added `import base64` to `backend/search/engine.py` imports.
 
 ## In Progress
 
-Nothing — all work committed and pushed (`52bc202` is HEAD on `origin/main`).
+- **Yahoo Shopping / `yahoo_shopping` engine slot**: User unblocked Yahoo sites and wants to try again tomorrow. Current Walmart replacement works. Outstanding question: keep Walmart, try a different site, or remove the engine.
 
 ## Next Steps
 
-- **Enter Shopify credentials**: Settings → Shopify API Credentials → fill in Store URL + Access Token for each store, then Test Connection
-- **Test Live Sync end-to-end**: once credentials are in, pick source + destination, click Scan & Diff, review the transaction queue, approve a small batch, execute
-- **Live Sync enhancements** (not yet built):
-  - WebSocket progress during scan (currently a blocking spinner — large catalogs can take 2 min)
-  - Persist scan snapshots to disk so they survive server restarts
-  - Smart collection rule diffing (currently only custom collections are write-synced; smart collections are read-only in Shopify API)
-  - Metafield WRITE support in executor (currently only reads metafields during scan)
-- **Shopify Sync CSV** (potential):
-  - Add `Command` column (MERGE vs REPLACE per Shopify CSV import spec)
-  - Multi-source export in one CSV
+1. **Decide on `yahoo_shopping` engine**: options — (a) keep Walmart, (b) try a different comparison shopping site, (c) remove engine. Walmart currently works and returns 10 results.
+2. **Restart server and end-to-end test** the full competitor search flow with updated scrapers (Bing + SerpAPI/Google + Walmart confirmed working in isolation; need to verify integration in `multi_engine_search` and `run_product_competitor_search`).
+3. **Verify UI flow**: product catalog → select products → competitor search → search-mode card grid → pause modal at 100 domains tried.
 
 ## Key Context
 
-- **CRITICAL**: `settings.yaml` must NOT be committed with real API keys — the session backup hook commits it automatically. Always check `git diff config/settings.yaml` before pushing, or add it to `.gitignore`
-- **Model field names**: `Product` uses `canonical_title`, `canonical_description`, `price_canonical` — NOT `title`, `description`, `price`
-- **ProductSource fields**: `source_site`, `source_title`, `source_description`, `source_price`, `source_sku`, `source_manufacturer`, `source_category`
-- **ProductImage**: `source_url` (not `url`), `alt_text`
-- **ProductOption**: `option_group`, `option_value` (not `name`, `value`)
-- **Config list update pattern**: `config.get("source_sites", default=[])` returns plain dicts; to update a list item patch `config._settings["source_sites"]` directly then call `config._save()`
-- **Auth**: cookie-based — POST `/api/auth/login` `{"username":"admin","password":"changeme"}`; no Bearer token
-- **Server start**: `source .venv/bin/activate && uvicorn backend.app:app --host 127.0.0.1 --port 8743 --ssl-keyfile certs/key.pem --ssl-certfile certs/cert.pem --reload`
-- **NEVER bind to 0.0.0.0** — always use 127.0.0.1 to prevent LAN exposure
-- **Port conflict on restart**: use `lsof -ti :8743 | xargs kill -9` before starting
-- **Session backup hook** auto-commits everything on stop — always squash with `git reset --soft <last-real-commit>` and re-commit cleanly before pushing
+- **Server start**: `.venv/bin/uvicorn backend.main:app --host 127.0.0.1 --port 8743 --ssl-keyfile config/key.pem --ssl-certfile config/cert.pem >> logs/uvicorn.out 2>&1 &`
+- **Kill port before restart**: `lsof -ti :8743 | xargs kill -9`
+- **Auth**: cookie-based — POST `/api/auth/login` `{"username":"admin","password":"changeme"}`
+- **venv**: `.venv/bin/python3` (not system python3)
+- **CRITICAL**: `config/settings.yaml` contains real API keys — do NOT commit it. Check `git diff config/settings.yaml` before any push.
+- **SerpAPI key**: configured and working (64-char key in `settings.yaml` under `serpapi.api_key`)
+- **Bing Shopping** is most reliable: no API key needed, 10+ results consistently, uses `br-offLink` base64 decode
+- **SerpAPI immersive**: 1 credit for `google_shopping` call + up to 8 more credits for immersive item calls (up to 9 credits/search)
+- **Walmart `__NEXT_DATA__` path**: `props.pageProps.initialData.searchResult.itemStacks[N].items[M]` — fields: `canonicalUrl`, `name`, `price` (numeric), `priceInfo.currentPrice`
+- **`_yahoo_shopping_search` source label**: still `'yahoo_shopping'` for `multi_engine_search` shopping_indices compatibility
+- All scraper changes committed in `7cd9323` and `0f21dc9` on branch `main`
+- **NEVER bind to 0.0.0.0** — always use 127.0.0.1
 - DB: `data/donut_intel.db` (SQLite WAL mode)
-- Source domains: donut-supplies.com, donut-equipment.com, bakerywholesalers.com
 - git remote: github.com:evweath/donut-intel.git, branch: main
