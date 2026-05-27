@@ -124,6 +124,29 @@ def cmd_yahoo_scan(args):
 # Competitor import
 # ---------------------------------------------------------------------------
 
+def cmd_force_dedup(args):
+    _setup()
+    from backend.dedup.force_merge import force_merge_source_sites
+
+    print('Force-merging donut-supplies.com and bakerywholesalers.com into donut-equipment.com...')
+    summary = force_merge_source_sites(
+        title_threshold=args.threshold,
+        progress=print,
+    )
+    print(f'\nResults:')
+    print(f'  Merged:        {summary["merged"]}')
+    print(f'  Uncertain:     {summary["uncertain"]}')
+    print(f'  Already linked:{summary["already_linked"]}')
+    print(f'  Exceptions:    {len(summary["exceptions"])}')
+    if summary['exceptions']:
+        print('\nProducts with no match found:')
+        for e in summary['exceptions']:
+            score = e['best_score']
+            match = (e['best_match'] or 'N/A')[:50]
+            print(f'  [{e["site"]}] id={e["product_id"]} score={score:.0f}% best={match!r}')
+            print(f'    title: {e["title"][:70]}')
+
+
 def cmd_import(args):
     _setup()
     from backend.competitor.discovery import bulk_import_competitors
@@ -345,6 +368,11 @@ def main():
     p.add_argument('--delay', type=float, default=3.0, help='Seconds between searches (default 3)')
     p.add_argument('--max-results', type=int, default=30, dest='max_results', help='Max PLA results per query (default 30)')
     p.set_defaults(func=cmd_yahoo_scan)
+
+    # force-dedup
+    p = sub.add_parser('force-dedup', help='Force-merge DS/BW products into DE counterparts')
+    p.add_argument('--threshold', type=float, default=65.0, help='Min title similarity % to merge (default 65)')
+    p.set_defaults(func=cmd_force_dedup)
 
     # import
     p = sub.add_parser("import-competitors", help="Bulk import competitor domains")
