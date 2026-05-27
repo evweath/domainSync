@@ -15377,3 +15377,11 @@ INFO:     Application startup complete.
 2026-05-26 19:19:23 [INFO] watchfiles.main: 3 changes detected
 2026-05-26 19:19:31 [INFO] watchfiles.main: 3 changes detected
 2026-05-26 19:19:39 [INFO] watchfiles.main: 3 changes detected
+2026-05-26 19:20:08 [INFO] watchfiles.main: 33 changes detected
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2026-05-26 19:20:46 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-26 19:20:46 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [9819]
+INFO:     Stopping reloader process [1405]
