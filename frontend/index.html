@@ -918,20 +918,111 @@
         <div class="flex items-center justify-between flex-wrap gap-2">
           <div>
             <h2 class="text-2xl font-bold">Store Comparison</h2>
-            <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Compare every attribute of each canonical product across all 3 source stores. Adopt any source value into the canonical record.</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Compare every attribute of each canonical product across all source stores. Adopt any source value into the canonical record.</p>
           </div>
-          <div class="flex gap-2 items-center flex-wrap">
-            <input x-model="storeCompSearch" @input.debounce.400ms="loadStoreComparison(1)"
-              type="text" placeholder="Search products…"
-              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 w-56" />
-            <label class="flex items-center gap-1.5 text-sm cursor-pointer select-none bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 px-3 py-2 rounded-lg">
-              <input type="checkbox" x-model="storeCompHasDiffs" @change="loadStoreComparison(1)" class="w-4 h-4" />
-              Diffs only
+          <button @click="loadStoreComparison(storeComp.page)"
+            class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 rounded-lg text-sm">↺ Refresh</button>
+        </div>
+
+        <!-- ── Filter panel ── -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 space-y-3">
+
+          <!-- Row 1: text search + manufacturer + category + source site -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+            <input x-model="storeCompFilters.search" @input.debounce.400ms="loadStoreComparison(1)"
+              type="text" placeholder="Search title, model, SKU, manufacturer…"
+              class="col-span-2 border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+            <select x-model="storeCompFilters.manufacturer" @change="loadStoreComparison(1)"
+              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+              <option value="">All Manufacturers</option>
+              <template x-for="m in filterOptions.manufacturers" :key="m">
+                <option :value="m" x-text="m"></option>
+              </template>
+            </select>
+            <select x-model="storeCompFilters.category" @change="loadStoreComparison(1)"
+              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+              <option value="">All Categories</option>
+              <template x-for="c in filterOptions.categories" :key="c">
+                <option :value="c" x-text="c"></option>
+              </template>
+            </select>
+          </div>
+
+          <!-- Row 2: price + source site + in stock + sort -->
+          <div class="grid grid-cols-2 lg:grid-cols-6 gap-3">
+            <input x-model="storeCompFilters.min_price" @input.debounce.400ms="loadStoreComparison(1)"
+              type="number" min="0" step="0.01" placeholder="Min $"
+              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none" />
+            <input x-model="storeCompFilters.max_price" @input.debounce.400ms="loadStoreComparison(1)"
+              type="number" min="0" step="0.01" placeholder="Max $"
+              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none" />
+            <select x-model="storeCompFilters.source_site" @change="loadStoreComparison(1)"
+              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+              <option value="">All Sites</option>
+              <template x-for="s in filterOptions.source_sites" :key="s">
+                <option :value="s" x-text="s"></option>
+              </template>
+            </select>
+            <select x-model="storeCompFilters.in_stock" @change="loadStoreComparison(1)"
+              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+              <option value="">Any Stock</option>
+              <option value="true">In Stock</option>
+              <option value="false">Out of Stock</option>
+            </select>
+            <select x-model="storeCompFilters.sort_by" @change="loadStoreComparison(1)"
+              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+              <option value="title">Sort: Title</option>
+              <option value="manufacturer">Sort: Manufacturer</option>
+              <option value="model_number">Sort: Model #</option>
+              <option value="price">Sort: Price</option>
+              <option value="category">Sort: Category</option>
+              <option value="sku">Sort: SKU</option>
+            </select>
+            <button @click="storeCompFilters.sort_order = storeCompFilters.sort_order === 'asc' ? 'desc' : 'asc'; loadStoreComparison(1)"
+              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200"
+              x-text="storeCompFilters.sort_order === 'asc' ? '↑ A → Z' : '↓ Z → A'"></button>
+          </div>
+
+          <!-- Row 3: show / missing filters -->
+          <div class="flex flex-wrap gap-x-5 gap-y-2 items-center border-t border-gray-100 dark:border-gray-700 pt-3">
+            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Show:</span>
+            <label class="flex items-center gap-1.5 text-sm cursor-pointer select-none">
+              <input type="checkbox" x-model="storeCompFilters.has_diffs" @change="loadStoreComparison(1)" class="w-4 h-4 accent-amber-500" />
+              <span class="text-amber-600 dark:text-amber-400 font-medium">Diffs only</span>
             </label>
-            <button @click="loadStoreComparison(storeComp.page)"
-              class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 rounded-lg text-sm">↺ Refresh</button>
+            <div class="flex items-center gap-2 text-sm">
+              <span class="text-gray-500 dark:text-gray-400 text-xs">Missing from store:</span>
+              <select x-model="storeCompFilters.missing_from" @change="loadStoreComparison(1)"
+                class="border rounded px-2 py-1 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+                <option value="">Any</option>
+                <option value="1">1+ stores</option>
+                <option value="2">2+ stores</option>
+                <option value="3">All stores</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Row 4: empty canonical field filter -->
+          <div class="border-t border-gray-100 dark:border-gray-700 pt-3">
+            <div class="flex flex-wrap gap-x-4 gap-y-1.5 items-center">
+              <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide shrink-0">Canonical field is empty:</span>
+              <template x-for="f in ['title','manufacturer','model_number','sku','category','subcategory','description','price','weight','dimensions','country_of_origin','ai_category']" :key="f">
+                <label class="flex items-center gap-1 text-xs cursor-pointer select-none">
+                  <input type="checkbox" :value="f" x-model="storeCompFilters.has_empty" @change="loadStoreComparison(1)"
+                    class="w-3.5 h-3.5 accent-red-500" />
+                  <span class="text-gray-600 dark:text-gray-400" x-text="f.replace('_', ' ')"></span>
+                </label>
+              </template>
+            </div>
+          </div>
+
+          <!-- Active filter strip + clear -->
+          <div x-show="storeCompHasActiveFilters()" class="flex items-center justify-between border-t border-gray-100 dark:border-gray-700 pt-2">
+            <span class="text-xs text-gray-500" x-text="storeComp.total + ' product' + (storeComp.total !== 1 ? 's' : '') + ' match current filters'"></span>
+            <button @click="storeCompClearFilters()" class="text-xs text-red-500 hover:underline">Clear all filters</button>
           </div>
         </div>
+
         <div class="text-xs text-gray-500 dark:text-gray-400" x-text="storeComp.total + ' products · Page ' + storeComp.page + ' of ' + storeComp.pages"></div>
       </div>
 
@@ -985,12 +1076,27 @@
                         <div class="font-normal text-gray-400 text-xs">master record</div>
                       </th>
                       <template x-for="site in storeComp.source_sites" :key="site">
-                        <th class="px-3 py-2 text-left font-semibold text-blue-600 dark:text-blue-400 min-w-48">
-                          <div x-text="site.split('.')[0]"></div>
-                          <div x-show="row.sources[site]">
-                            <a :href="row.sources[site]?.url" target="_blank" class="font-normal text-blue-400 hover:underline text-xs" x-text="row.sources[site]?.scraped_at ? new Date(row.sources[site].scraped_at).toLocaleDateString() : 'view'"></a>
-                          </div>
-                          <div x-show="!row.sources[site]" class="font-normal text-red-400 text-xs">not found</div>
+                        <th class="px-3 py-2 text-left min-w-48"
+                            :class="row.sources[site] ? 'text-blue-600 dark:text-blue-400' : 'text-red-500 dark:text-red-400'">
+                          <div class="font-semibold" x-text="site.split('.')[0]"></div>
+                          <template x-if="row.sources[site]">
+                            <div class="space-y-0.5">
+                              <a :href="row.sources[site]?.url" target="_blank" class="font-normal text-blue-400 hover:underline text-xs block"
+                                 x-text="row.sources[site]?.scraped_at ? new Date(row.sources[site].scraped_at).toLocaleDateString() : 'view'"></a>
+                              <div class="flex gap-1.5 flex-wrap font-normal text-xs">
+                                <span x-show="storeCompSiteSummary(row, site)?.match > 0"
+                                      class="text-green-600 dark:text-green-400"
+                                      x-text="'✓ ' + storeCompSiteSummary(row, site)?.match"></span>
+                                <span x-show="storeCompSiteSummary(row, site)?.diff > 0"
+                                      class="text-amber-600 dark:text-amber-400"
+                                      x-text="'≠ ' + storeCompSiteSummary(row, site)?.diff"></span>
+                                <span x-show="storeCompSiteSummary(row, site)?.missing > 0"
+                                      class="text-red-500 dark:text-red-400"
+                                      x-text="'✕ ' + storeCompSiteSummary(row, site)?.missing"></span>
+                              </div>
+                            </div>
+                          </template>
+                          <div x-show="!row.sources[site]" class="font-normal text-red-400 text-xs">not found in this store</div>
                         </th>
                       </template>
                     </tr>
@@ -1009,8 +1115,13 @@
                         <div class="leading-snug" x-text="row.canonical.title || '—'"></div>
                       </td>
                       <template x-for="site in storeComp.source_sites" :key="site">
-                        <td class="px-3 py-2 align-top" :class="storeCompDiffClass(row.canonical.title, row.sources[site]?.title, 'title')">
-                          <div class="leading-snug" x-text="row.sources[site]?.title || '—'"></div>
+                        <td class="px-3 py-2 align-top" :class="storeCompCellClass(row.canonical.title, row.sources[site]?.title, !!row.sources[site])">
+                          <div class="flex items-start gap-1">
+                            <span class="text-xs mt-0.5 w-3 shrink-0 font-bold"
+                              :class="{'text-green-600 dark:text-green-400': storeCompCellStatus(row.canonical.title, row.sources[site]?.title, !!row.sources[site]) === 'match', 'text-amber-500': storeCompCellStatus(row.canonical.title, row.sources[site]?.title, !!row.sources[site]) === 'diff', 'text-red-500': storeCompCellStatus(row.canonical.title, row.sources[site]?.title, !!row.sources[site]) === 'missing'}"
+                              x-text="storeCompCellIcon(row.canonical.title, row.sources[site]?.title, !!row.sources[site])"></span>
+                            <div class="leading-snug" x-text="row.sources[site]?.title || '—'"></div>
+                          </div>
                           <button x-show="row.sources[site]?.title && row.sources[site].title !== row.canonical.title"
                             @click.stop="adoptSourceValue(row.product_id, 'canonical_title', row.sources[site].title)"
                             :disabled="storeCompSaving[row.product_id]"
@@ -1024,7 +1135,10 @@
                       <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">Manufacturer</td>
                       <td class="px-3 py-2" x-text="row.canonical.manufacturer || '—'"></td>
                       <template x-for="site in storeComp.source_sites" :key="site">
-                        <td class="px-3 py-2" :class="storeCompDiffClass(row.canonical.manufacturer, row.sources[site]?.manufacturer, 'manufacturer')">
+                        <td class="px-3 py-2" :class="storeCompCellClass(row.canonical.manufacturer, row.sources[site]?.manufacturer, !!row.sources[site])">
+                          <span class="text-xs font-bold mr-1"
+                            :class="{'text-green-600 dark:text-green-400': storeCompCellStatus(row.canonical.manufacturer, row.sources[site]?.manufacturer, !!row.sources[site]) === 'match', 'text-amber-500': storeCompCellStatus(row.canonical.manufacturer, row.sources[site]?.manufacturer, !!row.sources[site]) === 'diff', 'text-red-500': storeCompCellStatus(row.canonical.manufacturer, row.sources[site]?.manufacturer, !!row.sources[site]) === 'missing'}"
+                            x-text="storeCompCellIcon(row.canonical.manufacturer, row.sources[site]?.manufacturer, !!row.sources[site])"></span>
                           <span x-text="row.sources[site]?.manufacturer || '—'"></span>
                           <button x-show="row.sources[site]?.manufacturer && row.sources[site].manufacturer !== row.canonical.manufacturer"
                             @click.stop="adoptSourceValue(row.product_id, 'manufacturer', row.sources[site].manufacturer)"
@@ -1039,7 +1153,10 @@
                       <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">Model #</td>
                       <td class="px-3 py-2 font-mono" x-text="row.canonical.model_number || '—'"></td>
                       <template x-for="site in storeComp.source_sites" :key="site">
-                        <td class="px-3 py-2 font-mono" :class="storeCompDiffClass(row.canonical.model_number, row.sources[site]?.model_number, 'model_number')">
+                        <td class="px-3 py-2 font-mono" :class="storeCompCellClass(row.canonical.model_number, row.sources[site]?.model_number, !!row.sources[site])">
+                          <span class="text-xs font-bold mr-1 not-italic"
+                            :class="{'text-green-600 dark:text-green-400': storeCompCellStatus(row.canonical.model_number, row.sources[site]?.model_number, !!row.sources[site]) === 'match', 'text-amber-500': storeCompCellStatus(row.canonical.model_number, row.sources[site]?.model_number, !!row.sources[site]) === 'diff', 'text-red-500': storeCompCellStatus(row.canonical.model_number, row.sources[site]?.model_number, !!row.sources[site]) === 'missing'}"
+                            x-text="storeCompCellIcon(row.canonical.model_number, row.sources[site]?.model_number, !!row.sources[site])"></span>
                           <span x-text="row.sources[site]?.model_number || '—'"></span>
                           <button x-show="row.sources[site]?.model_number && row.sources[site].model_number !== row.canonical.model_number"
                             @click.stop="adoptSourceValue(row.product_id, 'model_number', row.sources[site].model_number)"
@@ -1054,7 +1171,10 @@
                       <td class="px-3 py-2 font-medium text-gray-500 dark:text-gray-400">SKU</td>
                       <td class="px-3 py-2 font-mono" x-text="row.canonical.sku || '—'"></td>
                       <template x-for="site in storeComp.source_sites" :key="site">
-                        <td class="px-3 py-2 font-mono" :class="storeCompDiffClass(row.canonical.sku, row.sources[site]?.sku, 'sku')">
+                        <td class="px-3 py-2 font-mono" :class="storeCompCellClass(row.canonical.sku, row.sources[site]?.sku, !!row.sources[site])">
+                          <span class="text-xs font-bold mr-1 not-italic"
+                            :class="{'text-green-600 dark:text-green-400': storeCompCellStatus(row.canonical.sku, row.sources[site]?.sku, !!row.sources[site]) === 'match', 'text-amber-500': storeCompCellStatus(row.canonical.sku, row.sources[site]?.sku, !!row.sources[site]) === 'diff', 'text-red-500': storeCompCellStatus(row.canonical.sku, row.sources[site]?.sku, !!row.sources[site]) === 'missing'}"
+                            x-text="storeCompCellIcon(row.canonical.sku, row.sources[site]?.sku, !!row.sources[site])"></span>
                           <span x-text="row.sources[site]?.sku || '—'"></span>
                           <button x-show="row.sources[site]?.sku && row.sources[site].sku !== row.canonical.sku"
                             @click.stop="adoptSourceValue(row.product_id, 'sku', row.sources[site].sku)"
@@ -1076,7 +1196,10 @@
                           x-text="'(' + (row.canonical.price_min ? '$'+Number(row.canonical.price_min).toFixed(2) : '') + '–' + (row.canonical.price_max ? '$'+Number(row.canonical.price_max).toFixed(2) : '') + ')'"></span>
                       </td>
                       <template x-for="site in storeComp.source_sites" :key="site">
-                        <td class="px-3 py-2" :class="storeCompDiffClass(row.canonical.price_canonical, row.sources[site]?.price, 'price')">
+                        <td class="px-3 py-2" :class="storeCompCellClass(row.canonical.price_canonical, row.sources[site]?.price, !!row.sources[site], 'price')">
+                          <span class="text-xs font-bold mr-1"
+                            :class="{'text-green-600 dark:text-green-400': storeCompCellStatus(row.canonical.price_canonical, row.sources[site]?.price, !!row.sources[site], 'price') === 'match', 'text-amber-500': storeCompCellStatus(row.canonical.price_canonical, row.sources[site]?.price, !!row.sources[site], 'price') === 'diff', 'text-red-500': storeCompCellStatus(row.canonical.price_canonical, row.sources[site]?.price, !!row.sources[site], 'price') === 'missing'}"
+                            x-text="storeCompCellIcon(row.canonical.price_canonical, row.sources[site]?.price, !!row.sources[site], 'price')"></span>
                           <span x-text="row.sources[site]?.price ? '$' + Number(row.sources[site].price).toFixed(2) : (row.sources[site]?.price_raw || '—')"></span>
                           <button x-show="row.sources[site]?.price && row.sources[site].price !== row.canonical.price_canonical"
                             @click.stop="adoptSourceValue(row.product_id, 'price_canonical', row.sources[site].price)"
@@ -1097,7 +1220,10 @@
                         <span x-show="row.canonical.subcategory" class="text-gray-400 ml-1" x-text="'/ ' + row.canonical.subcategory"></span>
                       </td>
                       <template x-for="site in storeComp.source_sites" :key="site">
-                        <td class="px-3 py-2" :class="storeCompDiffClass(row.canonical.category, row.sources[site]?.category, 'category')">
+                        <td class="px-3 py-2" :class="storeCompCellClass(row.canonical.category, row.sources[site]?.category, !!row.sources[site])">
+                          <span class="text-xs font-bold mr-1"
+                            :class="{'text-green-600 dark:text-green-400': storeCompCellStatus(row.canonical.category, row.sources[site]?.category, !!row.sources[site]) === 'match', 'text-amber-500': storeCompCellStatus(row.canonical.category, row.sources[site]?.category, !!row.sources[site]) === 'diff', 'text-red-500': storeCompCellStatus(row.canonical.category, row.sources[site]?.category, !!row.sources[site]) === 'missing'}"
+                            x-text="storeCompCellIcon(row.canonical.category, row.sources[site]?.category, !!row.sources[site])"></span>
                           <span x-text="row.sources[site]?.category || '—'"></span>
                           <button x-show="row.sources[site]?.category && row.sources[site].category !== row.canonical.category"
                             @click.stop="adoptSourceValue(row.product_id, 'category', row.sources[site].category)"
@@ -1159,8 +1285,13 @@
                         <div class="text-xs leading-relaxed max-h-28 overflow-y-auto text-gray-700 dark:text-gray-300 whitespace-pre-wrap" x-text="row.canonical.description || '—'"></div>
                       </td>
                       <template x-for="site in storeComp.source_sites" :key="site">
-                        <td class="px-3 py-2 align-top">
-                          <div class="text-xs leading-relaxed max-h-28 overflow-y-auto text-gray-700 dark:text-gray-300 whitespace-pre-wrap" x-text="row.sources[site]?.description || '—'"></div>
+                        <td class="px-3 py-2 align-top" :class="storeCompCellClass(row.canonical.description, row.sources[site]?.description, !!row.sources[site])">
+                          <div class="flex items-start gap-1">
+                            <span class="text-xs font-bold mt-0.5 w-3 shrink-0"
+                              :class="{'text-green-600 dark:text-green-400': storeCompCellStatus(row.canonical.description, row.sources[site]?.description, !!row.sources[site]) === 'match', 'text-amber-500': storeCompCellStatus(row.canonical.description, row.sources[site]?.description, !!row.sources[site]) === 'diff', 'text-red-500': storeCompCellStatus(row.canonical.description, row.sources[site]?.description, !!row.sources[site]) === 'missing'}"
+                              x-text="storeCompCellIcon(row.canonical.description, row.sources[site]?.description, !!row.sources[site])"></span>
+                            <div class="text-xs leading-relaxed max-h-28 overflow-y-auto text-gray-700 dark:text-gray-300 whitespace-pre-wrap" x-text="row.sources[site]?.description || '—'"></div>
+                          </div>
                           <button x-show="row.sources[site]?.description && row.sources[site].description !== row.canonical.description"
                             @click.stop="adoptSourceValue(row.product_id, 'canonical_description', row.sources[site].description)"
                             :disabled="storeCompSaving[row.product_id]"

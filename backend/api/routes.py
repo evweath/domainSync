@@ -295,13 +295,47 @@ _COMP_FIELDS = [
     ("category",     "category",        "category"),
 ]
 
+_EMPTY_FIELD_MAP: Dict[str, Any] = {
+    "title":             Product.canonical_title,
+    "manufacturer":      Product.manufacturer,
+    "model_number":      Product.model_number,
+    "sku":               Product.sku,
+    "category":          Product.category,
+    "subcategory":       Product.subcategory,
+    "ai_category":       Product.ai_category,
+    "description":       Product.canonical_description,
+    "price":             Product.price_canonical,
+    "weight":            Product.weight,
+    "dimensions":        Product.dimensions_json,
+    "country_of_origin": Product.country_of_origin,
+}
+
+_SC_SORT_COLS: Dict[str, Any] = {
+    "title":        Product.canonical_title,
+    "manufacturer": Product.manufacturer,
+    "model_number": Product.model_number,
+    "sku":          Product.sku,
+    "price":        Product.price_canonical,
+    "category":     Product.category,
+}
+
 
 @router.get("/api/products/store-comparison")
 def get_store_comparison(
     page: int = 1,
     per_page: int = 25,
     search: Optional[str] = None,
+    manufacturer: Optional[str] = None,
+    category: Optional[str] = None,
+    source_site: Optional[str] = None,
+    min_price: Optional[float] = None,
+    max_price: Optional[float] = None,
+    in_stock: Optional[bool] = None,
     has_diffs: bool = False,
+    missing_from: Optional[int] = None,
+    has_empty: Optional[str] = None,
+    sort_by: str = "title",
+    sort_order: str = "asc",
     db: Session = Depends(get_db_session),
 ):
     per_page = min(per_page, 100)
@@ -316,48 +350,78 @@ def get_store_comparison(
             Product.model_number.ilike(like),
             Product.sku.ilike(like),
         ))
+    if manufacturer:
+        base_q = base_q.filter(Product.manufacturer.ilike(f"%{manufacturer}%"))
+    if category:
+        base_q = base_q.filter(Product.category.ilike(f"%{category}%"))
+    if source_site:
+        base_q = (base_q.join(Product.sources)
+                  .filter(ProductSource.source_site == source_site, ProductSource.is_active == True)
+                  .distinct())
+    if min_price is not None:
+        base_q = base_q.filter(Product.price_canonical >= min_price)
+    if max_price is not None:
+        base_q = base_q.filter(Product.price_canonical <= max_price)
+    if in_stock is not None:
+        base_q = base_q.filter(Product.in_stock == in_stock)
+    if has_empty:
+        for fname in [f.strip() for f in has_empty.split(",") if f.strip()]:
+            col = _EMPTY_FIELD_MAP.get(fname)
+            if col is not None:
+                base_q = base_q.filter(or_(col == None, col == ""))
 
-    if has_diffs:
-        # Light pass: load all products with only sources to find which have diffs
+    sort_col = _SC_SORT_COLS.get(sort_by, Product.canonical_title)
+    sort_expr = sort_col.desc().nullslast() if sort_order == "desc" else sort_col.asc().nullsfirst()
+
+    if has_diffs or missing_from is not None:
+        # Light pass: evaluate diff/missing predicates before paginating
         light = (
             base_q.options(joinedload(Product.sources))
-            .order_by(Product.canonical_title)
+            .order_by(sort_expr)
             .all()
         )
-        diff_ids: List[int] = []
+        filtered_ids: List[int] = []
         for p in light:
             site_srcs: Dict[str, Any] = {}
             for src in sorted(p.sources, key=lambda s: s.scraped_at or datetime.min, reverse=True):
                 if src.is_active and src.source_site not in site_srcs:
                     site_srcs[src.source_site] = src
-            srcs_light = {
-                site: {
-                    "title": src.source_title, "manufacturer": src.source_manufacturer,
-                    "model_number": src.source_model_number, "sku": src.source_sku,
-                    "category": src.source_category, "price": src.source_price,
+
+            missing_n = len([site for site in source_sites if site not in site_srcs])
+            if missing_from is not None and missing_n < missing_from:
+                continue
+
+            if has_diffs:
+                srcs_light = {
+                    site: {
+                        "title": src.source_title, "manufacturer": src.source_manufacturer,
+                        "model_number": src.source_model_number, "sku": src.source_sku,
+                        "category": src.source_category, "price": src.source_price,
+                    }
+                    for site in source_sites
+                    if (src := site_srcs.get(site))
                 }
-                for site in source_sites
-                if (src := site_srcs.get(site))
-            }
-            present = [site for site in source_sites if srcs_light.get(site)]
-            missing = [site for site in source_sites if site not in site_srcs]
-            diffs: List[str] = []
-            for label, _, src_attr in _COMP_FIELDS:
-                src_vals = [
-                    (srcs_light[site].get(src_attr) or "").strip().lower()
-                    for site in present if (srcs_light[site].get(src_attr) or "").strip()
-                ]
-                if len(src_vals) >= 2 and len(set(src_vals)) > 1:
-                    diffs.append(label)
-                elif len(src_vals) >= 1 and len(src_vals) < len(present):
-                    diffs.append(label)
-            prices = [srcs_light[s]["price"] for s in present if srcs_light[s].get("price")]
-            if len(set(prices)) > 1:
-                diffs.append("price")
-            if diffs:
-                diff_ids.append(p.id)
-        total = len(diff_ids)
-        page_ids = diff_ids[(page - 1) * per_page: page * per_page]
+                present = [site for site in source_sites if srcs_light.get(site)]
+                diffs: List[str] = []
+                for label, _, src_attr in _COMP_FIELDS:
+                    src_vals = [
+                        (srcs_light[site].get(src_attr) or "").strip().lower()
+                        for site in present if (srcs_light[site].get(src_attr) or "").strip()
+                    ]
+                    if len(src_vals) >= 2 and len(set(src_vals)) > 1:
+                        diffs.append(label)
+                    elif len(src_vals) >= 1 and len(src_vals) < len(present):
+                        diffs.append(label)
+                prices = [srcs_light[s]["price"] for s in present if srcs_light[s].get("price")]
+                if len(set(prices)) > 1:
+                    diffs.append("price")
+                if not diffs:
+                    continue
+
+            filtered_ids.append(p.id)
+
+        total = len(filtered_ids)
+        page_ids = filtered_ids[(page - 1) * per_page: page * per_page]
         products = (
             db.query(Product)
             .filter(Product.id.in_(page_ids))
@@ -365,16 +429,16 @@ def get_store_comparison(
                 joinedload(Product.sources), joinedload(Product.tags),
                 joinedload(Product.options), joinedload(Product.images),
             )
-            .order_by(Product.canonical_title)
+            .order_by(sort_expr)
             .all()
-        )
+        ) if page_ids else []
     else:
         q = base_q.options(
             joinedload(Product.sources), joinedload(Product.tags),
             joinedload(Product.options), joinedload(Product.images),
         )
         total = q.count()
-        products = q.order_by(Product.canonical_title).offset((page - 1) * per_page).limit(per_page).all()
+        products = q.order_by(sort_expr).offset((page - 1) * per_page).limit(per_page).all()
 
     results = []
     for product in products:

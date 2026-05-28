@@ -112,8 +112,12 @@ function app() {
 
     // Store Comparison
     storeComp: { products: [], total: 0, page: 1, pages: 1, source_sites: [] },
-    storeCompSearch: '',
-    storeCompHasDiffs: false,
+    storeCompFilters: {
+      search: '', manufacturer: '', category: '', source_site: '',
+      min_price: '', max_price: '', in_stock: '',
+      has_diffs: false, missing_from: '', has_empty: [],
+      sort_by: 'title', sort_order: 'asc',
+    },
     storeCompExpanded: {},
     storeCompSaving: {},
 
@@ -1294,11 +1298,20 @@ function app() {
     // -----------------------------------------------------------------------
     async loadStoreComparison(page = 1) {
       try {
-        const params = new URLSearchParams({
-          page, per_page: 25,
-          has_diffs: this.storeCompHasDiffs,
-          ...(this.storeCompSearch ? { search: this.storeCompSearch } : {}),
-        });
+        const f = this.storeCompFilters;
+        const params = new URLSearchParams({ page, per_page: 25 });
+        if (f.search)       params.set('search', f.search);
+        if (f.manufacturer) params.set('manufacturer', f.manufacturer);
+        if (f.category)     params.set('category', f.category);
+        if (f.source_site)  params.set('source_site', f.source_site);
+        if (f.min_price !== '') params.set('min_price', f.min_price);
+        if (f.max_price !== '') params.set('max_price', f.max_price);
+        if (f.in_stock !== '')  params.set('in_stock', f.in_stock);
+        if (f.has_diffs)        params.set('has_diffs', 'true');
+        if (f.missing_from !== '') params.set('missing_from', f.missing_from);
+        if (f.has_empty.length)    params.set('has_empty', f.has_empty.join(','));
+        params.set('sort_by', f.sort_by);
+        params.set('sort_order', f.sort_order);
         this.storeComp = await this.api(`/api/products/store-comparison?${params}`) || { products: [], total: 0, page: 1, pages: 1, source_sites: [] };
       } catch (e) { this.toast('Failed to load store comparison: ' + e.message, 'error'); }
     },
@@ -1307,10 +1320,65 @@ function app() {
       this.storeCompExpanded = { ...this.storeCompExpanded, [productId]: !this.storeCompExpanded[productId] };
     },
 
-    storeCompDiffClass(canonVal, srcVal, field) {
-      if (srcVal == null || srcVal === '') return '';
-      const fmt = v => field === 'price' ? Number(v).toFixed(2) : String(v || '').trim().toLowerCase();
-      return fmt(srcVal) !== fmt(canonVal) ? 'bg-amber-50 dark:bg-amber-900/30 ring-1 ring-amber-400' : '';
+    storeCompCellStatus(canonVal, srcVal, siteExists, fieldType = 'text') {
+      if (!siteExists) return 'absent';
+      const norm = v => fieldType === 'price'
+        ? Number(v || 0).toFixed(2)
+        : String(v || '').trim().toLowerCase();
+      const cNorm = norm(canonVal);
+      const sNorm = norm(srcVal);
+      if (!sNorm) return cNorm ? 'missing' : 'empty';
+      return sNorm !== cNorm ? 'diff' : 'match';
+    },
+
+    storeCompCellClass(canonVal, srcVal, siteExists, fieldType = 'text') {
+      const s = this.storeCompCellStatus(canonVal, srcVal, siteExists, fieldType);
+      if (s === 'match')   return 'bg-green-50 dark:bg-green-900/10';
+      if (s === 'diff')    return 'bg-amber-50 dark:bg-amber-900/30 ring-1 ring-inset ring-amber-300';
+      if (s === 'missing') return 'bg-red-50 dark:bg-red-900/20';
+      return '';
+    },
+
+    storeCompCellIcon(canonVal, srcVal, siteExists, fieldType = 'text') {
+      const s = this.storeCompCellStatus(canonVal, srcVal, siteExists, fieldType);
+      if (s === 'match')   return '✓';
+      if (s === 'diff')    return '≠';
+      if (s === 'missing') return '✕';
+      return '';
+    },
+
+    storeCompSiteSummary(row, site) {
+      if (!row.sources[site]) return null;
+      const checks = [
+        ['title', 'text'], ['manufacturer', 'text'], ['model_number', 'text'],
+        ['sku', 'text'], ['category', 'text'], ['description', 'text'],
+        ['price', 'price'],
+      ];
+      const counts = { match: 0, diff: 0, missing: 0 };
+      for (const [field, type] of checks) {
+        const cVal = field === 'price' ? row.canonical.price_canonical : row.canonical[field];
+        const sVal = field === 'price' ? row.sources[site].price : row.sources[site][field];
+        const s = this.storeCompCellStatus(cVal, sVal, true, type);
+        if (s in counts) counts[s]++;
+      }
+      return counts;
+    },
+
+    storeCompHasActiveFilters() {
+      const f = this.storeCompFilters;
+      return f.search || f.manufacturer || f.category || f.source_site ||
+             f.min_price !== '' || f.max_price !== '' || f.in_stock !== '' ||
+             f.has_diffs || f.missing_from !== '' || f.has_empty.length > 0;
+    },
+
+    storeCompClearFilters() {
+      this.storeCompFilters = {
+        search: '', manufacturer: '', category: '', source_site: '',
+        min_price: '', max_price: '', in_stock: '',
+        has_diffs: false, missing_from: '', has_empty: [],
+        sort_by: 'title', sort_order: 'asc',
+      };
+      this.loadStoreComparison(1);
     },
 
     async adoptSourceValue(productId, field, value) {
