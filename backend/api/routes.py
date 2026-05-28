@@ -59,6 +59,9 @@ from backend.database.models import (
     ProductTag,
     ScheduledJob,
     ScanSession,
+    ShopifyProductMapping,
+    ShopifyStoreProductId,
+    ShopifySavedWebhook,
 )
 from backend.dedup.engine import DeduplicationEngine
 from backend.scrapers.source_scraper import run_source_scan
@@ -3285,3 +3288,303 @@ async def shopify_live_execute(req: LiveExecuteRequest):
         "error_details": errors[:20],
         "results": results,
     }
+
+
+# ---------------------------------------------------------------------------
+# Shopify Webhook Management
+# ---------------------------------------------------------------------------
+
+@router.get("/api/shopify-webhooks/{domain}/live")
+async def list_live_webhooks(domain: str):
+    """Fetch the current webhook list directly from Shopify."""
+    store_url, token = _get_site_credentials(domain)
+    from backend.shopify.client import ShopifyClient
+    async with ShopifyClient(store_url, token) as client:
+        webhooks = await client.list_webhooks()
+    return {"domain": domain, "webhooks": webhooks, "count": len(webhooks)}
+
+
+@router.get("/api/shopify-webhooks/{domain}/saved")
+def list_saved_webhooks(domain: str, db: Session = Depends(get_db_session)):
+    """Return webhook definitions saved to the local DB for this store."""
+    rows = (
+        db.query(ShopifySavedWebhook)
+        .filter(ShopifySavedWebhook.store_domain == domain)
+        .order_by(ShopifySavedWebhook.saved_at.desc())
+        .all()
+    )
+    return {
+        "domain": domain,
+        "webhooks": [
+            {
+                "id": r.id,
+                "shopify_webhook_id": r.shopify_webhook_id,
+                "topic": r.topic,
+                "address": r.address,
+                "format": r.format,
+                "api_version": r.api_version,
+                "is_active_in_shopify": r.is_active_in_shopify,
+                "saved_at": r.saved_at.isoformat() if r.saved_at else None,
+                "deleted_from_shopify_at": r.deleted_from_shopify_at.isoformat()
+                    if r.deleted_from_shopify_at else None,
+                "restored_at": r.restored_at.isoformat() if r.restored_at else None,
+            }
+            for r in rows
+        ],
+        "active_count": sum(1 for r in rows if r.is_active_in_shopify),
+        "disabled_count": sum(1 for r in rows if not r.is_active_in_shopify),
+    }
+
+
+@router.post("/api/shopify-webhooks/{domain}/save-and-disable")
+async def save_and_disable_webhooks(domain: str, db: Session = Depends(get_db_session)):
+    """
+    Fetch all live webhooks, save them to DB, then delete them from Shopify.
+    Use this before a bulk import to prevent webhooks from firing.
+    """
+    store_url, token = _get_site_credentials(domain)
+    from backend.shopify.client import ShopifyClient
+
+    async with ShopifyClient(store_url, token) as client:
+        live_webhooks = await client.list_webhooks()
+        deleted_ids = []
+        errors = []
+        for wh in live_webhooks:
+            # Upsert into saved table
+            existing = (
+                db.query(ShopifySavedWebhook)
+                .filter(
+                    ShopifySavedWebhook.store_domain == domain,
+                    ShopifySavedWebhook.shopify_webhook_id == str(wh["id"]),
+                )
+                .first()
+            )
+            if existing:
+                existing.topic = wh.get("topic", "")
+                existing.address = wh.get("address", "")
+                existing.format = wh.get("format", "json")
+                existing.api_version = wh.get("api_version")
+                existing.is_active_in_shopify = True
+                existing.saved_at = datetime.utcnow()
+            else:
+                db.add(ShopifySavedWebhook(
+                    store_domain=domain,
+                    shopify_webhook_id=str(wh["id"]),
+                    topic=wh.get("topic", ""),
+                    address=wh.get("address", ""),
+                    format=wh.get("format", "json"),
+                    api_version=wh.get("api_version"),
+                    is_active_in_shopify=True,
+                ))
+        db.flush()
+
+        # Now delete each one from Shopify
+        for wh in live_webhooks:
+            try:
+                await client.delete_webhook(wh["id"])
+                deleted_ids.append(wh["id"])
+                # Mark as deleted in DB
+                saved = (
+                    db.query(ShopifySavedWebhook)
+                    .filter(
+                        ShopifySavedWebhook.store_domain == domain,
+                        ShopifySavedWebhook.shopify_webhook_id == str(wh["id"]),
+                    )
+                    .first()
+                )
+                if saved:
+                    saved.is_active_in_shopify = False
+                    saved.deleted_from_shopify_at = datetime.utcnow()
+            except Exception as e:
+                errors.append({"id": wh["id"], "error": str(e)})
+
+    db.commit()
+    return {
+        "status": "complete",
+        "saved": len(live_webhooks),
+        "deleted": len(deleted_ids),
+        "errors": errors,
+    }
+
+
+@router.post("/api/shopify-webhooks/{domain}/restore")
+async def restore_webhooks(domain: str, db: Session = Depends(get_db_session)):
+    """
+    Re-create all saved-but-deleted webhooks in Shopify.
+    Use this after a bulk import completes.
+    """
+    store_url, token = _get_site_credentials(domain)
+    from backend.shopify.client import ShopifyClient
+
+    disabled = (
+        db.query(ShopifySavedWebhook)
+        .filter(
+            ShopifySavedWebhook.store_domain == domain,
+            ShopifySavedWebhook.is_active_in_shopify == False,  # noqa: E712
+        )
+        .all()
+    )
+    if not disabled:
+        return {"status": "nothing_to_restore", "restored": 0}
+
+    restored = []
+    errors = []
+    async with ShopifyClient(store_url, token) as client:
+        for saved in disabled:
+            try:
+                new_wh = await client.create_webhook(saved.topic, saved.address, saved.format or "json")
+                saved.shopify_webhook_id = str(new_wh.get("id", ""))
+                saved.is_active_in_shopify = True
+                saved.restored_at = datetime.utcnow()
+                restored.append(saved.topic)
+            except Exception as e:
+                errors.append({"topic": saved.topic, "address": saved.address, "error": str(e)})
+
+    db.commit()
+    return {
+        "status": "complete",
+        "restored": len(restored),
+        "restored_topics": restored,
+        "errors": errors,
+    }
+
+
+@router.delete("/api/shopify-webhooks/{domain}/live/{webhook_id}")
+async def delete_single_webhook(domain: str, webhook_id: int,
+                                db: Session = Depends(get_db_session)):
+    """Delete a single live webhook from Shopify (and mark it in the local DB if saved)."""
+    store_url, token = _get_site_credentials(domain)
+    from backend.shopify.client import ShopifyClient
+
+    async with ShopifyClient(store_url, token) as client:
+        await client.delete_webhook(webhook_id)
+
+    # Mark as inactive if we have it saved
+    saved = (
+        db.query(ShopifySavedWebhook)
+        .filter(
+            ShopifySavedWebhook.store_domain == domain,
+            ShopifySavedWebhook.shopify_webhook_id == str(webhook_id),
+        )
+        .first()
+    )
+    if saved:
+        saved.is_active_in_shopify = False
+        saved.deleted_from_shopify_at = datetime.utcnow()
+        db.commit()
+
+    return {"status": "deleted", "webhook_id": webhook_id}
+
+
+# ---------------------------------------------------------------------------
+# Shopify Product ID Mapping
+# ---------------------------------------------------------------------------
+
+class UpsertProductMappingRequest(BaseModel):
+    handle: str
+    title: Optional[str] = None
+    sku: Optional[str] = None
+    local_product_id: Optional[int] = None
+    store_domain: str
+    shopify_product_id: str
+    variant_id_map: Optional[Dict[str, str]] = None
+
+
+@router.post("/api/shopify-product-mappings")
+def upsert_product_mapping(req: UpsertProductMappingRequest,
+                           db: Session = Depends(get_db_session)):
+    """Create or update the mapping between a Shopify product ID and a local product."""
+    mapping = (
+        db.query(ShopifyProductMapping)
+        .filter(ShopifyProductMapping.handle == req.handle)
+        .first()
+    )
+    if not mapping:
+        mapping = ShopifyProductMapping(
+            handle=req.handle,
+            title=req.title,
+            sku=req.sku,
+            local_product_id=req.local_product_id,
+        )
+        db.add(mapping)
+        db.flush()
+    else:
+        if req.title:
+            mapping.title = req.title
+        if req.sku:
+            mapping.sku = req.sku
+        if req.local_product_id:
+            mapping.local_product_id = req.local_product_id
+
+    store_entry = (
+        db.query(ShopifyStoreProductId)
+        .filter(
+            ShopifyStoreProductId.mapping_id == mapping.id,
+            ShopifyStoreProductId.store_domain == req.store_domain,
+        )
+        .first()
+    )
+    if store_entry:
+        store_entry.shopify_product_id = req.shopify_product_id
+        store_entry.variant_id_map_json = json.dumps(req.variant_id_map) if req.variant_id_map else None
+        store_entry.synced_at = datetime.utcnow()
+    else:
+        db.add(ShopifyStoreProductId(
+            mapping_id=mapping.id,
+            store_domain=req.store_domain,
+            shopify_product_id=req.shopify_product_id,
+            variant_id_map_json=json.dumps(req.variant_id_map) if req.variant_id_map else None,
+        ))
+
+    db.commit()
+    return {"status": "ok", "mapping_id": mapping.id}
+
+
+@router.get("/api/shopify-product-mappings")
+def get_product_mappings(
+    handle: Optional[str] = None,
+    sku: Optional[str] = None,
+    local_product_id: Optional[int] = None,
+    store_domain: Optional[str] = None,
+    page: int = 1,
+    per_page: int = 50,
+    db: Session = Depends(get_db_session),
+):
+    """Query product ID mappings across stores."""
+    q = db.query(ShopifyProductMapping)
+    if handle:
+        q = q.filter(ShopifyProductMapping.handle.ilike(f"%{handle}%"))
+    if sku:
+        q = q.filter(ShopifyProductMapping.sku.ilike(f"%{sku}%"))
+    if local_product_id:
+        q = q.filter(ShopifyProductMapping.local_product_id == local_product_id)
+    if store_domain:
+        q = q.join(ShopifyStoreProductId).filter(
+            ShopifyStoreProductId.store_domain == store_domain
+        )
+
+    total = q.count()
+    mappings = q.offset((page - 1) * per_page).limit(per_page).all()
+
+    results = []
+    for m in mappings:
+        store_ids = {
+            s.store_domain: {
+                "shopify_product_id": s.shopify_product_id,
+                "variant_id_map": json.loads(s.variant_id_map_json) if s.variant_id_map_json else None,
+                "synced_at": s.synced_at.isoformat() if s.synced_at else None,
+            }
+            for s in m.store_ids
+        }
+        results.append({
+            "id": m.id,
+            "local_product_id": m.local_product_id,
+            "handle": m.handle,
+            "title": m.title,
+            "sku": m.sku,
+            "store_ids": store_ids,
+            "created_at": m.created_at.isoformat() if m.created_at else None,
+        })
+
+    return {"total": total, "page": page, "pages": max(1, (total + per_page - 1) // per_page),
+            "mappings": results}

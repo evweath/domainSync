@@ -455,3 +455,74 @@ class AppSetting(Base):
     value = Column(Text)
     description = Column(String(500))
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+
+
+# ---------------------------------------------------------------------------
+# Shopify Product ID Mappings
+# Tracks which Shopify product ID in each store corresponds to a local product.
+# ---------------------------------------------------------------------------
+class ShopifyProductMapping(Base):
+    __tablename__ = "shopify_product_mappings"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    local_product_id = Column(Integer, ForeignKey("products.id"), nullable=True, index=True)
+    # Shopify handle is store-agnostic (slug-like) — used to match across stores
+    handle = Column(String(500), index=True)
+    title = Column(String(500))
+    sku = Column(String(255), index=True)
+    created_at = Column(DateTime, default=func.now())
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+
+    store_ids = relationship("ShopifyStoreProductId", back_populates="mapping",
+                             cascade="all, delete-orphan")
+    local_product = relationship("Product")
+
+    __table_args__ = (
+        UniqueConstraint("handle", name="uq_shopify_mapping_handle"),
+    )
+
+
+class ShopifyStoreProductId(Base):
+    """One row per (mapping, store) pair — the Shopify numeric ID in that store."""
+    __tablename__ = "shopify_store_product_ids"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    mapping_id = Column(Integer, ForeignKey("shopify_product_mappings.id"), nullable=False)
+    store_domain = Column(String(255), nullable=False, index=True)
+    shopify_product_id = Column(String(50), nullable=False)   # Shopify IDs are large ints; store as str
+    variant_id_map_json = Column(Text)  # JSON: {local_variant_index: shopify_variant_id}
+    synced_at = Column(DateTime, default=func.now())
+
+    mapping = relationship("ShopifyProductMapping", back_populates="store_ids")
+
+    __table_args__ = (
+        UniqueConstraint("mapping_id", "store_domain", name="uq_shopify_store_product"),
+        Index("idx_shopify_store_product_ids_domain", "store_domain"),
+        Index("idx_shopify_store_product_ids_shopify_id", "shopify_product_id"),
+    )
+
+
+# ---------------------------------------------------------------------------
+# Shopify Saved Webhooks
+# Webhooks are deleted from Shopify before bulk imports and restored after.
+# This table persists the webhook definitions so they can be re-created.
+# ---------------------------------------------------------------------------
+class ShopifySavedWebhook(Base):
+    __tablename__ = "shopify_saved_webhooks"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    store_domain = Column(String(255), nullable=False, index=True)
+    shopify_webhook_id = Column(String(50))   # Shopify's numeric webhook ID
+    topic = Column(String(255), nullable=False)   # e.g. "products/update"
+    address = Column(String(2000), nullable=False)  # destination URL
+    format = Column(String(20), default="json")
+    api_version = Column(String(20))
+    # Status tracking
+    is_active_in_shopify = Column(Boolean, default=True)  # False once deleted from Shopify
+    saved_at = Column(DateTime, default=func.now())
+    deleted_from_shopify_at = Column(DateTime)
+    restored_at = Column(DateTime)
+
+    __table_args__ = (
+        Index("idx_shopify_saved_webhooks_domain", "store_domain"),
+    )

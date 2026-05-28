@@ -199,3 +199,32 @@ class ShopifyClient:
                           "value": value, "type": value_type}
         })
         return result.get("metafield", {})
+
+    # -----------------------------------------------------------------------
+    # Webhooks
+    # -----------------------------------------------------------------------
+
+    async def list_webhooks(self) -> List[Dict]:
+        """Return all webhook subscriptions registered in this store."""
+        webhooks: List[Dict] = []
+        params: Dict[str, Any] = {"limit": 250}
+        while True:
+            resp = await self._get("/webhooks.json", params=params)
+            batch = resp.json().get("webhooks", [])
+            webhooks.extend(batch)
+            page_info = self._next_page_info(resp)
+            if not page_info:
+                break
+            params = {"limit": 250, "page_info": page_info}
+        return webhooks
+
+    async def create_webhook(self, topic: str, address: str, format: str = "json") -> Dict:
+        """Register a new webhook subscription."""
+        result = await self._post("/webhooks.json", {
+            "webhook": {"topic": topic, "address": address, "format": format}
+        })
+        return result.get("webhook", {})
+
+    async def delete_webhook(self, webhook_id: int) -> None:
+        """Delete a webhook subscription by its Shopify ID."""
+        await self._delete(f"/webhooks/{webhook_id}.json")

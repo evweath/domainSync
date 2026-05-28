@@ -7,10 +7,10 @@
   <!-- Vendor JS/CSS served locally so the dashboard works offline.
        Bumping the ?v= query string on any change forces a fresh fetch even
        through stubborn browser caches; pair with no-cache server headers. -->
-  <script src="/static/vendor/alpine.min.js?v=20260528-01" defer></script>
-  <script src="/static/vendor/chart.umd.min.js?v=20260528-01"></script>
-  <link href="/static/vendor/tailwind.min.css?v=20260528-01" rel="stylesheet" />
-  <link href="/static/css/style.css?v=20260528-01" rel="stylesheet" />
+  <script src="/static/vendor/alpine.min.js?v=20260528-02" defer></script>
+  <script src="/static/vendor/chart.umd.min.js?v=20260528-02"></script>
+  <link href="/static/vendor/tailwind.min.css?v=20260528-02" rel="stylesheet" />
+  <link href="/static/css/style.css?v=20260528-02" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-200">
 
@@ -3992,6 +3992,78 @@
                     Test Connection
                   </button>
                 </div>
+
+                <!-- Webhook Management -->
+                <div x-show="shopifyCredentials[site.domain]?.shopify_access_token"
+                     class="mt-4 border-t border-gray-100 dark:border-gray-700 pt-4">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Webhooks</span>
+                    <div class="flex gap-1.5">
+                      <button @click="loadShopifyWebhooks(site.domain)"
+                        :disabled="shopifyWebhooks[site.domain]?.liveLoading"
+                        class="text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 px-2 py-1 rounded transition disabled:opacity-40">
+                        ↺ Refresh
+                      </button>
+                      <button @click="saveAndDisableWebhooks(site.domain)"
+                        :disabled="shopifyWebhooks[site.domain]?.acting || !shopifyWebhooks[site.domain]?.live?.length"
+                        class="text-xs bg-amber-500 hover:bg-amber-600 text-white px-2 py-1 rounded transition disabled:opacity-40"
+                        title="Save all webhooks to local DB, then delete them from Shopify (use before bulk imports)">
+                        ⏸ Disable All
+                      </button>
+                      <button @click="restoreWebhooks(site.domain)"
+                        :disabled="shopifyWebhooks[site.domain]?.acting || !(shopifyWebhooks[site.domain]?.saved || []).filter(w => !w.is_active_in_shopify).length"
+                        class="text-xs bg-green-600 hover:bg-green-700 text-white px-2 py-1 rounded transition disabled:opacity-40"
+                        title="Re-create all saved (disabled) webhooks back in Shopify">
+                        ▶ Restore All
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Live webhooks -->
+                  <div x-show="shopifyWebhooks[site.domain]?.liveLoading"
+                       class="text-xs text-gray-400 py-2">Loading live webhooks…</div>
+                  <div x-show="shopifyWebhooks[site.domain]?.error"
+                       class="text-xs text-red-500 py-1" x-text="shopifyWebhooks[site.domain]?.error"></div>
+                  <div x-show="!shopifyWebhooks[site.domain]?.liveLoading && shopifyWebhooks[site.domain]?.live?.length === 0 && shopifyWebhooks[site.domain]?.live !== undefined"
+                       class="text-xs text-gray-400 italic py-1">No active webhooks in Shopify.</div>
+
+                  <template x-if="(shopifyWebhooks[site.domain]?.live || []).length > 0">
+                    <div class="space-y-1 mb-3">
+                      <div class="text-xs font-medium text-green-700 dark:text-green-400 mb-1">
+                        Active in Shopify (<span x-text="shopifyWebhooks[site.domain]?.live?.length"></span>)
+                      </div>
+                      <template x-for="wh in (shopifyWebhooks[site.domain]?.live || [])" :key="wh.id">
+                        <div class="flex items-center justify-between bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded px-2 py-1">
+                          <div class="min-w-0">
+                            <span class="text-xs font-mono font-medium text-green-800 dark:text-green-300" x-text="wh.topic"></span>
+                            <span class="text-xs text-gray-400 ml-2 truncate block" x-text="wh.address"></span>
+                          </div>
+                          <button @click="deleteShopifyWebhookLive(site.domain, wh.id)"
+                            :disabled="shopifyWebhooks[site.domain]?.acting"
+                            class="ml-2 shrink-0 text-xs text-red-500 hover:text-red-700 disabled:opacity-40">✕</button>
+                        </div>
+                      </template>
+                    </div>
+                  </template>
+
+                  <!-- Saved (disabled) webhooks -->
+                  <template x-if="(shopifyWebhooks[site.domain]?.saved || []).filter(w => !w.is_active_in_shopify).length > 0">
+                    <div class="space-y-1">
+                      <div class="text-xs font-medium text-amber-700 dark:text-amber-400 mb-1">
+                        Saved / Disabled (<span x-text="(shopifyWebhooks[site.domain]?.saved || []).filter(w => !w.is_active_in_shopify).length"></span>)
+                      </div>
+                      <template x-for="wh in (shopifyWebhooks[site.domain]?.saved || []).filter(w => !w.is_active_in_shopify)" :key="wh.id">
+                        <div class="flex items-center justify-between bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded px-2 py-1">
+                          <div class="min-w-0">
+                            <span class="text-xs font-mono font-medium text-amber-800 dark:text-amber-300" x-text="wh.topic"></span>
+                            <span class="text-xs text-gray-400 ml-2 truncate block" x-text="wh.address"></span>
+                          </div>
+                          <span class="ml-2 shrink-0 text-xs text-amber-500 italic">disabled</span>
+                        </div>
+                      </template>
+                    </div>
+                  </template>
+                </div>
               </div>
             </template>
           </div>
@@ -4366,6 +4438,6 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260528-01"></script>
+<script src="/static/js/app.js?v=20260528-02"></script>
 </body>
 </html>

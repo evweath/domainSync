@@ -19956,3 +19956,77 @@ INFO:     127.0.0.1:51143 - "GET /api/dedup/candidates?status=pending&per_page=5
 INFO:     127.0.0.1:51145 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:51145 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
 INFO:     connection closed
+INFO:     127.0.0.1:51537 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51537 - "GET /static/vendor/alpine.min.js?v=20260528-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51538 - "GET /static/vendor/chart.umd.min.js?v=20260528-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51539 - "GET /static/vendor/tailwind.min.css?v=20260528-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51540 - "GET /static/css/style.css?v=20260528-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51541 - "GET /static/js/app.js?v=20260528-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51537 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51538 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51539 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51540 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51539 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51538 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51540 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51539 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51538 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51540 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51542 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51541 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51537 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51539 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51538 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51543 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:51540 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51544 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51544 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51644 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51644 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51645 - "GET /api/products/store-comparison?page=1&per_page=25&has_empty=manufacturer&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51648 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51649 - "GET /api/products/store-comparison?page=1&per_page=25&has_empty=model_number&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51650 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51650 - "GET /api/products/store-comparison?page=1&per_page=25&has_empty=category&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51650 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51651 - "GET /api/products/store-comparison?page=1&per_page=25&has_diffs=true&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51652 - "GET /api/products/store-comparison?page=2&per_page=25&has_diffs=true&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51652 - "GET /api/products/store-comparison?page=3&per_page=25&has_diffs=true&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51652 - "GET /api/products/store-comparison?page=4&per_page=25&has_diffs=true&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51779 - "GET /api/products/store-comparison?page=1&per_page=25&in_stock=true&has_diffs=true&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51780 - "GET /api/products/store-comparison?page=2&per_page=25&in_stock=true&has_diffs=true&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51780 - "GET /api/products/store-comparison?page=3&per_page=25&in_stock=true&has_diffs=true&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51780 - "GET /api/products/store-comparison?page=4&per_page=25&in_stock=true&has_diffs=true&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51780 - "GET /api/products/store-comparison?page=5&per_page=25&in_stock=true&has_diffs=true&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51781 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51782 - "PUT /api/source-sites/donut-supplies.com/destination HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51782 - "PUT /api/source-sites/donut-supplies.com/destination HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51782 - "PUT /api/source-sites/donut-equipment.com/destination HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51782 - "PUT /api/source-sites/donut-equipment.com/destination HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51782 - "PUT /api/source-sites/bakerywholesalers.com/destination HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51782 - "PUT /api/source-sites/bakerywholesalers.com/destination HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51789 - "PUT /api/source-sites/bakerywholesalers.com/destination HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51790 - "POST /api/shopify-sync/preview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51899 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51900 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51901 - "POST /api/shopify-live/scan HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:51902 - "POST /api/shopify-live/scan HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:51903 - "POST /api/shopify-live/scan HTTP/1.1" 422 Unprocessable Content
+INFO:     Started server process [37743]
+INFO:     Waiting for application startup.
+2026-05-28 13:02:10 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-28 13:02:10 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-28 13:02:10 [INFO] backend.database.db: Database initialized
+2026-05-28 13:02:10 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-28 13:02:10 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-28 13:02:10 [INFO] backend.app: Scheduler started
+2026-05-28 13:02:10 [INFO] backend.app: Log-tail broadcaster started
+2026-05-28 13:02:10 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-28 13:02:10 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     127.0.0.1:53534 - "GET /api/shopify-product-mappings?page=1&per_page=5 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:53538 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53540 - "GET /api/shopify-product-mappings?page=1&per_page=5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53542 - "GET /api/shopify-webhooks/donut-supplies.com/saved HTTP/1.1" 200 OK

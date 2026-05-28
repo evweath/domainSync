@@ -258,6 +258,10 @@ function app() {
     shopifyCredentials: {},    // domain -> { shopify_store_url, shopify_api_key, shopify_access_token }
     shopifyTestStatus: {},     // domain -> 'idle'|'testing'|'ok'|'error'
     shopifyTestMessage: {},    // domain -> string
+
+    // Shopify Webhook Management (per store)
+    shopifyWebhooks: {},       // domain -> { live: [], saved: [], liveLoading, savedLoading, acting, error }
+
     managedLists: { manufacturers: [], excluded: [], competitors: [] },
     newManagedUrl: { manufacturer: '', excluded: '', competitor: '' },
 
@@ -2241,6 +2245,81 @@ function app() {
         await this.api('/api/settings/webhook', { method: 'PUT', body: JSON.stringify(this.webhookForm) });
         this.toast('Webhook configured', 'success');
       } catch (e) { this.toast('Webhook save failed: ' + e.message, 'error'); }
+    },
+
+    // -----------------------------------------------------------------------
+    // Shopify Webhook Management
+    // -----------------------------------------------------------------------
+    _shopifyWebhookState(domain) {
+      if (!this.shopifyWebhooks[domain]) {
+        this.shopifyWebhooks = {
+          ...this.shopifyWebhooks,
+          [domain]: { live: [], saved: [], liveLoading: false, savedLoading: false, acting: false, error: null },
+        };
+      }
+      return this.shopifyWebhooks[domain];
+    },
+
+    async loadShopifyWebhooksLive(domain) {
+      const s = this._shopifyWebhookState(domain);
+      s.liveLoading = true; s.error = null;
+      try {
+        const r = await this.api(`/api/shopify-webhooks/${encodeURIComponent(domain)}/live`);
+        s.live = r.webhooks || [];
+      } catch (e) { s.error = e.message; }
+      finally { s.liveLoading = false; }
+    },
+
+    async loadShopifyWebhooksSaved(domain) {
+      const s = this._shopifyWebhookState(domain);
+      s.savedLoading = true;
+      try {
+        const r = await this.api(`/api/shopify-webhooks/${encodeURIComponent(domain)}/saved`);
+        s.saved = r.webhooks || [];
+      } catch (e) { /* silent */ }
+      finally { s.savedLoading = false; }
+    },
+
+    async loadShopifyWebhooks(domain) {
+      await Promise.all([this.loadShopifyWebhooksLive(domain), this.loadShopifyWebhooksSaved(domain)]);
+    },
+
+    async saveAndDisableWebhooks(domain) {
+      if (!confirm(`Save all webhooks for ${domain} to the local database, then delete them from Shopify?\n\nUse this before a bulk import to prevent webhook triggers.`)) return;
+      const s = this._shopifyWebhookState(domain);
+      s.acting = true;
+      try {
+        const r = await this.api(`/api/shopify-webhooks/${encodeURIComponent(domain)}/save-and-disable`, { method: 'POST' });
+        this.toast(`Saved ${r.saved} and disabled ${r.deleted} webhooks for ${domain}`, 'success');
+        await this.loadShopifyWebhooks(domain);
+      } catch (e) { this.toast('Save & disable failed: ' + e.message, 'error'); }
+      finally { s.acting = false; }
+    },
+
+    async restoreWebhooks(domain) {
+      const s = this._shopifyWebhookState(domain);
+      const disabledCount = (s.saved || []).filter(w => !w.is_active_in_shopify).length;
+      if (disabledCount === 0) { this.toast('No disabled webhooks to restore', 'info'); return; }
+      if (!confirm(`Re-create ${disabledCount} saved webhooks in ${domain}?`)) return;
+      s.acting = true;
+      try {
+        const r = await this.api(`/api/shopify-webhooks/${encodeURIComponent(domain)}/restore`, { method: 'POST' });
+        this.toast(`Restored ${r.restored} webhooks for ${domain}`, 'success');
+        await this.loadShopifyWebhooks(domain);
+      } catch (e) { this.toast('Restore failed: ' + e.message, 'error'); }
+      finally { s.acting = false; }
+    },
+
+    async deleteShopifyWebhookLive(domain, webhookId) {
+      if (!confirm(`Delete webhook ${webhookId} from ${domain}? This cannot be undone unless you saved it first.`)) return;
+      const s = this._shopifyWebhookState(domain);
+      s.acting = true;
+      try {
+        await this.api(`/api/shopify-webhooks/${encodeURIComponent(domain)}/live/${webhookId}`, { method: 'DELETE' });
+        this.toast('Webhook deleted', 'success');
+        await this.loadShopifyWebhooks(domain);
+      } catch (e) { this.toast('Delete failed: ' + e.message, 'error'); }
+      finally { s.acting = false; }
     },
 
     // -----------------------------------------------------------------------
