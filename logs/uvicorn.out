@@ -20030,3 +20030,165 @@ INFO:     127.0.0.1:53534 - "GET /api/shopify-product-mappings?page=1&per_page=5
 INFO:     127.0.0.1:53538 - "POST /api/auth/login HTTP/1.1" 200 OK
 INFO:     127.0.0.1:53540 - "GET /api/shopify-product-mappings?page=1&per_page=5 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:53542 - "GET /api/shopify-webhooks/donut-supplies.com/saved HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53559 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53565 - "GET /static/css/style.css?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53563 - "GET /static/vendor/tailwind.min.css?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /static/vendor/chart.umd.min.js?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53559 - "GET /static/vendor/alpine.min.js?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53567 - "GET /static/js/app.js?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53567 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53567 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53563 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53563 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53559 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53559 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53563 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53559 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53565 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53569 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53567 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53567 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53571 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:53566 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/shopify-webhooks/donut-supplies.com/saved HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/shopify-product-mappings?per_page=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/shopify-webhooks/donut-equipment.com/saved HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/shopify-product-mappings?per_page=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/shopify-webhooks/bakerywholesalers.com/saved HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/shopify-product-mappings?per_page=3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:53704 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53704 - "GET /static/vendor/alpine.min.js?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53708 - "GET /static/vendor/tailwind.min.css?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53710 - "GET /static/vendor/chart.umd.min.js?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53709 - "GET /static/css/style.css?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53712 - "GET /static/js/app.js?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53710 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53712 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53712 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53708 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53709 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53708 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53704 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53709 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53704 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53708 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53714 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53712 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53710 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53716 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:53710 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53712 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:53720 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53720 - "GET /static/vendor/alpine.min.js?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53725 - "GET /static/css/style.css?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53724 - "GET /static/vendor/tailwind.min.css?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53728 - "GET /static/js/app.js?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53726 - "GET /static/vendor/chart.umd.min.js?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53726 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53728 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53728 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53725 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53724 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53725 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53724 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53720 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53725 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53724 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53730 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53726 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53728 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53732 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:53728 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53726 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:53738 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53738 - "GET /static/vendor/alpine.min.js?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53742 - "GET /static/vendor/tailwind.min.css?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53743 - "GET /static/css/style.css?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53746 - "GET /static/js/app.js?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53744 - "GET /static/vendor/chart.umd.min.js?v=20260528-02 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53744 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53746 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53746 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53742 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53743 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53742 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53738 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53743 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53738 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53742 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53748 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53744 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53746 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53750 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:53746 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53744 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53752 - "POST /api/shopify-product-mappings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53752 - "GET /api/shopify-product-mappings?handle=test-donut-filler HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53752 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:53902 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53902 - "GET /static/vendor/alpine.min.js?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53906 - "GET /static/vendor/tailwind.min.css?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53908 - "GET /static/css/style.css?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53909 - "GET /static/vendor/chart.umd.min.js?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "GET /static/js/app.js?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53909 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53906 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53908 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53906 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53902 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53908 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53902 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53906 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53912 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53909 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53914 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:53909 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53910 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     127.0.0.1:54030 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54030 - "GET /static/vendor/alpine.min.js?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54034 - "GET /static/vendor/tailwind.min.css?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54035 - "GET /static/css/style.css?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54036 - "GET /static/vendor/chart.umd.min.js?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54038 - "GET /static/js/app.js?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54036 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54038 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54038 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54034 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54035 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54034 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54035 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54034 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54030 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54035 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54040 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54038 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54036 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54042 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54036 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54038 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54038 - "GET /api/shopify-webhooks/donut-supplies.com/saved HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54038 - "GET /api/shopify-webhooks/donut-equipment.com/saved HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54038 - "GET /api/shopify-webhooks/bakerywholesalers.com/saved HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54038 - "GET /api/shopify-product-mappings?per_page=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54038 - "GET /api/shopify-webhooks/nonexistent.com/saved HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54038 - "GET /api/shopify-webhooks/donut-supplies.com/live HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:54038 - "POST /api/shopify-webhooks/donut-supplies.com/save-and-disable HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:54038 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     connection closed
