@@ -7,10 +7,10 @@
   <!-- Vendor JS/CSS served locally so the dashboard works offline.
        Bumping the ?v= query string on any change forces a fresh fetch even
        through stubborn browser caches; pair with no-cache server headers. -->
-  <script src="/static/vendor/alpine.min.js?v=20260520-10" defer></script>
-  <script src="/static/vendor/chart.umd.min.js?v=20260520-10"></script>
-  <link href="/static/vendor/tailwind.min.css?v=20260520-10" rel="stylesheet" />
-  <link href="/static/css/style.css?v=20260520-10" rel="stylesheet" />
+  <script src="/static/vendor/alpine.min.js?v=20260528-01" defer></script>
+  <script src="/static/vendor/chart.umd.min.js?v=20260528-01"></script>
+  <link href="/static/vendor/tailwind.min.css?v=20260528-01" rel="stylesheet" />
+  <link href="/static/css/style.css?v=20260528-01" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-200">
 
@@ -1003,14 +1003,14 @@
           </div>
 
           <!-- Row 4: empty canonical field filter -->
-          <div class="border-t border-gray-100 dark:border-gray-700 pt-3">
-            <div class="flex flex-wrap gap-x-4 gap-y-1.5 items-center">
-              <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide shrink-0">Canonical field is empty:</span>
+          <div class="border-t border-gray-100 dark:border-gray-700 pt-3 space-y-2">
+            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Canonical field is empty:</span>
+            <div class="flex flex-wrap gap-x-5 gap-y-1.5">
               <template x-for="f in ['title','manufacturer','model_number','sku','category','subcategory','description','price','weight','dimensions','country_of_origin','ai_category']" :key="f">
-                <label class="flex items-center gap-1 text-xs cursor-pointer select-none">
+                <label class="flex items-center gap-1.5 text-xs cursor-pointer select-none">
                   <input type="checkbox" :value="f" x-model="storeCompFilters.has_empty" @change="loadStoreComparison(1)"
                     class="w-3.5 h-3.5 accent-red-500" />
-                  <span class="text-gray-600 dark:text-gray-400" x-text="f.replace('_', ' ')"></span>
+                  <span class="text-gray-600 dark:text-gray-400" x-text="f.replace(/_/g, ' ')"></span>
                 </label>
               </template>
             </div>
@@ -4366,6 +4366,6 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260520-10"></script>
+<script src="/static/js/app.js?v=20260528-01"></script>
 </body>
 </html>
