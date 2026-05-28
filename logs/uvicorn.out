@@ -16931,3 +16931,1055 @@ INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
 INFO:     127.0.0.1:56445 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:56446 - "WebSocket /ws/scan-progress" [accepted]
 INFO:     connection open
+INFO:     connection closed
+INFO:     127.0.0.1:56469 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56469 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56470 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56469 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56472 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56472 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56473 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56472 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56474 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56474 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56469 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56472 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56470 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56473 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56474 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56475 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:56469 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56472 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56476 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:56477 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Arctic+Air HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56477 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+2026-05-27 18:47:48 [INFO] backend.competitor.scraper: Skipping acitydiscount.com — too soon (next allowed: 2026-05-28T20:56:21.020097)
+2026-05-27 18:47:48 [INFO] backend.competitor.scraper: Skipping ald.kitchen — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 18:47:48 [INFO] backend.competitor.scraper: Skipping alibaba.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 18:47:48 [INFO] backend.competitor.scraper: Skipping allbaketech.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 18:47:48 [INFO] backend.competitor.scraper: Skipping allegiantair.com — too soon (next allowed: 2026-05-28T20:59:41.147127)
+2026-05-27 18:47:48 [INFO] backend.competitor.scraper: Skipping allpointsfps.com — 3-day empty-scan cooldown (resets 2026-05-29)
+2026-05-27 18:47:48 [INFO] backend.competitor.scraper: Skipping almart.com — 3-day empty-scan cooldown (resets 2026-05-28)
+2026-05-27 18:47:48 [INFO] backend.competitor.scraper: Skipping amazon.com — too soon (next allowed: 2026-05-28T21:03:56.274273)
+2026-05-27 18:47:48 [INFO] backend.competitor.scraper: Skipping aupetitcoinbreton.ca — too soon (next allowed: 2026-05-28T21:05:43.271207)
+2026-05-27 18:47:48 [INFO] backend.competitor.scraper: Skipping bakedeco.com — 3-day empty-scan cooldown (resets 2026-05-28)
+2026-05-27 18:47:48 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+INFO:     127.0.0.1:56487 - "POST /api/competitors/scan HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56491 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56490 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56491 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56489 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56492 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56487 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56491 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56490 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56487 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56492 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56490 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56487 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56490 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56490 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56491 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56489 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56491 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56492 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56491 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56491 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56487 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+2026-05-27 18:47:49 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on bakell.com  (max_pages=100)
+INFO:     127.0.0.1:56488 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56487 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56490 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56489 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56490 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56492 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56487 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56490 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56491 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56491 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56492 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56490 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56490 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56492 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56489 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56492 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56492 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56487 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56491 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56487 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56487 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56490 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56488 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56489 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56492 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56491 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56487 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Avalon HTTP/1.1" 200 OK
+2026-05-27 18:57:42 [INFO] backend.scrapers.base_scraper: Discovered 363 product URLs on https://bakell.com
+2026-05-27 18:57:42 [INFO] backend.competitor.scraper: [SCRAPE] Found 363 product URLs on bakell.com
+INFO:     connection closed
+INFO:     connection closed
+INFO:     127.0.0.1:57801 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57801 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57802 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57801 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57805 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57808 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57808 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57807 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57808 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57807 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57808 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57809 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57810 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57806 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57805 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57807 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57808 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57811 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:57822 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57822 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57827 - "GET /api/products?page=1&per_page=50&sort_by=price&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57827 - "GET /api/products?page=1&per_page=50&sort_by=price&sort_order=desc HTTP/1.1" 200 OK
+2026-05-27 19:13:57 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  (id=42)
+2026-05-27 19:13:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'INSIDER Ventless Donut System Mark V GP buy'
+INFO:     127.0.0.1:57859 - "POST /api/products/competitor-search HTTP/1.1" 200 OK
+2026-05-27 19:14:09 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'INSIDER Ventless Donut System Mark V GP buy'
+2026-05-27 19:14:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'INSIDER Ventless Donut System Mark V GP ': 11 new URLs
+2026-05-27 19:14:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$549.28  confidence=34%
+2026-05-27 19:14:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=1/9
+2026-05-27 19:14:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: premiumcoffeegear.com
+2026-05-27 19:14:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=premiumcoffeegear.com  price=no price  confidence=26%
+2026-05-27 19:14:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=premiumcoffeegear.com  found=2/9
+2026-05-27 19:14:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=crispfryer.com  found=3/9
+2026-05-27 19:14:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  price=no price  confidence=26%
+2026-05-27 19:14:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  found=4/9
+2026-05-27 19:14:24 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 11 results for 'INSIDER Ventless Donut System Mark V GP buy alternatives whe'
+2026-05-27 19:14:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'INSIDER Ventless Donut System Mark V GP ': 9 new URLs
+2026-05-27 19:14:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$489.90  confidence=31%
+2026-05-27 19:14:26 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=5/9
+2026-05-27 19:14:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=alibaba.com  price=$191.15  confidence=29%
+2026-05-27 19:14:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=alibaba.com  found=6/9
+2026-05-27 19:14:27 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  visited=18  found=6/9
+2026-05-27 19:14:27 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'  (id=241)
+2026-05-27 19:14:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '22306W Thermoglaze Frozen Donut System 50-75 Donuts buy'
+2026-05-27 19:14:35 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 5 results for '22306W Thermoglaze Frozen Donut System 50-75 Donuts buy'
+2026-05-27 19:14:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '22306W Thermoglaze Frozen Donut System 5': 20 new URLs
+2026-05-27 19:14:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$47615.00  confidence=42%
+2026-05-27 19:14:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=1/9
+2026-05-27 19:14:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: productregistry.org
+2026-05-27 19:14:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=productregistry.org  price=$48100.00  confidence=90%
+2026-05-27 19:14:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=productregistry.org  found=2/9
+2026-05-27 19:14:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  price=no price  confidence=25%
+2026-05-27 19:14:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  found=3/9
+2026-05-27 19:14:49 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 10 results for 'Belshaw Adamatic glaze buy'
+2026-05-27 19:14:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Belshaw Adamatic glaze buy': 58 new URLs
+2026-05-27 19:14:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: asserstrom.com
+2026-05-27 19:14:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=asserstrom.com  price=no price  confidence=30%
+2026-05-27 19:14:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=asserstrom.com  found=4/9
+2026-05-27 19:15:06 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 22 results for 'commercial glaze buy price'
+2026-05-27 19:15:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial glaze buy price': 75 new URLs
+2026-05-27 19:15:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$32.25  confidence=30%
+2026-05-27 19:15:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=5/9
+2026-05-27 19:15:25 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 4 results for '22306W Thermoglaze Frozen Donut System 50-75 Donuts buy alte'
+2026-05-27 19:15:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '22306W Thermoglaze Frozen Donut System 5': 7 new URLs
+2026-05-27 19:15:25 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'  visited=55  found=5/9
+2026-05-27 19:15:25 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v'  (id=458)
+2026-05-27 19:15:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '72" Square Glass Island Open Air Merchandiser 24 buy'
+2026-05-27 19:15:34 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 11 results for '72" Square Glass Island Open Air Merchandiser 24 buy'
+2026-05-27 19:15:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '72" Square Glass Island Open Air Merchan': 27 new URLs
+2026-05-27 19:15:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$14525.85  confidence=37%
+2026-05-27 19:15:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=1/9
+2026-05-27 19:15:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$12158.00  confidence=33%
+2026-05-27 19:15:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=2/9
+2026-05-27 19:15:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$11758.00  confidence=35%
+2026-05-27 19:15:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=3/9
+2026-05-27 19:15:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$12158.00  confidence=35%
+2026-05-27 19:15:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=4/9
+2026-05-27 19:15:51 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 36 results for 'Turbo Air merchandiser buy'
+2026-05-27 19:15:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Turbo Air merchandiser buy': 76 new URLs
+2026-05-27 19:15:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$5584.20  confidence=37%
+2026-05-27 19:15:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=5/9
+2026-05-27 19:15:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantequipment.com  price=$2876.32  confidence=62%
+2026-05-27 19:15:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantequipment.com  found=6/9
+2026-05-27 19:15:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  price=$5863.58  confidence=85%
+2026-05-27 19:15:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  found=7/9
+2026-05-27 19:16:16 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 18 results for 'commercial merchandiser buy price'
+2026-05-27 19:16:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial merchandiser buy price': 73 new URLs
+2026-05-27 19:16:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$1389.90  confidence=34%
+2026-05-27 19:16:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=8/9
+2026-05-27 19:16:45 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 10 results for '72" Square Glass Island Open Air Merchandiser 24 buy alterna'
+2026-05-27 19:16:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '72" Square Glass Island Open Air Merchan': 20 new URLs
+2026-05-27 19:16:47 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v'  visited=48  found=8/9
+2026-05-27 19:16:47 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  (id=665)
+2026-05-27 19:16:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '84" Square Glass Island Open Air Merchandiser 36 buy'
+2026-05-27 19:16:55 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 10 results for '84" Square Glass Island Open Air Merchandiser 36 buy'
+2026-05-27 19:16:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '84" Square Glass Island Open Air Merchan': 32 new URLs
+2026-05-27 19:16:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$9110.04  confidence=38%
+2026-05-27 19:16:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=1/9
+2026-05-27 19:16:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$1459.00  confidence=32%
+2026-05-27 19:16:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=2/9
+2026-05-27 19:17:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=crispfryer.com  price=no price  confidence=30%
+2026-05-27 19:17:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=crispfryer.com  found=3/9
+2026-05-27 19:17:03 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 36 results for 'Turbo Air merchandiser buy'
+2026-05-27 19:17:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Turbo Air merchandiser buy': 76 new URLs
+2026-05-27 19:17:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  found=4/9
+2026-05-27 19:17:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=5/9
+2026-05-27 19:17:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantequipment.com  found=6/9
+2026-05-27 19:17:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$9791.30  confidence=60%
+2026-05-27 19:17:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=7/9
+2026-05-27 19:17:07 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 18 results for 'commercial merchandiser buy price'
+2026-05-27 19:17:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial merchandiser buy price': 71 new URLs
+2026-05-27 19:17:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$975.99  confidence=31%
+2026-05-27 19:17:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=8/9
+2026-05-27 19:17:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=9/9
+2026-05-27 19:17:10 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  visited=44  found=9/9
+2026-05-27 19:17:10 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v'  (id=928)
+2026-05-27 19:17:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '48" Black Horizontal Island Open Air Cooler – 4 buy'
+2026-05-27 19:17:18 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 18 results for '48" Black Horizontal Island Open Air Cooler – 4 buy'
+2026-05-27 19:17:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '48" Black Horizontal Island Open Air Coo': 31 new URLs
+2026-05-27 19:17:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$8071.58  confidence=32%
+2026-05-27 19:17:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=1/9
+2026-05-27 19:17:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$2895.00  confidence=33%
+2026-05-27 19:17:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=2/9
+2026-05-27 19:17:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=equippers.com  price=$10111.39  confidence=26%
+2026-05-27 19:17:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=equippers.com  found=3/9
+2026-05-27 19:17:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cityfoodequipment.com  price=$34031.08  confidence=85%
+2026-05-27 19:17:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cityfoodequipment.com  found=4/9
+2026-05-27 19:17:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: nishienterprise.com
+2026-05-27 19:17:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=nishienterprise.com  price=$34031.08  confidence=48%
+2026-05-27 19:17:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=nishienterprise.com  found=5/9
+2026-05-27 19:17:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=smartovenhub.com  price=no price  confidence=30%
+2026-05-27 19:17:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=smartovenhub.com  found=6/9
+2026-05-27 19:17:30 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 22 results for 'Turbo Air cooler buy'
+2026-05-27 19:17:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Turbo Air cooler buy': 81 new URLs
+2026-05-27 19:17:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$10127.83  confidence=60%
+2026-05-27 19:17:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=7/9
+2026-05-27 19:17:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$10666.04  confidence=39%
+2026-05-27 19:17:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=8/9
+2026-05-27 19:17:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=chefstoys.com  price=$10127.83  confidence=59%
+2026-05-27 19:17:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=chefstoys.com  found=9/9
+2026-05-27 19:17:32 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v'  visited=27  found=9/9
+2026-05-27 19:17:32 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling'  (id=3556)
+2026-05-27 19:17:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Belshaw Package for Semi-automated Cake and Raised buy'
+2026-05-27 19:17:49 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Belshaw Package for Semi-automated Cake and Raised buy'
+2026-05-27 19:17:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Belshaw Package for Semi-automated Cake ': 35 new URLs
+2026-05-27 19:18:08 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 10 results for 'Belshaw Package for Semi-automated Cake and Raised buy alter'
+2026-05-27 19:18:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Belshaw Package for Semi-automated Cake ': 6 new URLs
+2026-05-27 19:18:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=asserstrom.com  price=no price  confidence=30%
+2026-05-27 19:18:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=asserstrom.com  found=1/9
+2026-05-27 19:18:11 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling'  visited=15  found=1/9
+2026-05-27 19:18:11 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling'  (id=3586)
+2026-05-27 19:18:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Package for Belshaw Non-automated cake and raised production buy'
+2026-05-27 19:18:17 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Package for Belshaw Non-automated cake and raised production'
+2026-05-27 19:18:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Package for Belshaw Non-automated cake a': 23 new URLs
+2026-05-27 19:18:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=1/9
+2026-05-27 19:18:31 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 5 results for 'Package for Belshaw Non-automated cake and raised production'
+2026-05-27 19:18:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Package for Belshaw Non-automated cake a': 6 new URLs
+2026-05-27 19:18:31 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling'  visited=13  found=1/9
+2026-05-27 19:18:31 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  (id=3885)
+2026-05-27 19:18:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '48" Black Vertical Island Open Air Cooler with buy'
+2026-05-27 19:18:41 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 27 results for '48" Black Vertical Island Open Air Cooler with buy'
+2026-05-27 19:18:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '48" Black Vertical Island Open Air Coole': 42 new URLs
+2026-05-27 19:18:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$9872.73  confidence=39%
+2026-05-27 19:18:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=1/9
+2026-05-27 19:18:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$10366.49  confidence=63%
+2026-05-27 19:18:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=2/9
+2026-05-27 19:18:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$9763.18  confidence=35%
+2026-05-27 19:18:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=3/9
+2026-05-27 19:18:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=equippers.com  price=$10366.49  confidence=28%
+2026-05-27 19:18:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=equippers.com  found=4/9
+2026-05-27 19:18:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  price=$9763.18  confidence=34%
+2026-05-27 19:18:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  found=5/9
+2026-05-27 19:18:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cityfoodequipment.com  price=$19234.88  confidence=90%
+2026-05-27 19:18:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cityfoodequipment.com  found=6/9
+2026-05-27 19:18:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=smartovenhub.com  price=no price  confidence=30%
+2026-05-27 19:18:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=smartovenhub.com  found=7/9
+2026-05-27 19:18:48 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 22 results for 'Turbo Air cooler buy'
+2026-05-27 19:18:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Turbo Air cooler buy': 82 new URLs
+2026-05-27 19:18:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=chefstoys.com  found=8/9
+2026-05-27 19:19:04 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 16 results for 'commercial cooler buy price'
+2026-05-27 19:19:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial cooler buy price': 71 new URLs
+2026-05-27 19:19:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$1809.90  confidence=31%
+2026-05-27 19:19:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=9/9
+2026-05-27 19:19:07 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  visited=41  found=9/9
+2026-05-27 19:19:07 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production'  (id=4009)
+2026-05-27 19:19:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Robot® Mark VI with Dual Plain Depositor 1 " buy'
+2026-05-27 19:19:17 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Donut Robot® Mark VI with Dual Plain Depositor 1 " buy'
+2026-05-27 19:19:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Donut Robot® Mark VI with Dual Plain Dep': 14 new URLs
+2026-05-27 19:19:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=strattonsales.com  price=no price  confidence=28%
+2026-05-27 19:19:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=strattonsales.com  found=1/9
+2026-05-27 19:19:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=mrsupply.biz  found=2/9
+2026-05-27 19:19:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  price=no price  confidence=26%
+2026-05-27 19:19:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  found=3/9
+2026-05-27 19:19:29 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Belshaw Adamatic donut robot buy'
+2026-05-27 19:19:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Belshaw Adamatic donut robot buy': 21 new URLs
+2026-05-27 19:19:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$699.90  confidence=31%
+2026-05-27 19:19:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=4/9
+2026-05-27 19:19:32 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/maroon-red-brew-glitter-4g-jar-food-grade-beverage-glitter-dust: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/maroon-red-brew-glitter-4g-jar-food-grade-beverage-glitter-dust", waiting until "domcontentloaded"
+
+2026-05-27 19:19:42 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/products/maroon-red-brew-glitter-4g-jar-food-grade-beverage-glitter-dust: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/maroon-red-brew-glitter-4g-jar-food-grade-beverage-glitter-dust", waiting until "domcontentloaded"
+
+2026-05-27 19:19:44 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'commercial donut robot buy price'
+2026-05-27 19:19:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut robot buy price': 17 new URLs
+2026-05-27 19:19:56 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 5 results for 'Donut Robot® Mark VI with Dual Plain Depositor 1 " buy alter'
+2026-05-27 19:19:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Donut Robot® Mark VI with Dual Plain Dep': 0 new URLs
+2026-05-27 19:19:56 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production'  visited=33  found=4/9
+2026-05-27 19:19:56 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  (id=4019)
+2026-05-27 19:19:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '48" Stainless Steel Vertical Island Open Air cooler buy'
+2026-05-27 19:19:57 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-27 19:19:57 [WARNING] backend.scrapers.base_scraper: Browser context is broken — rebuilding context...
+2026-05-27 19:19:57 [INFO] backend.scrapers.base_scraper: Browser context rebuilt successfully.
+2026-05-27 19:19:57 [ERROR] backend.scrapers.base_scraper: Failed https://bakell.com/products/maroon-red-brew-glitter-4g-jar-food-grade-beverage-glitter-dust after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/maroon-red-brew-glitter-4g-jar-food-grade-beverage-glitter-dust", waiting until "domcontentloaded"
+
+2026-05-27 19:19:58 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/baby-blue-mini-sprinkle-beads: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/baby-blue-mini-sprinkle-beads", waiting until "domcontentloaded"
+
+2026-05-27 19:20:06 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 18 results for '48" Stainless Steel Vertical Island Open Air cooler buy'
+2026-05-27 19:20:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '48" Stainless Steel Vertical Island Open': 31 new URLs
+2026-05-27 19:20:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebstaurantstore.com  price=no price  confidence=28%
+2026-05-27 19:20:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebstaurantstore.com  found=1/9
+2026-05-27 19:20:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$9522.00  confidence=34%
+2026-05-27 19:20:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=2/9
+2026-05-27 19:20:08 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/products/baby-blue-mini-sprinkle-beads: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/baby-blue-mini-sprinkle-beads", waiting until "domcontentloaded"
+
+2026-05-27 19:20:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$9522.00  confidence=34%
+2026-05-27 19:20:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=3/9
+2026-05-27 19:20:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=nishienterprise.com  price=$34103.54  confidence=47%
+2026-05-27 19:20:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=nishienterprise.com  found=4/9
+2026-05-27 19:20:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=smartovenhub.com  found=5/9
+2026-05-27 19:20:11 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 22 results for 'Turbo Air cooler buy'
+2026-05-27 19:20:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Turbo Air cooler buy': 27 new URLs
+2026-05-27 19:20:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=6/9
+2026-05-27 19:20:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=7/9
+2026-05-27 19:20:14 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 16 results for 'commercial cooler buy price'
+2026-05-27 19:20:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial cooler buy price': 20 new URLs
+2026-05-27 19:20:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=8/9
+2026-05-27 19:20:23 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-27 19:20:23 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 19:20:23 [ERROR] backend.scrapers.base_scraper: Failed https://bakell.com/products/baby-blue-mini-sprinkle-beads after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/baby-blue-mini-sprinkle-beads", waiting until "domcontentloaded"
+
+2026-05-27 19:20:23 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/thanksgiving-pumpkin-and-halloween-face-pieces-silicone-mold: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/thanksgiving-pumpkin-and-halloween-face-pieces-silicone-mold", waiting until "domcontentloaded"
+
+2026-05-27 19:20:24 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 24 results for '48" Stainless Steel Vertical Island Open Air cooler buy alte'
+2026-05-27 19:20:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '48" Stainless Steel Vertical Island Open': 28 new URLs
+2026-05-27 19:20:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  price=$9763.18  confidence=34%
+2026-05-27 19:20:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  found=9/9
+2026-05-27 19:20:25 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  visited=48  found=9/9
+2026-05-27 19:20:25 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'  (id=4049)
+2026-05-27 19:20:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Robot® Mark VI Standard buy'
+2026-05-27 19:20:33 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/products/thanksgiving-pumpkin-and-halloween-face-pieces-silicone-mold: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/thanksgiving-pumpkin-and-halloween-face-pieces-silicone-mold", waiting until "domcontentloaded"
+
+2026-05-27 19:20:39 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Donut Robot® Mark VI Standard buy'
+2026-05-27 19:20:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Donut Robot® Mark VI Standard buy': 15 new URLs
+2026-05-27 19:20:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=strattonsales.com  found=1/9
+2026-05-27 19:20:44 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Belshaw Adamatic donut robot buy'
+2026-05-27 19:20:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Belshaw Adamatic donut robot buy': 21 new URLs
+2026-05-27 19:20:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$699.90  confidence=31%
+2026-05-27 19:20:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=2/9
+2026-05-27 19:20:48 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'commercial donut robot buy price'
+2026-05-27 19:20:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut robot buy price': 20 new URLs
+2026-05-27 19:20:49 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-27 19:20:49 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 19:20:49 [ERROR] backend.scrapers.base_scraper: Failed https://bakell.com/products/thanksgiving-pumpkin-and-halloween-face-pieces-silicone-mold after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/thanksgiving-pumpkin-and-halloween-face-pieces-silicone-mold", waiting until "domcontentloaded"
+
+2026-05-27 19:20:49 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/maroon-brew-glitter-25-spray-pump: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/maroon-brew-glitter-25-spray-pump", waiting until "domcontentloaded"
+
+2026-05-27 19:20:55 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Donut Robot® Mark VI Standard buy alternatives where to buy'
+2026-05-27 19:20:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Donut Robot® Mark VI Standard buy altern': 10 new URLs
+2026-05-27 19:20:55 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'  visited=36  found=2/9
+2026-05-27 19:20:55 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph'  (id=4155)
+2026-05-27 19:20:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'DX Deck Oven with Steam deck tray buy'
+2026-05-27 19:20:59 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/products/maroon-brew-glitter-25-spray-pump: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/maroon-brew-glitter-25-spray-pump", waiting until "domcontentloaded"
+
+2026-05-27 19:21:06 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'DX Deck Oven with Steam deck tray buy'
+2026-05-27 19:21:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'DX Deck Oven with Steam deck tray buy': 17 new URLs
+2026-05-27 19:21:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$4206.00  confidence=31%
+2026-05-27 19:21:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=1/9
+2026-05-27 19:21:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$30859.00  confidence=32%
+2026-05-27 19:21:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=2/9
+2026-05-27 19:21:14 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-27 19:21:14 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-27 19:21:14 [ERROR] backend.scrapers.base_scraper: Failed https://bakell.com/products/maroon-brew-glitter-25-spray-pump after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/maroon-brew-glitter-25-spray-pump", waiting until "domcontentloaded"
+
+2026-05-27 19:21:14 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakell.com/products/patriot-red-edible-pearlized-luster-dust-4g-bakell: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/patriot-red-edible-pearlized-luster-dust-4g-bakell", waiting until "domcontentloaded"
+
+2026-05-27 19:21:18 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Belshaw Adamatic deck oven buy'
+2026-05-27 19:21:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Belshaw Adamatic deck oven buy': 18 new URLs
+2026-05-27 19:21:25 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakell.com/products/patriot-red-edible-pearlized-luster-dust-4g-bakell: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://bakell.com/products/patriot-red-edible-pearlized-luster-dust-4g-bakell", waiting until "domcontentloaded"
+
+2026-05-27 19:21:34 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 28 results for 'commercial deck oven buy price'
+2026-05-27 19:21:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial deck oven buy price': 34 new URLs
+2026-05-27 19:21:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  price=$12457.00  confidence=34%
+2026-05-27 19:21:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  found=3/9
+2026-05-27 19:21:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=centralrestaurant.com  price=$9.00  confidence=30%
+2026-05-27 19:21:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=centralrestaurant.com  found=4/9
+2026-05-27 19:21:49 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for 'DX Deck Oven with Steam deck tray buy alternatives where to '
+2026-05-27 19:21:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'DX Deck Oven with Steam deck tray buy al': 15 new URLs
+2026-05-27 19:21:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantstock.com  price=$29250.00  confidence=30%
+2026-05-27 19:21:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantstock.com  found=5/9
+2026-05-27 19:21:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$289.90  confidence=32%
+2026-05-27 19:21:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=6/9
+2026-05-27 19:21:50 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph'  visited=38  found=6/9
+2026-05-27 19:21:50 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'BakeMax Electric Artisan Stone Deck Ovens 4 Pan Wide, 1 to 4 decks'  (id=4249)
+2026-05-27 19:21:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Electric Artisan Stone Deck Ovens 4 Pan Wide 1 to 4 buy'
+2026-05-27 19:22:10 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Electric Artisan Stone Deck Ovens 4 Pan Wide 1 to 4 buy'
+2026-05-27 19:22:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Electric Artisan Stone Deck Ovens 4 Pan ': 19 new URLs
+2026-05-27 19:22:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=shopusars.com  price=$55705.17  confidence=30%
+2026-05-27 19:22:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=shopusars.com  found=1/9
+2026-05-27 19:22:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$45442.00  confidence=30%
+2026-05-27 19:22:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=2/9
+2026-05-27 19:22:28 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 15 results for 'BakeMax deck oven buy'
+2026-05-27 19:22:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'BakeMax deck oven buy': 68 new URLs
+2026-05-27 19:22:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ckitchen.com  price=$19069.00  confidence=60%
+2026-05-27 19:22:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ckitchen.com  found=3/9
+2026-05-27 19:22:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$10257.99  confidence=36%
+2026-05-27 19:22:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=4/9
+2026-05-27 19:22:31 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 28 results for 'commercial deck oven buy price'
+2026-05-27 19:22:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial deck oven buy price': 66 new URLs
+2026-05-27 19:22:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$17547.00  confidence=31%
+2026-05-27 19:22:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=5/9
+2026-05-27 19:22:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  found=6/9
+2026-05-27 19:22:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=centralrestaurant.com  price=$9.00  confidence=30%
+2026-05-27 19:22:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=centralrestaurant.com  found=7/9
+2026-05-27 19:22:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Electric Artisan Stone Deck Ovens 4 Pan ': 20 new URLs
+2026-05-27 19:22:58 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='BakeMax Electric Artisan Stone Deck Ovens 4 Pan Wide, 1 to 4 decks'  visited=35  found=7/9
+2026-05-27 19:22:58 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'  (id=4820)
+2026-05-27 19:22:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '48" Stainless Steel Horizontal Island Open Air cooler buy'
+2026-05-27 19:23:07 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for '48" Stainless Steel Horizontal Island Open Air cooler buy'
+2026-05-27 19:23:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '48" Stainless Steel Horizontal Island Op': 21 new URLs
+2026-05-27 19:23:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebstaurantstore.com  price=no price  confidence=28%
+2026-05-27 19:23:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebstaurantstore.com  found=1/9
+2026-05-27 19:23:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$2895.00  confidence=33%
+2026-05-27 19:23:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=2/9
+2026-05-27 19:23:11 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 22 results for 'Turbo Air cooler buy'
+2026-05-27 19:23:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Turbo Air cooler buy': 81 new URLs
+2026-05-27 19:23:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=3/9
+2026-05-27 19:23:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=4/9
+2026-05-27 19:23:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=chefstoys.com  found=5/9
+2026-05-27 19:23:15 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 16 results for 'commercial cooler buy price'
+2026-05-27 19:23:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial cooler buy price': 70 new URLs
+2026-05-27 19:23:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=6/9
+2026-05-27 19:23:38 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 17 results for '48" Stainless Steel Horizontal Island Open Air cooler buy al'
+2026-05-27 19:23:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '48" Stainless Steel Horizontal Island Op': 19 new URLs
+2026-05-27 19:23:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$34103.54  confidence=60%
+2026-05-27 19:23:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=7/9
+2026-05-27 19:23:39 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'  visited=40  found=7/9
+2026-05-27 19:23:39 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'ACME 330DD Donut Production Sheeter (120V) Left To Right Production'  (id=5019)
+2026-05-27 19:23:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '330DD Donut Production Sheeter Left To Right Production buy'
+2026-05-27 19:24:03 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '330DD Donut Production Sheeter Left To Right Production buy'
+2026-05-27 19:24:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '330DD Donut Production Sheeter Left To R': 14 new URLs
+2026-05-27 19:24:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$1895.00  confidence=31%
+2026-05-27 19:24:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=1/9
+2026-05-27 19:24:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ald.kitchen  price=$1499.99  confidence=34%
+2026-05-27 19:24:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ald.kitchen  found=2/9
+2026-05-27 19:24:19 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Acme production sheeter buy'
+2026-05-27 19:24:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Acme production sheeter buy': 26 new URLs
+2026-05-27 19:24:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$1119.00  confidence=31%
+2026-05-27 19:24:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=3/9
+2026-05-27 19:24:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=centralrestaurant.com  price=$5161.00  confidence=27%
+2026-05-27 19:24:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=centralrestaurant.com  found=4/9
+2026-05-27 19:24:33 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for 'commercial production sheeter buy price'
+2026-05-27 19:24:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial production sheeter buy price': 70 new URLs
+2026-05-27 19:24:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantstock.com  price=$15938.00  confidence=29%
+2026-05-27 19:24:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantstock.com  found=5/9
+2026-05-27 19:24:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$8222.99  confidence=31%
+2026-05-27 19:24:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=6/9
+2026-05-27 19:24:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$2499.90  confidence=31%
+2026-05-27 19:24:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=7/9
+2026-05-27 19:24:49 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 9 results for '330DD Donut Production Sheeter Left To Right Production buy '
+2026-05-27 19:24:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '330DD Donut Production Sheeter Left To R': 20 new URLs
+2026-05-27 19:24:50 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='ACME 330DD Donut Production Sheeter (120V) Left To Right Production'  visited=58  found=7/9
+2026-05-27 19:24:50 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'  (id=5134)
+2026-05-27 19:24:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'DX Deck Oven with Steam deck tray buy'
+2026-05-27 19:24:51 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'DX Deck Oven with Steam deck tray buy'
+2026-05-27 19:24:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'DX Deck Oven with Steam deck tray buy': 48 new URLs
+2026-05-27 19:24:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=1/9
+2026-05-27 19:24:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=2/9
+2026-05-27 19:24:55 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Belshaw Adamatic deck oven buy'
+2026-05-27 19:24:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Belshaw Adamatic deck oven buy': 22 new URLs
+2026-05-27 19:24:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$30859.00  confidence=31%
+2026-05-27 19:24:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=3/9
+2026-05-27 19:24:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebay.com  price=$8.00  confidence=27%
+2026-05-27 19:24:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ebay.com  found=4/9
+2026-05-27 19:24:58 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 28 results for 'commercial deck oven buy price'
+2026-05-27 19:24:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial deck oven buy price': 76 new URLs
+2026-05-27 19:25:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  found=5/9
+2026-05-27 19:25:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=centralrestaurant.com  price=$9.00  confidence=30%
+2026-05-27 19:25:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=centralrestaurant.com  found=6/9
+2026-05-27 19:25:04 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for 'DX Deck Oven with Steam deck tray buy alternatives where to '
+2026-05-27 19:25:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'DX Deck Oven with Steam deck tray buy al': 25 new URLs
+2026-05-27 19:25:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantstock.com  found=7/9
+2026-05-27 19:25:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=8/9
+2026-05-27 19:25:06 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'  visited=38  found=8/9
+2026-05-27 19:25:06 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph'  (id=8145)
+2026-05-27 19:25:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '49-5 8" Straight Glass Full-Service Freezer Bakery display case buy'
+2026-05-27 19:25:16 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 15 results for '49-5 8" Straight Glass Full-Service Freezer Bakery display c'
+2026-05-27 19:25:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '49-5 8" Straight Glass Full-Service Free': 24 new URLs
+2026-05-27 19:25:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$6044.50  confidence=39%
+2026-05-27 19:25:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=1/9
+2026-05-27 19:25:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$3530.00  confidence=34%
+2026-05-27 19:25:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=2/9
+2026-05-27 19:25:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$3530.00  confidence=33%
+2026-05-27 19:25:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=3/9
+2026-05-27 19:25:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$11487.06  confidence=33%
+2026-05-27 19:25:19 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=4/9
+2026-05-27 19:25:41 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 40 results for 'Turbo Air display case buy'
+2026-05-27 19:25:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Turbo Air display case buy': 91 new URLs
+2026-05-27 19:25:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$8483.68  confidence=43%
+2026-05-27 19:25:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=5/9
+2026-05-27 19:25:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ckitchen.com  price=$13080.34  confidence=60%
+2026-05-27 19:25:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=ckitchen.com  found=6/9
+2026-05-27 19:25:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: prorestaurantequipment.com
+2026-05-27 19:25:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=prorestaurantequipment.com  price=$14405.07  confidence=40%
+2026-05-27 19:25:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=prorestaurantequipment.com  found=7/9
+2026-05-27 19:25:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=equippers.com  price=$13337.31  confidence=29%
+2026-05-27 19:25:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=equippers.com  found=8/9
+2026-05-27 19:25:54 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 9 results for 'commercial display case buy price'
+2026-05-27 19:25:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial display case buy price': 70 new URLs
+2026-05-27 19:26:01 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 16 results for '49-5 8" Straight Glass Full-Service Freezer Bakery display c'
+2026-05-27 19:26:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '49-5 8" Straight Glass Full-Service Free': 45 new URLs
+2026-05-27 19:26:02 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph'  visited=45  found=8/9
+INFO:     127.0.0.1:60303 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60304 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60305 - "GET /api/products?page=1&per_page=50&manufacturer=Avalon&sort_by=price&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60306 - "GET /api/products?page=1&per_page=50&manufacturer=Avalon&sort_by=price&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60307 - "GET /api/products?page=2&per_page=50&manufacturer=Avalon&sort_by=price&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60308 - "GET /api/products?page=1&per_page=50&manufacturer=Avalon&sort_by=price&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60309 - "GET /api/products?page=2&per_page=50&manufacturer=Avalon&sort_by=price&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60310 - "GET /api/products?page=3&per_page=50&manufacturer=Avalon&sort_by=price&sort_order=desc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60311 - "GET /api/products?page=4&per_page=50&manufacturer=Avalon&sort_by=price&sort_order=desc HTTP/1.1" 200 OK
+2026-05-27 19:27:46 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  (id=42)
+2026-05-27 19:27:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'INSIDER Ventless Donut System Mark V GP buy'
+INFO:     127.0.0.1:60312 - "POST /api/products/competitor-search HTTP/1.1" 200 OK
+2026-05-27 19:27:47 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'INSIDER Ventless Donut System Mark V GP buy'
+2026-05-27 19:27:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'INSIDER Ventless Donut System Mark V GP ': 7 new URLs
+2026-05-27 19:27:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=crispfryer.com  found=1/9
+2026-05-27 19:27:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=belshaw.com  found=2/9
+2026-05-27 19:27:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=premiumcoffeegear.com  price=no price  confidence=28%
+2026-05-27 19:27:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=premiumcoffeegear.com  found=3/9
+2026-05-27 19:27:54 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 11 results for 'INSIDER Ventless Donut System Mark V GP buy alternatives whe'
+2026-05-27 19:27:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'INSIDER Ventless Donut System Mark V GP ': 12 new URLs
+2026-05-27 19:27:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=4/9
+2026-05-27 19:27:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=alibaba.com  found=5/9
+2026-05-27 19:27:56 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  visited=17  found=5/9
+2026-05-27 19:27:56 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (AFG26T) 18" x 26" Donut Glazer Stainless Steel (Made in the U.S.A.)'  (id=86)
+2026-05-27 19:27:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '18" x 26" Donut Glazer Stainless Steel buy'
+2026-05-27 19:28:07 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '18" x 26" Donut Glazer Stainless Steel buy'
+2026-05-27 19:28:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '18" x 26" Donut Glazer Stainless Steel b': 16 new URLs
+2026-05-27 19:28:21 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon donut glazer buy'
+2026-05-27 19:28:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon donut glazer buy': 18 new URLs
+2026-05-27 19:28:39 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 10 results for 'commercial donut glazer buy price'
+2026-05-27 19:28:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut glazer buy price': 66 new URLs
+2026-05-27 19:28:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$699.90  confidence=31%
+2026-05-27 19:28:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=1/9
+2026-05-27 19:28:52 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '18" x 26" Donut Glazer Stainless Steel buy alternatives wher'
+2026-05-27 19:28:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '18" x 26" Donut Glazer Stainless Steel b': 13 new URLs
+2026-05-27 19:28:52 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (AFG26T) 18" x 26" Donut Glazer Stainless Steel (Made in the U.S.A.)'  visited=28  found=1/9
+2026-05-27 19:28:52 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (ADF26-E) 18" X 26" Donut Fryer, Electric (1 phase), Left Side Drain Board with Submerge Screen'  (id=113)
+2026-05-27 19:28:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '18" X 26" Donut Fryer Electric Left Side Drain Board buy'
+2026-05-27 19:29:03 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '18" X 26" Donut Fryer Electric Left Side Drain Board buy'
+2026-05-27 19:29:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '18" X 26" Donut Fryer Electric Left Side': 12 new URLs
+2026-05-27 19:29:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$194.90  confidence=32%
+2026-05-27 19:29:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=1/9
+2026-05-27 19:29:15 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon donut fryer buy'
+2026-05-27 19:29:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon donut fryer buy': 21 new URLs
+2026-05-27 19:29:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$3995.00  confidence=31%
+2026-05-27 19:29:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=2/9
+2026-05-27 19:29:28 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for 'commercial donut fryer buy price'
+2026-05-27 19:29:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut fryer buy price': 82 new URLs
+2026-05-27 19:29:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$2599.00  confidence=33%
+2026-05-27 19:29:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=3/9
+2026-05-27 19:29:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$1995.00  confidence=30%
+2026-05-27 19:29:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=4/9
+2026-05-27 19:29:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$2599.00  confidence=31%
+2026-05-27 19:29:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=5/9
+2026-05-27 19:29:45 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '18" X 26" Donut Fryer Electric Left Side Drain Board buy alt'
+2026-05-27 19:29:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '18" X 26" Donut Fryer Electric Left Side': 12 new URLs
+2026-05-27 19:29:45 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (ADF26-E) 18" X 26" Donut Fryer, Electric (1 phase), Left Side Drain Board with Submerge Screen'  visited=35  found=5/9
+2026-05-27 19:29:45 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (ADF34-G-P) 34" X 24" PROPANE GAS FRYER, STANDING PILOT, Right Side Drain Board With Submerge Screen'  (id=114)
+2026-05-27 19:29:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '34" X 24" PROPANE GAS FRYER STANDING PILOT Right Side buy'
+2026-05-27 19:29:51 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '34" X 24" PROPANE GAS FRYER STANDING PILOT Right Side buy'
+2026-05-27 19:29:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '34" X 24" PROPANE GAS FRYER STANDING PIL': 26 new URLs
+2026-05-27 19:29:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$879.90  confidence=31%
+2026-05-27 19:29:53 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=1/9
+2026-05-27 19:30:14 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon fryer buy'
+2026-05-27 19:30:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon fryer buy': 21 new URLs
+2026-05-27 19:30:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$4885.00  confidence=32%
+2026-05-27 19:30:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=2/9
+2026-05-27 19:30:22 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 20 results for 'commercial fryer buy price'
+2026-05-27 19:30:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial fryer buy price': 82 new URLs
+2026-05-27 19:30:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  price=$1142.00  confidence=30%
+2026-05-27 19:30:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  found=3/9
+2026-05-27 19:30:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=chefstoys.com  price=$680.49  confidence=32%
+2026-05-27 19:30:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=chefstoys.com  found=4/9
+2026-05-27 19:30:32 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 11 results for '34" X 24" PROPANE GAS FRYER STANDING PILOT Right Side buy al'
+2026-05-27 19:30:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '34" X 24" PROPANE GAS FRYER STANDING PIL': 40 new URLs
+2026-05-27 19:30:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=toprestaurantsupplies.com  price=$1039.99  confidence=32%
+2026-05-27 19:30:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=toprestaurantsupplies.com  found=5/9
+2026-05-27 19:30:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  price=$679.00  confidence=32%
+2026-05-27 19:30:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=6/9
+2026-05-27 19:30:34 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (ADF34-G-P) 34" X 24" PROPANE GAS FRYER, STANDING PILOT, Right Side Drain Board With Submerge Screen'  visited=44  found=6/9
+2026-05-27 19:30:34 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (P34SC-1) 208-240V / 1 phase, Stainless Steel 34" x 24" Proofing Cabinet Single Door Right Side Hinge'  (id=158)
+2026-05-27 19:30:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Stainless Steel 34" x 24" Proofing Cabinet Single buy'
+2026-05-27 19:30:44 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Stainless Steel 34" x 24" Proofing Cabinet Single buy'
+2026-05-27 19:30:44 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Stainless Steel 34" x 24" Proofing Cabin': 65 new URLs
+2026-05-27 19:30:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$4993.00  confidence=33%
+2026-05-27 19:30:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=1/9
+2026-05-27 19:30:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$1522.30  confidence=30%
+2026-05-27 19:30:46 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=2/9
+2026-05-27 19:31:02 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon proofing cabinet buy'
+2026-05-27 19:31:02 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon proofing cabinet buy': 17 new URLs
+2026-05-27 19:31:08 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 19 results for 'commercial proofing cabinet buy price'
+2026-05-27 19:31:08 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial proofing cabinet buy price': 65 new URLs
+2026-05-27 19:31:15 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Stainless Steel 34" x 24" Proofing Cabinet Single buy altern'
+2026-05-27 19:31:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Stainless Steel 34" x 24" Proofing Cabin': 35 new URLs
+2026-05-27 19:31:15 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (P34SC-1) 208-240V / 1 phase, Stainless Steel 34" x 24" Proofing Cabinet Single Door Right Side Hinge'  visited=26  found=2/9
+2026-05-27 19:31:15 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (ADF34-E) Donut Fryer 34" X 24" Electric (3 phase) Right Side Drain Board'  (id=175)
+2026-05-27 19:31:15 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Donut Fryer 34" X 24" Electric Right Side Drain Board buy'
+2026-05-27 19:31:23 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Donut Fryer 34" X 24" Electric Right Side Drain Board buy'
+2026-05-27 19:31:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Donut Fryer 34" X 24" Electric Right Sid': 22 new URLs
+2026-05-27 19:31:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$699.90  confidence=31%
+2026-05-27 19:31:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=1/9
+2026-05-27 19:31:27 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon donut fryer buy'
+2026-05-27 19:31:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon donut fryer buy': 21 new URLs
+2026-05-27 19:31:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$3995.00  confidence=31%
+2026-05-27 19:31:28 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=2/9
+2026-05-27 19:31:29 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for 'commercial donut fryer buy price'
+2026-05-27 19:31:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut fryer buy price': 82 new URLs
+2026-05-27 19:31:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=3/9
+2026-05-27 19:31:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=4/9
+2026-05-27 19:31:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=5/9
+2026-05-27 19:31:56 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Donut Fryer 34" X 24" Electric Right Side Drain Board buy al'
+2026-05-27 19:31:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Donut Fryer 34" X 24" Electric Right Sid': 20 new URLs
+2026-05-27 19:31:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=alibaba.com  price=$668.00  confidence=34%
+2026-05-27 19:31:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=alibaba.com  found=6/9
+2026-05-27 19:31:57 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (ADF34-E) Donut Fryer 34" X 24" Electric (3 phase) Right Side Drain Board'  visited=43  found=6/9
+2026-05-27 19:31:57 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (AFG20T) 20" x 20" Donut Glazer Stainless Steel (Made in the U.S.A.)'  (id=211)
+2026-05-27 19:31:57 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20" x 20" Donut Glazer Stainless Steel buy'
+2026-05-27 19:32:09 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 13 results for '20" x 20" Donut Glazer Stainless Steel buy'
+2026-05-27 19:32:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '20" x 20" Donut Glazer Stainless Steel b': 28 new URLs
+2026-05-27 19:32:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  price=$247.50  confidence=34%
+2026-05-27 19:32:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  found=1/9
+2026-05-27 19:32:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$157.45  confidence=32%
+2026-05-27 19:32:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=2/9
+2026-05-27 19:32:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=alibaba.com  price=$365.00  confidence=35%
+2026-05-27 19:32:11 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=alibaba.com  found=3/9
+2026-05-27 19:32:13 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon donut glazer buy'
+2026-05-27 19:32:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon donut glazer buy': 12 new URLs
+2026-05-27 19:32:14 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 10 results for 'commercial donut glazer buy price'
+2026-05-27 19:32:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut glazer buy price': 68 new URLs
+2026-05-27 19:32:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$699.90  confidence=31%
+2026-05-27 19:32:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=4/9
+2026-05-27 19:32:32 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '20" x 20" Donut Glazer Stainless Steel buy alternatives wher'
+2026-05-27 19:32:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '20" x 20" Donut Glazer Stainless Steel b': 21 new URLs
+2026-05-27 19:32:33 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (AFG20T) 20" x 20" Donut Glazer Stainless Steel (Made in the U.S.A.)'  visited=44  found=4/9
+2026-05-27 19:32:33 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'  (id=241)
+2026-05-27 19:32:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '22306W Thermoglaze Frozen Donut System 50-75 Donuts buy'
+2026-05-27 19:32:34 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 5 results for '22306W Thermoglaze Frozen Donut System 50-75 Donuts buy'
+2026-05-27 19:32:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '22306W Thermoglaze Frozen Donut System 5': 10 new URLs
+2026-05-27 19:32:37 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=1/9
+2026-05-27 19:32:38 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 10 results for 'Belshaw Adamatic glaze buy'
+2026-05-27 19:32:39 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Belshaw Adamatic glaze buy': 57 new URLs
+2026-05-27 19:32:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=asserstrom.com  found=2/9
+2026-05-27 19:32:43 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 22 results for 'commercial glaze buy price'
+2026-05-27 19:32:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial glaze buy price': 74 new URLs
+2026-05-27 19:32:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$32.25  confidence=30%
+2026-05-27 19:32:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=3/9
+2026-05-27 19:32:46 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 4 results for '22306W Thermoglaze Frozen Donut System 50-75 Donuts buy alte'
+2026-05-27 19:32:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '22306W Thermoglaze Frozen Donut System 5': 7 new URLs
+2026-05-27 19:32:48 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'  visited=45  found=3/9
+2026-05-27 19:32:48 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon ARF20 E (Electric Fryer) Oil/Shortening Filter 115V'  (id=247)
+2026-05-27 19:32:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'ARF20 E Oil Shortening Filter fryer buy'
+2026-05-27 19:32:58 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'ARF20 E Oil Shortening Filter fryer buy'
+2026-05-27 19:32:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'ARF20 E Oil Shortening Filter fryer buy': 16 new URLs
+2026-05-27 19:32:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$88.19  confidence=31%
+2026-05-27 19:32:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=1/9
+2026-05-27 19:32:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=roundeyesupply.com  price=$108.55  confidence=33%
+2026-05-27 19:32:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=roundeyesupply.com  found=2/9
+2026-05-27 19:33:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$47.90  confidence=28%
+2026-05-27 19:33:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=3/9
+2026-05-27 19:33:06 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon fryer buy'
+2026-05-27 19:33:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon fryer buy': 20 new URLs
+2026-05-27 19:33:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=4/9
+2026-05-27 19:33:16 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 20 results for 'commercial fryer buy price'
+2026-05-27 19:33:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial fryer buy price': 82 new URLs
+2026-05-27 19:33:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  found=5/9
+2026-05-27 19:33:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=chefstoys.com  found=6/9
+2026-05-27 19:33:40 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'ARF20 E Oil Shortening Filter fryer buy alternatives where t'
+2026-05-27 19:33:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'ARF20 E Oil Shortening Filter fryer buy ': 16 new URLs
+2026-05-27 19:33:42 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon ARF20 E (Electric Fryer) Oil/Shortening Filter 115V'  visited=34  found=6/9
+2026-05-27 19:33:42 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon ASUB24-G Submerger for ADF24-G 24" x 24" Gas Donut Fryer after 2014'  (id=264)
+2026-05-27 19:33:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'ASUB24-G Submerger for ADF24-G 24" x 24" Gas Donut donut fryer buy'
+2026-05-27 19:33:47 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 7 results for 'ASUB24-G Submerger for ADF24-G 24" x 24" Gas Donut donut fry'
+2026-05-27 19:33:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'ASUB24-G Submerger for ADF24-G 24" x 24"': 52 new URLs
+2026-05-27 19:33:54 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon donut fryer buy'
+2026-05-27 19:33:54 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon donut fryer buy': 21 new URLs
+2026-05-27 19:33:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$3995.00  confidence=31%
+2026-05-27 19:33:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=1/9
+2026-05-27 19:33:58 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for 'commercial donut fryer buy price'
+2026-05-27 19:33:59 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut fryer buy price': 86 new URLs
+2026-05-27 19:34:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$699.90  confidence=31%
+2026-05-27 19:34:00 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=2/9
+2026-05-27 19:34:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=alibaba.com  price=$1800.00  confidence=30%
+2026-05-27 19:34:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=alibaba.com  found=3/9
+2026-05-27 19:34:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=4/9
+2026-05-27 19:34:16 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 7 results for 'ASUB24-G Submerger for ADF24-G 24" x 24" Gas Donut donut fry'
+2026-05-27 19:34:16 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'ASUB24-G Submerger for ADF24-G 24" x 24"': 18 new URLs
+2026-05-27 19:34:17 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon ASUB24-G Submerger for ADF24-G 24" x 24" Gas Donut Fryer after 2014'  visited=44  found=4/9
+2026-05-27 19:34:17 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (P264SC-1) Stainless Steel Proofing Cabinet 208-240V/ 1-Phase Single Door-Left Side Hinge'  (id=313)
+2026-05-27 19:34:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Stainless Steel Proofing Cabinet Single Door-Left buy'
+2026-05-27 19:34:22 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 18 results for 'Stainless Steel Proofing Cabinet Single Door-Left buy'
+2026-05-27 19:34:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Stainless Steel Proofing Cabinet Single ': 68 new URLs
+2026-05-27 19:34:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cityfoodequipment.com  price=$3936.45  confidence=33%
+2026-05-27 19:34:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cityfoodequipment.com  found=1/9
+2026-05-27 19:34:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$3431.99  confidence=52%
+2026-05-27 19:34:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=2/9
+2026-05-27 19:34:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$2519.00  confidence=31%
+2026-05-27 19:34:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=3/9
+2026-05-27 19:34:30 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon proofing cabinet buy'
+2026-05-27 19:34:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon proofing cabinet buy': 21 new URLs
+2026-05-27 19:34:33 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 19 results for 'commercial proofing cabinet buy price'
+2026-05-27 19:34:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial proofing cabinet buy price': 67 new URLs
+2026-05-27 19:34:49 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 17 results for 'Stainless Steel Proofing Cabinet Single Door-Left buy altern'
+2026-05-27 19:34:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Stainless Steel Proofing Cabinet Single ': 30 new URLs
+2026-05-27 19:34:51 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (P264SC-1) Stainless Steel Proofing Cabinet 208-240V/ 1-Phase Single Door-Left Side Hinge'  visited=35  found=3/9
+2026-05-27 19:34:51 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (P34SC-2) 208-240V / 1Phase Stainless Steel 34" x 24" Proofing Cabinet Double Door Left Side Hinge'  (id=337)
+2026-05-27 19:34:51 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Stainless Steel 34" x 24" Proofing Cabinet Double buy'
+2026-05-27 19:34:56 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Stainless Steel 34" x 24" Proofing Cabinet Double buy'
+2026-05-27 19:34:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Stainless Steel 34" x 24" Proofing Cabin': 66 new URLs
+2026-05-27 19:34:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cityfoodequipment.com  price=$4287.49  confidence=33%
+2026-05-27 19:34:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=cityfoodequipment.com  found=1/9
+2026-05-27 19:34:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=toprestaurantsupplies.com  price=$4288.00  confidence=33%
+2026-05-27 19:34:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=toprestaurantsupplies.com  found=2/9
+2026-05-27 19:35:01 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon proofing cabinet buy'
+2026-05-27 19:35:01 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon proofing cabinet buy': 17 new URLs
+2026-05-27 19:35:03 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 19 results for 'commercial proofing cabinet buy price'
+2026-05-27 19:35:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial proofing cabinet buy price': 67 new URLs
+2026-05-27 19:35:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$1765.88  confidence=31%
+2026-05-27 19:35:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=3/9
+INFO:     127.0.0.1:62272 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62272 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62284 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62286 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62280 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62288 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62286 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62288 - "GET /api/auth/status HTTP/1.1" 200 OK
+2026-05-27 19:35:13 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Stainless Steel 34" x 24" Proofing Cabinet Double buy altern'
+2026-05-27 19:35:13 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Stainless Steel 34" x 24" Proofing Cabin': 37 new URLs
+2026-05-27 19:35:17 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (P34SC-2) 208-240V / 1Phase Stainless Steel 34" x 24" Proofing Cabinet Double Door Left Side Hinge'  visited=32  found=3/9
+2026-05-27 19:35:17 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (ADF20G) 20" x 20" Donut Fryer, Natural Gas, Standing Pilot, Right Side Drain Board'  (id=338)
+2026-05-27 19:35:17 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '20" x 20" Donut Fryer Natural Gas Standing Pilot buy'
+2026-05-27 19:35:22 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for '20" x 20" Donut Fryer Natural Gas Standing Pilot buy'
+2026-05-27 19:35:22 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '20" x 20" Donut Fryer Natural Gas Standi': 24 new URLs
+2026-05-27 19:35:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$2794.85  confidence=31%
+2026-05-27 19:35:23 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=1/9
+2026-05-27 19:35:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$3975.00  confidence=31%
+2026-05-27 19:35:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=2/9
+2026-05-27 19:35:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$3231.48  confidence=33%
+2026-05-27 19:35:24 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=3/9
+2026-05-27 19:35:29 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon donut fryer buy'
+2026-05-27 19:35:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon donut fryer buy': 22 new URLs
+2026-05-27 19:35:32 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for 'commercial donut fryer buy price'
+2026-05-27 19:35:32 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut fryer buy price': 82 new URLs
+2026-05-27 19:35:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$699.90  confidence=31%
+2026-05-27 19:35:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=4/9
+2026-05-27 19:35:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=5/9
+INFO:     127.0.0.1:62591 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62591 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62601 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62605 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62607 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62603 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62605 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62607 - "GET /api/auth/status HTTP/1.1" 200 OK
+2026-05-27 19:35:49 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 10 results for '20" x 20" Donut Fryer Natural Gas Standing Pilot buy alterna'
+2026-05-27 19:35:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '20" x 20" Donut Fryer Natural Gas Standi': 14 new URLs
+2026-05-27 19:35:49 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (ADF20G) 20" x 20" Donut Fryer, Natural Gas, Standing Pilot, Right Side Drain Board'  visited=38  found=5/9
+2026-05-27 19:35:49 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (ADF24-G-P-BA) 24" x 24" Propane Gas Fryer, Electronic Ignition, Right Side Drain Board'  (id=340)
+2026-05-27 19:35:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '24" x 24" Propane Gas Fryer Electronic Ignition Right buy'
+2026-05-27 19:35:58 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for '24" x 24" Propane Gas Fryer Electronic Ignition Right buy'
+2026-05-27 19:35:58 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '24" x 24" Propane Gas Fryer Electronic I': 60 new URLs
+2026-05-27 19:36:03 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon fryer buy'
+2026-05-27 19:36:03 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon fryer buy': 14 new URLs
+INFO:     127.0.0.1:62707 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62707 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62718 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62719 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62721 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62723 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62721 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62723 - "GET /api/auth/status HTTP/1.1" 200 OK
+2026-05-27 19:36:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=1/9
+INFO:     127.0.0.1:62723 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62718 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62719 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62707 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62736 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62719 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62707 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62736 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62718 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62721 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62736 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62723 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62723 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62736 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62753 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-27 19:36:05 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 20 results for 'commercial fryer buy price'
+2026-05-27 19:36:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial fryer buy price': 80 new URLs
+INFO:     connection closed
+2026-05-27 19:36:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  found=2/9
+2026-05-27 19:36:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$99.90  confidence=29%
+2026-05-27 19:36:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=3/9
+2026-05-27 19:36:09 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=chefstoys.com  found=4/9
+INFO:     127.0.0.1:62802 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62802 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62812 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62816 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62818 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62814 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62816 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62818 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62818 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62812 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62814 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62802 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62828 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62802 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62814 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62828 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62812 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62816 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62802 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62818 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62818 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62802 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62844 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-27 19:36:25 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for '24" x 24" Propane Gas Fryer Electronic Ignition Right buy al'
+2026-05-27 19:36:25 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '24" x 24" Propane Gas Fryer Electronic I': 23 new URLs
+2026-05-27 19:36:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=target.com  price=$35.00  confidence=29%
+2026-05-27 19:36:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=target.com  found=5/9
+2026-05-27 19:36:27 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (ADF24-G-P-BA) 24" x 24" Propane Gas Fryer, Electronic Ignition, Right Side Drain Board'  visited=45  found=5/9
+2026-05-27 19:36:27 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (P264SC-1) Stainless Steel Proofing Cabinet 120V/1Phase Single Door-Right Side Hinge'  (id=358)
+2026-05-27 19:36:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Stainless Steel Proofing Cabinet Single Door-Right buy'
+2026-05-27 19:36:33 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 16 results for 'Stainless Steel Proofing Cabinet Single Door-Right buy'
+2026-05-27 19:36:33 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Stainless Steel Proofing Cabinet Single ': 68 new URLs
+2026-05-27 19:36:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: therestaurantwarehouse.com
+2026-05-27 19:36:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=therestaurantwarehouse.com  price=$4535.00  confidence=51%
+2026-05-27 19:36:34 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=therestaurantwarehouse.com  found=1/9
+2026-05-27 19:36:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=shopusars.com  price=$3999.99  confidence=30%
+2026-05-27 19:36:35 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=shopusars.com  found=2/9
+2026-05-27 19:36:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  price=$3999.99  confidence=33%
+2026-05-27 19:36:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=3/9
+2026-05-27 19:36:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  price=$3999.99  confidence=31%
+2026-05-27 19:36:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=4/9
+2026-05-27 19:36:39 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon proofing cabinet buy'
+2026-05-27 19:36:40 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon proofing cabinet buy': 22 new URLs
+2026-05-27 19:36:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  price=$8449.00  confidence=32%
+2026-05-27 19:36:41 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=5/9
+2026-05-27 19:36:41 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 19 results for 'commercial proofing cabinet buy price'
+2026-05-27 19:36:43 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial proofing cabinet buy price': 68 new URLs
+INFO:     connection closed
+2026-05-27 19:37:04 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 16 results for 'Stainless Steel Proofing Cabinet Single Door-Right buy alter'
+2026-05-27 19:37:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Stainless Steel Proofing Cabinet Single ': 34 new URLs
+2026-05-27 19:37:06 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (P264SC-1) Stainless Steel Proofing Cabinet 120V/1Phase Single Door-Right Side Hinge'  visited=38  found=5/9
+2026-05-27 19:37:06 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (ADF24-G-P) 24" x 24" Donut Fryer, Propane, Standing Pilot, No Power, Left Side Drain Board'  (id=369)
+2026-05-27 19:37:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '24" x 24" Donut Fryer Propane Standing Pilot No Power buy'
+INFO:     127.0.0.1:63061 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63061 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63071 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63075 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63077 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63073 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63075 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63077 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63077 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63071 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63073 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63061 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63087 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63073 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63087 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63061 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63071 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63075 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63077 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63077 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63075 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63091 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:63073 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-27 19:37:12 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '24" x 24" Donut Fryer Propane Standing Pilot No Power buy'
+2026-05-27 19:37:12 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '24" x 24" Donut Fryer Propane Standing P': 21 new URLs
+2026-05-27 19:37:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$699.90  confidence=31%
+2026-05-27 19:37:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=1/9
+2026-05-27 19:37:18 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon donut fryer buy'
+2026-05-27 19:37:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon donut fryer buy': 20 new URLs
+2026-05-27 19:37:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  price=$3995.00  confidence=31%
+2026-05-27 19:37:18 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=2/9
+2026-05-27 19:37:20 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 14 results for 'commercial donut fryer buy price'
+2026-05-27 19:37:20 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial donut fryer buy price': 82 new URLs
+2026-05-27 19:37:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=3/9
+2026-05-27 19:37:21 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenrestock.com  found=4/9
+2026-05-27 19:37:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=kitchenall.com  found=5/9
+2026-05-27 19:37:36 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '24" x 24" Donut Fryer Propane Standing Pilot No Power buy al'
+2026-05-27 19:37:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '24" x 24" Donut Fryer Propane Standing P': 16 new URLs
+2026-05-27 19:37:38 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (ADF24-G-P) 24" x 24" Donut Fryer, Propane, Standing Pilot, No Power, Left Side Drain Board'  visited=41  found=5/9
+2026-05-27 19:37:38 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (ADF34-G-P) 34" X 24" PROPANE GAS FRYER, STANDING PILOT, Left Side Drain Board with Submerge Screen'  (id=419)
+2026-05-27 19:37:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '34" X 24" PROPANE GAS FRYER STANDING PILOT Left Side buy'
+INFO:     connection closed
+2026-05-27 19:37:50 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 9 results for '34" X 24" PROPANE GAS FRYER STANDING PILOT Left Side buy'
+2026-05-27 19:37:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '34" X 24" PROPANE GAS FRYER STANDING PIL': 24 new URLs
+2026-05-27 19:37:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=centralrestaurant.com  price=$9.00  confidence=30%
+2026-05-27 19:37:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=centralrestaurant.com  found=1/9
+2026-05-27 19:37:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$879.90  confidence=31%
+2026-05-27 19:37:56 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  found=2/9
+2026-05-27 19:38:03 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon fryer buy'
+2026-05-27 19:38:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon fryer buy': 20 new URLs
+2026-05-27 19:38:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=bakedeco.com  found=3/9
+2026-05-27 19:38:05 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 20 results for 'commercial fryer buy price'
+2026-05-27 19:38:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial fryer buy price': 85 new URLs
+2026-05-27 19:38:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=rapidswholesale.com  found=4/9
+2026-05-27 19:38:07 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=chefstoys.com  found=5/9
+INFO:     127.0.0.1:63370 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63370 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63380 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63384 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63382 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63386 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63384 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63386 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63386 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63380 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63382 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63370 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63396 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63370 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63382 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63396 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63386 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63380 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63384 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63384 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63380 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63396 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63400 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+2026-05-27 19:38:14 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+INFO:     127.0.0.1:63396 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63384 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63380 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63396 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63415 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63414 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63413 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63416 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-27 19:38:15 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on bakemark.com  (max_pages=100)
+INFO:     connection closed
+2026-05-27 19:38:27 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 10 results for '34" X 24" PROPANE GAS FRYER STANDING PILOT Left Side buy alt'
+2026-05-27 19:38:27 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '34" X 24" PROPANE GAS FRYER STANDING PIL': 26 new URLs
+2026-05-27 19:38:30 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (ADF34-G-P) 34" X 24" PROPANE GAS FRYER, STANDING PILOT, Left Side Drain Board with Submerge Screen'  visited=43  found=5/9
+2026-05-27 19:38:30 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'Avalon (P34SC-1) 120V / 1 phase Stainless Steel 34" x 24" Proofing Cabinet Single Door Right Side Hinge'  (id=444)
+2026-05-27 19:38:30 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'Stainless Steel 34" x 24" Proofing Cabinet Single buy'
+2026-05-27 19:38:38 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Stainless Steel 34" x 24" Proofing Cabinet Single buy'
+2026-05-27 19:38:38 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'Stainless Steel 34" x 24" Proofing Cabin': 65 new URLs
+2026-05-27 19:38:42 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=restaurantsupply.com  found=1/9
+2026-05-27 19:38:45 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=gofoodservice.com  found=2/9
+2026-05-27 19:38:48 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon proofing cabinet buy'
+2026-05-27 19:38:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon proofing cabinet buy': 23 new URLs
+2026-05-27 19:38:48 [INFO] backend.scrapers.base_scraper: Discovered 5 product URLs on https://bakemark.com
+2026-05-27 19:38:48 [INFO] backend.competitor.scraper: [SCRAPE] Found 5 product URLs on bakemark.com
+2026-05-27 19:38:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=alibaba.com  price=$1127.00  confidence=32%
+2026-05-27 19:38:50 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=alibaba.com  found=3/9
+2026-05-27 19:38:51 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 19 results for 'commercial proofing cabinet buy price'
+INFO:     127.0.0.1:63523 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63523 - "GET /static/vendor/alpine.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63533 - "GET /static/vendor/tailwind.min.css?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63537 - "GET /static/vendor/chart.umd.min.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63539 - "GET /static/js/app.js?v=20260520-10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63535 - "GET /static/css/style.css?v=20260520-10 HTTP/1.1" 200 OK
+2026-05-27 19:38:52 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial proofing cabinet buy price': 67 new URLs
+INFO:     127.0.0.1:63537 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63539 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63539 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63533 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63535 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63523 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63523 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63571 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63533 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63535 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63539 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63537 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63523 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63523 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63537 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63575 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:63535 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-27 19:38:53 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Stainless Steel 34" x 24" Proofing Cabinet Single buy altern'
+2026-05-27 19:38:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 'Stainless Steel 34" x 24" Proofing Cabin': 30 new URLs
+2026-05-27 19:38:55 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='Avalon (P34SC-1) 120V / 1 phase Stainless Steel 34" x 24" Proofing Cabinet Single Door Right Side Hinge'  visited=31  found=3/9
+2026-05-27 19:38:55 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'P264AC-2 (208-240V / 1 Phase) Avalon Aluminum Proofing Cabinet Two Door Left Side Hinge'  (id=446)
+2026-05-27 19:38:55 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   'P264AC-2 Aluminum Proofing Cabinet Two Door Left Side buy'
+INFO:     connection closed
+2026-05-27 19:39:10 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 6 results for 'P264AC-2 Aluminum Proofing Cabinet Two Door Left Side buy'
+2026-05-27 19:39:10 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 'P264AC-2 Aluminum Proofing Cabinet Two D': 35 new URLs
+2026-05-27 19:39:13 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for 'Avalon proofing cabinet buy'
+2026-05-27 19:39:14 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Avalon proofing cabinet buy': 22 new URLs

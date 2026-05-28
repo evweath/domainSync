@@ -335,6 +335,8 @@
         <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
           <span x-text="Object.values(productSelected).filter(Boolean).length"></span> selected
         </span>
+        <button @click="clearProductSelection()" x-show="Object.values(productSelected).some(Boolean)"
+          class="text-xs text-gray-500 hover:text-red-500 underline">Clear</button>
         <div class="flex items-center gap-2 ml-auto">
           <label class="text-xs text-gray-500 whitespace-nowrap">Find up to</label>
           <input type="number" min="1" max="50" x-model.number="productCompMax"

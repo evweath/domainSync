@@ -585,6 +585,10 @@ function app() {
       }
     },
 
+    clearProductSelection() {
+      this.productSelected = {};
+    },
+
     exitCompSearchMode() {
       this.productCompMode = false;
       this.productCompSearchProducts = [];
