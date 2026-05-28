@@ -1982,8 +1982,9 @@ def db_health():
 
 class ShopifyCredentialsRequest(BaseModel):
     shopify_store_url: str = ""
-    shopify_api_key: str = ""
-    shopify_access_token: str = ""
+    shopify_client_id: str = ""       # formerly api_key; Client ID from Shopify app
+    shopify_client_secret: str = ""   # shpss_… prefix; used for webhook signature verification
+    shopify_access_token: str = ""    # shpat_… (custom app) or atkn_… (newer app automation token)
     sync_draft: bool = False
     sync_archived: bool = False
 
@@ -1996,7 +1997,8 @@ def save_source_site_credentials(domain: str, req: ShopifyCredentialsRequest):
     for site in sites:
         if site.get("domain") == domain:
             site["shopify_store_url"] = req.shopify_store_url.strip()
-            site["shopify_api_key"] = req.shopify_api_key.strip()
+            site["shopify_client_id"] = req.shopify_client_id.strip()
+            site["shopify_client_secret"] = req.shopify_client_secret.strip()
             site["shopify_access_token"] = req.shopify_access_token.strip()
             site["sync_draft"] = req.sync_draft
             site["sync_archived"] = req.sync_archived
@@ -3298,9 +3300,16 @@ async def shopify_live_execute(req: LiveExecuteRequest):
 async def list_live_webhooks(domain: str):
     """Fetch the current webhook list directly from Shopify."""
     store_url, token = _get_site_credentials(domain)
-    from backend.shopify.client import ShopifyClient
-    async with ShopifyClient(store_url, token) as client:
-        webhooks = await client.list_webhooks()
+    from backend.shopify.client import ShopifyClient, ShopifyError
+    try:
+        async with ShopifyClient(store_url, token) as client:
+            webhooks = await client.list_webhooks()
+    except ShopifyError as e:
+        raise HTTPException(status_code=e.status,
+                            detail=f"Shopify error {e.status}: {e.body[:300]}")
+    except Exception as e:
+        raise HTTPException(status_code=502,
+                            detail=f"Could not reach Shopify store: {e}")
     return {"domain": domain, "webhooks": webhooks, "count": len(webhooks)}
 
 

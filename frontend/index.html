@@ -7,10 +7,10 @@
   <!-- Vendor JS/CSS served locally so the dashboard works offline.
        Bumping the ?v= query string on any change forces a fresh fetch even
        through stubborn browser caches; pair with no-cache server headers. -->
-  <script src="/static/vendor/alpine.min.js?v=20260528-03" defer></script>
-  <script src="/static/vendor/chart.umd.min.js?v=20260528-03"></script>
-  <link href="/static/vendor/tailwind.min.css?v=20260528-03" rel="stylesheet" />
-  <link href="/static/css/style.css?v=20260528-03" rel="stylesheet" />
+  <script src="/static/vendor/alpine.min.js?v=20260528-05" defer></script>
+  <script src="/static/vendor/chart.umd.min.js?v=20260528-05"></script>
+  <link href="/static/vendor/tailwind.min.css?v=20260528-05" rel="stylesheet" />
+  <link href="/static/css/style.css?v=20260528-05" rel="stylesheet" />
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-200">
 
@@ -3935,19 +3935,26 @@
                   </div>
                   <div class="grid grid-cols-2 gap-2">
                     <div>
-                      <label class="text-xs font-medium block mb-1 text-gray-600 dark:text-gray-300">API Key</label>
-                      <input type="password" placeholder="••••••••••••••••"
-                        :value="shopifyCredentials[site.domain]?.shopify_api_key || ''"
-                        @input="shopifyCredentials[site.domain] = { ...(shopifyCredentials[site.domain] || {}), shopify_api_key: $event.target.value }"
+                      <label class="text-xs font-medium block mb-1 text-gray-600 dark:text-gray-300">Client ID</label>
+                      <input type="text" placeholder="Client ID from Shopify app"
+                        :value="shopifyCredentials[site.domain]?.shopify_client_id || ''"
+                        @input="shopifyCredentials[site.domain] = { ...(shopifyCredentials[site.domain] || {}), shopify_client_id: $event.target.value }"
                         class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm font-mono bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-400" />
                     </div>
                     <div>
-                      <label class="text-xs font-medium block mb-1 text-gray-600 dark:text-gray-300">Admin Access Token</label>
-                      <input type="password" placeholder="shpat_••••••••••••••••"
-                        :value="shopifyCredentials[site.domain]?.shopify_access_token || ''"
-                        @input="shopifyCredentials[site.domain] = { ...(shopifyCredentials[site.domain] || {}), shopify_access_token: $event.target.value }"
+                      <label class="text-xs font-medium block mb-1 text-gray-600 dark:text-gray-300">Client Secret <span class="font-normal text-gray-400">(shpss_…)</span></label>
+                      <input type="password" placeholder="shpss_••••••••••••••••"
+                        :value="shopifyCredentials[site.domain]?.shopify_client_secret || ''"
+                        @input="shopifyCredentials[site.domain] = { ...(shopifyCredentials[site.domain] || {}), shopify_client_secret: $event.target.value }"
                         class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm font-mono bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-400" />
                     </div>
+                  </div>
+                  <div>
+                    <label class="text-xs font-medium block mb-1 text-gray-600 dark:text-gray-300">Access Token <span class="font-normal text-gray-400">(shpat_… or atkn_…)</span></label>
+                    <input type="password" placeholder="shpat_… or atkn_••••••••••••••••"
+                      :value="shopifyCredentials[site.domain]?.shopify_access_token || ''"
+                      @input="shopifyCredentials[site.domain] = { ...(shopifyCredentials[site.domain] || {}), shopify_access_token: $event.target.value }"
+                      class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm font-mono bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-400" />
                   </div>
                 </div>
                 <!-- Sync scope checkboxes -->
@@ -3961,7 +3968,7 @@
                     </label>
                     <label class="flex items-center gap-1.5 text-xs cursor-pointer select-none"
                       :class="shopifyCredentials[site.domain]?.shopify_access_token ? 'text-gray-700 dark:text-gray-300' : 'text-gray-400 cursor-not-allowed'"
-                      :title="shopifyCredentials[site.domain]?.shopify_access_token ? '' : 'Requires Admin Access Token'">
+                      :title="shopifyCredentials[site.domain]?.shopify_access_token ? '' : 'Requires Access Token'">
                       <input type="checkbox"
                         :disabled="!shopifyCredentials[site.domain]?.shopify_access_token"
                         :checked="shopifyCredentials[site.domain]?.sync_draft || false"
@@ -3971,7 +3978,7 @@
                     </label>
                     <label class="flex items-center gap-1.5 text-xs cursor-pointer select-none"
                       :class="shopifyCredentials[site.domain]?.shopify_access_token ? 'text-gray-700 dark:text-gray-300' : 'text-gray-400 cursor-not-allowed'"
-                      :title="shopifyCredentials[site.domain]?.shopify_access_token ? '' : 'Requires Admin Access Token'">
+                      :title="shopifyCredentials[site.domain]?.shopify_access_token ? '' : 'Requires Access Token'">
                       <input type="checkbox"
                         :disabled="!shopifyCredentials[site.domain]?.shopify_access_token"
                         :checked="shopifyCredentials[site.domain]?.sync_archived || false"
@@ -4000,21 +4007,21 @@
                     <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Webhooks</span>
                     <div class="flex gap-1.5">
                       <button @click="loadShopifyWebhooks(site.domain)"
-                        :disabled="shopifyWebhooks[site.domain]?.liveLoading"
-                        :class="shopifyWebhooks[site.domain]?.liveLoading ? 'opacity-40 cursor-not-allowed' : ''"
+                        :disabled="shopifyWebhooks[site.domain]?.liveLoading === true"
+                        :class="shopifyWebhooks[site.domain]?.liveLoading === true ? 'opacity-40 cursor-not-allowed' : ''"
                         class="text-xs bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 px-2 py-1 rounded transition">
                         ↺ Refresh
                       </button>
                       <button @click="saveAndDisableWebhooks(site.domain)"
-                        :disabled="shopifyWebhooks[site.domain]?.acting || !shopifyWebhooks[site.domain]?.live?.length"
-                        :class="(shopifyWebhooks[site.domain]?.acting || !shopifyWebhooks[site.domain]?.live?.length) ? 'opacity-40 cursor-not-allowed' : 'hover:bg-amber-600'"
+                        :disabled="shopifyWebhooks[site.domain]?.acting === true || !(shopifyWebhooks[site.domain]?.live?.length)"
+                        :class="(shopifyWebhooks[site.domain]?.acting === true || !(shopifyWebhooks[site.domain]?.live?.length)) ? 'opacity-40 cursor-not-allowed' : 'hover:bg-amber-600'"
                         class="text-xs bg-amber-500 text-white px-2 py-1 rounded transition"
                         title="Save all webhooks to local DB, then delete them from Shopify (use before bulk imports)">
                         ⏸ Disable All
                       </button>
                       <button @click="restoreWebhooks(site.domain)"
-                        :disabled="shopifyWebhooks[site.domain]?.acting || !(shopifyWebhooks[site.domain]?.saved || []).filter(w => !w.is_active_in_shopify).length"
-                        :class="(shopifyWebhooks[site.domain]?.acting || !(shopifyWebhooks[site.domain]?.saved || []).filter(w => !w.is_active_in_shopify).length) ? 'opacity-40 cursor-not-allowed' : 'hover:bg-green-700'"
+                        :disabled="shopifyWebhooks[site.domain]?.acting === true || !(shopifyWebhooks[site.domain]?.saved || []).filter(w => !w.is_active_in_shopify).length"
+                        :class="(shopifyWebhooks[site.domain]?.acting === true || !(shopifyWebhooks[site.domain]?.saved || []).filter(w => !w.is_active_in_shopify).length) ? 'opacity-40 cursor-not-allowed' : 'hover:bg-green-700'"
                         class="text-xs bg-green-600 text-white px-2 py-1 rounded transition"
                         title="Re-create all saved (disabled) webhooks back in Shopify">
                         ▶ Restore All
@@ -4442,6 +4449,6 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260528-03"></script>
+<script src="/static/js/app.js?v=20260528-05"></script>
 </body>
 </html>

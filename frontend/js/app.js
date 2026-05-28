@@ -2149,7 +2149,8 @@ function app() {
         for (const site of (this.settingsData.source_sites || [])) {
           creds[site.domain] = {
             shopify_store_url: site.shopify_store_url || '',
-            shopify_api_key: site.shopify_api_key || '',
+            shopify_client_id: site.shopify_client_id || site.shopify_api_key || '',
+            shopify_client_secret: site.shopify_client_secret || '',
             shopify_access_token: site.shopify_access_token || '',
             sync_draft: site.sync_draft || false,
             sync_archived: site.sync_archived || false,
@@ -2211,7 +2212,8 @@ function app() {
           method: 'PUT',
           body: JSON.stringify({
             shopify_store_url: creds.shopify_store_url || '',
-            shopify_api_key: creds.shopify_api_key || '',
+            shopify_client_id: creds.shopify_client_id || '',
+            shopify_client_secret: creds.shopify_client_secret || '',
             shopify_access_token: creds.shopify_access_token || '',
             sync_draft: creds.sync_draft || false,
             sync_archived: creds.sync_archived || false,

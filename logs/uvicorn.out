@@ -20192,3 +20192,116 @@ INFO:     127.0.0.1:54038 - "GET /api/shopify-webhooks/donut-supplies.com/live H
 INFO:     127.0.0.1:54038 - "POST /api/shopify-webhooks/donut-supplies.com/save-and-disable HTTP/1.1" 422 Unprocessable Content
 INFO:     127.0.0.1:54038 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
 INFO:     connection closed
+INFO:     127.0.0.1:55913 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55913 - "GET /static/vendor/alpine.min.js?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55914 - "GET /static/vendor/chart.umd.min.js?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55915 - "GET /static/vendor/tailwind.min.css?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55917 - "GET /static/js/app.js?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55916 - "GET /static/css/style.css?v=20260528-03 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55913 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55914 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55915 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55916 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55915 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55914 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55915 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55914 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55915 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55916 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55918 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55913 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55914 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55917 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55915 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55921 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:55916 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56006 - "PUT /api/source-sites/donut-equipment.com/credentials HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56006 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56006 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56006 - "POST /api/source-sites/donut-equipment.com/test-connection HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56029 - "PUT /api/source-sites/donut-equipment.com/credentials HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56029 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56029 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56029 - "POST /api/source-sites/donut-equipment.com/test-connection HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56169 - "PUT /api/source-sites/bakerywholesalers.com/credentials HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56169 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56169 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56169 - "POST /api/source-sites/bakerywholesalers.com/test-connection HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     Started server process [40565]
+INFO:     Waiting for application startup.
+2026-05-28 14:29:10 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-28 14:29:10 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-28 14:29:10 [INFO] backend.database.db: Database initialized
+2026-05-28 14:29:10 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-28 14:29:10 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-28 14:29:10 [INFO] backend.app: Scheduler started
+2026-05-28 14:29:10 [INFO] backend.app: Log-tail broadcaster started
+2026-05-28 14:29:10 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-28 14:29:10 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     127.0.0.1:57773 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57779 - "GET /static/css/style.css?v=20260528-04 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57777 - "GET /static/vendor/tailwind.min.css?v=20260528-04 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57773 - "GET /static/vendor/alpine.min.js?v=20260528-04 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57780 - "GET /static/vendor/chart.umd.min.js?v=20260528-04 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57781 - "GET /static/js/app.js?v=20260528-04 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57780 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57781 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57781 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57779 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57777 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57779 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57777 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57779 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57773 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57777 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57783 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57780 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57781 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57781 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57785 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:57780 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57780 - "GET /api/shopify-webhooks/donut-supplies.com/live HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:57781 - "GET /api/shopify-webhooks/donut-supplies.com/saved HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     Started server process [40880]
+INFO:     Waiting for application startup.
+2026-05-28 14:32:03 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-28 14:32:03 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-28 14:32:03 [INFO] backend.database.db: Database initialized
+2026-05-28 14:32:03 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-28 14:32:03 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-28 14:32:03 [INFO] backend.app: Scheduler started
+2026-05-28 14:32:03 [INFO] backend.app: Log-tail broadcaster started
+2026-05-28 14:32:03 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-28 14:32:03 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     127.0.0.1:57997 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57997 - "GET /static/vendor/alpine.min.js?v=20260528-05 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58003 - "GET /static/css/style.css?v=20260528-05 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58001 - "GET /static/vendor/tailwind.min.css?v=20260528-05 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58004 - "GET /static/vendor/chart.umd.min.js?v=20260528-05 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58005 - "GET /static/js/app.js?v=20260528-05 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58004 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58005 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58005 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58001 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58003 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58001 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58001 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58003 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57997 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58001 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58007 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58004 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58005 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58010 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:58005 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58004 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     connection closed
