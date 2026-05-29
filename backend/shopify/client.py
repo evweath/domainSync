@@ -15,6 +15,22 @@ logger = logging.getLogger(__name__)
 _API_VERSION = "2024-01"
 
 
+async def fetch_access_token(store_url: str, client_id: str, client_secret: str) -> str:
+    """Exchange client_id + client_secret for a short-lived Admin API access token (~24h)."""
+    url = store_url.strip().rstrip("/")
+    if not url.startswith("http"):
+        url = "https://" + url
+    async with httpx.AsyncClient(timeout=10) as http:
+        resp = await http.post(
+            f"{url}/admin/oauth/access_token",
+            data={"client_id": client_id, "client_secret": client_secret, "grant_type": "client_credentials"},
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+        )
+    if resp.status_code >= 400:
+        raise ShopifyError(resp.status_code, resp.text)
+    return resp.json()["access_token"]
+
+
 class ShopifyError(Exception):
     def __init__(self, status: int, body: str):
         self.status = status

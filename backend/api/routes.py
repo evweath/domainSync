@@ -10,6 +10,7 @@ import io
 import json
 import logging
 import re
+import time
 import zipfile
 from collections import deque
 from datetime import datetime
@@ -2021,17 +2022,25 @@ async def test_source_site_connection(domain: str):
         raise HTTPException(status_code=404, detail=f"Source site not found: {domain}")
 
     store_url = (site.get("shopify_store_url") or "").strip().rstrip("/")
-    api_key = (site.get("shopify_api_key") or "").strip()
-    access_token = (site.get("shopify_access_token") or "").strip()
+    client_id = (site.get("shopify_client_id") or "").strip()
+    client_secret = (site.get("shopify_client_secret") or "").strip()
 
-    if not store_url or not access_token:
-        return {"ok": False, "error": "Store URL and access token are required"}
+    if not store_url or not client_id or not client_secret:
+        return {"ok": False, "error": "Store URL, Client ID, and Client Secret are required"}
 
-    # Normalise store URL
     if not store_url.startswith("http"):
         store_url = "https://" + store_url
 
+    from backend.shopify.client import fetch_access_token, ShopifyError
     import httpx
+    try:
+        access_token = await fetch_access_token(store_url, client_id, client_secret)
+        _shopify_token_cache[domain] = {"token": access_token, "expires_at": time.time() + 86399}
+    except ShopifyError as exc:
+        return {"ok": False, "error": f"Token exchange failed — {exc}"}
+    except Exception as exc:
+        return {"ok": False, "error": str(exc)}
+
     try:
         url = f"{store_url}/admin/api/2024-01/shop.json"
         headers = {"X-Shopify-Access-Token": access_token, "Content-Type": "application/json"}
@@ -3134,20 +3143,40 @@ def shopify_sync_export(req: ShopifySyncRequest, db: Session = Depends(get_db_se
 # Shopify Live Sync  (scan → diff → execute via Admin API)
 # ---------------------------------------------------------------------------
 
-def _get_site_credentials(domain: str):
-    """Return (store_url, access_token) for a domain, or raise 400/422."""
+# domain -> {"token": str, "expires_at": float}
+_shopify_token_cache: Dict[str, Dict] = {}
+
+
+async def _get_site_credentials(domain: str):
+    """Return (store_url, access_token) for a domain, fetching a fresh token via client credentials if needed."""
     sites = config.get("source_sites", default=[])
     site = next((s for s in sites if s.get("domain") == domain), None)
     if site is None:
         raise HTTPException(status_code=404, detail=f"Unknown source site: {domain}")
+
     store_url = (site.get("shopify_store_url") or "").strip()
-    token = (site.get("shopify_access_token") or "").strip()
-    if not store_url or not token:
+    client_id = (site.get("shopify_client_id") or "").strip()
+    client_secret = (site.get("shopify_client_secret") or "").strip()
+
+    if not store_url or not client_id or not client_secret:
         raise HTTPException(
             status_code=422,
             detail=f"Shopify credentials not configured for {domain}. "
-                   "Add them in Settings → Shopify API Credentials.",
+                   "Add Store URL, Client ID, and Client Secret in Settings.",
         )
+
+    cached = _shopify_token_cache.get(domain, {})
+    # Refresh 5 minutes before expiry
+    if cached and cached.get("expires_at", 0) - time.time() > 300:
+        return store_url, cached["token"]
+
+    from backend.shopify.client import fetch_access_token, ShopifyError
+    try:
+        token = await fetch_access_token(store_url, client_id, client_secret)
+    except ShopifyError as exc:
+        raise HTTPException(status_code=502, detail=f"Failed to obtain Shopify token for {domain}: {exc}")
+
+    _shopify_token_cache[domain] = {"token": token, "expires_at": time.time() + 86399}
     return store_url, token
 
 
@@ -3176,7 +3205,7 @@ class LiveExecuteRequest(BaseModel):
 @router.post("/api/shopify-live/scan")
 async def shopify_live_scan(req: LiveScanRequest):
     """Fetch full product/collection/metafield snapshot from a Shopify store."""
-    store_url, token = _get_site_credentials(req.domain)
+    store_url, token = await _get_site_credentials(req.domain)
     from backend.shopify.scanner import scan_store
 
     progress_log: List[str] = []
@@ -3224,7 +3253,7 @@ async def shopify_live_diff(req: LiveDiffRequest):
     # Ensure both snapshots exist — scan on demand if missing
     for domain in (req.source_domain, req.dest_domain):
         if domain not in _scan_cache:
-            store_url, token = _get_site_credentials(domain)
+            store_url, token = await _get_site_credentials(domain)
             from backend.shopify.scanner import scan_store
             try:
                 _scan_cache[domain] = await scan_store(store_url, token)
@@ -3270,7 +3299,7 @@ async def shopify_live_diff(req: LiveDiffRequest):
 @router.post("/api/shopify-live/execute")
 async def shopify_live_execute(req: LiveExecuteRequest):
     """Execute approved transactions against the destination store."""
-    store_url, token = _get_site_credentials(req.dest_domain)
+    store_url, token = await _get_site_credentials(req.dest_domain)
     from backend.shopify.executor import execute_transactions
 
     approved_count = sum(1 for t in req.transactions if t.get("approved") is True)
@@ -3299,7 +3328,7 @@ async def shopify_live_execute(req: LiveExecuteRequest):
 @router.get("/api/shopify-webhooks/{domain}/live")
 async def list_live_webhooks(domain: str):
     """Fetch the current webhook list directly from Shopify."""
-    store_url, token = _get_site_credentials(domain)
+    store_url, token = await _get_site_credentials(domain)
     from backend.shopify.client import ShopifyClient, ShopifyError
     try:
         async with ShopifyClient(store_url, token) as client:
@@ -3351,7 +3380,7 @@ async def save_and_disable_webhooks(domain: str, db: Session = Depends(get_db_se
     Fetch all live webhooks, save them to DB, then delete them from Shopify.
     Use this before a bulk import to prevent webhooks from firing.
     """
-    store_url, token = _get_site_credentials(domain)
+    store_url, token = await _get_site_credentials(domain)
     from backend.shopify.client import ShopifyClient
 
     async with ShopifyClient(store_url, token) as client:
@@ -3422,7 +3451,7 @@ async def restore_webhooks(domain: str, db: Session = Depends(get_db_session)):
     Re-create all saved-but-deleted webhooks in Shopify.
     Use this after a bulk import completes.
     """
-    store_url, token = _get_site_credentials(domain)
+    store_url, token = await _get_site_credentials(domain)
     from backend.shopify.client import ShopifyClient
 
     disabled = (
@@ -3462,7 +3491,7 @@ async def restore_webhooks(domain: str, db: Session = Depends(get_db_session)):
 async def delete_single_webhook(domain: str, webhook_id: int,
                                 db: Session = Depends(get_db_session)):
     """Delete a single live webhook from Shopify (and mark it in the local DB if saved)."""
-    store_url, token = _get_site_credentials(domain)
+    store_url, token = await _get_site_credentials(domain)
     from backend.shopify.client import ShopifyClient
 
     async with ShopifyClient(store_url, token) as client:
