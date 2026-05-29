@@ -807,6 +807,10 @@ async def run_parallel_product_competitor_search(
     added since). The scan runs until externally cancelled or until the
     queue is drained and no new products show up in two refresh cycles.
     """
+    # Reset the sequential-search stop flag so prior stopped runs don't
+    # silently skip every URL inside _process_one_product.
+    _comp_search_control['stopped'] = False
+
     cbs = callbacks or []
     source_domains = _get_source_domains()
     criteria = MatchCriteria()
@@ -926,20 +930,27 @@ async def run_parallel_product_competitor_search(
     worker_tasks = [asyncio.create_task(worker(i)) for i in range(num_workers)]
     refresh_task = asyncio.create_task(refresher())
 
+    # When searching a fixed product list, the target set is known and finite.
+    # Terminate as soon as the queue drains — no refresh cycles needed.
+    fixed_product_set = bool(product_ids)
+
     try:
-        # Drain the queue, then wait one refresh cycle to see if more
-        # products show up; bail if two consecutive refreshes added nothing.
-        empty_refreshes = 0
-        while True:
+        if fixed_product_set:
             await queue.join()
-            queued_before = progress['total_queued']
-            await asyncio.sleep(sync_interval_seconds + 1)
-            if progress['total_queued'] == queued_before and queue.empty():
-                empty_refreshes += 1
-                if empty_refreshes >= 2:
-                    break
-            else:
-                empty_refreshes = 0
+        else:
+            # All-products mode: drain the queue, then wait one refresh cycle to see
+            # if new products show up; bail after two consecutive empty refreshes.
+            empty_refreshes = 0
+            while True:
+                await queue.join()
+                queued_before = progress['total_queued']
+                await asyncio.sleep(sync_interval_seconds + 1)
+                if progress['total_queued'] == queued_before and queue.empty():
+                    empty_refreshes += 1
+                    if empty_refreshes >= 2:
+                        break
+                else:
+                    empty_refreshes = 0
     except asyncio.CancelledError:
         logger.info("[PARALLEL-SEARCH] cancelled by caller")
         raise

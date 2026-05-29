@@ -59888,3 +59888,1284 @@ INFO:     Waiting for application shutdown.
 2026-05-29 14:16:24 [INFO] backend.scheduler.scheduler: Scheduler stopped
 2026-05-29 14:16:24 [INFO] backend.app: Donut Intel Platform shut down.
 INFO:     Application shutdown complete.
+2026-05-29 14:16:32 [WARNING] backend.scrapers.base_scraper: Context error on https://almart.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/sitemap.xml", waiting until 
+2026-05-29 14:16:32 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:16:32 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://almart.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36786]
+INFO:     Waiting for application startup.
+2026-05-29 14:16:34 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:16:34 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:16:34 [INFO] backend.database.db: Database initialized
+2026-05-29 14:16:34 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:16:34 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:16:34 [INFO] backend.app: Scheduler started
+2026-05-29 14:16:34 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:16:34 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:16:34 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:16:34 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:16:34 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [36787]
+INFO:     Waiting for application startup.
+2026-05-29 14:16:44 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:16:44 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:16:44 [INFO] backend.database.db: Database initialized
+2026-05-29 14:16:44 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:16:44 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:16:44 [INFO] backend.app: Scheduler started
+2026-05-29 14:16:44 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:16:44 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:16:44 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:16:44 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:16:44 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:16:47 [WARNING] backend.scrapers.base_scraper: Context error on https://almart.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/sitemap.xml", waiting until 
+2026-05-29 14:16:47 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:16:47 [ERROR] backend.scrapers.base_scraper: Failed https://almart.com/sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-29 14:16:48 [WARNING] backend.scrapers.base_scraper: Context error on https://almart.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/sitemap_index.xml", waiting 
+2026-05-29 14:16:48 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:16:48 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://almart.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36790]
+INFO:     Waiting for application startup.
+2026-05-29 14:16:55 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:16:55 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:16:55 [INFO] backend.database.db: Database initialized
+2026-05-29 14:16:55 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:16:55 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:16:55 [INFO] backend.app: Scheduler started
+2026-05-29 14:16:55 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:16:55 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:16:55 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:16:55 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:16:55 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:16:58 [WARNING] backend.scrapers.base_scraper: Context error on https://almart.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/sitemap_index.xml", waiting 
+2026-05-29 14:16:58 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:16:58 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://almart.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36794]
+INFO:     Waiting for application startup.
+2026-05-29 14:17:05 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:17:05 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:17:05 [INFO] backend.database.db: Database initialized
+2026-05-29 14:17:05 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:17:05 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:17:05 [INFO] backend.app: Scheduler started
+2026-05-29 14:17:05 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:17:05 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:17:05 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:17:05 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:17:05 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:17:13 [WARNING] backend.scrapers.base_scraper: Context error on https://almart.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/sitemap_index.xml", waiting 
+2026-05-29 14:17:13 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:17:13 [ERROR] backend.scrapers.base_scraper: Failed https://almart.com/sitemap_index.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-29 14:17:13 [WARNING] backend.scrapers.base_scraper: Context error on https://almart.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/product-sitemap.xml", waitin
+2026-05-29 14:17:13 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:17:13 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://almart.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36801]
+INFO:     Waiting for application startup.
+2026-05-29 14:17:16 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:17:16 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:17:16 [INFO] backend.database.db: Database initialized
+2026-05-29 14:17:16 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:17:16 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:17:16 [INFO] backend.app: Scheduler started
+2026-05-29 14:17:16 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:17:16 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:17:16 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:17:16 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:17:16 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:17:23 [WARNING] backend.scrapers.base_scraper: Context error on https://almart.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/product-sitemap.xml", waitin
+2026-05-29 14:17:23 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:17:23 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://almart.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36804]
+INFO:     Waiting for application startup.
+2026-05-29 14:17:26 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:17:26 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:17:26 [INFO] backend.database.db: Database initialized
+2026-05-29 14:17:26 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:17:26 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:17:26 [INFO] backend.app: Scheduler started
+2026-05-29 14:17:26 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:17:26 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:17:26 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:17:26 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:17:26 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [36805]
+INFO:     Waiting for application startup.
+2026-05-29 14:17:37 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:17:37 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:17:37 [INFO] backend.database.db: Database initialized
+2026-05-29 14:17:37 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:17:37 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:17:37 [INFO] backend.app: Scheduler started
+2026-05-29 14:17:37 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:17:37 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:17:37 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:17:37 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:17:37 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:17:39 [WARNING] backend.scrapers.base_scraper: Context error on https://almart.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/product-sitemap.xml", waitin
+2026-05-29 14:17:39 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:17:39 [ERROR] backend.scrapers.base_scraper: Failed https://almart.com/product-sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-29 14:17:39 [WARNING] backend.scrapers.base_scraper: Context error on https://almart.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/", waiting until "domcontent
+2026-05-29 14:17:39 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:17:39 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://almart.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/", waiting until "domcontentloaded"
+
+INFO:     Started server process [36808]
+INFO:     Waiting for application startup.
+2026-05-29 14:17:47 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:17:47 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:17:47 [INFO] backend.database.db: Database initialized
+2026-05-29 14:17:47 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:17:47 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:17:47 [INFO] backend.app: Scheduler started
+2026-05-29 14:17:47 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:17:47 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:17:47 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:17:47 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:17:47 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:17:49 [WARNING] backend.scrapers.base_scraper: Context error on https://almart.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/", waiting until "domcontent
+2026-05-29 14:17:49 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:17:49 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://almart.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/", waiting until "domcontentloaded"
+
+INFO:     Started server process [36810]
+INFO:     Waiting for application startup.
+2026-05-29 14:17:57 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:17:57 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:17:57 [INFO] backend.database.db: Database initialized
+2026-05-29 14:17:57 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:17:57 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:17:57 [INFO] backend.app: Scheduler started
+2026-05-29 14:17:57 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:17:57 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:17:57 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:17:57 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:17:57 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:18:04 [WARNING] backend.scrapers.base_scraper: Context error on https://almart.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/", waiting until "domcontent
+2026-05-29 14:18:04 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:18:04 [ERROR] backend.scrapers.base_scraper: Failed https://almart.com after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://almart.com/", waiting until "domcontentloaded"
+
+2026-05-29 14:18:04 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://almart.com
+2026-05-29 14:18:04 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on almart.com
+2026-05-29 14:18:04 [INFO] backend.competitor.scraper: almart.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-29 14:18:04 [INFO] backend.competitor.scraper: Skipping amazon.com — 3-day empty-scan cooldown (resets 2026-05-30)
+INFO:     127.0.0.1:56472 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56476 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56473 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56477 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56475 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56472 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56474 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56476 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56477 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56473 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56472 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56475 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-29 14:18:05 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-29 14:18:06 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on americaneaglemachine.com  (max_pages=100)
+2026-05-29 14:18:06 [WARNING] backend.scrapers.base_scraper: Context error on https://americaneaglemachine.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/sitemap.xml", 
+2026-05-29 14:18:06 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:18:06 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://americaneaglemachine.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36826]
+INFO:     Waiting for application startup.
+2026-05-29 14:18:08 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:18:08 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:18:08 [INFO] backend.database.db: Database initialized
+2026-05-29 14:18:08 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:18:08 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:18:08 [INFO] backend.app: Scheduler started
+2026-05-29 14:18:08 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:18:08 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:18:08 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:18:08 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:18:08 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:18:16 [WARNING] backend.scrapers.base_scraper: Context error on https://americaneaglemachine.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/sitemap.xml", 
+2026-05-29 14:18:16 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:18:16 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://americaneaglemachine.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36828]
+INFO:     Waiting for application startup.
+2026-05-29 14:18:18 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:18:18 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:18:18 [INFO] backend.database.db: Database initialized
+2026-05-29 14:18:18 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:18:18 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:18:18 [INFO] backend.app: Scheduler started
+2026-05-29 14:18:18 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:18:18 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:18:18 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:18:18 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:18:18 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [36830]
+INFO:     Waiting for application startup.
+2026-05-29 14:18:29 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:18:29 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:18:29 [INFO] backend.database.db: Database initialized
+2026-05-29 14:18:29 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:18:29 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:18:29 [INFO] backend.app: Scheduler started
+2026-05-29 14:18:29 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:18:29 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:18:29 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:18:29 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:18:29 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:18:31 [WARNING] backend.scrapers.base_scraper: Context error on https://americaneaglemachine.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/sitemap.xml", 
+2026-05-29 14:18:31 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:18:31 [ERROR] backend.scrapers.base_scraper: Failed https://americaneaglemachine.com/sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-29 14:18:32 [WARNING] backend.scrapers.base_scraper: Context error on https://americaneaglemachine.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/sitemap_index.
+2026-05-29 14:18:32 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:18:32 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://americaneaglemachine.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+INFO:     127.0.0.1:56480 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Adam+Equipment HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56480 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     Started server process [36833]
+INFO:     Waiting for application startup.
+2026-05-29 14:18:39 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:18:39 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:18:39 [INFO] backend.database.db: Database initialized
+2026-05-29 14:18:39 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:18:39 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:18:39 [INFO] backend.app: Scheduler started
+2026-05-29 14:18:39 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:18:39 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:18:39 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:18:39 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:18:39 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:18:42 [WARNING] backend.scrapers.base_scraper: Context error on https://americaneaglemachine.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/sitemap_index.
+2026-05-29 14:18:42 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:18:42 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://americaneaglemachine.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36836]
+INFO:     Waiting for application startup.
+2026-05-29 14:18:49 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:18:49 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:18:49 [INFO] backend.database.db: Database initialized
+2026-05-29 14:18:49 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:18:49 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:18:49 [INFO] backend.app: Scheduler started
+2026-05-29 14:18:49 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:18:49 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:18:49 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:18:49 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:18:49 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:18:57 [WARNING] backend.scrapers.base_scraper: Context error on https://americaneaglemachine.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/sitemap_index.
+2026-05-29 14:18:57 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:18:57 [ERROR] backend.scrapers.base_scraper: Failed https://americaneaglemachine.com/sitemap_index.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-29 14:18:57 [WARNING] backend.scrapers.base_scraper: Context error on https://americaneaglemachine.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/product-sitema
+2026-05-29 14:18:57 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:18:57 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://americaneaglemachine.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36841]
+INFO:     Waiting for application startup.
+2026-05-29 14:19:00 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:19:00 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:19:00 [INFO] backend.database.db: Database initialized
+2026-05-29 14:19:00 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:19:00 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:19:00 [INFO] backend.app: Scheduler started
+2026-05-29 14:19:00 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:19:00 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:19:00 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:19:00 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:19:00 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:19:07 [WARNING] backend.scrapers.base_scraper: Context error on https://americaneaglemachine.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/product-sitema
+2026-05-29 14:19:07 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:19:07 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://americaneaglemachine.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36846]
+INFO:     Waiting for application startup.
+2026-05-29 14:19:10 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:19:10 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:19:10 [INFO] backend.database.db: Database initialized
+2026-05-29 14:19:10 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:19:10 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:19:10 [INFO] backend.app: Scheduler started
+2026-05-29 14:19:10 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:19:10 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:19:10 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:19:10 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:19:10 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [36847]
+INFO:     Waiting for application startup.
+2026-05-29 14:19:21 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:19:21 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:19:21 [INFO] backend.database.db: Database initialized
+2026-05-29 14:19:21 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:19:21 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:19:21 [INFO] backend.app: Scheduler started
+2026-05-29 14:19:21 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:19:21 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:19:21 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:19:21 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:19:21 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:19:22 [WARNING] backend.scrapers.base_scraper: Context error on https://americaneaglemachine.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/product-sitema
+2026-05-29 14:19:22 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:19:22 [ERROR] backend.scrapers.base_scraper: Failed https://americaneaglemachine.com/product-sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-29 14:19:23 [WARNING] backend.scrapers.base_scraper: Context error on https://americaneaglemachine.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/", waiting unt
+2026-05-29 14:19:23 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:19:23 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://americaneaglemachine.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/", waiting until "domcontentloaded"
+
+INFO:     Started server process [36850]
+INFO:     Waiting for application startup.
+2026-05-29 14:19:31 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:19:31 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:19:31 [INFO] backend.database.db: Database initialized
+2026-05-29 14:19:31 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:19:31 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:19:31 [INFO] backend.app: Scheduler started
+2026-05-29 14:19:31 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:19:31 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:19:31 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:19:31 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:19:31 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:19:33 [WARNING] backend.scrapers.base_scraper: Context error on https://americaneaglemachine.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/", waiting unt
+2026-05-29 14:19:33 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:19:33 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://americaneaglemachine.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/", waiting until "domcontentloaded"
+
+INFO:     Started server process [36901]
+INFO:     Waiting for application startup.
+2026-05-29 14:19:42 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:19:42 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:19:42 [INFO] backend.database.db: Database initialized
+2026-05-29 14:19:42 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:19:42 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:19:42 [INFO] backend.app: Scheduler started
+2026-05-29 14:19:42 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:19:42 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:19:42 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:19:42 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:19:42 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:19:48 [WARNING] backend.scrapers.base_scraper: Context error on https://americaneaglemachine.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/", waiting unt
+2026-05-29 14:19:48 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:19:48 [ERROR] backend.scrapers.base_scraper: Failed https://americaneaglemachine.com after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://americaneaglemachine.com/", waiting until "domcontentloaded"
+
+2026-05-29 14:19:48 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://americaneaglemachine.com
+2026-05-29 14:19:48 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on americaneaglemachine.com
+2026-05-29 14:19:48 [INFO] backend.competitor.scraper: americaneaglemachine.com: 0 products found (no errors) — 3-day cooldown started
+INFO:     127.0.0.1:56613 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56616 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56615 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56618 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56614 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56617 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56613 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56615 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56617 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56618 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56616 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56614 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     Started server process [36903]
+INFO:     Waiting for application startup.
+2026-05-29 14:19:52 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:19:52 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:19:52 [INFO] backend.database.db: Database initialized
+2026-05-29 14:19:52 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:19:52 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:19:52 [INFO] backend.app: Scheduler started
+2026-05-29 14:19:52 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:19:52 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:19:52 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:19:52 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:19:52 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:19:52 [INFO] backend.competitor.scraper: Using Shopify JSON API for ampto.com
+2026-05-29 14:19:56 [INFO] backend.competitor.scraper: Shopify ampto.com: page 1 → 250 products so far
+2026-05-29 14:19:58 [INFO] backend.competitor.scraper: Shopify ampto.com: page 2 → 500 products so far
+2026-05-29 14:20:00 [INFO] backend.competitor.scraper: Shopify ampto.com: page 3 → 750 products so far
+2026-05-29 14:20:01 [INFO] backend.competitor.scraper: Shopify ampto.com: page 4 → 1000 products so far
+INFO:     Started server process [36904]
+INFO:     Waiting for application startup.
+2026-05-29 14:20:02 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:20:02 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:20:02 [INFO] backend.database.db: Database initialized
+2026-05-29 14:20:02 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:20:02 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:20:02 [INFO] backend.app: Scheduler started
+2026-05-29 14:20:02 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:20:02 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:20:02 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:20:02 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:20:02 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:20:03 [INFO] backend.competitor.scraper: Shopify ampto.com: page 5 → 1250 products so far
+2026-05-29 14:20:04 [INFO] backend.competitor.scraper: Shopify ampto.com: page 6 → 1500 products so far
+2026-05-29 14:20:05 [INFO] backend.competitor.scraper: Shopify ampto.com: page 7 → 1750 products so far
+2026-05-29 14:20:07 [INFO] backend.competitor.scraper: Shopify ampto.com: page 8 → 2000 products so far
+2026-05-29 14:20:08 [INFO] backend.competitor.scraper: Shopify ampto.com: page 9 → 2250 products so far
+2026-05-29 14:20:08 [INFO] backend.competitor.scraper: Shopify ampto.com: page 10 → 2500 products so far
+2026-05-29 14:20:10 [INFO] backend.competitor.scraper: Shopify ampto.com: page 11 → 2750 products so far
+2026-05-29 14:20:10 [INFO] backend.competitor.scraper: Shopify ampto.com: page 12 → 3000 products so far
+2026-05-29 14:20:12 [INFO] backend.competitor.scraper: Shopify ampto.com: page 13 → 3250 products so far
+2026-05-29 14:20:13 [INFO] backend.competitor.scraper: Shopify ampto.com: page 14 → 3500 products so far
+INFO:     Started server process [36905]
+INFO:     Waiting for application startup.
+2026-05-29 14:20:13 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:20:13 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:20:13 [INFO] backend.database.db: Database initialized
+2026-05-29 14:20:13 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:20:13 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:20:13 [INFO] backend.app: Scheduler started
+2026-05-29 14:20:13 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:20:13 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:20:13 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:20:13 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:20:13 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:20:14 [INFO] backend.competitor.scraper: Shopify ampto.com: page 15 → 3750 products so far
+2026-05-29 14:20:15 [INFO] backend.competitor.scraper: Shopify ampto.com: page 16 → 4000 products so far
+2026-05-29 14:20:16 [INFO] backend.competitor.scraper: Shopify ampto.com: page 17 → 4250 products so far
+2026-05-29 14:20:16 [INFO] backend.competitor.scraper: Shopify ampto.com: page 18 → 4500 products so far
+2026-05-29 14:20:17 [INFO] backend.competitor.scraper: Shopify ampto.com: page 19 → 4750 products so far
+2026-05-29 14:20:18 [INFO] backend.competitor.scraper: Shopify ampto.com: page 20 → 5000 products so far
+2026-05-29 14:20:19 [INFO] backend.competitor.scraper: Shopify ampto.com: page 21 → 5250 products so far
+2026-05-29 14:20:20 [INFO] backend.competitor.scraper: Shopify ampto.com: page 22 → 5500 products so far
+2026-05-29 14:20:21 [INFO] backend.competitor.scraper: Shopify ampto.com: page 23 → 5750 products so far
+2026-05-29 14:20:21 [INFO] backend.competitor.scraper: Shopify ampto.com: page 24 → 6000 products so far
+2026-05-29 14:20:22 [INFO] backend.competitor.scraper: Shopify ampto.com: page 25 → 6250 products so far
+2026-05-29 14:20:23 [INFO] backend.competitor.scraper: Shopify ampto.com: page 26 → 6500 products so far
+INFO:     Started server process [36906]
+INFO:     Waiting for application startup.
+2026-05-29 14:20:23 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:20:23 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:20:23 [INFO] backend.database.db: Database initialized
+2026-05-29 14:20:23 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:20:23 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:20:23 [INFO] backend.app: Scheduler started
+2026-05-29 14:20:23 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:20:23 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:20:23 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:20:23 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:20:23 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:20:24 [INFO] backend.competitor.scraper: Shopify ampto.com: page 27 → 6750 products so far
+2026-05-29 14:20:25 [INFO] backend.competitor.scraper: Shopify ampto.com: page 28 → 7000 products so far
+2026-05-29 14:20:25 [INFO] backend.competitor.scraper: Shopify ampto.com: page 29 → 7250 products so far
+2026-05-29 14:20:26 [INFO] backend.competitor.scraper: Shopify ampto.com: page 30 → 7500 products so far
+2026-05-29 14:20:27 [INFO] backend.competitor.scraper: Shopify ampto.com: page 31 → 7750 products so far
+2026-05-29 14:20:28 [INFO] backend.competitor.scraper: Shopify ampto.com: page 32 → 8000 products so far
+2026-05-29 14:20:28 [INFO] backend.competitor.scraper: Shopify ampto.com: page 33 → 8250 products so far
+2026-05-29 14:20:29 [WARNING] backend.competitor.scraper: Shopify products.json page 34 failed: Client error '403 Forbidden' for url 'https://ampto.com/products.json?limit=250&page=34'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
+INFO:     Started server process [36928]
+INFO:     Waiting for application startup.
+2026-05-29 14:20:34 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:20:34 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:20:34 [INFO] backend.database.db: Database initialized
+2026-05-29 14:20:34 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:20:34 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:20:34 [INFO] backend.app: Scheduler started
+2026-05-29 14:20:34 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:20:34 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:20:34 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:20:34 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:20:34 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [36929]
+INFO:     Waiting for application startup.
+2026-05-29 14:20:44 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:20:44 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:20:44 [INFO] backend.database.db: Database initialized
+2026-05-29 14:20:44 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:20:44 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:20:44 [INFO] backend.app: Scheduler started
+2026-05-29 14:20:44 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:20:44 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:20:44 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:20:44 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:20:44 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [36930]
+INFO:     Waiting for application startup.
+2026-05-29 14:20:54 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:20:54 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:20:54 [INFO] backend.database.db: Database initialized
+2026-05-29 14:20:54 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:20:54 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:20:54 [INFO] backend.app: Scheduler started
+2026-05-29 14:20:54 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:20:54 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:20:54 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:20:54 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:20:54 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     127.0.0.1:56625 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56630 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56627 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56626 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56625 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56629 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56628 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56630 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56627 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56626 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56629 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56625 - "GET /api/stats HTTP/1.1" 200 OK
+2026-05-29 14:20:56 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-05-29 14:20:57 [INFO] backend.competitor.scraper: [SCRAPE] Discovering product URLs on asserstrom.com  (max_pages=100)
+2026-05-29 14:20:57 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://asserstrom.com/sitemap.xml: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://asserstrom.com/sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36945]
+INFO:     Waiting for application startup.
+2026-05-29 14:21:05 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:21:05 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:21:05 [INFO] backend.database.db: Database initialized
+2026-05-29 14:21:05 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:21:05 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:21:05 [INFO] backend.app: Scheduler started
+2026-05-29 14:21:05 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:21:05 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:21:05 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:21:05 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:21:05 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:21:07 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://asserstrom.com/sitemap.xml: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://asserstrom.com/sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36970]
+INFO:     Waiting for application startup.
+2026-05-29 14:21:15 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:21:15 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:21:15 [INFO] backend.database.db: Database initialized
+2026-05-29 14:21:15 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:21:15 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:21:15 [INFO] backend.app: Scheduler started
+2026-05-29 14:21:15 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:21:15 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:21:15 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:21:15 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:21:15 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:21:22 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-29 14:21:22 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:21:22 [ERROR] backend.scrapers.base_scraper: Failed https://asserstrom.com/sitemap.xml after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://asserstrom.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-29 14:21:23 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://asserstrom.com/sitemap_index.xml: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://asserstrom.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36973]
+INFO:     Waiting for application startup.
+2026-05-29 14:21:26 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:21:26 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:21:26 [INFO] backend.database.db: Database initialized
+2026-05-29 14:21:26 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:21:26 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:21:26 [INFO] backend.app: Scheduler started
+2026-05-29 14:21:26 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:21:26 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:21:26 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:21:26 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:21:26 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:21:33 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://asserstrom.com/sitemap_index.xml: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://asserstrom.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36975]
+INFO:     Waiting for application startup.
+2026-05-29 14:21:36 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:21:36 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:21:36 [INFO] backend.database.db: Database initialized
+2026-05-29 14:21:36 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:21:36 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:21:36 [INFO] backend.app: Scheduler started
+2026-05-29 14:21:36 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:21:36 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:21:36 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:21:36 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:21:36 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [36976]
+INFO:     Waiting for application startup.
+2026-05-29 14:21:47 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:21:47 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:21:47 [INFO] backend.database.db: Database initialized
+2026-05-29 14:21:47 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:21:47 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:21:47 [INFO] backend.app: Scheduler started
+2026-05-29 14:21:47 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:21:47 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:21:47 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:21:47 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:21:47 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:21:48 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-29 14:21:48 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:21:48 [ERROR] backend.scrapers.base_scraper: Failed https://asserstrom.com/sitemap_index.xml after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://asserstrom.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-05-29 14:21:48 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://asserstrom.com/product-sitemap.xml: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://asserstrom.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36979]
+INFO:     Waiting for application startup.
+2026-05-29 14:21:57 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:21:57 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:21:57 [INFO] backend.database.db: Database initialized
+2026-05-29 14:21:57 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:21:57 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:21:57 [INFO] backend.app: Scheduler started
+2026-05-29 14:21:57 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:21:57 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:21:57 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:21:57 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:21:57 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:21:58 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://asserstrom.com/product-sitemap.xml: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://asserstrom.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+INFO:     Started server process [36981]
+INFO:     Waiting for application startup.
+2026-05-29 14:22:07 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:22:07 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:22:07 [INFO] backend.database.db: Database initialized
+2026-05-29 14:22:07 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:22:07 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:22:07 [INFO] backend.app: Scheduler started
+2026-05-29 14:22:07 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:22:07 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:22:07 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:22:07 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:22:07 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:22:14 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-29 14:22:14 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:22:14 [ERROR] backend.scrapers.base_scraper: Failed https://asserstrom.com/product-sitemap.xml after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://asserstrom.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-05-29 14:22:14 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://asserstrom.com: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://asserstrom.com/", waiting until "domcontentloaded"
+
+INFO:     Started server process [36984]
+INFO:     Waiting for application startup.
+2026-05-29 14:22:18 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:22:18 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:22:18 [INFO] backend.database.db: Database initialized
+2026-05-29 14:22:18 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:22:18 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:22:18 [INFO] backend.app: Scheduler started
+2026-05-29 14:22:18 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:22:18 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:22:18 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:22:18 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:22:18 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:22:24 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://asserstrom.com: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://asserstrom.com/", waiting until "domcontentloaded"
+
+INFO:     Started server process [36986]
+INFO:     Waiting for application startup.
+2026-05-29 14:22:28 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:22:28 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:22:28 [INFO] backend.database.db: Database initialized
+2026-05-29 14:22:28 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:22:28 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:22:28 [INFO] backend.app: Scheduler started
+2026-05-29 14:22:28 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:22:28 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:22:28 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:22:28 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:22:28 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [36987]
+INFO:     Waiting for application startup.
+2026-05-29 14:22:39 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:22:39 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:22:39 [INFO] backend.database.db: Database initialized
+2026-05-29 14:22:39 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:22:39 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:22:39 [INFO] backend.app: Scheduler started
+2026-05-29 14:22:39 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:22:39 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:22:39 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:22:39 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:22:39 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:22:39 [WARNING] backend.scrapers.base_scraper: Context contamination detected (3 fast-fails in <1.5s) — proactive context rebuild before retry
+2026-05-29 14:22:39 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-05-29 14:22:39 [ERROR] backend.scrapers.base_scraper: Failed https://asserstrom.com after 2 retries: Page.goto: A server with the specified hostname could not be found.
+Call log:
+  - navigating to "https://asserstrom.com/", waiting until "domcontentloaded"
+
+2026-05-29 14:22:39 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://asserstrom.com
+2026-05-29 14:22:39 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on asserstrom.com
+2026-05-29 14:22:39 [INFO] backend.competitor.scraper: asserstrom.com: 0 products found (no errors) — 3-day cooldown started
+2026-05-29 14:22:39 [INFO] backend.competitor.scraper: Skipping aupetitcoinbreton.ca — 3-day empty-scan cooldown (resets 2026-05-30)
+INFO:     127.0.0.1:56739 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56741 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56744 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56742 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56743 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56740 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56741 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56739 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56744 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56743 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56740 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56739 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56742 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56744 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56740 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56741 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56739 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56743 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-29 14:22:40 [INFO] backend.competitor.scraper: Using Shopify JSON API for backyardprovider.com
+2026-05-29 14:22:42 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 1 → 250 products so far
+2026-05-29 14:22:43 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 2 → 500 products so far
+2026-05-29 14:22:44 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 3 → 750 products so far
+2026-05-29 14:22:46 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 4 → 1000 products so far
+2026-05-29 14:22:47 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 5 → 1250 products so far
+2026-05-29 14:22:49 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 6 → 1500 products so far
+INFO:     Started server process [36989]
+INFO:     Waiting for application startup.
+2026-05-29 14:22:49 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:22:49 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:22:49 [INFO] backend.database.db: Database initialized
+2026-05-29 14:22:49 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:22:49 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:22:49 [INFO] backend.app: Scheduler started
+2026-05-29 14:22:49 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:22:49 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:22:49 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:22:49 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:22:49 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:22:50 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 7 → 1750 products so far
+2026-05-29 14:22:51 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 8 → 2000 products so far
+2026-05-29 14:22:52 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 9 → 2250 products so far
+2026-05-29 14:22:53 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 10 → 2500 products so far
+2026-05-29 14:22:54 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 11 → 2750 products so far
+2026-05-29 14:22:55 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 12 → 3000 products so far
+2026-05-29 14:22:56 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 13 → 3250 products so far
+2026-05-29 14:22:57 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 14 → 3500 products so far
+2026-05-29 14:22:58 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 15 → 3750 products so far
+INFO:     Started server process [36990]
+INFO:     Waiting for application startup.
+2026-05-29 14:22:59 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:22:59 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:22:59 [INFO] backend.database.db: Database initialized
+2026-05-29 14:22:59 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:22:59 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:22:59 [INFO] backend.app: Scheduler started
+2026-05-29 14:22:59 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:22:59 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:22:59 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:22:59 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:22:59 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:22:59 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 16 → 4000 products so far
+2026-05-29 14:23:01 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 17 → 4250 products so far
+2026-05-29 14:23:01 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 18 → 4500 products so far
+2026-05-29 14:23:03 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 19 → 4750 products so far
+2026-05-29 14:23:04 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 20 → 5000 products so far
+2026-05-29 14:23:05 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 21 → 5250 products so far
+2026-05-29 14:23:06 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 22 → 5500 products so far
+2026-05-29 14:23:08 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 23 → 5750 products so far
+2026-05-29 14:23:09 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 24 → 6000 products so far
+INFO:     Started server process [37014]
+INFO:     Waiting for application startup.
+2026-05-29 14:23:10 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:23:10 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:23:10 [INFO] backend.database.db: Database initialized
+2026-05-29 14:23:10 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:23:10 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:23:10 [INFO] backend.app: Scheduler started
+2026-05-29 14:23:10 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:23:10 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:23:10 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:23:10 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:23:10 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:23:10 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 25 → 6250 products so far
+2026-05-29 14:23:12 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 26 → 6500 products so far
+2026-05-29 14:23:13 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 27 → 6750 products so far
+2026-05-29 14:23:15 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 28 → 7000 products so far
+2026-05-29 14:23:16 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 29 → 7250 products so far
+2026-05-29 14:23:17 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 30 → 7500 products so far
+2026-05-29 14:23:18 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 31 → 7750 products so far
+2026-05-29 14:23:19 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 32 → 8000 products so far
+INFO:     Started server process [37015]
+INFO:     Waiting for application startup.
+2026-05-29 14:23:20 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:23:20 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:23:20 [INFO] backend.database.db: Database initialized
+2026-05-29 14:23:20 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:23:20 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:23:20 [INFO] backend.app: Scheduler started
+2026-05-29 14:23:20 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:23:20 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:23:20 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:23:20 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:23:20 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:23:21 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 33 → 8250 products so far
+2026-05-29 14:23:22 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 34 → 8500 products so far
+2026-05-29 14:23:25 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 35 → 8750 products so far
+2026-05-29 14:23:26 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 36 → 9000 products so far
+2026-05-29 14:23:28 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 37 → 9250 products so far
+INFO:     Started server process [37042]
+INFO:     Waiting for application startup.
+2026-05-29 14:23:31 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:23:31 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:23:31 [INFO] backend.database.db: Database initialized
+2026-05-29 14:23:31 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:23:31 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:23:31 [INFO] backend.app: Scheduler started
+2026-05-29 14:23:31 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:23:31 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:23:31 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:23:31 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:23:31 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:23:31 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 38 → 9500 products so far
+2026-05-29 14:23:33 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 39 → 9750 products so far
+2026-05-29 14:23:34 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 40 → 10000 products so far
+2026-05-29 14:23:35 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 41 → 10250 products so far
+2026-05-29 14:23:36 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 42 → 10500 products so far
+2026-05-29 14:23:37 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 43 → 10750 products so far
+2026-05-29 14:23:39 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 44 → 11000 products so far
+2026-05-29 14:23:40 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 45 → 11250 products so far
+2026-05-29 14:23:41 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 46 → 11500 products so far
+INFO:     Started server process [37043]
+INFO:     Waiting for application startup.
+2026-05-29 14:23:41 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:23:41 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:23:41 [INFO] backend.database.db: Database initialized
+2026-05-29 14:23:41 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:23:41 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:23:41 [INFO] backend.app: Scheduler started
+2026-05-29 14:23:41 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:23:41 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:23:41 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:23:41 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:23:41 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:23:42 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 47 → 11750 products so far
+2026-05-29 14:23:43 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 48 → 12000 products so far
+2026-05-29 14:23:44 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 49 → 12250 products so far
+2026-05-29 14:23:44 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 50 → 12500 products so far
+2026-05-29 14:23:46 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 51 → 12750 products so far
+2026-05-29 14:23:47 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 52 → 13000 products so far
+2026-05-29 14:23:47 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 53 → 13250 products so far
+2026-05-29 14:23:48 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 54 → 13500 products so far
+2026-05-29 14:23:49 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 55 → 13750 products so far
+2026-05-29 14:23:50 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH] complete: processed=3 total_found=43
+INFO:     127.0.0.1:56889 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56891 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56890 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56892 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56891 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56894 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56893 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56889 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-05-29 14:23:50 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 56 → 14000 products so far
+2026-05-29 14:23:51 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 57 → 14250 products so far
+INFO:     Started server process [37068]
+INFO:     Waiting for application startup.
+2026-05-29 14:23:52 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:23:52 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:23:52 [INFO] backend.database.db: Database initialized
+2026-05-29 14:23:52 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:23:52 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:23:52 [INFO] backend.app: Scheduler started
+2026-05-29 14:23:52 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:23:52 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:23:52 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:23:52 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:23:52 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:23:54 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 58 → 14500 products so far
+2026-05-29 14:23:59 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 59 → 14750 products so far
+2026-05-29 14:24:02 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 60 → 15000 products so far
+INFO:     Started server process [37069]
+INFO:     Waiting for application startup.
+2026-05-29 14:24:02 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:24:02 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:24:02 [INFO] backend.database.db: Database initialized
+2026-05-29 14:24:02 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:24:02 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:24:02 [INFO] backend.app: Scheduler started
+2026-05-29 14:24:02 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:24:02 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:24:02 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:24:02 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:24:02 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:24:04 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 61 → 15250 products so far
+2026-05-29 14:24:05 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 62 → 15500 products so far
+2026-05-29 14:24:06 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 63 → 15750 products so far
+2026-05-29 14:24:07 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 64 → 16000 products so far
+2026-05-29 14:24:08 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 65 → 16250 products so far
+2026-05-29 14:24:09 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 66 → 16500 products so far
+2026-05-29 14:24:10 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 67 → 16750 products so far
+2026-05-29 14:24:10 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 68 → 17000 products so far
+2026-05-29 14:24:11 [INFO] backend.competitor.scraper: Shopify backyardprovider.com: page 69 → 17250 products so far
+INFO:     Started server process [37105]
+INFO:     Waiting for application startup.
+2026-05-29 14:24:12 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:24:12 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:24:12 [INFO] backend.database.db: Database initialized
+2026-05-29 14:24:12 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:24:12 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:24:12 [INFO] backend.app: Scheduler started
+2026-05-29 14:24:12 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:24:12 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:24:12 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     Started server process [37106]
+INFO:     Waiting for application startup.
+2026-05-29 14:24:14 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:24:14 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:24:14 [INFO] backend.database.db: Database initialized
+2026-05-29 14:24:14 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:24:14 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:24:14 [INFO] backend.app: Scheduler started
+2026-05-29 14:24:14 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:24:14 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:24:14 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:24:14 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:24:14 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [37136]
+INFO:     Waiting for application startup.
+2026-05-29 14:24:32 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:24:32 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:24:32 [INFO] backend.database.db: Database initialized
+2026-05-29 14:24:32 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:24:32 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:24:32 [INFO] backend.app: Scheduler started
+2026-05-29 14:24:32 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:24:32 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:24:32 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:24:32 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:24:32 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [37198]
+INFO:     Waiting for application startup.
+2026-05-29 14:24:54 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:24:54 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:24:54 [INFO] backend.database.db: Database initialized
+2026-05-29 14:24:54 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:24:54 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:24:54 [INFO] backend.app: Scheduler started
+2026-05-29 14:24:54 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:24:54 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:24:54 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     Started server process [37213]
+INFO:     Waiting for application startup.
+2026-05-29 14:24:58 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:24:58 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:24:58 [INFO] backend.database.db: Database initialized
+2026-05-29 14:24:58 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:24:58 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:24:58 [INFO] backend.app: Scheduler started
+2026-05-29 14:24:58 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:24:58 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:24:58 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     Started server process [37224]
+INFO:     Waiting for application startup.
+2026-05-29 14:25:04 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:25:04 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:25:04 [INFO] backend.database.db: Database initialized
+2026-05-29 14:25:04 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:25:04 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:25:04 [INFO] backend.app: Scheduler started
+2026-05-29 14:25:04 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:25:04 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:25:04 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:25:04 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:25:04 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [37225]
+INFO:     Waiting for application startup.
+2026-05-29 14:25:15 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:25:15 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:25:15 [INFO] backend.database.db: Database initialized
+2026-05-29 14:25:15 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:25:15 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:25:15 [INFO] backend.app: Scheduler started
+2026-05-29 14:25:15 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:25:15 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:25:15 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:25:15 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:25:15 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
