@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 
 from backend.config import config
 from backend.database.models import (
+    CompetitorProductMatch,
     DuplicateCandidate,
     Product,
     ProductSource,
@@ -248,6 +249,26 @@ class DeduplicationEngine:
             primary.canonical_description = secondary.canonical_description
 
         primary.updated_at = datetime.utcnow()
+
+        # Re-link competitor matches from secondary → primary
+        secondary_matches = (
+            session.query(CompetitorProductMatch)
+            .filter(CompetitorProductMatch.master_product_id == secondary.id)
+            .all()
+        )
+        existing_match_keys = {
+            (m.competitor_id, m.competitor_url)
+            for m in session.query(CompetitorProductMatch)
+            .filter(CompetitorProductMatch.master_product_id == primary.id)
+            .all()
+        }
+        for m in secondary_matches:
+            key = (m.competitor_id, m.competitor_url)
+            if key not in existing_match_keys:
+                m.master_product_id = primary.id
+                existing_match_keys.add(key)
+            # duplicate URL on primary already — leave secondary match as-is;
+            # it will become unreachable once secondary is deactivated (harmless)
 
         # Deactivate secondary
         secondary.is_active = False

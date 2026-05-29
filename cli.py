@@ -124,6 +124,79 @@ def cmd_yahoo_scan(args):
 # Competitor import
 # ---------------------------------------------------------------------------
 
+def cmd_repair_match_links(args):
+    """Re-link competitor_product_matches from deactivated (merged) products to their canonical active product.
+
+    duplicate_candidates stores pairs ordered by min/max product ID, not by which
+    product is active. We determine the canonical (active) vs orphaned (inactive)
+    side by checking is_active directly, handling both orderings.
+    """
+    _setup()
+    from backend.database.db import session_scope
+    from backend.database.models import CompetitorProductMatch, DuplicateCandidate, Product
+
+    relinked = 0
+    skipped_conflict = 0
+    skipped_ambiguous = 0
+    pairs_examined = 0
+
+    with session_scope() as db:
+        merged = (
+            db.query(DuplicateCandidate)
+            .filter(DuplicateCandidate.status == 'merged')
+            .all()
+        )
+        print(f'Found {len(merged)} merged pairs to examine...')
+
+        for dc in merged:
+            prod_a = db.get(Product, dc.primary_product_id)
+            prod_b = db.get(Product, dc.secondary_product_id)
+            if not prod_a or not prod_b:
+                continue
+
+            # Determine which side is the canonical (active) product
+            if prod_a.is_active and not prod_b.is_active:
+                canonical, orphaned = prod_a, prod_b
+            elif prod_b.is_active and not prod_a.is_active:
+                canonical, orphaned = prod_b, prod_a
+            else:
+                # Both active (not yet merged) or both inactive — skip
+                skipped_ambiguous += 1
+                continue
+
+            orphaned_matches = (
+                db.query(CompetitorProductMatch)
+                .filter(CompetitorProductMatch.master_product_id == orphaned.id)
+                .all()
+            )
+            if not orphaned_matches:
+                continue
+
+            pairs_examined += 1
+            existing_keys = {
+                (m.competitor_id, m.competitor_url)
+                for m in db.query(CompetitorProductMatch)
+                .filter(CompetitorProductMatch.master_product_id == canonical.id)
+                .all()
+            }
+
+            for m in orphaned_matches:
+                key = (m.competitor_id, m.competitor_url)
+                if key not in existing_keys:
+                    m.master_product_id = canonical.id
+                    existing_keys.add(key)
+                    relinked += 1
+                else:
+                    skipped_conflict += 1
+
+        db.flush()
+
+    print(f'Re-linked:         {relinked} matches')
+    print(f'Skipped (conflict):{skipped_conflict} (canonical already had same URL)')
+    print(f'Skipped (ambiguous):{skipped_ambiguous} (both active or both inactive)')
+    print(f'Pairs with matches:{pairs_examined}')
+
+
 def cmd_force_dedup(args):
     _setup()
     from backend.dedup.force_merge import force_merge_source_sites
@@ -368,6 +441,10 @@ def main():
     p.add_argument('--delay', type=float, default=3.0, help='Seconds between searches (default 3)')
     p.add_argument('--max-results', type=int, default=30, dest='max_results', help='Max PLA results per query (default 30)')
     p.set_defaults(func=cmd_yahoo_scan)
+
+    # repair-match-links
+    p = sub.add_parser('repair-match-links', help='Re-link competitor matches from merged/deactivated products to their canonical active product')
+    p.set_defaults(func=cmd_repair_match_links)
 
     # force-dedup
     p = sub.add_parser('force-dedup', help='Force-merge DS/BW products into DE counterparts')
