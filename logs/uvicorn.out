@@ -61169,3 +61169,657 @@ INFO:     Waiting for application shutdown.
 2026-05-29 14:25:15 [INFO] backend.scheduler.scheduler: Scheduler stopped
 2026-05-29 14:25:15 [INFO] backend.app: Donut Intel Platform shut down.
 INFO:     Application shutdown complete.
+INFO:     Started server process [37247]
+INFO:     Waiting for application startup.
+2026-05-29 14:25:25 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:25:25 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:25:25 [INFO] backend.database.db: Database initialized
+2026-05-29 14:25:25 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:25:25 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:25:25 [INFO] backend.app: Scheduler started
+2026-05-29 14:25:25 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:25:25 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:25:25 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:25:25 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:25:25 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [37248]
+INFO:     Waiting for application startup.
+2026-05-29 14:25:36 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:25:36 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:25:36 [INFO] backend.database.db: Database initialized
+2026-05-29 14:25:36 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:25:36 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:25:36 [INFO] backend.app: Scheduler started
+2026-05-29 14:25:36 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:25:36 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:25:36 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:25:36 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:25:36 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [37250]
+INFO:     Waiting for application startup.
+2026-05-29 14:25:46 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:25:46 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:25:46 [INFO] backend.database.db: Database initialized
+2026-05-29 14:25:46 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:25:46 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:25:46 [INFO] backend.app: Scheduler started
+2026-05-29 14:25:46 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:25:46 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:25:46 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:25:46 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:25:46 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [37253]
+INFO:     Waiting for application startup.
+2026-05-29 14:25:56 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:25:56 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:25:56 [INFO] backend.database.db: Database initialized
+2026-05-29 14:25:56 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:25:56 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:25:56 [INFO] backend.app: Scheduler started
+2026-05-29 14:25:56 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:25:56 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:25:56 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:25:56 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:25:56 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [37282]
+INFO:     Waiting for application startup.
+2026-05-29 14:26:07 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:26:07 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:26:07 [INFO] backend.database.db: Database initialized
+2026-05-29 14:26:07 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:26:07 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:26:07 [INFO] backend.app: Scheduler started
+2026-05-29 14:26:07 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:26:07 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:26:07 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:26:07 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:26:07 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [37283]
+INFO:     Waiting for application startup.
+2026-05-29 14:26:17 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:26:17 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:26:17 [INFO] backend.database.db: Database initialized
+2026-05-29 14:26:17 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:26:17 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:26:17 [INFO] backend.app: Scheduler started
+2026-05-29 14:26:17 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:26:17 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:26:17 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:26:17 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:26:17 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     127.0.0.1:57283 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57283 - "GET /static/vendor/alpine.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57289 - "GET /static/css/style.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57290 - "GET /static/vendor/chart.umd.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57291 - "GET /static/js/app.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57288 - "GET /static/vendor/tailwind.min.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57290 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57291 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57291 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57289 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57288 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57283 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57304 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57283 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57288 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57304 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57289 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57291 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57290 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57290 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57291 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57306 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:57291 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57291 - "GET /api/products?page=1&per_page=50&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     Started server process [37313]
+INFO:     Waiting for application startup.
+2026-05-29 14:26:28 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:26:28 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:26:28 [INFO] backend.database.db: Database initialized
+2026-05-29 14:26:28 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:26:28 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:26:28 [INFO] backend.app: Scheduler started
+2026-05-29 14:26:28 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:26:28 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:26:28 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:26:28 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:26:28 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:26:30 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH] Starting: 3 products queued, 3 workers, sync_interval=300s
+2026-05-29 14:26:30 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0] ── Product: 'ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'  (id=9)
+2026-05-29 14:26:30 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Query:   '330 Standard Donut Production Sheeter Left To Right buy'
+2026-05-29 14:26:30 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1] ── Product: 'ACME 330 Standard Donut Production Sheeter (120V) Right To Left Production'  (id=54)
+2026-05-29 14:26:30 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Query:   '330 Standard Donut Production Sheeter Right To Left buy'
+2026-05-29 14:26:30 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2] ── Product: 'ACME 330DD Donut Production Sheeter (120V) Left To Right Production'  (id=5019)
+2026-05-29 14:26:30 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Query:   '330DD Donut Production Sheeter Left To Right Production buy'
+2026-05-29 14:26:30 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Pre-queuing 5 known competitor URLs
+2026-05-29 14:26:30 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Checking 5 prior competitor URLs
+INFO:     127.0.0.1:57291 - "POST /api/products/parallel-competitor-search HTTP/1.1" 200 OK
+2026-05-29 14:26:31 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=restaurantstock.com  found=1/5
+2026-05-29 14:26:31 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=rochesterequipment.com  found=2/5
+2026-05-29 14:26:32 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '330 Standard Donut Production Sheeter Left To Right buy'
+2026-05-29 14:26:32 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '330 Standard Donut Production Sheeter Right To Left buy'
+2026-05-29 14:26:32 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 1 '330 Standard Donut Production Sheeter Ri': 20 new URLs
+INFO:     connection closed
+2026-05-29 14:26:32 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 1 '330 Standard Donut Production Sheeter Le': 17 new URLs
+2026-05-29 14:26:33 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '330DD Donut Production Sheeter Left To Right Production buy'
+2026-05-29 14:26:33 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Round 1 '330DD Donut Production Sheeter Left To R': 12 new URLs
+2026-05-29 14:26:36 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=crispfryer.com  price=no price  confidence=30%
+2026-05-29 14:26:36 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=crispfryer.com  found=1/5
+2026-05-29 14:26:38 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Acme production sheeter buy'
+2026-05-29 14:26:38 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 2 'Acme production sheeter buy': 22 new URLs
+INFO:     Started server process [38421]
+INFO:     Waiting for application startup.
+2026-05-29 14:26:38 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:26:38 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:26:38 [INFO] backend.database.db: Database initialized
+2026-05-29 14:26:38 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:26:38 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:26:38 [INFO] backend.app: Scheduler started
+2026-05-29 14:26:38 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:26:38 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:26:38 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:26:38 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:26:38 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:26:39 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Acme production sheeter buy'
+2026-05-29 14:26:39 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Round 2 'Acme production sheeter buy': 20 new URLs
+2026-05-29 14:26:39 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=cityfoodequipment.com  found=1/5
+2026-05-29 14:26:39 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=americaneaglemachine.com  found=2/5
+2026-05-29 14:26:39 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=centralrestaurant.com  found=3/5
+2026-05-29 14:26:39 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Acme production sheeter buy'
+2026-05-29 14:26:39 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 2 'Acme production sheeter buy': 24 new URLs
+2026-05-29 14:26:39 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=cityfoodequipment.com  found=3/5
+2026-05-29 14:26:39 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=centralrestaurant.com  found=4/5
+2026-05-29 14:26:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=americaneaglemachine.com  found=5/5
+2026-05-29 14:26:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=centralrestaurant.com  found=2/5
+2026-05-29 14:26:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=cityfoodequipment.com  found=3/5
+2026-05-29 14:26:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=urbansupplyinc.com  found=4/5
+2026-05-29 14:26:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=ampto.com  found=5/5
+2026-05-29 14:26:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=americaneaglemachine.com  found=4/5
+2026-05-29 14:26:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=urbansupplyinc.com  found=6/5
+2026-05-29 14:26:41 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=ampto.com  found=7/5
+2026-05-29 14:26:41 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=urbansupplyinc.com  found=5/5
+2026-05-29 14:26:41 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=mohawkmachinery.com  found=6/5
+2026-05-29 14:26:41 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=ampto.com  found=6/5
+2026-05-29 14:26:41 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=kitchenrestock.com  found=8/5
+2026-05-29 14:26:41 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=kitchenrestock.com  found=7/5
+2026-05-29 14:26:41 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=kitchenrestock.com  found=7/5
+2026-05-29 14:26:41 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=mohawkmachinery.com  found=8/5
+2026-05-29 14:26:42 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=mohawkmachinery.com  found=9/5
+2026-05-29 14:26:42 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2] ── Done: product='ACME 330DD Donut Production Sheeter (120V) Left To Right Production'  visited=27  found=9/5
+2026-05-29 14:26:42 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1] ── Done: product='ACME 330 Standard Donut Production Sheeter (120V) Right To Left Production'  visited=27  found=7/5
+2026-05-29 14:26:43 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0] ── Done: product='ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'  visited=27  found=8/5
+2026-05-29 14:26:43 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH] complete: processed=3 total_found=24
+INFO:     Started server process [38883]
+INFO:     Waiting for application startup.
+2026-05-29 14:26:49 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:26:49 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:26:49 [INFO] backend.database.db: Database initialized
+2026-05-29 14:26:49 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:26:49 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:26:49 [INFO] backend.app: Scheduler started
+2026-05-29 14:26:49 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:26:49 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:26:49 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:26:49 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:26:49 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [38884]
+INFO:     Waiting for application startup.
+2026-05-29 14:26:59 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:26:59 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:26:59 [INFO] backend.database.db: Database initialized
+2026-05-29 14:26:59 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:26:59 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:26:59 [INFO] backend.app: Scheduler started
+2026-05-29 14:26:59 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:26:59 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:26:59 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:26:59 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:26:59 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [38886]
+INFO:     Waiting for application startup.
+2026-05-29 14:27:10 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:27:10 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:27:10 [INFO] backend.database.db: Database initialized
+2026-05-29 14:27:10 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:27:10 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:27:10 [INFO] backend.app: Scheduler started
+2026-05-29 14:27:10 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:27:10 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:27:10 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:27:10 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:27:10 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     127.0.0.1:57596 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57596 - "GET /static/vendor/alpine.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57601 - "GET /static/vendor/tailwind.min.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57602 - "GET /static/css/style.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57603 - "GET /static/vendor/chart.umd.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57604 - "GET /static/js/app.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57603 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57604 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57604 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57601 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57602 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57596 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57601 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57596 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57602 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57601 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57603 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57613 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57604 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57604 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57613 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57615 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     Started server process [38917]
+INFO:     Waiting for application startup.
+2026-05-29 14:27:20 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:27:20 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:27:20 [INFO] backend.database.db: Database initialized
+2026-05-29 14:27:20 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:27:20 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:27:20 [INFO] backend.app: Scheduler started
+2026-05-29 14:27:20 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:27:20 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:27:20 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:27:20 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:27:20 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     127.0.0.1:57613 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57613 - "GET /api/products?page=1&per_page=50&manufacturer=Acme HTTP/1.1" 200 OK
+2026-05-29 14:27:26 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH] Starting: 3 products queued, 3 workers, sync_interval=300s
+2026-05-29 14:27:26 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0] ── Product: 'ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'  (id=9)
+2026-05-29 14:27:26 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Query:   '330 Standard Donut Production Sheeter Left To Right buy'
+2026-05-29 14:27:26 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1] ── Product: 'ACME 330 Standard Donut Production Sheeter (120V) Right To Left Production'  (id=54)
+2026-05-29 14:27:26 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Query:   '330 Standard Donut Production Sheeter Right To Left buy'
+2026-05-29 14:27:26 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2] ── Product: 'ACME 330DD Donut Production Sheeter (120V) Left To Right Production'  (id=5019)
+2026-05-29 14:27:26 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Query:   '330DD Donut Production Sheeter Left To Right Production buy'
+2026-05-29 14:27:26 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Pre-queuing 5 known competitor URLs
+2026-05-29 14:27:26 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Checking 5 prior competitor URLs
+INFO:     127.0.0.1:57613 - "POST /api/products/parallel-competitor-search HTTP/1.1" 200 OK
+2026-05-29 14:27:26 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=rochesterequipment.com  found=1/5
+2026-05-29 14:27:26 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=restaurantstock.com  found=2/5
+2026-05-29 14:27:26 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '330 Standard Donut Production Sheeter Left To Right buy'
+2026-05-29 14:27:27 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '330 Standard Donut Production Sheeter Right To Left buy'
+2026-05-29 14:27:27 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 1 '330 Standard Donut Production Sheeter Le': 17 new URLs
+2026-05-29 14:27:28 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 1 '330 Standard Donut Production Sheeter Ri': 19 new URLs
+2026-05-29 14:27:28 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 8 results for '330DD Donut Production Sheeter Left To Right Production buy'
+2026-05-29 14:27:28 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Round 1 '330DD Donut Production Sheeter Left To R': 18 new URLs
+2026-05-29 14:27:29 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=untiltimesup.com  price=$1397.97  confidence=30%
+2026-05-29 14:27:29 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=untiltimesup.com  found=3/5
+2026-05-29 14:27:30 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=crispfryer.com  found=1/5
+2026-05-29 14:27:30 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Acme production sheeter buy'
+INFO:     Started server process [39728]
+INFO:     Waiting for application startup.
+2026-05-29 14:27:30 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:27:30 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:27:30 [INFO] backend.database.db: Database initialized
+2026-05-29 14:27:30 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:27:31 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:27:31 [INFO] backend.app: Scheduler started
+2026-05-29 14:27:31 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:27:31 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:27:31 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:27:31 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:27:31 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+2026-05-29 14:27:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=vevor.com  price=$699.90  confidence=31%
+2026-05-29 14:27:31 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=vevor.com  found=4/5
+2026-05-29 14:27:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       Auto-created competitor: reach.dog
+2026-05-29 14:27:31 [INFO] backend.competitor.product_search: [PROD-SEARCH]       MATCH  domain=reach.dog  price=$21499.00  confidence=38%
+2026-05-29 14:27:31 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]       MATCH  domain=reach.dog  found=5/5
+2026-05-29 14:27:31 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 2 'Acme production sheeter buy': 21 new URLs
+2026-05-29 14:27:31 [INFO] backend.search.engine: SerpAPI Shopping (immersive): 12 results for 'Acme production sheeter buy'
+2026-05-29 14:27:31 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2] ── Done: product='ACME 330DD Donut Production Sheeter (120V) Left To Right Production'  visited=19  found=5/5
+2026-05-29 14:27:32 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=cityfoodequipment.com  found=1/5
+2026-05-29 14:27:32 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=centralrestaurant.com  found=2/5
+2026-05-29 14:27:32 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=americaneaglemachine.com  found=3/5
+2026-05-29 14:27:32 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 2 'Acme production sheeter buy': 20 new URLs
+2026-05-29 14:27:32 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=ampto.com  found=4/5
+2026-05-29 14:27:32 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=kitchenrestock.com  found=5/5
+2026-05-29 14:27:32 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=urbansupplyinc.com  found=6/5
+2026-05-29 14:27:32 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=centralrestaurant.com  found=2/5
+2026-05-29 14:27:33 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=cityfoodequipment.com  found=3/5
+2026-05-29 14:27:33 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=americaneaglemachine.com  found=4/5
+2026-05-29 14:27:33 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=ampto.com  found=5/5
+2026-05-29 14:27:33 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=urbansupplyinc.com  found=6/5
+2026-05-29 14:27:33 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]       MATCH  domain=mohawkmachinery.com  found=7/5
+2026-05-29 14:27:33 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=kitchenrestock.com  found=7/5
+2026-05-29 14:27:33 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]       MATCH  domain=mohawkmachinery.com  found=8/5
+2026-05-29 14:27:34 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1] ── Done: product='ACME 330 Standard Donut Production Sheeter (120V) Right To Left Production'  visited=26  found=7/5
+2026-05-29 14:27:34 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0] ── Done: product='ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'  visited=26  found=8/5
+2026-05-29 14:27:34 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH] complete: processed=3 total_found=20
+INFO:     127.0.0.1:57830 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57830 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     Started server process [40249]
+INFO:     Waiting for application startup.
+2026-05-29 14:27:41 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:27:41 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:27:41 [INFO] backend.database.db: Database initialized
+2026-05-29 14:27:41 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:27:41 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:27:41 [INFO] backend.app: Scheduler started
+2026-05-29 14:27:41 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:27:41 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:27:41 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:27:41 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:27:41 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40298]
+INFO:     Waiting for application startup.
+2026-05-29 14:27:51 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:27:51 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:27:51 [INFO] backend.database.db: Database initialized
+2026-05-29 14:27:51 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:27:51 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:27:51 [INFO] backend.app: Scheduler started
+2026-05-29 14:27:51 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:27:51 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:27:51 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:27:51 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:27:51 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40299]
+INFO:     Waiting for application startup.
+2026-05-29 14:28:02 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:28:02 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:28:02 [INFO] backend.database.db: Database initialized
+2026-05-29 14:28:02 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:28:02 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:28:02 [INFO] backend.app: Scheduler started
+2026-05-29 14:28:02 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:28:02 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:28:02 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:28:02 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:28:02 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40301]
+INFO:     Waiting for application startup.
+2026-05-29 14:28:12 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:28:12 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:28:12 [INFO] backend.database.db: Database initialized
+2026-05-29 14:28:12 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:28:12 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:28:12 [INFO] backend.app: Scheduler started
+2026-05-29 14:28:12 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:28:12 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:28:12 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:28:12 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:28:12 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40303]
+INFO:     Waiting for application startup.
+2026-05-29 14:28:23 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:28:23 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:28:23 [INFO] backend.database.db: Database initialized
+2026-05-29 14:28:23 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:28:23 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:28:23 [INFO] backend.app: Scheduler started
+2026-05-29 14:28:23 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:28:23 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:28:23 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:28:23 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:28:23 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40333]
+INFO:     Waiting for application startup.
+2026-05-29 14:28:33 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:28:33 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:28:33 [INFO] backend.database.db: Database initialized
+2026-05-29 14:28:33 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:28:33 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:28:33 [INFO] backend.app: Scheduler started
+2026-05-29 14:28:33 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:28:33 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:28:33 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:28:33 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:28:33 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40334]
+INFO:     Waiting for application startup.
+2026-05-29 14:28:43 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:28:43 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:28:43 [INFO] backend.database.db: Database initialized
+2026-05-29 14:28:43 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:28:43 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:28:43 [INFO] backend.app: Scheduler started
+2026-05-29 14:28:43 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:28:43 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:28:43 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:28:43 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:28:43 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40335]
+INFO:     Waiting for application startup.
+2026-05-29 14:28:54 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:28:54 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:28:54 [INFO] backend.database.db: Database initialized
+2026-05-29 14:28:54 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:28:54 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:28:54 [INFO] backend.app: Scheduler started
+2026-05-29 14:28:54 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:28:54 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:28:54 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:28:54 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:28:54 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40338]
+INFO:     Waiting for application startup.
+2026-05-29 14:29:04 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:29:04 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:29:04 [INFO] backend.database.db: Database initialized
+2026-05-29 14:29:04 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:29:04 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:29:04 [INFO] backend.app: Scheduler started
+2026-05-29 14:29:04 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:29:04 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:29:04 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:29:04 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:29:04 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40339]
+INFO:     Waiting for application startup.
+2026-05-29 14:29:15 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:29:15 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:29:15 [INFO] backend.database.db: Database initialized
+2026-05-29 14:29:15 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:29:15 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:29:15 [INFO] backend.app: Scheduler started
+2026-05-29 14:29:15 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:29:15 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:29:15 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:29:15 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:29:15 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40340]
+INFO:     Waiting for application startup.
+2026-05-29 14:29:25 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:29:25 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:29:25 [INFO] backend.database.db: Database initialized
+2026-05-29 14:29:25 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:29:25 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:29:25 [INFO] backend.app: Scheduler started
+2026-05-29 14:29:25 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:29:25 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:29:25 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:29:25 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:29:25 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     127.0.0.1:58117 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58117 - "GET /static/vendor/alpine.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58121 - "GET /static/css/style.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58123 - "GET /static/vendor/tailwind.min.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58124 - "GET /static/vendor/chart.umd.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58125 - "GET /static/js/app.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58124 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58125 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58125 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58121 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58123 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58117 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58121 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58117 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58123 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58121 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58124 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58130 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58125 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58125 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58130 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58132 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:58130 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     Started server process [40375]
+INFO:     Waiting for application startup.
+2026-05-29 14:29:36 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:29:36 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:29:36 [INFO] backend.database.db: Database initialized
+2026-05-29 14:29:36 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:29:36 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:29:36 [INFO] backend.app: Scheduler started
+2026-05-29 14:29:36 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:29:36 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:29:36 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:29:36 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:29:36 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40376]
+INFO:     Waiting for application startup.
+2026-05-29 14:29:46 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:29:46 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:29:46 [INFO] backend.database.db: Database initialized
+2026-05-29 14:29:46 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:29:46 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:29:46 [INFO] backend.app: Scheduler started
+2026-05-29 14:29:46 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:29:46 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:29:46 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:29:46 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:29:46 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40397]
+INFO:     Waiting for application startup.
+2026-05-29 14:29:56 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:29:56 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:29:56 [INFO] backend.database.db: Database initialized
+2026-05-29 14:29:56 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:29:56 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:29:56 [INFO] backend.app: Scheduler started
+2026-05-29 14:29:56 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:29:56 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:29:56 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:29:56 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:29:56 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [40399]
+INFO:     Waiting for application startup.
+2026-05-29 14:30:07 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-05-29 14:30:07 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:30:07 [INFO] backend.database.db: Database initialized
+2026-05-29 14:30:07 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-05-29 14:30:07 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-05-29 14:30:07 [INFO] backend.app: Scheduler started
+2026-05-29 14:30:07 [INFO] backend.app: Log-tail broadcaster started
+2026-05-29 14:30:07 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-05-29 14:30:07 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-05-29 14:30:07 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-05-29 14:30:07 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
