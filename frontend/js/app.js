@@ -98,6 +98,8 @@ function app() {
     findProductCompResults: [],
     findProductLoading: false,
     findProductSearched: false,
+    findProductHistory: [],
+    findProductHistoryOpen: false,
 
     // Beat This Price
     beatPriceForm: { description: '', price_min: '', price_max: '', max_results: 10 },
@@ -109,6 +111,8 @@ function app() {
     beatPriceCatalogSearch: '',
     beatPriceCatalogResults: [],
     beatPriceProgress: '',           // Status text while running multi-product
+    beatPriceHistory: [],
+    beatPriceHistoryOpen: false,
 
     // Store Comparison
     storeComp: { products: [], total: 0, page: 1, pages: 1, source_sites: [] },
@@ -179,6 +183,8 @@ function app() {
     findCustExcludeNameInput: '',
     findCustResults: [],
     findCustLoading: false,
+    findCustHistory: [],
+    findCustHistoryOpen: false,
 
     // Source Sync / Domain Comparison
     domainComparison: { products: [], total: 0, all_domains: [], page: 1, pages: 1 },
@@ -942,6 +948,21 @@ function app() {
       }
     },
 
+    findProductAllResults() {
+      const web = (this.findProductResults || []).map(r => ({ ...r, result_type: 'web' }));
+      const comp = (this.findProductCompResults || [])
+        .filter(r => r.fuzzy_score >= this.findProductMinFuzzyScore)
+        .map(r => ({ ...r, result_type: 'competitor', domain: r.domain || r.competitor_domain }));
+      return [...web, ...comp];
+    },
+
+    async loadFindProductHistory() {
+      try {
+        const res = await this.api('/api/search/find-product/history?limit=20');
+        this.findProductHistory = res?.searches || [];
+      } catch {}
+    },
+
     async runFindProduct() {
       if (!this.findProductQuery && !this.findProductIds.length) {
         this.toast('Enter a query or select products from the catalog', 'info');
@@ -961,11 +982,12 @@ function app() {
             category: this.findProductCategory || null,
             max_results: this.findProductMaxResults,
             min_fuzzy_score: this.findProductMinFuzzyScore || 0,
-            search_competitor_sites: false,
+            search_competitor_sites: true,
           }),
         });
         this.findProductResults = res?.results || [];
         this.findProductCompResults = res?.competitor_results || [];
+        await this.loadFindProductHistory();
       } catch (e) { this.toast('Search failed: ' + e.message, 'error'); }
       finally { this.findProductLoading = false; this.findProductSearched = true; }
     },
@@ -1102,7 +1124,15 @@ function app() {
       } finally {
         this.beatPriceLoading = false;
         this.beatPriceProgress = '';
+        await this.loadBeatPriceHistory();
       }
+    },
+
+    async loadBeatPriceHistory() {
+      try {
+        const res = await this.api('/api/search/beat-price/history?limit=20');
+        this.beatPriceHistory = res?.searches || [];
+      } catch {}
     },
 
     // -----------------------------------------------------------------------
@@ -1166,8 +1196,16 @@ function app() {
         });
         this.findCustResults = res?.results || [];
         if (!this.findCustResults.length) this.toast('No customers found — try different criteria', 'info');
+        await this.loadFindCustHistory();
       } catch (e) { this.toast('Search failed: ' + e.message, 'error'); }
       finally { this.findCustLoading = false; }
+    },
+
+    async loadFindCustHistory() {
+      try {
+        const res = await this.api('/api/search/find-customers/history?limit=20');
+        this.findCustHistory = res?.searches || [];
+      } catch {}
     },
 
     // Returns an array of comparison rows for the duplicate card.

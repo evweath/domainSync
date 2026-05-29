@@ -45,12 +45,18 @@ from backend.config import config
 from backend.database.db import get_db_session, db_health_check, session_scope
 from backend.database.models import (
     AppSetting,
+    BeatPriceResult,
+    BeatPriceSearch,
     Competitor,
     CompetitorProductMatch,
     CompetitorScan,
     CompetitorScrapingProfile,
     DuplicateCandidate,
     ExportRecord,
+    FindCustomerResult,
+    FindCustomerSearch,
+    FindProductResult,
+    FindProductSearch,
     PriceHistory,
     Product,
     ProductImage,
@@ -2631,14 +2637,10 @@ async def search_find_product(req: FindProductRequest, db: Session = Depends(get
 
     product_name = ' '.join(parts[:2])
 
-    # Build competitor model map: domain → set of model numbers already tracked.
-    # A competitor is excluded from web search results ONLY when the specific model
-    # being searched is already present in its tracked set.
     competitor_model_map: Dict[str, set] = {}
-    all_competitors = (
-        db.query(Competitor).filter(Competitor.is_active == True).all()
-    )
-    competitor_domains = [c.domain for c in all_competitors]
+    all_competitors = db.query(Competitor).filter(Competitor.is_active == True).all()
+    competitor_domain_map: Dict[str, int] = {c.domain: c.id for c in all_competitors}
+    competitor_domains = list(competitor_domain_map.keys())
 
     if model_number:
         sources = (
@@ -2681,13 +2683,96 @@ async def search_find_product(req: FindProductRequest, db: Session = Depends(get
         web_results = await web_coro
         comp_results = []
 
+    # Persist search session + results
+    search_rec = FindProductSearch(
+        query=product_name,
+        model_number=model_number or None,
+        category=category or None,
+        product_ids_json=json.dumps(req.product_ids) if req.product_ids else None,
+        max_results=req.max_results,
+    )
+    db.add(search_rec)
+    db.flush()
+
+    for r in web_results:
+        domain = r.get("domain", "")
+        db.add(FindProductResult(
+            search_id=search_rec.id,
+            result_type="web",
+            url=r.get("url"),
+            domain=domain,
+            title=r.get("title"),
+            description=r.get("description"),
+            price=r.get("price"),
+            model_number=r.get("model_number"),
+            image_url=r.get("image") or None,
+            competitor_id=competitor_domain_map.get(domain),
+        ))
+
+    for r in comp_results:
+        domain = r.get("domain") or r.get("competitor_domain", "")
+        db.add(FindProductResult(
+            search_id=search_rec.id,
+            result_type="competitor",
+            url=r.get("url"),
+            domain=domain,
+            title=r.get("title"),
+            description=r.get("description"),
+            price=r.get("price"),
+            model_number=r.get("model_number"),
+            image_url=r.get("image") or None,
+            fuzzy_score=r.get("fuzzy_score"),
+            source_query=r.get("source_query"),
+            competitor_id=competitor_domain_map.get(domain),
+        ))
+
+    db.commit()
+
     return {
+        "search_id": search_rec.id,
         "query": product_name,
         "model_number": model_number,
         "category": category,
         "results": web_results,
         "competitor_results": comp_results,
     }
+
+
+@router.get("/api/search/find-product/history")
+def find_product_history(limit: int = 20, db: Session = Depends(get_db_session)):
+    searches = (
+        db.query(FindProductSearch)
+        .order_by(FindProductSearch.searched_at.desc())
+        .limit(limit)
+        .all()
+    )
+    out = []
+    for s in searches:
+        out.append({
+            "id": s.id,
+            "query": s.query,
+            "model_number": s.model_number,
+            "category": s.category,
+            "product_ids": json.loads(s.product_ids_json) if s.product_ids_json else [],
+            "searched_at": s.searched_at.isoformat() if s.searched_at else None,
+            "results": [
+                {
+                    "result_type": r.result_type,
+                    "url": r.url,
+                    "domain": r.domain,
+                    "title": r.title,
+                    "description": r.description,
+                    "price": r.price,
+                    "model_number": r.model_number,
+                    "image_url": r.image_url,
+                    "fuzzy_score": r.fuzzy_score,
+                    "source_query": r.source_query,
+                    "competitor_id": r.competitor_id,
+                }
+                for r in s.results
+            ],
+        })
+    return {"searches": out}
 
 
 class BeatPriceRequest(BaseModel):
@@ -2701,7 +2786,7 @@ class BeatPriceRequest(BaseModel):
 
 
 @router.post("/api/search/beat-price")
-async def search_beat_price(req: BeatPriceRequest):
+async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_session)):
     from backend.search.engine import find_suppliers
     results = await find_suppliers(
         description=req.description,
@@ -2712,7 +2797,63 @@ async def search_beat_price(req: BeatPriceRequest):
         characteristics=req.characteristics,
         max_results=req.max_results,
     )
-    return {"results": results}
+
+    search_rec = BeatPriceSearch(
+        description=req.description,
+        model_number=req.model_number,
+        category=req.category,
+        price_min=req.price_min,
+        price_max=req.price_max,
+        characteristics_json=json.dumps(req.characteristics) if req.characteristics else None,
+        max_results=req.max_results,
+    )
+    db.add(search_rec)
+    db.flush()
+    for r in results:
+        db.add(BeatPriceResult(
+            search_id=search_rec.id,
+            url=r.get("url"),
+            domain=r.get("domain"),
+            title=r.get("title"),
+            description=r.get("description"),
+            price=r.get("price"),
+            model_number=r.get("model_number"),
+            image_url=r.get("image") or None,
+        ))
+    db.commit()
+
+    return {"search_id": search_rec.id, "results": results}
+
+
+@router.get("/api/search/beat-price/history")
+def beat_price_history(limit: int = 20, db: Session = Depends(get_db_session)):
+    searches = (
+        db.query(BeatPriceSearch)
+        .order_by(BeatPriceSearch.searched_at.desc())
+        .limit(limit)
+        .all()
+    )
+    out = []
+    for s in searches:
+        out.append({
+            "id": s.id,
+            "description": s.description,
+            "model_number": s.model_number,
+            "category": s.category,
+            "price_min": s.price_min,
+            "price_max": s.price_max,
+            "characteristics": json.loads(s.characteristics_json) if s.characteristics_json else {},
+            "searched_at": s.searched_at.isoformat() if s.searched_at else None,
+            "results": [
+                {
+                    "url": r.url, "domain": r.domain, "title": r.title,
+                    "description": r.description, "price": r.price,
+                    "model_number": r.model_number, "image_url": r.image_url,
+                }
+                for r in s.results
+            ],
+        })
+    return {"searches": out}
 
 
 class FindCustomersRequest(BaseModel):
@@ -2726,7 +2867,7 @@ class FindCustomersRequest(BaseModel):
 
 
 @router.post("/api/search/find-customers")
-async def search_find_customers(req: FindCustomersRequest):
+async def search_find_customers(req: FindCustomersRequest, db: Session = Depends(get_db_session)):
     from backend.search.engine import find_customers
     results = await find_customers(
         business_type=req.business_type,
@@ -2737,7 +2878,62 @@ async def search_find_customers(req: FindCustomersRequest):
         exclude_names=req.exclude_names,
         max_results=req.max_results,
     )
-    return {"results": results}
+
+    search_rec = FindCustomerSearch(
+        business_type=req.business_type,
+        location=req.location,
+        radius_miles=req.radius_miles,
+        keywords_json=json.dumps(req.keywords) if req.keywords else None,
+        exclude_websites_json=json.dumps(req.exclude_websites) if req.exclude_websites else None,
+        exclude_names_json=json.dumps(req.exclude_names) if req.exclude_names else None,
+        max_results=req.max_results,
+    )
+    db.add(search_rec)
+    db.flush()
+    for r in results:
+        db.add(FindCustomerResult(
+            search_id=search_rec.id,
+            url=r.get("url"),
+            domain=r.get("domain"),
+            name=r.get("name"),
+            description=r.get("description"),
+            phone=r.get("phone") or None,
+            address=r.get("address") or None,
+            latitude=r.get("latitude"),
+            longitude=r.get("longitude"),
+        ))
+    db.commit()
+
+    return {"search_id": search_rec.id, "results": results}
+
+
+@router.get("/api/search/find-customers/history")
+def find_customers_history(limit: int = 20, db: Session = Depends(get_db_session)):
+    searches = (
+        db.query(FindCustomerSearch)
+        .order_by(FindCustomerSearch.searched_at.desc())
+        .limit(limit)
+        .all()
+    )
+    out = []
+    for s in searches:
+        out.append({
+            "id": s.id,
+            "business_type": s.business_type,
+            "location": s.location,
+            "radius_miles": s.radius_miles,
+            "keywords": json.loads(s.keywords_json) if s.keywords_json else [],
+            "searched_at": s.searched_at.isoformat() if s.searched_at else None,
+            "results": [
+                {
+                    "url": r.url, "domain": r.domain, "name": r.name,
+                    "description": r.description, "phone": r.phone,
+                    "address": r.address, "latitude": r.latitude, "longitude": r.longitude,
+                }
+                for r in s.results
+            ],
+        })
+    return {"searches": out}
 
 
 # ---------------------------------------------------------------------------

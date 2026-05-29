@@ -526,3 +526,134 @@ class ShopifySavedWebhook(Base):
     __table_args__ = (
         Index("idx_shopify_saved_webhooks_domain", "store_domain"),
     )
+
+
+# ---------------------------------------------------------------------------
+# Find-Product search history
+# ---------------------------------------------------------------------------
+
+class FindProductSearch(Base):
+    __tablename__ = "find_product_searches"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    query = Column(Text)
+    model_number = Column(String(255))
+    category = Column(String(255))
+    product_ids_json = Column(Text)          # JSON array of catalog product IDs used
+    max_results = Column(Integer)
+    searched_at = Column(DateTime, default=func.now())
+
+    results = relationship("FindProductResult", back_populates="search",
+                           cascade="all, delete-orphan")
+
+
+class FindProductResult(Base):
+    __tablename__ = "find_product_results"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    search_id = Column(Integer, ForeignKey("find_product_searches.id"), nullable=False)
+    result_type = Column(String(20))         # 'web' | 'competitor'
+    url = Column(Text)
+    domain = Column(String(500))
+    title = Column(Text)
+    description = Column(Text)
+    price = Column(Float)
+    model_number = Column(String(255))
+    image_url = Column(Text)
+    fuzzy_score = Column(Integer)            # competitor results only
+    source_query = Column(Text)             # competitor results only
+    competitor_id = Column(Integer, ForeignKey("competitors.id"), nullable=True)
+    created_at = Column(DateTime, default=func.now())
+
+    search = relationship("FindProductSearch", back_populates="results")
+
+    __table_args__ = (
+        Index("idx_fpr_search_id", "search_id"),
+        Index("idx_fpr_domain", "domain"),
+    )
+
+
+# ---------------------------------------------------------------------------
+# Beat-Price search history
+# ---------------------------------------------------------------------------
+
+class BeatPriceSearch(Base):
+    __tablename__ = "beat_price_searches"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    description = Column(Text)
+    model_number = Column(String(255))
+    category = Column(String(255))
+    price_min = Column(Float)
+    price_max = Column(Float)
+    characteristics_json = Column(Text)     # JSON dict
+    max_results = Column(Integer)
+    searched_at = Column(DateTime, default=func.now())
+
+    results = relationship("BeatPriceResult", back_populates="search",
+                           cascade="all, delete-orphan")
+
+
+class BeatPriceResult(Base):
+    __tablename__ = "beat_price_results"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    search_id = Column(Integer, ForeignKey("beat_price_searches.id"), nullable=False)
+    product_id = Column(Integer, ForeignKey("products.id"), nullable=True)
+    url = Column(Text)
+    domain = Column(String(500))
+    title = Column(Text)
+    description = Column(Text)
+    price = Column(Float)
+    model_number = Column(String(255))
+    image_url = Column(Text)
+    created_at = Column(DateTime, default=func.now())
+
+    search = relationship("BeatPriceSearch", back_populates="results")
+
+    __table_args__ = (
+        Index("idx_bpr_search_id", "search_id"),
+    )
+
+
+# ---------------------------------------------------------------------------
+# Find-Customers search history
+# ---------------------------------------------------------------------------
+
+class FindCustomerSearch(Base):
+    __tablename__ = "find_customer_searches"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    business_type = Column(String(255))
+    location = Column(String(500))
+    radius_miles = Column(Integer)
+    keywords_json = Column(Text)
+    exclude_websites_json = Column(Text)
+    exclude_names_json = Column(Text)
+    max_results = Column(Integer)
+    searched_at = Column(DateTime, default=func.now())
+
+    results = relationship("FindCustomerResult", back_populates="search",
+                           cascade="all, delete-orphan")
+
+
+class FindCustomerResult(Base):
+    __tablename__ = "find_customer_results"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    search_id = Column(Integer, ForeignKey("find_customer_searches.id"), nullable=False)
+    url = Column(Text)
+    domain = Column(String(500))
+    name = Column(String(500))
+    description = Column(Text)
+    phone = Column(String(100))
+    address = Column(Text)
+    latitude = Column(Float)
+    longitude = Column(Float)
+    created_at = Column(DateTime, default=func.now())
+
+    search = relationship("FindCustomerSearch", back_populates="results")
+
+    __table_args__ = (
+        Index("idx_fcr_search_id", "search_id"),
+    )
