@@ -52,6 +52,7 @@ function app() {
     productSelected: {},          // { product_id: true/false }
     productCompMax: 5,
     productCompRunning: false,
+    productCompIsParallel: false,           // true when using parallel endpoint (2+ products)
     productCompProgress: null,    // { product_title, found, max, phase, current_domain }
     productCompMode: false,                 // true while search-mode view is active
     productCompSearchProducts: [],          // [{id, title, price, primary_image}] — products being searched
@@ -557,16 +558,14 @@ function app() {
       for (const p of this.productCompSearchProducts) {
         this.productCompCounts[p.id] = { found: 0, target, done: false, searching: false, current_domain: null };
       }
+      const useParallel = ids.length > 1;
       this.productCompMode = true;
       this.productCompRunning = true;
+      this.productCompIsParallel = useParallel;
       this.productCompProgress = null;
       this.productCompPauseState = null;
 
       try {
-        // Use parallel search (up to 4 concurrent workers) when multiple products
-        // are selected; fall back to sequential for a single product so pause/resume
-        // UI still works.
-        const useParallel = ids.length > 1;
         if (useParallel) {
           await this.api('/api/products/parallel-competitor-search', {
             method: 'POST',
@@ -608,8 +607,11 @@ function app() {
     async stopCompSearch() {
       this.productCompPauseState = null;
       this.productCompRunning = false;
+      const endpoint = this.productCompIsParallel
+        ? '/api/products/parallel-competitor-search/stop'
+        : '/api/products/competitor-search/stop';
       try {
-        await this.api('/api/products/competitor-search/stop', { method: 'POST' });
+        await this.api(endpoint, { method: 'POST' });
       } catch (e) {
         this.toast('Stop failed: ' + e.message, 'error');
       }
@@ -1028,15 +1030,6 @@ function app() {
 
     beatPriceClearProducts() {
       this.beatPriceProductIds = [];
-    },
-
-    _beatPriceDescribeProduct(p) {
-      // Build a single search description from a product record.
-      const parts = [];
-      if (p.canonical_title || p.title) parts.push(p.canonical_title || p.title);
-      if (p.manufacturer && !parts.join(' ').includes(p.manufacturer)) parts.push(p.manufacturer);
-      if (p.model_number && !parts.join(' ').includes(p.model_number)) parts.push(p.model_number);
-      return parts.join(' ');
     },
 
     async runBeatPrice() {
@@ -2448,16 +2441,23 @@ function app() {
           break;
         case 'product_competitor_search_complete':
         case 'product_competitor_search_error':
+        case 'parallel_search_complete':
+        case 'parallel_search_cancelled':
+        case 'parallel_search_error':
           this.productCompRunning = false;
+          this.productCompIsParallel = false;
           this.productCompProgress = null;
           this.productCompPauseState = null;
           this.loadCompetitors(1);
           this.loadPriceMatrix(1);
-          if (msg.event === 'product_competitor_search_error') {
-            this.toast('Competitor search error: ' + msg.error, 'error');
+          if (msg.event === 'product_competitor_search_error' || msg.event === 'parallel_search_error') {
+            this.toast('Competitor search error: ' + (msg.error || 'unknown'), 'error');
             this.productCompMode = false;
+          } else if (msg.event === 'parallel_search_cancelled') {
+            this.toast('Competitor search cancelled', 'info');
           } else {
-            this.toast(`Competitor search complete — ${msg.total_found || 0} matches found`, 'success');
+            const found = msg.total_found || 0;
+            this.toast(`Competitor search complete — ${found} match${found !== 1 ? 'es' : ''} found`, 'success');
           }
           break;
         case 'ai_categorize_complete':

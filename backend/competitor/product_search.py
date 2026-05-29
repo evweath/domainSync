@@ -471,7 +471,7 @@ async def _process_one_product(
     # Shared mutable state
     found_count = 0
     visited_domains: set = set()
-    all_seen_urls: set = set(prior_urls)   # mark prior URLs as "seen" so they aren't re-fetched from search results
+    all_seen_urls: set = set()
     lock = asyncio.Lock()
     fetch_sem = asyncio.Semaphore(num_fetchers)
     last_pause_at = 0  # visited count at last pause checkpoint
@@ -621,6 +621,15 @@ async def _process_one_product(
             })
 
     # ------------------------------------------------------------------ #
+    # Round 0: flush known-competitor URLs first, before any web search   #
+    # ------------------------------------------------------------------ #
+    if prior_urls and found_count < max_competitors:
+        prior_items = [{'url': u, 'href': u} for u in prior_urls]
+        all_seen_urls.update(prior_urls)   # prevent re-queuing from search results
+        logger.info('%s    Checking %d prior competitor URLs', log_prefix, len(prior_items))
+        await asyncio.gather(*[_process_url(r) for r in prior_items], return_exceptions=True)
+
+    # ------------------------------------------------------------------ #
     # Main round loop — keeps going until target met or all rounds done   #
     # ------------------------------------------------------------------ #
     for round_idx, (round_query, round_engines) in enumerate(rounds):
@@ -636,11 +645,6 @@ async def _process_one_product(
         if round_engines:
             kwargs['engines'] = round_engines
         raw_results = await multi_engine_search(**kwargs)
-
-        # Round 0: prepend prior known-competitor URLs so they're checked first
-        if round_idx == 0 and prior_urls:
-            prior_items = [{'url': u, 'href': u} for u in prior_urls]
-            raw_results = prior_items + list(raw_results)
 
         # Keep only URLs not seen in previous rounds
         new_items = []
@@ -869,8 +873,12 @@ async def run_parallel_product_competitor_search(
             progress['workers_active'] += 1
             try:
                 found = await _process_one_product(
-                    snap, criteria, source_domains,
-                    max_competitors, max_urls, emit,
+                    snap=snap,
+                    criteria=criteria,
+                    source_domains=source_domains,
+                    max_competitors=max_competitors,
+                    max_urls=max_urls,
+                    emit=emit,
                     log_prefix=prefix,
                 )
                 progress['total_found'] += found
