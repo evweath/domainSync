@@ -933,6 +933,72 @@ async def multi_engine_search(
     return shopping_results + [domain_best[d] for d in ranked_organic[:organic_slots]]
 
 
+def _aggregate_and_rank(
+    all_raw: list,
+    img_idx: Dict[str, str],
+    max_results: int,
+    exclude_fn=None,
+) -> List[Dict[str, Any]]:
+    """Shared result aggregation for find_products / find_suppliers.
+
+    Merges results from multiple concurrent engine calls, scores by cross-engine
+    agreement (shopping results weighted 2×), deduplicates by domain, and returns
+    up to max_results enriched result dicts.
+    """
+    domain_score: Dict[str, int] = {}
+    domain_best: Dict[str, Dict] = {}
+
+    for engine_results in all_raw:
+        if isinstance(engine_results, Exception):
+            continue
+        for item in (engine_results or []):
+            url = item.get('href', '') or item.get('url', '')
+            if not url or _is_homepage(url):
+                continue
+            domain = _domain(url)
+            if not domain or domain in _NOISE_DOMAINS:
+                continue
+            if exclude_fn and exclude_fn(domain):
+                continue
+            is_shopping = item.get('source') == 'shopping'
+            domain_score[domain] = domain_score.get(domain, 0) + (2 if is_shopping else 1)
+            entry = {
+                'url': url, 'domain': domain,
+                'title': item.get('title', ''),
+                'body': item.get('body', '') or item.get('description', ''),
+                'price': item.get('price'),
+            }
+            cur = domain_best.get(domain)
+            if cur is None:
+                domain_best[domain] = entry
+            else:
+                if not cur['title'] and entry['title']:
+                    cur['title'] = entry['title']
+                    cur['url'] = url
+                if not cur['body'] and entry['body']:
+                    cur['body'] = entry['body']
+                if not cur['price'] and entry['price']:
+                    cur['price'] = entry['price']
+
+    ranked = sorted(domain_score.keys(), key=lambda d: -domain_score[d])
+    out: List[Dict] = []
+    for domain in ranked:
+        item = domain_best[domain]
+        snippet = item.get('body', '') or ''
+        out.append({
+            'url': item['url'],
+            'domain': domain,
+            'title': item.get('title', ''),
+            'description': snippet,
+            'price': item.get('price') or _extract_price(snippet),
+            'model_number': _extract_model(snippet),
+            'image': img_idx.get(domain, ''),
+        })
+        if len(out) >= max_results:
+            break
+    return out
+
+
 async def find_products(
     product_name: str,
     model_number: Optional[str] = None,
@@ -991,58 +1057,7 @@ async def find_products(
     )
     img_idx = _img_index(images) if isinstance(images, list) else {}
 
-    domain_score: Dict[str, int] = {}
-    domain_best: Dict[str, Dict] = {}
-
-    for engine_results in all_raw:
-        if isinstance(engine_results, Exception):
-            continue
-        for item in (engine_results or []):
-            url = item.get('href', '') or item.get('url', '')
-            if not url or _is_homepage(url):
-                continue
-            domain = _domain(url)
-            if not domain or _should_exclude(domain) or domain in _NOISE_DOMAINS:
-                continue
-            is_shopping = item.get('source') == 'shopping'
-            domain_score[domain] = domain_score.get(domain, 0) + (2 if is_shopping else 1)
-            entry = {
-                'url': url, 'domain': domain,
-                'title': item.get('title', ''),
-                'body': item.get('body', '') or item.get('description', ''),
-                'price': item.get('price'),
-            }
-            cur = domain_best.get(domain)
-            if cur is None:
-                domain_best[domain] = entry
-            else:
-                if not cur['title'] and entry['title']:
-                    cur['title'] = entry['title']
-                    cur['url'] = url
-                if not cur['body'] and entry['body']:
-                    cur['body'] = entry['body']
-                if not cur['price'] and entry['price']:
-                    cur['price'] = entry['price']
-
-    ranked = sorted(domain_score.keys(), key=lambda d: -domain_score[d])
-
-    pre_enrich: List[Dict] = []
-    for domain in ranked:
-        item = domain_best[domain]
-        url = item['url']
-        snippet = item.get('body', '') or ''
-        pre_enrich.append({
-            'url': url,
-            'domain': domain,
-            'title': item.get('title', ''),
-            'description': snippet,
-            'price': item.get('price') or _extract_price(snippet),
-            'model_number': _extract_model(snippet),
-            'image': img_idx.get(domain, ''),
-        })
-        if len(pre_enrich) >= max_results:
-            break
-
+    pre_enrich = _aggregate_and_rank(all_raw, img_idx, max_results, exclude_fn=_should_exclude)
     return await _enrich_prices(pre_enrich)
 
 
@@ -1090,58 +1105,7 @@ async def find_suppliers(
     )
     img_idx = _img_index(images) if isinstance(images, list) else {}
 
-    domain_score: Dict[str, int] = {}
-    domain_best: Dict[str, Dict] = {}
-
-    for engine_results in all_raw:
-        if isinstance(engine_results, Exception):
-            continue
-        for item in (engine_results or []):
-            url = item.get('href', '') or item.get('url', '')
-            if not url or _is_homepage(url):
-                continue
-            domain = _domain(url)
-            if not domain or domain in _NOISE_DOMAINS:
-                continue
-            is_shopping = item.get('source') == 'shopping'
-            domain_score[domain] = domain_score.get(domain, 0) + (2 if is_shopping else 1)
-            entry = {
-                'url': url, 'domain': domain,
-                'title': item.get('title', ''),
-                'body': item.get('body', '') or item.get('description', ''),
-                'price': item.get('price'),
-            }
-            cur = domain_best.get(domain)
-            if cur is None:
-                domain_best[domain] = entry
-            else:
-                if not cur['title'] and entry['title']:
-                    cur['title'] = entry['title']
-                    cur['url'] = url
-                if not cur['body'] and entry['body']:
-                    cur['body'] = entry['body']
-                if not cur['price'] and entry['price']:
-                    cur['price'] = entry['price']
-
-    ranked = sorted(domain_score.keys(), key=lambda d: -domain_score[d])
-
-    pre_enrich: List[Dict] = []
-    for domain in ranked:
-        item = domain_best[domain]
-        url = item['url']
-        snippet = item.get('body', '') or ''
-        pre_enrich.append({
-            'url': url,
-            'domain': domain,
-            'title': item.get('title', ''),
-            'description': snippet,
-            'price': item.get('price') or _extract_price(snippet),
-            'model_number': _extract_model(snippet),
-            'image': img_idx.get(domain, ''),
-        })
-        if len(pre_enrich) >= max_results:
-            break
-
+    pre_enrich = _aggregate_and_rank(all_raw, img_idx, max_results)
     return await _enrich_prices(pre_enrich)
 
 

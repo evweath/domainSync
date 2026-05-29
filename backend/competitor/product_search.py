@@ -393,6 +393,26 @@ def _snapshot_product(p: Product) -> dict:
     }
 
 
+def _get_known_competitor_urls(product_id: int) -> List[str]:
+    """Return URLs of competitors that previously matched this product, newest first.
+
+    These get injected at the front of the URL queue so existing competitors are
+    re-checked before spending time on fresh web searches.
+    """
+    with session_scope() as db:
+        rows = (
+            db.query(CompetitorProductMatch.competitor_url, CompetitorProductMatch.scanned_at)
+            .filter(
+                CompetitorProductMatch.master_product_id == product_id,
+                CompetitorProductMatch.is_active == True,
+                CompetitorProductMatch.competitor_url.isnot(None),
+            )
+            .order_by(CompetitorProductMatch.scanned_at.desc())
+            .all()
+        )
+    return [r[0] for r in rows if r[0]]
+
+
 async def _process_one_product(
     snap: dict,
     criteria: MatchCriteria,
@@ -443,10 +463,15 @@ async def _process_one_product(
         rounds.append((f'commercial {product_type} buy price', shopping_engines))
     rounds.append((f'{query_str} alternatives where to buy', shopping_engines + ['bing', 'google', 'ddg']))
 
+    # Pre-load known competitor URLs so they're checked before any web search
+    prior_urls = _get_known_competitor_urls(snap['id'])
+    if prior_urls:
+        logger.info('%s    Pre-queuing %d known competitor URLs', log_prefix, len(prior_urls))
+
     # Shared mutable state
     found_count = 0
     visited_domains: set = set()
-    all_seen_urls: set = set()
+    all_seen_urls: set = set(prior_urls)   # mark prior URLs as "seen" so they aren't re-fetched from search results
     lock = asyncio.Lock()
     fetch_sem = asyncio.Semaphore(num_fetchers)
     last_pause_at = 0  # visited count at last pause checkpoint
@@ -611,6 +636,11 @@ async def _process_one_product(
         if round_engines:
             kwargs['engines'] = round_engines
         raw_results = await multi_engine_search(**kwargs)
+
+        # Round 0: prepend prior known-competitor URLs so they're checked first
+        if round_idx == 0 and prior_urls:
+            prior_items = [{'url': u, 'href': u} for u in prior_urls]
+            raw_results = prior_items + list(raw_results)
 
         # Keep only URLs not seen in previous rounds
         new_items = []

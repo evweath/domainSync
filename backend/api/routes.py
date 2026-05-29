@@ -2776,7 +2776,8 @@ def find_product_history(limit: int = 20, db: Session = Depends(get_db_session))
 
 
 class BeatPriceRequest(BaseModel):
-    description: str
+    description: Optional[str] = None
+    product_ids: Optional[List[int]] = None   # catalog products to search for
     model_number: Optional[str] = None
     category: Optional[str] = None
     price_min: Optional[float] = None
@@ -2785,18 +2786,25 @@ class BeatPriceRequest(BaseModel):
     max_results: int = 10
 
 
+def _build_beat_price_description(product: Product, extra: Optional[str]) -> str:
+    parts = []
+    if product.canonical_title:
+        parts.append(product.canonical_title)
+    if product.manufacturer and product.manufacturer not in ' '.join(parts):
+        parts.append(product.manufacturer)
+    if product.model_number and product.model_number not in ' '.join(parts):
+        parts.append(product.model_number)
+    if extra:
+        parts.append(extra)
+    return ' '.join(parts)
+
+
 @router.post("/api/search/beat-price")
 async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_session)):
     from backend.search.engine import find_suppliers
-    results = await find_suppliers(
-        description=req.description,
-        model_number=req.model_number,
-        category=req.category,
-        price_min=req.price_min,
-        price_max=req.price_max,
-        characteristics=req.characteristics,
-        max_results=req.max_results,
-    )
+
+    if not req.description and not req.product_ids:
+        raise HTTPException(status_code=400, detail="Provide description or product_ids")
 
     search_rec = BeatPriceSearch(
         description=req.description,
@@ -2809,20 +2817,70 @@ async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_
     )
     db.add(search_rec)
     db.flush()
+
+    if req.product_ids:
+        products = (
+            db.query(Product)
+            .filter(Product.id.in_(req.product_ids), Product.is_active == True)
+            .all()
+        )
+        groups = []
+        for product in products:
+            desc = _build_beat_price_description(product, req.description)
+            try:
+                results = await find_suppliers(
+                    description=desc,
+                    model_number=req.model_number or product.model_number,
+                    category=req.category or product.category,
+                    price_min=req.price_min,
+                    price_max=req.price_max,
+                    characteristics=req.characteristics,
+                    max_results=req.max_results,
+                )
+            except Exception as exc:
+                groups.append({
+                    "product_id": product.id, "title": product.canonical_title,
+                    "our_price": product.price_canonical, "manufacturer": product.manufacturer,
+                    "model_number": product.model_number, "results": [], "error": str(exc),
+                })
+                continue
+
+            for r in results:
+                db.add(BeatPriceResult(
+                    search_id=search_rec.id,
+                    product_id=product.id,
+                    url=r.get("url"), domain=r.get("domain"), title=r.get("title"),
+                    description=r.get("description"), price=r.get("price"),
+                    model_number=r.get("model_number"), image_url=r.get("image") or None,
+                ))
+            groups.append({
+                "product_id": product.id, "title": product.canonical_title,
+                "our_price": product.price_canonical, "manufacturer": product.manufacturer,
+                "model_number": product.model_number, "results": results, "error": None,
+            })
+
+        db.commit()
+        return {"search_id": search_rec.id, "results": [], "groups": groups}
+
+    # Free-text only path
+    results = await find_suppliers(
+        description=req.description,
+        model_number=req.model_number,
+        category=req.category,
+        price_min=req.price_min,
+        price_max=req.price_max,
+        characteristics=req.characteristics,
+        max_results=req.max_results,
+    )
     for r in results:
         db.add(BeatPriceResult(
             search_id=search_rec.id,
-            url=r.get("url"),
-            domain=r.get("domain"),
-            title=r.get("title"),
-            description=r.get("description"),
-            price=r.get("price"),
-            model_number=r.get("model_number"),
-            image_url=r.get("image") or None,
+            url=r.get("url"), domain=r.get("domain"), title=r.get("title"),
+            description=r.get("description"), price=r.get("price"),
+            model_number=r.get("model_number"), image_url=r.get("image") or None,
         ))
     db.commit()
-
-    return {"search_id": search_rec.id, "results": results}
+    return {"search_id": search_rec.id, "results": results, "groups": []}
 
 
 @router.get("/api/search/beat-price/history")

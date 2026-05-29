@@ -563,16 +563,32 @@ function app() {
       this.productCompPauseState = null;
 
       try {
-        await this.api('/api/products/competitor-search', {
-          method: 'POST',
-          body: JSON.stringify({
-            product_ids: ids,
-            max_competitors: target,
-            max_urls: 150,
-            num_fetchers: 4,
-            pause_after: 100,
-          }),
-        });
+        // Use parallel search (up to 4 concurrent workers) when multiple products
+        // are selected; fall back to sequential for a single product so pause/resume
+        // UI still works.
+        const useParallel = ids.length > 1;
+        if (useParallel) {
+          await this.api('/api/products/parallel-competitor-search', {
+            method: 'POST',
+            body: JSON.stringify({
+              product_ids: ids,
+              max_competitors: target,
+              num_workers: Math.min(4, ids.length),
+              max_urls: 150,
+            }),
+          });
+        } else {
+          await this.api('/api/products/competitor-search', {
+            method: 'POST',
+            body: JSON.stringify({
+              product_ids: ids,
+              max_competitors: target,
+              max_urls: 150,
+              num_fetchers: 4,
+              pause_after: 100,
+            }),
+          });
+        }
       } catch (e) {
         this.productCompRunning = false;
         this.productCompMode = false;
@@ -1034,91 +1050,25 @@ function app() {
       this.beatPriceLoading = true;
       this.beatPriceResults = [];
       this.beatPriceGroupedResults = [];
-      this.beatPriceProgress = '';
+      this.beatPriceProgress = hasProducts ? `Searching ${this.beatPriceProductIds.length} product(s)...` : '';
 
-      const chars = Object.fromEntries(
-        Object.entries(this.beatPriceChars).filter(([, v]) => v)
-      );
-      const charsPayload = Object.keys(chars).length ? chars : null;
-      const priceMin = this.beatPriceForm.price_min ? parseFloat(this.beatPriceForm.price_min) : null;
-      const priceMax = this.beatPriceForm.price_max ? parseFloat(this.beatPriceForm.price_max) : null;
-      const maxResults = this.beatPriceForm.max_results || 10;
+      const chars = Object.fromEntries(Object.entries(this.beatPriceChars).filter(([, v]) => v));
+      const payload = {
+        description: this.beatPriceForm.description || null,
+        product_ids: hasProducts ? this.beatPriceProductIds : null,
+        price_min: this.beatPriceForm.price_min ? parseFloat(this.beatPriceForm.price_min) : null,
+        price_max: this.beatPriceForm.price_max ? parseFloat(this.beatPriceForm.price_max) : null,
+        characteristics: Object.keys(chars).length ? chars : null,
+        max_results: this.beatPriceForm.max_results || 10,
+      };
 
       try {
-        if (!hasProducts) {
-          // Free-text only path (legacy behavior).
-          const res = await this.api('/api/search/beat-price', {
-            method: 'POST',
-            body: JSON.stringify({
-              description: this.beatPriceForm.description,
-              price_min: priceMin, price_max: priceMax,
-              characteristics: charsPayload, max_results: maxResults,
-            }),
-          });
-          this.beatPriceResults = res?.results || [];
-          if (!this.beatPriceResults.length) {
-            this.toast('No suppliers found — try broadening the description', 'info');
-          }
-          return;
-        }
-
-        // Multi-product path: load product details, run beat-price per product.
-        const products = [];
-        for (const pid of this.beatPriceProductIds) {
-          try {
-            const p = await this.api(`/api/products/${pid}`);
-            if (p) products.push(p);
-          } catch {}
-        }
-        if (!products.length) {
-          this.toast('Could not load any of the selected products', 'error');
-          return;
-        }
-
-        const groups = [];
-        for (let i = 0; i < products.length; i++) {
-          const p = products[i];
-          this.beatPriceProgress = `Searching ${i + 1}/${products.length}: ${(p.canonical_title || p.title || '').slice(0, 60)}`;
-          const baseDesc = this._beatPriceDescribeProduct(p);
-          const desc = this.beatPriceForm.description
-            ? `${baseDesc}. ${this.beatPriceForm.description}`
-            : baseDesc;
-          try {
-            const res = await this.api('/api/search/beat-price', {
-              method: 'POST',
-              body: JSON.stringify({
-                description: desc,
-                model_number: p.model_number || null,
-                category: p.category || null,
-                price_min: priceMin, price_max: priceMax,
-                characteristics: charsPayload, max_results: maxResults,
-              }),
-            });
-            groups.push({
-              product_id: p.id,
-              title: p.canonical_title || p.title,
-              our_price: p.price_canonical,
-              manufacturer: p.manufacturer,
-              model_number: p.model_number,
-              results: res?.results || [],
-            });
-          } catch (e) {
-            groups.push({
-              product_id: p.id,
-              title: p.canonical_title || p.title,
-              our_price: p.price_canonical,
-              error: e.message,
-              results: [],
-            });
-          }
-        }
-        this.beatPriceGroupedResults = groups;
-        const totalResults = groups.reduce((n, g) => n + (g.results?.length || 0), 0);
-        if (!totalResults) {
-          this.toast('No alternate suppliers found for any selected product', 'info');
-        } else {
-          this.toast(`${totalResults} supplier${totalResults !== 1 ? 's' : ''} found across ${groups.length} product${groups.length !== 1 ? 's' : ''}`, 'success');
-        }
+        const res = await this.api('/api/search/beat-price', { method: 'POST', body: JSON.stringify(payload) });
+        this.beatPriceResults = res?.results || [];
+        this.beatPriceGroupedResults = res?.groups || [];
+        const total = this.beatPriceResults.length + (res?.groups || []).reduce((n, g) => n + (g.results?.length || 0), 0);
+        if (!total) this.toast('No suppliers found — try broadening the description', 'info');
+        else this.toast(`${total} supplier result${total !== 1 ? 's' : ''} found`, 'success');
       } catch (e) {
         this.toast('Search failed: ' + e.message, 'error');
       } finally {
