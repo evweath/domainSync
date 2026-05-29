@@ -665,6 +665,8 @@ def product_price_comparison(product_id: int, db: Session = Depends(get_db_sessi
             CompetitorProductMatch.master_product_id == product_id,
             CompetitorProductMatch.is_active == True,
             CompetitorProductMatch.competitor_price > 0,
+            CompetitorProductMatch.is_similar == False,
+            CompetitorProductMatch.match_confidence >= 40.0,
         ).all()
     )
     for m in matches:
@@ -1688,10 +1690,14 @@ def price_comparison_matrix(
             ):
                 g["our_price"] = p.price_canonical
 
-        # Merge competitor matches. If multiple masters in the group each have
-        # a match to the same competitor, keep the cheapest one.
+        # Merge competitor matches. Only include direct, high-confidence matches —
+        # is_similar matches (from match_similar_product, threshold 25%) are not
+        # direct competitors and must not appear in the price matrix.
+        _MIN_MATCH_CONFIDENCE = 40.0
         for m in p.competitor_matches:
             if not m.is_active:
+                continue
+            if m.is_similar or (m.match_confidence is not None and m.match_confidence < _MIN_MATCH_CONFIDENCE):
                 continue
             comp = next((c for c in competitors if c.id == m.competitor_id), None)
             if comp is None:
