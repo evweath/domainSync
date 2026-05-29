@@ -665,7 +665,6 @@ def product_price_comparison(product_id: int, db: Session = Depends(get_db_sessi
             CompetitorProductMatch.master_product_id == product_id,
             CompetitorProductMatch.is_active == True,
             CompetitorProductMatch.competitor_price > 0,
-            CompetitorProductMatch.is_similar == False,
             CompetitorProductMatch.match_confidence >= 40.0,
         ).all()
     )
@@ -772,6 +771,51 @@ def _serialize_product(p: Product, full: bool = False) -> dict:
 
 # ---------------------------------------------------------------------------
 # Source Scan Control (F01-F05)
+@router.get("/api/products/{product_id}/competitor-matches")
+def get_product_competitor_matches(product_id: int, db: Session = Depends(get_db_session)):
+    """Return all active competitor matches for a product for manual review."""
+    matches = (
+        db.query(CompetitorProductMatch)
+        .filter(
+            CompetitorProductMatch.master_product_id == product_id,
+            CompetitorProductMatch.is_active == True,
+        )
+        .order_by(CompetitorProductMatch.match_confidence.desc())
+        .all()
+    )
+    result = []
+    for m in matches:
+        comp = db.get(Competitor, m.competitor_id)
+        result.append({
+            "id": m.id,
+            "competitor_id": m.competitor_id,
+            "domain": comp.domain if comp else "?",
+            "competitor_url": m.competitor_url,
+            "competitor_title": m.competitor_title,
+            "competitor_price": m.competitor_price,
+            "match_confidence": round(m.match_confidence, 1) if m.match_confidence else None,
+            "match_type": m.match_type,
+            "is_similar": bool(m.is_similar),
+            "in_stock": m.in_stock,
+            "scanned_at": m.scanned_at.isoformat() if m.scanned_at else None,
+        })
+    return {"product_id": product_id, "matches": result}
+
+
+@router.delete("/api/products/{product_id}/competitor-matches/{match_id}")
+def deny_competitor_match(product_id: int, match_id: int, db: Session = Depends(get_db_session)):
+    """Deactivate a competitor match (deny it as incorrect)."""
+    m = db.query(CompetitorProductMatch).filter(
+        CompetitorProductMatch.id == match_id,
+        CompetitorProductMatch.master_product_id == product_id,
+    ).first()
+    if not m:
+        raise HTTPException(status_code=404, detail="Match not found")
+    m.is_active = False
+    db.commit()
+    return {"status": "denied", "match_id": match_id}
+
+
 # ---------------------------------------------------------------------------
 
 class StartScanRequest(BaseModel):
@@ -1690,14 +1734,13 @@ def price_comparison_matrix(
             ):
                 g["our_price"] = p.price_canonical
 
-        # Merge competitor matches. Only include direct, high-confidence matches —
-        # is_similar matches (from match_similar_product, threshold 25%) are not
-        # direct competitors and must not appear in the price matrix.
+        # Merge competitor matches. Include both direct and similar matches as long
+        # as confidence >= 40%. Below-threshold matches are noise regardless of type.
         _MIN_MATCH_CONFIDENCE = 40.0
         for m in p.competitor_matches:
             if not m.is_active:
                 continue
-            if m.is_similar or (m.match_confidence is not None and m.match_confidence < _MIN_MATCH_CONFIDENCE):
+            if m.match_confidence is not None and m.match_confidence < _MIN_MATCH_CONFIDENCE:
                 continue
             comp = next((c for c in competitors if c.id == m.competitor_id), None)
             if comp is None:

@@ -4323,6 +4323,49 @@
       </button>
     </div>
 
+    <!-- Competitor Matches Verification Panel -->
+    <div class="mt-4 border-t pt-3">
+      <div class="flex items-center justify-between mb-2">
+        <div class="font-semibold text-sm">Competitor Matches
+          <span class="text-xs font-normal text-gray-400 ml-1"
+            x-text="productMatchesLoading ? '(loading...)' : '(' + productMatches.length + ')'"></span>
+        </div>
+        <span class="text-xs text-gray-400">Click ✕ to deny incorrect matches</span>
+      </div>
+      <div x-show="productMatchesLoading" class="text-center py-3 text-gray-400 text-xs">Loading...</div>
+      <div x-show="!productMatchesLoading && productMatches.length === 0"
+        class="text-xs text-gray-400 italic py-2">No competitor matches saved yet.</div>
+      <div class="space-y-1 max-h-52 overflow-y-auto">
+        <template x-for="m in productMatches" :key="m.id">
+          <div class="flex items-start gap-2 text-xs rounded p-2"
+            :class="m.is_similar ? 'bg-yellow-50 dark:bg-yellow-900/20' : 'bg-gray-50 dark:bg-gray-700'">
+            <!-- Confidence badge -->
+            <span class="flex-shrink-0 font-bold px-1 py-0.5 rounded text-[10px]"
+              :class="m.match_confidence >= 70 ? 'bg-green-100 text-green-700' : m.match_confidence >= 40 ? 'bg-orange-100 text-orange-700' : 'bg-gray-200 text-gray-500'"
+              x-text="(m.match_confidence || 0).toFixed(0) + '%'"></span>
+            <!-- Domain + URL -->
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1 flex-wrap">
+                <span class="font-semibold text-blue-600" x-text="m.domain"></span>
+                <span x-show="m.is_similar" class="text-yellow-600 text-[10px] italic">~similar</span>
+                <span x-show="m.competitor_price" class="text-green-600 font-bold"
+                  x-text="'$' + Number(m.competitor_price).toFixed(2)"></span>
+                <span x-show="!m.in_stock && m.in_stock !== null" class="text-red-500 text-[10px]">out of stock</span>
+              </div>
+              <div x-show="m.competitor_title" class="text-gray-500 truncate" x-text="m.competitor_title"></div>
+              <a x-show="m.competitor_url" :href="m.competitor_url" target="_blank"
+                class="text-blue-400 hover:underline truncate block max-w-full"
+                x-text="m.competitor_url?.replace(/^https?:\/\//, '').slice(0, 60) + (m.competitor_url?.length > 63 ? '…' : '')"></a>
+            </div>
+            <!-- Deny button -->
+            <button @click.stop="denyProductMatch(selectedProduct.id, m.id)"
+              class="flex-shrink-0 text-gray-400 hover:text-red-500 font-bold text-sm leading-none"
+              title="Deny this match">✕</button>
+          </div>
+        </template>
+      </div>
+    </div>
+
     <!-- Price Comparison Panel -->
     <div x-show="priceComparison && priceComparison.product_id === selectedProduct?.id" class="mt-4 border-t pt-3">
       <div x-show="loadingPriceComp" class="text-center py-4 text-gray-400 text-sm">Loading prices...</div>

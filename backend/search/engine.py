@@ -638,6 +638,99 @@ async def _bing_shopping_search(query: str, max_results: int) -> List[Dict[str, 
         return []
 
 
+async def _duckduckgo_shopping_search(query: str, max_results: int) -> List[Dict[str, Any]]:
+    """Scrape DuckDuckGo Shopping tab using Playwright (JS-rendered).
+
+    DDG shopping has no server-rendered endpoint, so we use a headless browser
+    with a short timeout. Returns empty list on failure rather than raising.
+    """
+    try:
+        from playwright.async_api import async_playwright
+
+        q = quote_plus(query)
+        url = f"https://duckduckgo.com/?q={q}&ia=shopping&iax=shopping"
+        results: List[Dict[str, Any]] = []
+
+        async with async_playwright() as pw:
+            browser = await pw.chromium.launch(headless=True)
+            ctx = await browser.new_context(
+                user_agent=(
+                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/124.0.0.0 Safari/537.36"
+                )
+            )
+            page = await ctx.new_page()
+            try:
+                await page.goto(url, timeout=15000, wait_until="domcontentloaded")
+                # Wait for shopping results to appear (or timeout)
+                try:
+                    await page.wait_for_selector('[data-testid="shopping-result"], .js-shopping-result, .tile--shopping', timeout=8000)
+                except Exception:
+                    pass  # No shopping results loaded — still try to parse
+
+                html = await page.content()
+            finally:
+                await browser.close()
+
+        seen: set = set()
+        # DDG shopping cards typically contain product links with prices
+        # Try multiple selector patterns across DDG versions
+        for link_m in re.finditer(
+            r'href="(https?://[^"]+)"[^>]*>[^<]*<[^>]+>[^<]*</[^>]+>\s*[^<]*(\$[\d,.]+)',
+            html
+        ):
+            merchant_url, price_str = link_m.group(1), link_m.group(2)
+            domain = _domain(merchant_url)
+            if not domain or domain in _NOISE_DOMAINS or domain in seen or 'duckduckgo' in domain:
+                continue
+            seen.add(domain)
+            results.append({
+                'href': merchant_url, 'url': merchant_url, 'domain': domain,
+                'title': domain,
+                'body': price_str,
+                'price': price_str,
+                'source': 'ddg_shopping',
+            })
+            if len(results) >= max_results:
+                break
+
+        # Also try JSON-LD embedded product data
+        for script_m in re.finditer(r'<script[^>]+type="application/ld\+json"[^>]*>(.*?)</script>', html, re.DOTALL):
+            try:
+                data = json.loads(script_m.group(1))
+                if not isinstance(data, dict):
+                    continue
+                if data.get('@type') in ('Product', 'ItemList', 'Offer'):
+                    offers = data.get('offers', {})
+                    if isinstance(offers, dict):
+                        offers = [offers]
+                    for offer in (offers or []):
+                        merchant_url = offer.get('url', '')
+                        if not merchant_url:
+                            continue
+                        domain = _domain(merchant_url)
+                        if not domain or domain in seen or 'duckduckgo' in domain:
+                            continue
+                        seen.add(domain)
+                        price = offer.get('price') or offer.get('lowPrice')
+                        results.append({
+                            'href': merchant_url, 'url': merchant_url, 'domain': domain,
+                            'title': data.get('name', domain),
+                            'body': str(price or ''),
+                            'price': str(price) if price else None,
+                            'source': 'ddg_shopping',
+                        })
+            except Exception:
+                continue
+
+        logger.debug('DDG Shopping: %d results for %r', len(results), query[:60])
+        return results[:max_results]
+    except Exception as exc:
+        logger.debug('DDG Shopping failed: %s', exc)
+        return []
+
+
 async def _yahoo_shopping_search(query: str, max_results: int) -> List[Dict[str, Any]]:
     """Scrape Walmart search via __NEXT_DATA__ JSON (replaces Yahoo Shopping which is JS-only).
 
@@ -845,7 +938,7 @@ async def multi_engine_search(
     ranked by cross-engine agreement.
     """
     if engines is None:
-        engines = ['ddg', 'bing', 'google', 'yahoo', 'shopping', 'bing_shopping', 'yahoo_shopping']
+        engines = ['ddg', 'bing', 'google', 'yahoo', 'shopping', 'bing_shopping', 'yahoo_shopping', 'ddg_shopping']
     exclude = exclude_domains or set()
     fetch = max_results * 3  # over-fetch to account for filtering
 
@@ -869,6 +962,9 @@ async def multi_engine_search(
     if 'yahoo_shopping' in engines:
         shopping_indices.append(len(tasks))
         tasks.append(_yahoo_shopping_search(query, max_results=fetch))
+    if 'ddg_shopping' in engines:
+        shopping_indices.append(len(tasks))
+        tasks.append(_duckduckgo_shopping_search(query, max_results=fetch))
 
     raw = await asyncio.gather(*tasks, return_exceptions=True)
 

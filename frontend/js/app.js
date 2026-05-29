@@ -14,6 +14,8 @@ function app() {
     darkMode: localStorage.getItem('darkMode') === 'true',
     currentView: 'dashboard',
     selectedProduct: null,
+    productMatches: [],          // competitor matches for the selected product
+    productMatchesLoading: false,
     selectedCompetitor: null,
     toasts: [],
     _toastId: 0,
@@ -541,6 +543,23 @@ function app() {
     async openProduct(product) {
       try { this.selectedProduct = await this.api(`/api/products/${product.id}`) || product; }
       catch { this.selectedProduct = product; }
+      this.productMatches = [];
+      await this.loadProductMatches(product.id);
+    },
+
+    async loadProductMatches(productId) {
+      this.productMatchesLoading = true;
+      try {
+        const res = await this.api(`/api/products/${productId}/competitor-matches`);
+        this.productMatches = res?.matches || [];
+      } catch {}
+      finally { this.productMatchesLoading = false; }
+    },
+
+    async denyProductMatch(productId, matchId) {
+      await this.api(`/api/products/${productId}/competitor-matches/${matchId}`, { method: 'DELETE' });
+      this.productMatches = this.productMatches.filter(m => m.id !== matchId);
+      this.toast('Match denied and removed', 'info');
     },
 
     async runProductCompSearch() {
