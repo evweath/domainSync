@@ -238,26 +238,14 @@ def _parse_meta(html: str) -> Dict[str, Any]:
 
 
 async def _curl_fetch(url: str, timeout: int = 15) -> str:
-    """Fetch a URL via subprocess curl — bypasses Python TLS fingerprint filtering."""
-    cmd = [
-        'curl', '-s', '-L',
-        '--max-time', str(timeout),
-        '--compressed',
-        '-A', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15',
-        '-H', 'Accept: text/html,application/xhtml+xml,*/*;q=0.9',
-        '-H', 'Accept-Language: en-US,en;q=0.9',
-        url,
-    ]
+    """Fetch a URL via primp browser impersonation — bypasses TLS fingerprint filtering."""
     try:
-        proc = await asyncio.create_subprocess_exec(
-            *cmd,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.DEVNULL,
-        )
-        stdout, _ = await asyncio.wait_for(proc.communicate(), timeout=timeout + 2)
-        return stdout.decode('utf-8', errors='replace')
+        import primp
+        async with primp.AsyncClient(impersonate='random', timeout=timeout) as client:
+            r = await client.get(url)
+            return r.text
     except Exception as exc:
-        logger.debug("curl fetch failed for %s: %s", url, exc)
+        logger.debug("primp fetch failed for %s: %s", url, exc)
         return ''
 
 

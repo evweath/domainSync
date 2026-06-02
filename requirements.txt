@@ -43,3 +43,11 @@ ddgs>=0.1.0
 
 # Utilities
 python-dateutil>=2.9.0
+lxml>=5.0.0
+psutil>=5.9.0
+
+# TLS browser impersonation (cross-platform curl replacement)
+primp>=0.6.0
+
+# TLS certificate generation (cross-platform openssl replacement)
+cryptography>=42.0.0

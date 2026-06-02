@@ -2,7 +2,6 @@
 Yahoo Shopping scraper — extracts Product Listing Ads (PLAs)
 from Yahoo Search results pages using curl + lxml.
 """
-import asyncio
 import base64
 import logging
 import re
@@ -12,7 +11,6 @@ from urllib.parse import parse_qs, unquote, urlencode, urlparse
 
 from lxml import html as lxml_html
 
-from backend.config import config
 
 logger = logging.getLogger(__name__)
 
@@ -170,20 +168,12 @@ class YahooPLAResult:
 
 
 async def _follow_redirect(url: str) -> str:
-    """Follow HTTP redirects via curl and return the final URL."""
+    """Follow HTTP redirects and return the final URL."""
     try:
-        proc = await asyncio.create_subprocess_exec(
-            'curl', '-s', '-L', '-o', '/dev/null',
-            '-w', '%{url_effective}',
-            '--max-redirs', '5',
-            '--max-time', '10',
-            url,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.DEVNULL,
-        )
-        stdout, _ = await proc.communicate()
-        final = stdout.decode('utf-8', errors='replace').strip()
-        return final if final.startswith('http') else url
+        import httpx
+        async with httpx.AsyncClient(follow_redirects=True, max_redirects=5, timeout=10) as client:
+            r = await client.get(url, headers={'User-Agent': _DEFAULT_UA})
+            return str(r.url)
     except Exception:
         return url
 
@@ -276,11 +266,6 @@ def _parse_price(text: str) -> tuple[Optional[float], Optional[str]]:
     return None, raw
 
 
-def _user_agent() -> str:
-    # Yahoo only serves PLAs to Chrome-identified clients.
-    profiles = config.get('browser', 'profiles', default={})
-    return profiles.get('chrome_mac', {}).get('user_agent') or _DEFAULT_UA
-
 
 async def scrape_yahoo_shopping(
     query: str,
@@ -291,23 +276,14 @@ async def scrape_yahoo_shopping(
     search_url = f'{YAHOO_SEARCH_URL}?p={query.replace(" ", "+")}&fr=yfp-t'
     logger.info('Yahoo Shopping: %s', search_url)
 
-    ua = _user_agent()
     try:
-        proc = await asyncio.create_subprocess_exec(
-            'curl', '-s', '-L',
-            '-A', ua,
-            '-H', 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-            '-H', 'Accept-Language: en-US,en;q=0.9',
-            '--max-time', '20',
-            search_url,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.DEVNULL,
-        )
-        stdout, _ = await proc.communicate()
-        if proc.returncode != 0 or not stdout:
-            logger.warning('Yahoo Shopping curl failed for %r (exit %s)', query, proc.returncode)
-            return results
-        html_text = stdout.decode('utf-8', errors='replace')
+        import primp
+        async with primp.AsyncClient(impersonate='random', timeout=20) as client:
+            r = await client.get(search_url)
+            if not r.text:
+                logger.warning('Yahoo Shopping fetch empty for %r (status %s)', query, r.status_code)
+                return results
+            html_text = r.text
     except Exception as exc:
         logger.warning('Yahoo Shopping fetch failed for %r: %s', query, exc)
         return results

@@ -5,6 +5,7 @@ DB path is fully configurable to support Google Drive shared storage.
 """
 import copy
 import os
+import sys
 from pathlib import Path
 from typing import Any, Dict, Optional
 
@@ -64,6 +65,11 @@ class Config:
             val = os.environ.get(env_var)
             if val is not None:
                 _deep_set(self._settings, keys, val)
+        # On Windows, webkit (Safari) is unavailable — fall back to chromium.
+        if sys.platform == 'win32':
+            profile = self.get('browser', 'default_profile', default='')
+            if profile in {'safari_mac', 'chrome_mac', 'firefox_mac'}:
+                _deep_set(self._settings, ['browser', 'default_profile'], 'chrome_windows')
 
     def get(self, *keys: str, default: Any = None) -> Any:
         return _deep_get(self._settings, *keys, default=default)
