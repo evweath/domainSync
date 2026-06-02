@@ -1734,9 +1734,9 @@ def price_comparison_matrix(
             ):
                 g["our_price"] = p.price_canonical
 
-        # Merge competitor matches. Include both direct and similar matches as long
-        # as confidence >= 40%. Below-threshold matches are noise regardless of type.
-        _MIN_MATCH_CONFIDENCE = 40.0
+        # Include matches with confidence >= 30. Matches between 30–40 are shown
+        # with a "low confidence" flag so the user can judge them.
+        _MIN_MATCH_CONFIDENCE = 30.0
         for m in p.competitor_matches:
             if not m.is_active:
                 continue
@@ -1754,6 +1754,7 @@ def price_comparison_matrix(
                 "price": m.competitor_price,
                 "url": m.competitor_url,
                 "in_stock": m.in_stock,
+                "low_confidence": m.match_confidence is not None and m.match_confidence < 40.0,
             }
 
     # Flatten + flesh out per-row by_competitor with every competitor domain

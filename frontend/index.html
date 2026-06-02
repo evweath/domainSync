@@ -3387,11 +3387,12 @@
               :class="priceMatrixSortDir==='desc' ? 'bg-orange-500 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'"
               class="px-3 py-1 rounded transition-colors">↓ Most expensive first</button>
           </div>
-          <button @click="scanAllCompetitors()" :disabled="competitorScanRunning"
-            class="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-1">
-            <span x-show="competitorScanRunning" class="animate-spin">⏳</span>
-            <span x-show="!competitorScanRunning">🔍</span>
-            <span x-text="competitorScanRunning ? 'Scanning...' : 'Scan All Competitors'"></span>
+          <button @click="startWebSearchScan()" :disabled="webSearchRunning"
+            class="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-1"
+            title="Search Google, Bing, DuckDuckGo &amp; Yahoo for each product to find competitor prices">
+            <span x-show="webSearchRunning" class="animate-spin">⏳</span>
+            <span x-show="!webSearchRunning">🔍</span>
+            <span x-text="webSearchRunning ? 'Scanning...' : 'Web Search Scan'"></span>
           </button>
           <button @click="loadPriceMatrix(1)" x-show="priceMatrixHasSearched"
             class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm">
@@ -3486,9 +3487,11 @@
                         <template x-for="comp in matchedCompetitors(row)" :key="comp.domain">
                           <a :href="comp.url || '#'"
                              :target="comp.url ? '_blank' : ''"
-                             class="inline-flex items-baseline gap-1 px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition flex-shrink-0"
-                             :class="!comp.url && 'pointer-events-none'">
+                             class="inline-flex items-baseline gap-1 px-2 py-0.5 rounded transition flex-shrink-0"
+                             :class="[!comp.url && 'pointer-events-none', comp.low_confidence ? 'bg-yellow-50 dark:bg-yellow-900/20 hover:bg-yellow-100 dark:hover:bg-yellow-900/40 border border-yellow-300 dark:border-yellow-700' : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600']"
+                             :title="comp.low_confidence ? 'Low confidence match — verify manually' : ''">
                             <span class="text-gray-500 dark:text-gray-300" x-text="compShortName(comp.domain)"></span>
+                            <span x-show="comp.low_confidence" class="text-yellow-500 text-[10px]" title="Low confidence">~</span>
                             <span class="font-semibold"
                                   :class="priceDiffClass(priceDiff(row.our_price, comp.price))"
                                   x-text="fmtPrice(comp.price)"></span>

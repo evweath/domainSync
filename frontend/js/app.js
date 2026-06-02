@@ -2033,7 +2033,7 @@ function app() {
       const out = [];
       for (const [domain, info] of Object.entries(by)) {
         if (info && info.price != null) {
-          out.push({ domain, price: info.price, url: info.url, in_stock: info.in_stock });
+          out.push({ domain, price: info.price, url: info.url, in_stock: info.in_stock, low_confidence: !!info.low_confidence });
         }
       }
       const dir = this.priceMatrixSortDir === 'desc' ? -1 : 1;

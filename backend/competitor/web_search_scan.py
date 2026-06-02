@@ -109,12 +109,15 @@ def _build_query(product: Product) -> str:
     # Treat generic/placeholder manufacturer values as absent
     if mfr.lower() in _GENERIC_MANUFACTURERS:
         mfr = ''
-    if mfr and product.model_number:
-        model = re.sub(r'[^\w\-]', '', product.model_number)
+    # Prefer model_number; fall back to SKU before falling back to title.
+    # SKU is often the most precise searchable identifier (e.g. "330D-LR-120").
+    identifier = product.model_number or getattr(product, 'sku', None) or None
+    if mfr and identifier:
+        model = re.sub(r'[^\w\-]', '', identifier)
         parts.append(mfr)
         parts.append(f'"{model}"')
-    elif product.model_number:
-        model = re.sub(r'[^\w\-]', '', product.model_number)
+    elif identifier:
+        model = re.sub(r'[^\w\-]', '', identifier)
         parts.append(f'"{model}"')
     else:
         title = _clean_title_for_search(product.canonical_title or '')
