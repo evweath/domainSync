@@ -104038,3 +104038,46 @@ INFO:     127.0.0.1:56354 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 2
 INFO:     127.0.0.1:56353 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
 INFO:     127.0.0.1:56355 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
 INFO:     127.0.0.1:56357 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56378 - "POST /api/competitors/scan HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:56378 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56378 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56381 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56378 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56380 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56381 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56378 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56380 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56379 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56382 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56383 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56381 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56378 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56559 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56559 - "GET /api/products?page=1&per_page=50&search=Price+Comparison+Matrix HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56559 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56559 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56562 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56562 - "GET /api/products?page=1&per_page=50&search=ACME+330+Standard+Donut+Production HTTP/1.1" 200 OK
+2026-06-02 18:28:54 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH] Starting: 2 products queued, 2 workers, sync_interval=300s
+2026-06-02 18:28:54 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0] ── Product: 'ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'  (id=9)
+2026-06-02 18:28:54 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Query:   '330 Standard Donut Production Sheeter Left To Right buy'
+2026-06-02 18:28:54 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1] ── Product: 'ACME 330 Standard Donut Production Sheeter (120V) Right To Left Production'  (id=54)
+2026-06-02 18:28:54 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Query:   '330 Standard Donut Production Sheeter Right To Left buy'
+2026-06-02 18:28:54 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Pre-queuing 1 known competitor URLs
+2026-06-02 18:28:54 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Checking 1 prior competitor URLs
+INFO:     127.0.0.1:56565 - "POST /api/products/parallel-competitor-search HTTP/1.1" 200 OK
+2026-06-02 18:28:55 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 1 '330 Standard Donut Production Sheeter Le': 0 new URLs
+2026-06-02 18:28:55 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 1 '330 Standard Donut Production Sheeter Ri': 0 new URLs
+2026-06-02 18:28:55 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 2 'Acme production sheeter buy': 0 new URLs
+2026-06-02 18:28:55 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 2 'Acme production sheeter buy': 0 new URLs
+2026-06-02 18:28:55 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 3 'commercial production sheeter buy price': 0 new URLs
+2026-06-02 18:28:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 3 'commercial production sheeter buy price': 0 new URLs
+2026-06-02 18:28:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 4 '330 Standard Donut Production Sheeter Le': 0 new URLs
+2026-06-02 18:28:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0] ── Done: product='ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'  visited=0  found=0/5
+2026-06-02 18:28:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 4 '330 Standard Donut Production Sheeter Ri': 0 new URLs
+2026-06-02 18:28:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1] ── Done: product='ACME 330 Standard Donut Production Sheeter (120V) Right To Left Production'  visited=1  found=0/5
+2026-06-02 18:28:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH] complete: processed=2 total_found=0
+INFO:     127.0.0.1:56565 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57069 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57071 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57070 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
