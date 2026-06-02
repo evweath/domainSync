@@ -103997,3 +103997,44 @@ Call log:
 Call log:
   - navigating to "https://columbia.com/", waiting until "domcontentloaded"
 
+2026-06-02 18:11:37 [WARNING] backend.scrapers.base_scraper: Context error on https://columbia.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://columbia.com/", waiting until "domconte
+2026-06-02 18:11:37 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-02 18:11:37 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://columbia.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://columbia.com/", waiting until "domcontentloaded"
+
+2026-06-02 18:11:53 [WARNING] backend.scrapers.base_scraper: Context error on https://columbia.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://columbia.com/", waiting until "domconte
+2026-06-02 18:11:53 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-02 18:11:53 [ERROR] backend.scrapers.base_scraper: Failed https://columbia.com after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://columbia.com/", waiting until "domcontentloaded"
+
+2026-06-02 18:11:53 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://columbia.com
+2026-06-02 18:11:53 [INFO] backend.competitor.scraper: [SCRAPE] Found 0 product URLs on columbia.com
+2026-06-02 18:11:53 [INFO] backend.competitor.scraper: columbia.com: 0 products found (no errors) — 3-day cooldown started
+2026-06-02 18:11:53 [INFO] backend.competitor.scraper: Skipping completepackagingproducts.com — 3-day empty-scan cooldown (resets 2026-06-04)
+2026-06-02 18:11:53 [INFO] backend.competitor.scraper: Skipping concessionsite.com — 3-day empty-scan cooldown (resets 2026-06-04)
+2026-06-02 18:11:53 [INFO] backend.competitor.scraper: Skipping cooksdirect.com — 3-day empty-scan cooldown (resets 2026-06-04)
+2026-06-02 18:11:53 [INFO] backend.competitor.scraper: Skipping crispfryer.com — 3-day empty-scan cooldown (resets 2026-06-04)
+INFO:     127.0.0.1:56352 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56354 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56357 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56356 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56353 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56355 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56354 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56352 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56353 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56357 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56352 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56355 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56356 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56352 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56354 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56353 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56355 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56357 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
