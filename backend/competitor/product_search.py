@@ -226,7 +226,7 @@ def _build_query(product: Any, override: Optional[str]) -> str:
         cleaned_title = ' '.join(cleaned_title.split())
 
     if use_model:
-        if mfg and not mfg_in_title:
+        if mfg:
             parts.append(mfg)
         parts.append(f'"{clean_model}"')
         # Carry the cleaned title minus the model (the cleaner already
@@ -235,8 +235,15 @@ def _build_query(product: Any, override: Optional[str]) -> str:
         rest = re.sub(re.escape(clean_model), '', cleaned_title, flags=re.I).strip()
         if rest:
             parts.append(rest)
+    elif getattr(product, 'sku', None):
+        # No model number — use SKU as keywords (unquoted; quoted multi-hyphen
+        # SKUs return near-zero results from all search engines).
+        sku = re.sub(r'[^\w\-]', '', product.sku)
+        if mfg:
+            parts.append(mfg)
+        parts.append(sku)
     else:
-        if mfg and not mfg_in_title:
+        if mfg:
             parts.append(mfg)
         if cleaned_title:
             parts.append(cleaned_title)
