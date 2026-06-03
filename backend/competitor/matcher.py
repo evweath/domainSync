@@ -78,7 +78,7 @@ def match_competitor_product(
     comp_img_hash = competitor_product.get("image_hash", "")
 
     best: Optional[MatchResult] = None
-    MIN_CONFIDENCE = 40.0
+    MIN_CONFIDENCE = 30.0
 
     for master in master_products:
         master_model = _norm(master.model_number or master.sku or "")
@@ -105,17 +105,26 @@ def match_competitor_product(
             pass  # master has no model, can't disqualify
 
         # Manufacturer match
-        if criteria.use_manufacturer and comp_mfr and master_mfr:
-            if comp_mfr == master_mfr:
-                score += criteria.weight_manufacturer
-                types.append("manufacturer")
-                reasons["manufacturer"] = {"score": criteria.weight_manufacturer}
-            else:
-                mfr_sim = fuzz.ratio(comp_mfr, master_mfr)
-                if mfr_sim >= 80:
-                    partial = criteria.weight_manufacturer * (mfr_sim / 100)
-                    score += partial
-                    reasons["manufacturer_fuzzy"] = {"similarity": mfr_sim, "score": partial}
+        if criteria.use_manufacturer and master_mfr:
+            if comp_mfr:
+                if comp_mfr == master_mfr:
+                    score += criteria.weight_manufacturer
+                    types.append("manufacturer")
+                    reasons["manufacturer"] = {"score": criteria.weight_manufacturer}
+                else:
+                    mfr_sim = fuzz.ratio(comp_mfr, master_mfr)
+                    if mfr_sim >= 80:
+                        partial = criteria.weight_manufacturer * (mfr_sim / 100)
+                        score += partial
+                        reasons["manufacturer_fuzzy"] = {"similarity": mfr_sim, "score": partial}
+            elif comp_title and master_mfr in comp_title:
+                # Manufacturer not in a dedicated field but appears in the product title
+                # (e.g. "Acme 330D Donut Production Table" — "acme" is in the title).
+                # Give half credit so title-dominant matches can still reach threshold.
+                partial = criteria.weight_manufacturer * 0.5
+                score += partial
+                types.append("manufacturer_in_title")
+                reasons["manufacturer_in_title"] = {"score": partial}
 
         # Title matching
         if comp_title and master_title:
