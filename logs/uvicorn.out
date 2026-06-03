@@ -104802,3 +104802,35 @@ INFO:     127.0.0.1:53417 - "WebSocket /ws/scan-progress" [accepted]
 INFO:     connection open
 INFO:     127.0.0.1:53418 - "WebSocket /ws/scan-progress" [accepted]
 INFO:     connection open
+INFO:     127.0.0.1:53459 - "GET /api/products?page=1&per_page=50&manufacturer=Acme HTTP/1.1" 200 OK
+2026-06-02 19:00:47 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'  (id=9)
+2026-06-02 19:00:47 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '330 Standard Donut Production Sheeter Left To Right buy'
+INFO:     127.0.0.1:53460 - "POST /api/products/competitor-search HTTP/1.1" 200 OK
+2026-06-02 19:00:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '330 Standard Donut Production Sheeter Le': 0 new URLs
+2026-06-02 19:00:48 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Acme production sheeter buy': 0 new URLs
+2026-06-02 19:00:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial production sheeter buy price': 0 new URLs
+2026-06-02 19:00:49 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '330 Standard Donut Production Sheeter Le': 0 new URLs
+2026-06-02 19:00:49 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'  visited=0  found=0/5
+INFO:     127.0.0.1:53460 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53713 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53714 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53712 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53717 - "GET /api/products?page=1&per_page=50&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53717 - "GET /api/products?page=1&per_page=50&manufacturer=Adam+Equipment HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53717 - "GET /api/products?page=1&per_page=50&manufacturer=Acme HTTP/1.1" 200 OK
+2026-06-02 19:01:04 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Product: 'ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'  (id=9)
+2026-06-02 19:01:04 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Query:   '330 Standard Donut Production Sheeter Left To Right buy'
+INFO:     127.0.0.1:53717 - "POST /api/products/competitor-search HTTP/1.1" 200 OK
+2026-06-02 19:01:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 1 '330 Standard Donut Production Sheeter Le': 0 new URLs
+2026-06-02 19:01:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 2 'Acme production sheeter buy': 0 new URLs
+2026-06-02 19:01:05 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 3 'commercial production sheeter buy price': 0 new URLs
+2026-06-02 19:01:06 [INFO] backend.competitor.product_search: [PROD-SEARCH]    Round 4 '330 Standard Donut Production Sheeter Le': 0 new URLs
+2026-06-02 19:01:06 [INFO] backend.competitor.product_search: [PROD-SEARCH] ── Done: product='ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'  visited=0  found=0/5
+INFO:     127.0.0.1:53717 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53969 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53971 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53970 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53717 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53972 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53972 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53972 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Acme HTTP/1.1" 200 OK
