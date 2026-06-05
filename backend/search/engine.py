@@ -258,6 +258,8 @@ _NOISE_DOMAINS = frozenset({
     'offerup.com', 'letgo.com', 'craigslist.org',
     # Own/source stores — should never appear as competitor or supplier results
     'bakerywholesalers.com', 'donut-supplies.com', 'donut-equipment.com',
+    # Unrelated sites that pollute results
+    'zillow.com',
 })
 
 

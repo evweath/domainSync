@@ -1051,6 +1051,16 @@ function app() {
       this.beatPriceProductIds = [];
     },
 
+    beatPriceReset() {
+      this.beatPriceProductIds = [];
+      this.beatPriceResults = [];
+      this.beatPriceGroupedResults = [];
+      this.beatPriceForm = { description: '', price_min: '', price_max: '', max_results: 10 };
+      this.beatPriceChars = {};
+      this.beatPriceCatalogSearch = '';
+      this.beatPriceCatalogResults = [];
+    },
+
     async runBeatPrice() {
       const hasProducts = this.beatPriceProductIds.length > 0;
       const hasDescription = !!(this.beatPriceForm.description || '').trim();

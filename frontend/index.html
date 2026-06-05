@@ -2258,6 +2258,15 @@
         </div>
       </div>
 
+      <!-- New Search button — shown once results are present -->
+      <div x-show="beatPriceGroupedResults.length > 0 || beatPriceResults.length > 0"
+           class="flex justify-end mb-4">
+        <button @click="beatPriceReset()"
+          class="text-sm bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg font-medium">
+          ✕ New Search
+        </button>
+      </div>
+
       <!-- Results: grouped per product when products were selected -->
       <div x-show="beatPriceGroupedResults.length > 0" class="space-y-6">
         <template x-for="g in beatPriceGroupedResults" :key="g.product_id">
@@ -2290,7 +2299,16 @@
                   <div class="flex-1 min-w-0">
                     <div class="flex items-start justify-between gap-2">
                       <div class="text-sm font-semibold line-clamp-1" x-text="r.title"></div>
-                      <span x-show="r.price" class="text-green-600 font-bold text-sm flex-shrink-0" x-text="r.price"></span>
+                      <!-- Price + diff vs our price -->
+                      <div x-show="r.price != null" class="text-right flex-shrink-0 ml-2">
+                        <div class="font-bold text-sm"
+                             :class="r.price < g.our_price ? 'text-green-600' : (r.price > g.our_price ? 'text-red-500' : 'text-gray-700 dark:text-gray-200')"
+                             x-text="fmtPrice(r.price)"></div>
+                        <div x-show="g.our_price != null"
+                             class="text-xs font-semibold"
+                             :class="(r.price - g.our_price) < 0 ? 'text-green-600' : 'text-red-500'"
+                             x-text="fmtDollarDiff(r.price - g.our_price)"></div>
+                      </div>
                     </div>
                     <div class="text-xs text-gray-500 line-clamp-2 mt-0.5" x-text="r.description"></div>
                     <div class="flex items-center gap-3 mt-1">
@@ -2319,7 +2337,7 @@
             <div class="flex-1 min-w-0">
               <div class="flex items-start justify-between gap-2">
                 <div class="text-sm font-semibold line-clamp-1" x-text="r.title"></div>
-                <span x-show="r.price" class="text-green-600 font-bold text-sm flex-shrink-0" x-text="r.price"></span>
+                <span x-show="r.price != null" class="text-green-600 font-bold text-sm flex-shrink-0" x-text="fmtPrice(r.price)"></span>
               </div>
               <div class="text-xs text-gray-500 line-clamp-2 mt-0.5" x-text="r.description"></div>
               <div class="flex items-center gap-3 mt-2">
