@@ -2840,6 +2840,20 @@ class BeatPriceRequest(BaseModel):
     max_results: int = 10
 
 
+def _parse_price(val) -> Optional[float]:
+    """Convert a price value (string like '$29.99' or numeric) to float, or None."""
+    if val is None:
+        return None
+    if isinstance(val, (int, float)):
+        return float(val)
+    import re as _re
+    digits = _re.sub(r'[^\d.]', '', str(val))
+    try:
+        return float(digits) if digits else None
+    except ValueError:
+        return None
+
+
 def _build_beat_price_description(product: Product, extra: Optional[str]) -> str:
     parts = []
     if product.canonical_title:
@@ -2915,9 +2929,11 @@ async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_
                     search_id=search_rec.id,
                     product_id=product.id,
                     url=r.get("url"), domain=r.get("domain"), title=r.get("title"),
-                    description=r.get("description"), price=r.get("price"),
+                    description=r.get("description"), price=_parse_price(r.get("price")),
                     model_number=r.get("model_number"), image_url=r.get("image") or None,
                 ))
+            for r in results:
+                r["price"] = _parse_price(r.get("price"))
             groups.append({
                 "product_id": product.id, "title": product.canonical_title,
                 "our_price": product.price_canonical, "manufacturer": product.manufacturer,
@@ -2943,10 +2959,11 @@ async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_
         pattern_queries=pattern_queries or None,
     )
     for r in results:
+        r["price"] = _parse_price(r.get("price"))
         db.add(BeatPriceResult(
             search_id=search_rec.id,
             url=r.get("url"), domain=r.get("domain"), title=r.get("title"),
-            description=r.get("description"), price=r.get("price"),
+            description=r.get("description"), price=r["price"],
             model_number=r.get("model_number"), image_url=r.get("image") or None,
         ))
     db.commit()
