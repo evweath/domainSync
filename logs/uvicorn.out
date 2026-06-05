@@ -110429,3 +110429,137 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
 INFO:     127.0.0.1:54344 - "GET /api/docs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:54372 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54372 - "GET /static/vendor/alpine.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54373 - "GET /static/vendor/chart.umd.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54374 - "GET /static/css/style.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54375 - "GET /static/vendor/tailwind.min.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54376 - "GET /static/js/app.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54372 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54374 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54373 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54374 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54372 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54374 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54372 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54374 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54373 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54375 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54373 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54375 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54377 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54377 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54372 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54377 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54373 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54376 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54372 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54377 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54375 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54374 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54373 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54376 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54378 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54379 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:54372 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54377 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54375 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54373 - "GET /api/search/beat-price/history?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54374 - "GET /api/products?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54380 - "GET /api/products?per_page=20&search=fr HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54380 - "GET /api/products?per_page=20&search=fryer HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54380 - "GET /api/products?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54380 - "GET /api/products?per_page=20&search=sh HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54380 - "GET /api/products?per_page=20&search=sheeter HTTP/1.1" 200 OK
+2026-06-05 14:32:47 [WARNING] backend.search.engine: DDG image search failed (images will be missing): ConnectError: ConnectError('error sending request for url (https://duckduckgo.com/?q=buy+ACME+330+Standard+Donut+Production+Sheeter+%28120V%29+Right+To+Left+Production+Acme) > client error (Connect) > Socket is not connected (os error 57)')
+INFO:     127.0.0.1:54383 - "POST /api/search/beat-price HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54383 - "GET /api/search/beat-price/history?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54900 - "GET /api/products?per_page=20&search=fryer HTTP/1.1" 200 OK
+2026-06-05 14:33:09 [WARNING] backend.search.engine: DDG image search failed (images will be missing): ConnectError: ConnectError('error sending request for url (https://duckduckgo.com/?q=buy+616B+Cut-N-Fry+for+Loukoumades-+Includes+Depositor%2C+Plunger%2C+Cylinder%2C+Mount%2C+Submerger%2C+2+screens+with+handles+and+Fryer+Belshaw+Adamatic) > client error (Connect) > Socket is not connected (os error 57)')
+INFO:     127.0.0.1:54900 - "POST /api/search/beat-price HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54900 - "GET /api/search/beat-price/history?limit=20 HTTP/1.1" 200 OK
+INFO:     Started server process [63923]
+INFO:     Waiting for application startup.
+2026-06-05 14:38:32 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-06-05 14:38:32 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-05 14:38:32 [INFO] backend.database.db: Database initialized
+2026-06-05 14:38:32 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-05 14:38:32 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-06-05 14:38:32 [INFO] backend.app: Scheduler started
+2026-06-05 14:38:32 [INFO] backend.app: Log-tail broadcaster started
+2026-06-05 14:38:32 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-06-05 14:38:32 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55527 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55528 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55529 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:55531 - "GET /api/docs HTTP/1.1" 401 Unauthorized
+INFO:     Started server process [63977]
+INFO:     Waiting for application startup.
+2026-06-05 14:38:42 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-06-05 14:38:42 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-05 14:38:42 [INFO] backend.database.db: Database initialized
+2026-06-05 14:38:42 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-05 14:38:42 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-06-05 14:38:42 [INFO] backend.app: Scheduler started
+2026-06-05 14:38:42 [INFO] backend.app: Log-tail broadcaster started
+2026-06-05 14:38:42 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-06-05 14:38:42 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55538 - "GET /api/docs HTTP/1.1" 401 Unauthorized
+INFO:     Started server process [64212]
+INFO:     Waiting for application startup.
+2026-06-05 14:39:41 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-06-05 14:39:41 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-05 14:39:41 [INFO] backend.database.db: Database initialized
+2026-06-05 14:39:41 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-05 14:39:42 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-06-05 14:39:42 [INFO] backend.app: Scheduler started
+2026-06-05 14:39:42 [INFO] backend.app: Log-tail broadcaster started
+2026-06-05 14:39:42 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-06-05 14:39:42 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-06-05 14:39:42 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-06-05 14:39:42 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [64277]
+INFO:     Waiting for application startup.
+2026-06-05 14:39:52 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-06-05 14:39:52 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-05 14:39:52 [INFO] backend.database.db: Database initialized
+2026-06-05 14:39:52 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-05 14:39:52 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-06-05 14:39:52 [INFO] backend.app: Scheduler started
+2026-06-05 14:39:52 [INFO] backend.app: Log-tail broadcaster started
+2026-06-05 14:39:52 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-06-05 14:39:52 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-06-05 14:39:52 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-06-05 14:39:52 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Started server process [64377]
+INFO:     Waiting for application startup.
+2026-06-05 14:40:02 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-06-05 14:40:02 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-05 14:40:02 [INFO] backend.database.db: Database initialized
+2026-06-05 14:40:02 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-05 14:40:02 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-06-05 14:40:02 [INFO] backend.app: Scheduler started
+2026-06-05 14:40:02 [INFO] backend.app: Log-tail broadcaster started
+2026-06-05 14:40:02 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-06-05 14:40:02 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+INFO:     Waiting for application shutdown.
+2026-06-05 14:40:02 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-06-05 14:40:02 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.

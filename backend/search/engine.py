@@ -1172,7 +1172,9 @@ async def find_suppliers(
     pattern_queries is an ordered list of (pattern_id, query_text) produced by
     pattern_learner.generate_queries().  Each pattern runs its own concurrent
     search; all results are fuzzy-scored against the original description,
-    deduplicated by domain, sorted best-first, and filtered to >=30%.
+    deduplicated by domain, sorted best-first.  Results with fuzzy score >=30%
+    are preferred; if fewer than 3 clear that bar the top results are returned
+    regardless so the page is never empty.
 
     Returns (results, per_pattern_best_fuzzy) where per_pattern_best_fuzzy maps
     each pattern_id to the highest fuzzy score any of its results achieved.
@@ -1249,10 +1251,13 @@ async def find_suppliers(
         for result in _aggregate_and_rank(supp_raw, img_idx, max_results * 3):
             _score_and_merge(result, 'supplemental')
 
-    # Sort by fuzzy score, filter <30%, cap at max_results, then enrich prices.
+    # Sort by fuzzy score descending.  Apply the 30% floor only when enough
+    # results clear it; otherwise fall back to the top-N by score so the user
+    # always sees something rather than an empty list.
     ranked = sorted(domain_best.values(), key=lambda r: -(r.get('fuzzy_score') or 0))
-    filtered = [r for r in ranked if (r.get('fuzzy_score') or 0) >= 30]
-    results = await _enrich_prices(filtered[:max_results])
+    above_threshold = [r for r in ranked if (r.get('fuzzy_score') or 0) >= 30]
+    pool = above_threshold if len(above_threshold) >= 3 else ranked
+    results = await _enrich_prices(pool[:max_results])
     return results, per_pattern_best
 
 
