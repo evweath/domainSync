@@ -1160,44 +1160,96 @@ async def find_suppliers(
     price_max: Optional[float] = None,
     characteristics: Optional[Dict] = None,
     max_results: int = 10,
-) -> List[Dict[str, Any]]:
-    """Find alternate suppliers using multiple targeted queries."""
-    char_parts: List[str] = []
-    if characteristics:
-        for v in characteristics.values():
-            if v:
-                char_parts.append(str(v))
+    pattern_queries: Optional[List[Tuple[str, str]]] = None,
+) -> Tuple[List[Dict[str, Any]], Dict[str, int]]:
+    """
+    Find alternate suppliers using pattern-based title queries.
+
+    pattern_queries is an ordered list of (pattern_id, query_text) produced by
+    pattern_learner.generate_queries().  Each pattern runs its own concurrent
+    search; all results are fuzzy-scored against the original description,
+    deduplicated by domain, sorted best-first, and filtered to >=30%.
+
+    Returns (results, per_pattern_best_fuzzy) where per_pattern_best_fuzzy maps
+    each pattern_id to the highest fuzzy score any of its results achieved.
+    """
+    from rapidfuzz import fuzz as _fuzz
+
+    char_parts: List[str] = [str(v) for v in (characteristics or {}).values() if v]
     price_hint = f"under ${price_max:.0f}" if price_max else (f"over ${price_min:.0f}" if price_min else '')
-    base = ' '.join(filter(None, [description] + char_parts + [price_hint]))
 
-    search_tasks: List[Any] = []
-    search_tasks.append(multi_engine_search(
-        f"buy {base} supplier wholesale price", max_results=max_results * 3,
-        engines=['ddg', 'bing', 'google', 'yahoo'],
-    ))
-    search_tasks.append(_google_shopping_search(f"buy {base}", max_results=max_results * 2))
+    if not pattern_queries:
+        pattern_queries = [("full", description)]
 
+    # Build all search tasks; track which pattern each task belongs to.
+    all_tasks: List[Any] = []
+    task_pids: List[str] = []   # parallel list: pattern_id per task slot
+
+    for pid, query in pattern_queries:
+        base = ' '.join(filter(None, [query] + char_parts + [price_hint]))
+        all_tasks.append(multi_engine_search(
+            f"buy {base} supplier wholesale price", max_results=max_results * 2,
+            engines=['ddg', 'bing', 'google', 'yahoo'],
+        ))
+        task_pids.append(pid)
+        all_tasks.append(_google_shopping_search(f"buy {base}", max_results=max_results))
+        task_pids.append(pid)
+
+    # Supplemental searches on model/category (no pattern attribution).
+    supp_start = len(all_tasks)
     if model_number:
-        search_tasks.append(multi_engine_search(
+        all_tasks.append(multi_engine_search(
             f"buy {model_number} {price_hint}".strip(), max_results=max_results * 2,
             engines=['bing', 'google', 'yahoo'],
         ))
-        search_tasks.append(_google_shopping_search(f"buy {model_number}", max_results=max_results))
-
+        all_tasks.append(_google_shopping_search(f"buy {model_number}", max_results=max_results))
     if category:
-        search_tasks.append(multi_engine_search(
+        all_tasks.append(multi_engine_search(
             f"buy {category} wholesale {price_hint}".strip(), max_results=max_results * 2,
             engines=['ddg', 'bing', 'google', 'yahoo'],
         ))
 
     all_raw, images = await asyncio.gather(
-        asyncio.gather(*search_tasks, return_exceptions=True),
+        asyncio.gather(*all_tasks, return_exceptions=True),
         _image_search(f"buy {description}", max_results=max_results),
     )
     img_idx = _img_index(images) if isinstance(images, list) else {}
 
-    pre_enrich = _aggregate_and_rank(all_raw, img_idx, max_results)
-    return await _enrich_prices(pre_enrich)
+    # Group task results back by pattern.
+    pattern_raw: Dict[str, List] = {pid: [] for pid, _ in pattern_queries}
+    for i, raw in enumerate(all_raw[:supp_start]):
+        pattern_raw[task_pids[i]].append(raw)
+    supp_raw = list(all_raw[supp_start:])
+
+    # Score every result with fuzzy match; dedup by domain keeping best score.
+    domain_best: Dict[str, Dict] = {}
+    per_pattern_best: Dict[str, int] = {pid: 0 for pid, _ in pattern_queries}
+
+    def _score_and_merge(result: Dict, pid: str) -> None:
+        score = fuzzy_score(result.get('title', ''), result.get('description', ''), description)
+        result['fuzzy_score'] = score
+        result['pattern_id'] = pid
+        if score > per_pattern_best.get(pid, 0):
+            per_pattern_best[pid] = score
+        domain = result['domain']
+        if domain not in domain_best or score > domain_best[domain].get('fuzzy_score', 0):
+            domain_best[domain] = result
+
+    for pid, raw in pattern_raw.items():
+        if not raw or all(isinstance(r, Exception) for r in raw):
+            continue
+        for result in _aggregate_and_rank(raw, img_idx, max_results * 5):
+            _score_and_merge(result, pid)
+
+    if supp_raw and not all(isinstance(r, Exception) for r in supp_raw):
+        for result in _aggregate_and_rank(supp_raw, img_idx, max_results * 3):
+            _score_and_merge(result, 'supplemental')
+
+    # Sort by fuzzy score, filter <30%, cap at max_results, then enrich prices.
+    ranked = sorted(domain_best.values(), key=lambda r: -(r.get('fuzzy_score') or 0))
+    filtered = [r for r in ranked if (r.get('fuzzy_score') or 0) >= 30]
+    results = await _enrich_prices(filtered[:max_results])
+    return results, per_pattern_best
 
 
 async def search_competitor_websites(

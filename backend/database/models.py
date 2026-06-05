@@ -616,6 +616,18 @@ class BeatPriceResult(Base):
     )
 
 
+class BeatPricePatternStats(Base):
+    """Tracks how effective each title-truncation search pattern is over time."""
+    __tablename__ = "beat_price_pattern_stats"
+
+    pattern_id = Column(String(50), primary_key=True)   # e.g. "full", "pre_dash", "pd_m1"
+    total_products = Column(Integer, default=0, nullable=False)
+    sum_best_fuzzy = Column(Float, default=0.0, nullable=False)
+    avg_best_fuzzy = Column(Float, default=0.0, nullable=False)
+    rank = Column(Integer, nullable=True)
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+
+
 # ---------------------------------------------------------------------------
 # Find-Customers search history
 # ---------------------------------------------------------------------------

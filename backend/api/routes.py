@@ -2856,6 +2856,7 @@ def _build_beat_price_description(product: Product, extra: Optional[str]) -> str
 @router.post("/api/search/beat-price")
 async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_session)):
     from backend.search.engine import find_suppliers
+    from backend.search.pattern_learner import generate_queries, get_active_patterns, record_pattern_results
 
     if not req.description and not req.product_ids:
         raise HTTPException(status_code=400, detail="Provide description or product_ids")
@@ -2872,6 +2873,8 @@ async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_
     db.add(search_rec)
     db.flush()
 
+    active_pids = set(get_active_patterns(db))
+
     if req.product_ids:
         products = (
             db.query(Product)
@@ -2881,8 +2884,13 @@ async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_
         groups = []
         for product in products:
             desc = _build_beat_price_description(product, req.description)
+            title_for_patterns = product.canonical_title or desc
+            pattern_queries = [
+                (pid, q) for pid, q in generate_queries(title_for_patterns)
+                if pid in active_pids
+            ]
             try:
-                results = await find_suppliers(
+                results, per_pattern_best = await find_suppliers(
                     description=desc,
                     model_number=req.model_number or product.model_number,
                     category=req.category or product.category,
@@ -2890,6 +2898,7 @@ async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_
                     price_max=req.price_max,
                     characteristics=req.characteristics,
                     max_results=req.max_results,
+                    pattern_queries=pattern_queries,
                 )
             except Exception as exc:
                 groups.append({
@@ -2898,6 +2907,8 @@ async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_
                     "model_number": product.model_number, "results": [], "error": str(exc),
                 })
                 continue
+
+            record_pattern_results(db, [pid for pid, _ in pattern_queries], per_pattern_best)
 
             for r in results:
                 db.add(BeatPriceResult(
@@ -2916,8 +2927,12 @@ async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_
         db.commit()
         return {"search_id": search_rec.id, "results": [], "groups": groups}
 
-    # Free-text only path
-    results = await find_suppliers(
+    # Free-text only path — apply patterns but skip learning (no canonical title)
+    pattern_queries = [
+        (pid, q) for pid, q in generate_queries(req.description or "")
+        if pid in active_pids
+    ]
+    results, _ = await find_suppliers(
         description=req.description,
         model_number=req.model_number,
         category=req.category,
@@ -2925,6 +2940,7 @@ async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_
         price_max=req.price_max,
         characteristics=req.characteristics,
         max_results=req.max_results,
+        pattern_queries=pattern_queries or None,
     )
     for r in results:
         db.add(BeatPriceResult(
