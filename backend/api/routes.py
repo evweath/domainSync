@@ -1497,6 +1497,10 @@ async def start_product_competitor_search(req: ProductCompetitorSearchRequest):
 
     async def _run():
         from backend.competitor.product_search import run_product_competitor_search
+
+        async def _cb(e: str, d: dict) -> None:
+            await manager.broadcast({"event": e, **d})
+
         try:
             result = await run_product_competitor_search(
                 product_ids=req.product_ids,
@@ -1505,7 +1509,7 @@ async def start_product_competitor_search(req: ProductCompetitorSearchRequest):
                 max_urls=max(50, min(300, req.max_urls)),
                 num_fetchers=max(1, min(8, req.num_fetchers)),
                 pause_after=max(10, req.pause_after),
-                callbacks=[lambda e, d: manager.broadcast({"event": e, **d})],
+                callbacks=[_cb],
             )
             await manager.broadcast({"event": "product_competitor_search_complete", **result})
         except Exception as exc:
