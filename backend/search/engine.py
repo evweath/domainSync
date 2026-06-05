@@ -1195,10 +1195,8 @@ async def find_suppliers(
         base = ' '.join(filter(None, [query] + char_parts + [price_hint]))
         all_tasks.append(multi_engine_search(
             f"buy {base} supplier wholesale price", max_results=max_results * 2,
-            engines=['ddg', 'bing', 'google', 'yahoo'],
+            engines=['ddg', 'bing', 'google', 'yahoo', 'shopping', 'bing_shopping'],
         ))
-        task_pids.append(pid)
-        all_tasks.append(_google_shopping_search(f"buy {base}", max_results=max_results))
         task_pids.append(pid)
 
     # Supplemental searches on model/category (no pattern attribution).
@@ -1239,7 +1237,14 @@ async def find_suppliers(
             per_pattern_best[pid] = score
         domain = result['domain']
         if domain not in domain_best or score > domain_best[domain].get('fuzzy_score', 0):
+            # When the new winner has no price but the previous entry did, carry the price over.
+            existing_price = (domain_best.get(domain) or {}).get('price')
+            if existing_price and not result.get('price'):
+                result = {**result, 'price': existing_price}
             domain_best[domain] = result
+        elif result.get('price') and not domain_best[domain].get('price'):
+            # Lower-score result has price; promote price to the winner.
+            domain_best[domain] = {**domain_best[domain], 'price': result['price']}
 
     for pid, raw in pattern_raw.items():
         if not raw or all(isinstance(r, Exception) for r in raw):
