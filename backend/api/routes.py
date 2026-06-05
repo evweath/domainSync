@@ -2924,14 +2924,34 @@ async def search_beat_price(req: BeatPriceRequest, db: Session = Depends(get_db_
 
             record_pattern_results(db, [pid for pid, _ in pattern_queries], per_pattern_best)
 
-            for r in results:
-                db.add(BeatPriceResult(
-                    search_id=search_rec.id,
-                    product_id=product.id,
-                    url=r.get("url"), domain=r.get("domain"), title=r.get("title"),
-                    description=r.get("description"), price=_parse_price(r.get("price")),
-                    model_number=r.get("model_number"), image_url=r.get("image") or None,
-                ))
+            # Fallback to cached DB results when the live search comes up empty
+            # (rate-limiting, network outage, etc.)
+            if not results:
+                cached = (
+                    db.query(BeatPriceResult)
+                    .filter(BeatPriceResult.product_id == product.id)
+                    .order_by(BeatPriceResult.created_at.desc())
+                    .limit(req.max_results)
+                    .all()
+                )
+                results = [
+                    {
+                        "url": r.url, "domain": r.domain, "title": r.title,
+                        "description": r.description, "price": r.price,
+                        "model_number": r.model_number, "image": r.image_url,
+                    }
+                    for r in cached
+                ]
+            else:
+                for r in results:
+                    db.add(BeatPriceResult(
+                        search_id=search_rec.id,
+                        product_id=product.id,
+                        url=r.get("url"), domain=r.get("domain"), title=r.get("title"),
+                        description=r.get("description"), price=_parse_price(r.get("price")),
+                        model_number=r.get("model_number"), image_url=r.get("image") or None,
+                    ))
+
             for r in results:
                 r["price"] = _parse_price(r.get("price"))
             groups.append({

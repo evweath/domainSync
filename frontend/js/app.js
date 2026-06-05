@@ -2033,7 +2033,7 @@ function app() {
 
     priceDiffClass(diff) {
       if (diff === null) return '';
-      return parseFloat(diff) < 0 ? 'text-green-600 font-bold' : 'text-red-600 font-bold';
+      return parseFloat(diff) < 0 ? 'text-red-600 font-bold' : 'text-green-600 font-bold';
     },
 
     // Dollar difference: positive = competitor costs more (green/good), negative = they're cheaper (red/bad)

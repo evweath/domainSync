@@ -2300,13 +2300,13 @@
                     <div class="flex items-start justify-between gap-2">
                       <div class="text-sm font-semibold line-clamp-1" x-text="r.title"></div>
                       <!-- Price + diff vs our price -->
-                      <div x-show="r.price != null" class="text-right flex-shrink-0 ml-2">
+                      <div class="text-right flex-shrink-0 ml-2 min-w-[70px]">
                         <div class="font-bold text-sm"
-                             :class="r.price < g.our_price ? 'text-green-600' : (r.price > g.our_price ? 'text-red-500' : 'text-gray-700 dark:text-gray-200')"
-                             x-text="fmtPrice(r.price)"></div>
-                        <div x-show="g.our_price != null"
+                             :class="r.price == null ? 'text-gray-400 dark:text-gray-500' : (r.price > g.our_price ? 'text-green-600' : (r.price < g.our_price ? 'text-red-500' : 'text-gray-700 dark:text-gray-200'))"
+                             x-text="r.price != null ? fmtPrice(r.price) : '—'"></div>
+                        <div x-show="r.price != null && g.our_price != null"
                              class="text-xs font-semibold"
-                             :class="(r.price - g.our_price) < 0 ? 'text-green-600' : 'text-red-500'"
+                             :class="(r.price - g.our_price) > 0 ? 'text-green-600' : 'text-red-500'"
                              x-text="fmtDollarDiff(r.price - g.our_price)"></div>
                       </div>
                     </div>
@@ -4589,6 +4589,6 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260529-01"></script>
+<script src="/static/js/app.js?v=20260605-01"></script>
 </body>
 </html>
