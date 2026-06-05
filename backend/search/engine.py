@@ -256,6 +256,8 @@ _NOISE_DOMAINS = frozenset({
     'youtube.com', 'facebook.com',
     'yelp.com',
     'offerup.com', 'letgo.com', 'craigslist.org',
+    # Own/source stores — should never appear as competitor or supplier results
+    'bakerywholesalers.com', 'donut-supplies.com', 'donut-equipment.com',
 })
 
 

@@ -2026,6 +2026,23 @@ function app() {
       return parseFloat(diff) < 0 ? 'text-green-600 font-bold' : 'text-red-600 font-bold';
     },
 
+    // Dollar difference: positive = competitor costs more (green/good), negative = they're cheaper (red/bad)
+    priceDiffDollar(ourPrice, theirPrice) {
+      if (ourPrice == null || theirPrice == null) return null;
+      return theirPrice - ourPrice;
+    },
+
+    priceDiffDollarClass(diff) {
+      if (diff === null) return 'hidden';
+      return diff < 0 ? 'text-red-600 font-bold text-[10px]' : 'text-green-600 font-bold text-[10px]';
+    },
+
+    fmtDollarDiff(diff) {
+      if (diff === null) return '';
+      const abs = Math.abs(diff).toFixed(2);
+      return diff >= 0 ? `+$${abs}` : `-$${abs}`;
+    },
+
     // Return matched competitors for a row, sorted by price per the page's
     // current sort direction (default 'asc' = cheapest first).
     matchedCompetitors(row) {
