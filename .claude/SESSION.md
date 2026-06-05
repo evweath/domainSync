@@ -1,42 +1,30 @@
-# Session State — 2026-05-26T19:30:00-05:00
+# Session State — 2026-06-05T21:36Z
 
 ## Accomplished This Session
 
-- **Bing Shopping scraper** (`backend/search/engine.py` → `_bing_shopping_search`): Fully rewritten. Bing Shopping merchant links use `class="br-offLink"` anchors whose `href` points to `https://www.bing.com/aclick?...&u=<URL-safe-base64>`. The `u=` param base64-decodes to the actual merchant URL. Scraper now finds these anchors, decodes the URL, and extracts title from `<span title="...">` and price from `class="br-price"`. **Returns 10 real merchant results with prices.**
-
-- **Google Shopping / SerpAPI** (`_serpapi_shopping_search`): Rewritten with two-stage fallback:
-  - Stage 1: `engine=google` organic — harvests `inline_shopping_results[].link` (direct merchant URLs, query-dependent; sometimes absent)
-  - Stage 2: `engine=google_shopping` + concurrent `serpapi_immersive_product_api` calls — fetches `product_results.stores[].link` and `stores[].price` for top 8 results. **Returns 8 real merchant results with prices.**
-
-- **Yahoo Shopping replacement** (`_yahoo_shopping_search`): Yahoo Shopping desktop redirects to "Yahoo Scout" (AI chat); mobile has no product data in server-rendered HTML. Replaced with **Walmart** scraper that parses `__NEXT_DATA__` JSON at `props.pageProps.initialData.searchResult.itemStacks[N].items[M]`. **Returns 10 results with prices.**
-  - User asked to retry Yahoo — unblocked sites, retested, confirmed no product data in any Yahoo Shopping URL variant. Will revisit tomorrow.
-
-- Added `import base64` to `backend/search/engine.py` imports.
+- **Beat This Price — price display fixed (root cause):** `find_suppliers` was using only organic engines (`ddg`, `bing`, `google`, `yahoo`) for pattern queries; shopping engines (`shopping`, `bing_shopping`) were in a separate `_google_shopping_search` call that returned 0 results. Fix: added `shopping` and `bing_shopping` to the `multi_engine_search` call in `find_suppliers` loop (`engine.py:1198`).
+- **Domain dedup preserved prices:** `_score_and_merge` was overwriting a lower-fuzzy shopping result (which had a price) with a higher-fuzzy organic result (no price). Fixed to carry price from either result during dedup (`engine.py:1241`).
+- **Beat This Price — price column always visible:** Removed outer `x-show="r.price != null"` wrapper; now every result row shows a price slot — `—` when null, actual price when available (`index.html:2303`).
+- **Color logic corrected everywhere:** competitor cheaper → RED (bad), competitor more expensive → GREEN (good). Fixed in `index.html` (lines 2305, 2309) and `app.js` `priceDiffClass` (line 2036).
+- **Cached fallback when live search returns empty:** Rate-limiting causes `find_suppliers` to return 0 results. Added fallback in `routes.py` that loads most recent `BeatPriceResult` rows from DB for that product when live results are empty.
+- **GitHub push:** pushed 23 pending commits to `origin/main` (cfa0c37 → e5cd4de).
+- **L5 OTS stamp:** SHA-256 `ef9f143c37cf273e69b4d13691901b5cc98d1263b41750ed69a05fa082ebd0de`, stamped to 4 OTS calendars, `.ots` at `/Users/evw/dev/security/donut-intel-2026-06-05.hash.ots`, logged in `l5-hash-log.txt`.
 
 ## In Progress
 
-- **Yahoo Shopping / `yahoo_shopping` engine slot**: User unblocked Yahoo sites and wants to try again tomorrow. Current Walmart replacement works. Outstanding question: keep Walmart, try a different site, or remove the engine.
+- Nothing; session closed cleanly.
 
 ## Next Steps
 
-1. **Decide on `yahoo_shopping` engine**: options — (a) keep Walmart, (b) try a different comparison shopping site, (c) remove engine. Walmart currently works and returns 10 results.
-2. **Restart server and end-to-end test** the full competitor search flow with updated scrapers (Bing + SerpAPI/Google + Walmart confirmed working in isolation; need to verify integration in `multi_engine_search` and `run_product_competitor_search`).
-3. **Verify UI flow**: product catalog → select products → competitor search → search-mode card grid → pause modal at 100 domains tried.
+1. Verify Beat This Price in browser: Cmd+Shift+R reload, run search, confirm price column shows for all rows.
+2. If live search returns 0 results, rate-limit may still be active — wait ~1 hour; cached fallback will show prior results in the meantime.
 
 ## Key Context
 
-- **Server start**: `.venv/bin/uvicorn backend.app:app --host 127.0.0.1 --port 8743 --ssl-keyfile config/key.pem --ssl-certfile config/cert.pem >> logs/uvicorn.out 2>&1 &`
-- **SSL certs**: `config/key.pem` + `config/cert.pem` — self-signed, regenerate with `openssl req -x509 -newkey rsa:4096 -keyout config/key.pem -out config/cert.pem -days 365 -nodes -subj "/CN=localhost"` if missing
-- **Kill port before restart**: `lsof -ti :8743 | xargs kill -9`
-- **Auth**: cookie-based — POST `/api/auth/login` `{"username":"admin","password":"changeme"}`
-- **venv**: `.venv/bin/python3` (not system python3)
-- **CRITICAL**: `config/settings.yaml` contains real API keys — do NOT commit it. Check `git diff config/settings.yaml` before any push.
-- **SerpAPI key**: configured and working (64-char key in `settings.yaml` under `serpapi.api_key`)
-- **Bing Shopping** is most reliable: no API key needed, 10+ results consistently, uses `br-offLink` base64 decode
-- **SerpAPI immersive**: 1 credit for `google_shopping` call + up to 8 more credits for immersive item calls (up to 9 credits/search)
-- **Walmart `__NEXT_DATA__` path**: `props.pageProps.initialData.searchResult.itemStacks[N].items[M]` — fields: `canonicalUrl`, `name`, `price` (numeric), `priceInfo.currentPrice`
-- **`_yahoo_shopping_search` source label**: still `'yahoo_shopping'` for `multi_engine_search` shopping_indices compatibility
-- All scraper changes committed in `7cd9323` and `0f21dc9` on branch `main`
-- **NEVER bind to 0.0.0.0** — always use 127.0.0.1
-- DB: `data/donut_intel.db` (SQLite WAL mode)
-- git remote: github.com:evweath/donut-intel.git, branch: main
+- **Why prices were missing for 5+ attempts:** Root cause was upstream — `_google_shopping_search` returned 0 results, and organic engines don't include prices in snippets. Shopping results only come through `multi_engine_search` with `shopping`/`bing_shopping` engines.
+- **Rate limiting:** Bing/Google/DDG rate-limit after heavy use. Cached fallback added to `routes.py` so the UI shows last successful results instead of empty.
+- **Server restart:** `lsof -ti :8743 | xargs kill -9` then `bash start.sh &`
+- **Key files:** `backend/search/engine.py:1198` (shopping engines added), `engine.py:1241` (price dedup fix), `backend/api/routes.py:2925` (cached fallback), `frontend/index.html:2303` (price column always visible), `frontend/js/app.js:2036` (color logic).
+- **Auth**: POST `/api/auth/login` `{"username":"admin","password":"changeme"}` — cookie-based.
+- **CRITICAL**: `config/settings.yaml` has real API keys — never commit.
+- **git remote**: github.com:evweath/donut-intel.git, branch: main
