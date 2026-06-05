@@ -107125,3 +107125,66 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
 INFO:     127.0.0.1:52402 - "GET /api/docs HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:52592 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52592 - "GET /static/vendor/alpine.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52593 - "GET /static/vendor/chart.umd.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52594 - "GET /static/css/style.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52595 - "GET /static/vendor/tailwind.min.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52596 - "GET /static/js/app.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52592 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52593 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52594 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52597 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52600 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52599 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52600 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52597 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52599 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52600 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52601 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52602 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52597 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52598 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52599 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52603 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:52600 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52606 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-06-05 12:19:02 [INFO] backend.api.routes: Soft-deleted (excluded) competitor id=480 domain=columbia.com
+INFO:     127.0.0.1:52609 - "POST /api/competitors/bulk-delete HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52609 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52609 - "GET /api/stats HTTP/1.1" 200 OK
+2026-06-05 12:25:07 [INFO] backend.api.routes: Soft-deleted (excluded) competitor id=521 domain=co.buycheapr.com
+INFO:     127.0.0.1:52610 - "POST /api/competitors/bulk-delete HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52610 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52610 - "GET /api/stats HTTP/1.1" 200 OK
+2026-06-05 12:29:37 [INFO] backend.api.routes: Soft-deleted (excluded) competitor id=433 domain=coleparmer.com
+INFO:     127.0.0.1:52611 - "POST /api/competitors/bulk-delete HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52611 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52611 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52612 - "GET /api/competitors?page=2&per_page=50 HTTP/1.1" 200 OK
+2026-06-05 12:33:29 [INFO] backend.api.routes: Soft-deleted (excluded) competitor id=533 domain=isaveit.com
+INFO:     127.0.0.1:52617 - "POST /api/competitors/bulk-delete HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52617 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52617 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52618 - "GET /api/competitors?page=2&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52618 - "GET /api/competitors?page=3&per_page=50 HTTP/1.1" 200 OK
+2026-06-05 12:44:40 [INFO] backend.api.routes: Soft-deleted (excluded) competitor id=121 domain=pastrydepot.com
+INFO:     127.0.0.1:52624 - "POST /api/competitors/bulk-delete HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52624 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52624 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52625 - "GET /api/competitors?page=2&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52806 - "GET /api/competitors?page=3&per_page=50 HTTP/1.1" 200 OK
+2026-06-05 12:52:32 [INFO] backend.api.routes: Soft-deleted (excluded) competitor id=539 domain=newegg.com
+INFO:     127.0.0.1:52807 - "POST /api/competitors/bulk-delete HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52807 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52807 - "GET /api/stats HTTP/1.1" 200 OK
+2026-06-05 12:54:07 [INFO] backend.api.routes: Soft-deleted (excluded) competitor id=523 domain=brilliantsave.com
+INFO:     127.0.0.1:52808 - "POST /api/competitors/bulk-delete HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52808 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52808 - "GET /api/stats HTTP/1.1" 200 OK
+2026-06-05 13:03:53 [INFO] backend.api.routes: Soft-deleted (excluded) competitor id=517 domain=brandsmartusa.com
+INFO:     127.0.0.1:52809 - "POST /api/competitors/bulk-delete HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52809 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52809 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52812 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
