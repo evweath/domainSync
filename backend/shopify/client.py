@@ -10,9 +10,18 @@ from typing import Any, AsyncIterator, Dict, List, Optional
 
 import httpx
 
+from . import connlog
+
 logger = logging.getLogger(__name__)
 
 _API_VERSION = "2024-01"
+
+
+def _host_of(store_url: str) -> str:
+    """Extract a bare host (no scheme/path) for connection-log messages."""
+    u = (store_url or "").strip().rstrip("/")
+    u = re.sub(r"^https?://", "", u)
+    return u.split("/")[0] or "(unknown)"
 
 
 async def fetch_access_token(store_url: str, client_id: str, client_secret: str) -> str:
@@ -20,14 +29,22 @@ async def fetch_access_token(store_url: str, client_id: str, client_secret: str)
     url = store_url.strip().rstrip("/")
     if not url.startswith("http"):
         url = "https://" + url
-    async with httpx.AsyncClient(timeout=10) as http:
-        resp = await http.post(
-            f"{url}/admin/oauth/access_token",
-            data={"client_id": client_id, "client_secret": client_secret, "grant_type": "client_credentials"},
-            headers={"Content-Type": "application/x-www-form-urlencoded"},
-        )
+    host = _host_of(url)
+    connlog.record(f"→ Auth: requesting access token from {host}")
+    try:
+        async with httpx.AsyncClient(timeout=10) as http:
+            resp = await http.post(
+                f"{url}/admin/oauth/access_token",
+                data={"client_id": client_id, "client_secret": client_secret, "grant_type": "client_credentials"},
+                headers={"Content-Type": "application/x-www-form-urlencoded"},
+            )
+    except Exception as exc:
+        connlog.record(f"✗ Auth: network error to {host}: {type(exc).__name__}: {exc}", level="error")
+        raise
     if resp.status_code >= 400:
+        connlog.record(f"✗ Auth: {host} returned {resp.status_code} {resp.text[:120]}", level="error")
         raise ShopifyError(resp.status_code, resp.text)
+    connlog.record(f"✓ Auth: received access token from {host}")
     return resp.json()["access_token"]
 
 
@@ -44,6 +61,7 @@ class ShopifyClient:
         if not url.startswith("http"):
             url = "https://" + url
         self.base = f"{url}/admin/api/{_API_VERSION}"
+        self._host = _host_of(url)
         self._headers = {
             "X-Shopify-Access-Token": access_token,
             "Content-Type": "application/json",
@@ -52,6 +70,7 @@ class ShopifyClient:
 
     async def __aenter__(self):
         self._client = httpx.AsyncClient(headers=self._headers, timeout=30)
+        connlog.record(f"→ Opening session to {self._host}")
         return self
 
     async def __aexit__(self, *_):
@@ -61,15 +80,22 @@ class ShopifyClient:
     async def _get(self, path: str, params: Optional[Dict] = None) -> httpx.Response:
         assert self._client, "Use as async context manager"
         for attempt in range(4):
-            resp = await self._client.get(f"{self.base}{path}", params=params)
+            try:
+                resp = await self._client.get(f"{self.base}{path}", params=params)
+            except Exception as exc:
+                connlog.record(f"✗ GET {self._host}{path}: {type(exc).__name__}: {exc}", level="error")
+                raise
             if resp.status_code == 429:
                 retry_after = float(resp.headers.get("Retry-After", 2 ** attempt))
+                connlog.record(f"… Rate limited by {self._host} — retrying in {retry_after:.1f}s")
                 logger.debug("Shopify rate limit — sleeping %.1fs", retry_after)
                 await asyncio.sleep(retry_after)
                 continue
             if resp.status_code >= 400:
+                connlog.record(f"✗ GET {self._host}{path} → {resp.status_code}", level="error")
                 raise ShopifyError(resp.status_code, resp.text)
             return resp
+        connlog.record(f"✗ GET {self._host}{path} → rate limited after retries", level="error")
         raise ShopifyError(429, "Rate limited after retries")
 
     async def _post(self, path: str, data: Dict) -> Dict:
@@ -116,7 +142,10 @@ class ShopifyClient:
 
     async def get_shop(self) -> Dict:
         resp = await self._get("/shop.json")
-        return resp.json().get("shop", {})
+        shop = resp.json().get("shop", {})
+        name = shop.get("name") or shop.get("myshopify_domain") or self._host
+        connlog.record(f"✓ Connected to {self._host} (shop: {name})")
+        return shop
 
     # -----------------------------------------------------------------------
     # Products (cursor-paginated)

@@ -28,6 +28,25 @@ Shopify Sync page
 - **Root cause:** Source-site scanner was fetching and parsing HTML pages. Shopify stores expose `/products.json` which returns structured data much faster.
 - **Fix:** Added `/products.json` fast path for source-site scans in `competitor/scraper.py`.
 
+## Connection Troubleshooting Panel (2026-06-08)
+
+Settings → **🔌 Shopify Connection Log** shows live output of connection attempts to
+source stores (2"-wide box, polls every 3s while Settings is open).
+
+- **Where events are emitted:** `backend/shopify/client.py` records to
+  `backend/shopify/connlog.py` (a dedicated 200-line ring buffer, separate from the
+  main `log_tail` buffer so connection lines aren't pushed out during scans).
+  Instrumented points: `fetch_access_token` (auth), `ShopifyClient.__aenter__`
+  (session open), `get_shop` (✓ connected), and `_get` (429 / HTTP errors / network
+  errors). All source-store reads go through these, so every attempt is captured.
+- **Markers:** `→` attempt, `✓` success, `✗` failure, `…` rate-limit wait. Frontend
+  colors lines by marker. **Secrets (tokens, client_secret) are never logged** — only
+  host, status, and message.
+- **API:** `GET /api/shopify/connection-log?n=150` → `{lines:[...]}`;
+  `POST /api/shopify/connection-log/clear`.
+- **Buffer is per-process, in-memory** — cleared on server restart. If the panel is
+  empty after a restart, that's expected until the next connection attempt.
+
 ## Known Failure Modes
 
 - **Shopify API rate limits:** Shopify enforces 2 req/s for REST API. Bulk sync can hit this. The sync pipeline should throttle — verify it does before adding more products to sync batch.

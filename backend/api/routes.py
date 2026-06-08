@@ -3391,6 +3391,20 @@ def set_source_site_destination(domain: str, payload: Dict[str, bool] = Body(...
     return {"status": "saved", "domain": domain, "is_destination": is_dest}
 
 
+@router.get("/api/shopify/connection-log")
+def shopify_connection_log(n: int = 150):
+    """Recent Shopify store connection attempts (for the Settings troubleshooting panel)."""
+    from backend.shopify import connlog
+    return {"lines": connlog.get_lines(n)}
+
+
+@router.post("/api/shopify/connection-log/clear")
+def shopify_connection_log_clear():
+    from backend.shopify import connlog
+    connlog.clear()
+    return {"status": "cleared"}
+
+
 @router.get("/api/shopify-sync/config")
 def shopify_sync_config():
     """Return attribute groups and available source sites."""

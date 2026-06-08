@@ -266,6 +266,8 @@ function app() {
     webhookForm: { url: '', events: ['price_alert', 'scan_complete', 'competitor_scan_complete'], secret: '' },
     shopifyCredentials: {},    // domain -> { shopify_store_url, shopify_api_key, shopify_access_token }
     shopifyTestStatus: {},     // domain -> 'idle'|'testing'|'ok'|'error'
+    shopifyConnLog: [],        // recent Shopify connection-attempt log lines
+    shopifyConnLogTimer: null, // setInterval handle for polling the connection log
     shopifyTestMessage: {},    // domain -> string
 
     // Shopify Webhook Management (per store)
@@ -310,6 +312,8 @@ function app() {
       this._logPollTimer = setInterval(() => {
         if (!this.wsConnected) this.loadLogTail();
       }, 5000);
+      // Poll the Shopify connection log while the Settings view is open.
+      this.startShopifyConnLog();
       // Wire up column resizers for every current and future table.
       this._initColumnResize();
     },
@@ -2167,6 +2171,30 @@ function app() {
     // -----------------------------------------------------------------------
     // Settings (F56)
     // -----------------------------------------------------------------------
+    async loadShopifyConnLog() {
+      try {
+        const r = await this.api('/api/shopify/connection-log?n=150');
+        const box = document.getElementById('shopifyConnLogBox');
+        const atBottom = box ? (box.scrollHeight - box.scrollTop - box.clientHeight < 24) : true;
+        this.shopifyConnLog = (r && r.lines) || [];
+        // Keep the view pinned to the newest line unless the user scrolled up.
+        if (atBottom) this.$nextTick(() => { const b = document.getElementById('shopifyConnLogBox'); if (b) b.scrollTop = b.scrollHeight; });
+      } catch (e) { /* panel is best-effort; ignore transient errors */ }
+    },
+
+    startShopifyConnLog() {
+      this.loadShopifyConnLog();
+      if (this.shopifyConnLogTimer) return;
+      this.shopifyConnLogTimer = setInterval(() => {
+        if (this.currentView === 'settings') this.loadShopifyConnLog();
+      }, 3000);
+    },
+
+    async clearShopifyConnLog() {
+      try { await this.api('/api/shopify/connection-log/clear', { method: 'POST' }); } catch (e) {}
+      this.shopifyConnLog = [];
+    },
+
     async loadSettings() {
       try {
         this.settingsData = await this.api('/api/settings') || {};

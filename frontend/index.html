@@ -3828,6 +3828,30 @@
       <h2 class="text-2xl font-bold mb-6">Settings</h2>
 
       <div class="space-y-4">
+        <!-- Shopify Connection Log -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
+          <div class="flex items-center justify-between mb-1">
+            <h3 class="font-semibold text-orange-500">🔌 Shopify Connection Log</h3>
+            <div class="flex gap-2">
+              <button @click="loadShopifyConnLog()"
+                class="text-xs px-2 py-1 rounded border dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">Refresh</button>
+              <button @click="clearShopifyConnLog()"
+                class="text-xs px-2 py-1 rounded border dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">Clear</button>
+            </div>
+          </div>
+          <div class="text-xs text-gray-400 mb-2">Live output of connection attempts to the source Shopify stores. Refreshes every 3s.</div>
+          <div id="shopifyConnLogBox" style="width:2in;"
+            class="h-48 overflow-auto bg-gray-900 text-green-300 font-mono text-[10px] leading-tight rounded p-2 whitespace-pre">
+            <template x-if="shopifyConnLog.length === 0">
+              <div class="text-gray-500">No connection attempts logged yet.</div>
+            </template>
+            <template x-for="(line, i) in shopifyConnLog" :key="i">
+              <div x-text="line"
+                :class="line.includes('✗') ? 'text-red-400' : (line.includes('✓') ? 'text-green-300' : (line.includes('…') ? 'text-yellow-300' : 'text-gray-300'))"></div>
+            </template>
+          </div>
+        </div>
+
         <!-- Database -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
           <h3 class="font-semibold mb-3 text-orange-500">🗄 Database</h3>
