@@ -8,7 +8,7 @@
   - `backend/search/pages/` — one module per app page, owns query+scoring+shaping only: `find_product.py`, `beat_price.py`, `competitor_site.py`, `find_customers.py`.
   - `backend/search/engine.py` — backward-compat **shim** that re-exports the above. Existing `from backend.search.engine import ...` still works. New code imports from `core/` or `pages/` directly.
   - **Rule:** fix an engine/parsing bug ONCE in `core/`. Change a page's behavior in its `pages/` module without touching others. Never copy plumbing into a page module.
-- **Competitor search:** `backend/competitor/` — `product_search.py`, `web_search_scan.py` (Phase 3 TODO: these still hold their own drifted copies of `_parse_jsonld`/`_parse_meta`/`_curl_fetch` — migrate to `core/`).
+- **Competitor search:** `backend/competitor/` — `product_search.py`, `web_search_scan.py`. These now import product-page parsing (`_parse_jsonld`, `_parse_meta`, `_meta_val`), price-to-float (`_extract_price_float`), `_domain`, and fetch from `core/`. Page-specific logic kept local: `_build_query`, `_clean_title_for_search` (intentionally different per page), and `web_search_scan._extract_model` (uses a narrower `_MODEL_RE` than core). **Two price extractors exist on purpose:** `core/parse._extract_price` → `$`-prefixed string (display); `_extract_price_float` → float (DB/compare). Don't merge them.
 - **Scrapers:** `backend/scrapers/` — `source_scraper.py`, `yahoo_shopping_scraper.py`
 - **Routes:** `backend/api/routes.py`
 - **Frontend:** `frontend/index.html` (Alpine.js), `frontend/js/app.js`

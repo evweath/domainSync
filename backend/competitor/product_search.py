@@ -11,7 +11,6 @@ import logging
 import re
 from datetime import datetime
 from typing import Any, Callable, Dict, List, Optional
-from urllib.parse import urlparse
 
 import sqlalchemy.exc
 
@@ -24,11 +23,16 @@ from backend.database.models import (
     PriceHistory,
     Product,
 )
-from backend.search.engine import multi_engine_search
+from backend.search.core.fetch import _curl_get
+from backend.search.core.parse import (
+    _domain,
+    _extract_price_float as _extract_price,
+    _parse_jsonld,
+    _parse_meta,
+)
+from backend.search.core.rank import multi_engine_search
 
 logger = logging.getLogger(__name__)
-
-_PRICE_RE = re.compile(r'\$\s*([\d,]+(?:\.\d{1,2})?)')
 
 # ---------------------------------------------------------------------------
 # Per-run control state for the UI-triggered sequential search
@@ -54,7 +58,6 @@ def stop_product_comp_search() -> bool:
     if ev:
         ev.set()
     return True
-_MODEL_RE = re.compile(r'(?:model|part|item)[#\s:]+([A-Z0-9][\w\-]{2,})', re.I)
 
 
 async def _db_write_with_retry(fn, retries: int = 4, base_delay: float = 3.0):
@@ -120,30 +123,9 @@ def _extract_product_type(title: Optional[str]) -> str:
     return ""
 
 
-def _domain(url: str) -> str:
-    try:
-        return urlparse(url).netloc.lstrip('www.')
-    except Exception:
-        return ''
-
-
 async def _curl_fetch(url: str, timeout: int = 15) -> str:
-    """Fetch a URL via primp browser impersonation — same TLS fingerprinting as curl, but URL stays
-    in-process memory and is not visible in the process table (ps/top)."""
-    import primp
-    try:
-        async with primp.AsyncClient(impersonate='random', timeout=timeout) as client:
-            r = await asyncio.wait_for(
-                client.get(url, headers={
-                    'Accept': 'text/html,application/xhtml+xml,*/*;q=0.9',
-                    'Accept-Language': 'en-US,en;q=0.9',
-                }),
-                timeout + 2,
-            )
-            return r.text
-    except Exception as exc:
-        logger.debug("primp fetch failed for %s: %s", url, exc)
-        return ''
+    """Page fetch — routes through the shared core fetch primitive (core/fetch.py)."""
+    return await _curl_get(url, timeout=timeout)
 
 
 _GENERIC_MANUFACTURERS: frozenset = frozenset({
@@ -255,115 +237,6 @@ def _build_query(product: Any, override: Optional[str]) -> str:
 
     parts.append('buy')
     return ' '.join(p for p in parts if p)
-
-
-def _extract_price(text: str) -> Optional[float]:
-    m = _PRICE_RE.search(text or '')
-    if m:
-        try:
-            return float(m.group(1).replace(',', ''))
-        except ValueError:
-            pass
-    return None
-
-
-def _parse_jsonld(html: str) -> Optional[Dict[str, Any]]:
-    for m in re.finditer(
-        r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
-        html, re.DOTALL | re.I
-    ):
-        try:
-            data = json.loads(m.group(1))
-        except (json.JSONDecodeError, ValueError):
-            continue
-        items = data if isinstance(data, list) else [data]
-        if isinstance(data, dict) and '@graph' in data:
-            items = data['@graph']
-        for item in items:
-            if not isinstance(item, dict):
-                continue
-            type_val = item.get('@type', '')
-            if 'Product' not in (type_val if isinstance(type_val, str) else ' '.join(type_val)):
-                continue
-            price: Optional[float] = None
-            offers = item.get('offers', {})
-            if isinstance(offers, list):
-                offers = offers[0] if offers else {}
-            if isinstance(offers, dict):
-                raw_price = offers.get('price') or offers.get('lowPrice')
-                if raw_price is not None:
-                    try:
-                        price = float(str(raw_price).replace(',', '').replace('$', ''))
-                    except ValueError:
-                        pass
-            brand = item.get('brand', {})
-            manufacturer = brand.get('name') if isinstance(brand, dict) else (brand or None)
-            in_stock = 'InStock' in json.dumps(item.get('offers', ''))
-
-            image_raw = item.get('image')
-            if isinstance(image_raw, list):
-                image_raw = image_raw[0] if image_raw else None
-            if isinstance(image_raw, dict):
-                image_url = image_raw.get('url') or image_raw.get('contentUrl')
-            else:
-                image_url = image_raw
-
-            desc = item.get('description', '')
-            if isinstance(desc, str) and len(desc) > 2000:
-                desc = desc[:2000]
-
-            return {
-                'title': item.get('name', ''),
-                'price': price,
-                'model_number': item.get('model') or item.get('mpn'),
-                'manufacturer': manufacturer,
-                'sku': item.get('sku'),
-                'in_stock': in_stock,
-                'image': image_url or None,
-                'description': desc or None,
-            }
-    return None
-
-
-def _meta_val(html: str, prop: str) -> Optional[str]:
-    m = re.search(
-        rf'<meta[^>]+(?:property|name)=["\'][^"\']*{re.escape(prop)}[^"\']*["\'][^>]+content=["\']([^"\']+)["\']',
-        html, re.I
-    )
-    if m:
-        return m.group(1).strip()
-    m = re.search(
-        rf'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:property|name)=["\'][^"\']*{re.escape(prop)}[^"\']*["\']',
-        html, re.I
-    )
-    return m.group(1).strip() if m else None
-
-
-def _parse_meta(html: str) -> Dict[str, Any]:
-    title_tag = re.search(r'<title[^>]*>([^<]{1,300})</title>', html, re.I)
-    title = _meta_val(html, 'og:title') or _meta_val(html, 'title') or (title_tag.group(1).strip() if title_tag else '')
-    price_str = (
-        _meta_val(html, 'price:amount') or _meta_val(html, 'og:price:amount') or
-        _meta_val(html, 'product:price:amount') or _meta_val(html, 'price')
-    )
-    price: Optional[float] = None
-    if price_str:
-        try:
-            price = float(re.sub(r'[^\d.]', '', price_str))
-        except ValueError:
-            pass
-    if price is None:
-        price = _extract_price(html[:8000])
-    return {
-        'title': title or '',
-        'price': price,
-        'model_number': _meta_val(html, 'model') or _meta_val(html, 'mpn'),
-        'manufacturer': _meta_val(html, 'og:brand') or _meta_val(html, 'brand'),
-        'sku': _meta_val(html, 'sku') or _meta_val(html, 'product:retailer_item_id'),
-        'in_stock': True,
-        'image': _meta_val(html, 'og:image') or _meta_val(html, 'twitter:image'),
-        'description': _meta_val(html, 'og:description') or _meta_val(html, 'description'),
-    }
 
 
 def _get_source_domains() -> set:

@@ -15,6 +15,24 @@ Competitor search query building:
   → constructs query string for multi_engine_search
 ```
 
+## Architecture note (2026-06-08 refactor)
+
+`product_search.py` and `web_search_scan.py` no longer keep their own copies of
+the product-page parsers. They import `_parse_jsonld`, `_parse_meta`, `_meta_val`,
+`_extract_price_float`, `_domain`, and fetch from `backend/search/core/`. Query
+building stays per-page (`_build_query`, `_clean_title_for_search`). See
+[[project_search_layer_split]].
+
+### Drift fixed: web-scan dropped image/description (RESOLVED — 2026-06-08)
+- **Root cause:** `web_search_scan._parse_jsonld`/`_parse_meta` were copy-paste
+  forks of the `product_search` versions that never got the image+description
+  fields added. The full-catalog scan silently extracted less than the per-product
+  scan from the same page.
+- **Fix:** Unified both into `core/parse.py` (superset, with image+description).
+  Locked by `tests/test_parse_shared.py::test_scan_modules_share_the_same_parsers`.
+- **Lesson:** identical-by-intent helpers copied into sibling modules WILL drift.
+  Keep them in `core/`; only genuinely page-specific logic stays local.
+
 ## Confirmed Root Causes (do not re-investigate)
 
 ### DB lock during scan (RESOLVED — 2026-05-26)

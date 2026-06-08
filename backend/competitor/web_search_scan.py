@@ -23,7 +23,6 @@ import logging
 import re
 from datetime import datetime, timedelta
 from typing import Any, Callable, Dict, List, Optional
-from urllib.parse import urlparse
 
 from backend.competitor.matcher import MatchCriteria, MatchResult, match_competitor_product, match_similar_product
 from backend.database.db import session_scope
@@ -34,7 +33,14 @@ from backend.database.models import (
     PriceHistory,
     Product,
 )
-from backend.search.engine import multi_engine_search
+from backend.search.core.fetch import _curl_get
+from backend.search.core.parse import (
+    _domain,
+    _extract_price_float as _extract_price,
+    _parse_jsonld,
+    _parse_meta,
+)
+from backend.search.core.rank import multi_engine_search
 
 logger = logging.getLogger(__name__)
 
@@ -50,20 +56,14 @@ def request_stop() -> None:
     global _stop_requested
     _stop_requested = True
 
-_PRICE_RE = re.compile(r'\$\s*([\d,]+(?:\.\d{1,2})?)')
+# Note: this _MODEL_RE is narrower than core/parse._MODEL_RE on purpose — it only
+# matches explicit "model/part/item #" labels in result snippets. Kept local.
 _MODEL_RE = re.compile(r'(?:model|part|item)[#\s:]+([A-Z0-9][\w\-]{2,})', re.I)
 
 
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
-
-def _domain(url: str) -> str:
-    try:
-        return urlparse(url).netloc.lstrip('www.')
-    except Exception:
-        return ''
-
 
 _GENERIC_MANUFACTURERS: frozenset = frozenset({
     'multiple vendors', 'various', 'generic', 'n/a', 'unknown', 'assorted',
@@ -140,125 +140,18 @@ def _build_query(product: Product) -> str:
     return ' '.join(parts)
 
 
-def _extract_price(text: str) -> Optional[float]:
-    m = _PRICE_RE.search(text or '')
-    if m:
-        try:
-            return float(m.group(1).replace(',', ''))
-        except ValueError:
-            pass
-    return None
-
-
 def _extract_model(text: str) -> Optional[str]:
     m = _MODEL_RE.search(text or '')
     return m.group(1).strip() if m else None
 
 
-def _parse_jsonld(html: str) -> Optional[Dict[str, Any]]:
-    """Extract the first schema.org/Product from JSON-LD blocks."""
-    for m in re.finditer(
-        r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
-        html, re.DOTALL | re.I
-    ):
-        try:
-            data = json.loads(m.group(1))
-        except (json.JSONDecodeError, ValueError):
-            continue
-        items = data if isinstance(data, list) else [data]
-        if isinstance(data, dict) and '@graph' in data:
-            items = data['@graph']
-        for item in items:
-            if not isinstance(item, dict):
-                continue
-            type_val = item.get('@type', '')
-            if 'Product' not in (type_val if isinstance(type_val, str) else ' '.join(type_val)):
-                continue
-            price: Optional[float] = None
-            offers = item.get('offers', {})
-            if isinstance(offers, list):
-                offers = offers[0] if offers else {}
-            if isinstance(offers, dict):
-                raw_price = offers.get('price') or offers.get('lowPrice')
-                if raw_price is not None:
-                    try:
-                        price = float(str(raw_price).replace(',', '').replace('$', ''))
-                    except ValueError:
-                        pass
-            brand = item.get('brand', {})
-            manufacturer = brand.get('name') if isinstance(brand, dict) else (brand or None)
-            in_stock = 'InStock' in json.dumps(item.get('offers', ''))
-            return {
-                'title': item.get('name', ''),
-                'price': price,
-                'model_number': item.get('model') or item.get('mpn'),
-                'manufacturer': manufacturer,
-                'sku': item.get('sku'),
-                'in_stock': in_stock,
-            }
-    return None
-
-
-def _meta_val(html: str, prop: str) -> Optional[str]:
-    m = re.search(
-        rf'<meta[^>]+(?:property|name)=["\'][^"\']*{re.escape(prop)}[^"\']*["\'][^>]+content=["\']([^"\']+)["\']',
-        html, re.I
-    )
-    if m:
-        return m.group(1).strip()
-    # alternate attribute order
-    m = re.search(
-        rf'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:property|name)=["\'][^"\']*{re.escape(prop)}[^"\']*["\']',
-        html, re.I
-    )
-    return m.group(1).strip() if m else None
-
-
-def _parse_meta(html: str) -> Dict[str, Any]:
-    """Fallback: extract product info from meta / OG / title tags."""
-    title_tag = re.search(r'<title[^>]*>([^<]{1,300})</title>', html, re.I)
-    title = _meta_val(html, 'og:title') or _meta_val(html, 'title') or (title_tag.group(1).strip() if title_tag else '')
-
-    price_str = (
-        _meta_val(html, 'price:amount') or
-        _meta_val(html, 'og:price:amount') or
-        _meta_val(html, 'product:price:amount') or
-        _meta_val(html, 'price')
-    )
-    price: Optional[float] = None
-    if price_str:
-        try:
-            price = float(re.sub(r'[^\d.]', '', price_str))
-        except ValueError:
-            pass
-    if price is None:
-        price = _extract_price(html[:8000])
-
-    return {
-        'title': title or '',
-        'price': price,
-        'model_number': _meta_val(html, 'model') or _meta_val(html, 'mpn'),
-        'manufacturer': _meta_val(html, 'og:brand') or _meta_val(html, 'brand'),
-        'sku': _meta_val(html, 'sku') or _meta_val(html, 'product:retailer_item_id'),
-        'in_stock': True,
-    }
-
-
-async def _curl_fetch(url: str, timeout: int = 15) -> str:
-    """Fetch a URL via primp browser impersonation — bypasses TLS fingerprint filtering."""
-    try:
-        import primp
-        async with primp.AsyncClient(impersonate='random', timeout=timeout) as client:
-            r = await client.get(url)
-            return r.text
-    except Exception as exc:
-        logger.debug("primp fetch failed for %s: %s", url, exc)
-        return ''
-
-
 async def _fetch_product_data(url: str) -> Optional[Dict[str, Any]]:
-    """Fetch a product page and extract structured data. Returns None on failure."""
-    html = await _curl_fetch(url)
+    """Fetch a product page and extract structured data. Returns None on failure.
+
+    Fetch + parse both route through the shared core (core/fetch, core/parse) so
+    this scan and the per-product scan extract identical fields from a page.
+    """
+    html = await _curl_get(url)
     if not html:
         return None
     data = _parse_jsonld(html) or _parse_meta(html)
