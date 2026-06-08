@@ -33,6 +33,33 @@ building stays per-page (`_build_query`, `_clean_title_for_search`). See
 - **Lesson:** identical-by-intent helpers copied into sibling modules WILL drift.
   Keep them in `core/`; only genuinely page-specific logic stays local.
 
+## "Search returns 0 found" on Product Catalog (DIAGNOSED 2026-06-08)
+
+Symptom: Competitor Search on the Products page shows "Done — 0 found" for every product. Two distinct causes:
+
+1. **Network flapping (primary).** Same intermittent VPN/egress issue as the Shopify
+   problem ([[project_search_layer_split]], shopify-sync.md). When egress drops, the
+   primp-based search-engine requests fail; every engine **silently catches the error
+   and returns `[]`**, so `multi_engine_search` returns 0 URLs and the UI shows
+   "0 found" with no hint it was a network failure. Proof: the 15:05 run logged
+   "0 new URLs" on every round, but minutes later the identical query
+   (`BK Resources SVT-3630 table buy`) returned **60 results** with real competitor
+   domains (restaurantsupply.com, kitchenrestock.com, burkett.com, …), and a full
+   `run_product_competitor_search` found **6 competitors**.
+   - **Fix:** added retry-with-backoff to `core/fetch._curl_get` (`_FETCH_RETRIES=3`,
+     0.4→0.8s) so transient blips don't zero out searches. Mirrors the Shopify client retry.
+   - **Still open (UX):** a *sustained* outage still shows "0 found" with no
+     network-error signal. Distinguishing "network down" from "genuinely no competitors"
+     would need the engine layer to surface failures up to the UI — not yet done.
+
+2. **`_domain` mangled `www.` hosts (bug).** `core/parse._domain` used
+   `urlparse(url).netloc.lstrip('www.')`. `str.lstrip` strips any leading chars in the
+   set {w, .}, so `www.walmart.com`→`almart.com`, `www.webstaurantstore.com`→
+   `ebstaurantstore.com`, `www.wayfair.com`→`ayfair.com` — corrupting major competitor
+   domains and breaking dedup, matching, and noise-filtering for them.
+   - **Fix:** strip only the literal `www.` prefix. Locked by
+     `tests/test_parse_shared.py::test_domain_strips_only_literal_www_prefix`.
+
 ## Confirmed Root Causes (do not re-investigate)
 
 ### DB lock during scan (RESOLVED — 2026-05-26)

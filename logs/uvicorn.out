@@ -122851,3 +122851,468 @@ INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200
 INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61008 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61109 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:61109 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:61109 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61114 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61113 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61114 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61109 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61113 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61109 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61114 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61115 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61116 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61112 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61114 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61113 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61109 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61115 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61116 - "GET / HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     connection closed
+INFO:     127.0.0.1:61113 - "GET /static/vendor/tailwind.min.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61114 - "GET /static/vendor/chart.umd.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61112 - "GET /static/vendor/alpine.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61115 - "GET /static/js/app.js?v=20260605-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61109 - "GET /static/css/style.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61116 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61113 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61112 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61116 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61114 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61116 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61116 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61114 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61115 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61113 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61115 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61113 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61112 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61112 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61116 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61112 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61109 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61112 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61116 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61115 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61114 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61113 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61109 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61112 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61115 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61116 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61117 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:61114 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61109 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61113 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61118 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:61112 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61112 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61119 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61119 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61119 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61119 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61120 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61120 - "GET /api/search/find-product/history?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61119 - "GET /api/products?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61119 - "GET /api/search/beat-price/history?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61120 - "GET /api/products?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61119 - "GET /api/search/find-customers/history?limit=20 HTTP/1.1" 200 OK
+/Users/evw/dev/productComparison/donut-intel/backend/api/routes.py:2571: SAWarning: Coercing Subquery object into a select() for use in IN(); please pass a select() construct explicitly
+  .filter(Product.id.in_(multi_domain_ids), Product.is_active == True)
+INFO:     127.0.0.1:61120 - "GET /api/domain-comparison?page=1&per_page=50&show_all=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61119 - "GET /api/system-of-record?primary=donut-equipment.com&compare_to=donut-supplies.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61120 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/search/find-product/history?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61120 - "GET /api/products?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61120 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "PUT /api/source-sites/donut-equipment.com/credentials HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+2026-06-08 14:57:48 [INFO] backend.shopify.connection: conn: → Auth: requesting access token from equipmentplus.myshopify.com
+2026-06-08 14:57:48 [INFO] backend.shopify.connection: conn: … Auth equipmentplus.myshopify.com: ConnectError — retry 1/4 in 0.6s
+2026-06-08 14:57:48 [INFO] backend.shopify.connection: conn: … Auth equipmentplus.myshopify.com: ConnectError — retry 2/4 in 1.2s
+INFO:     127.0.0.1:61128 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+2026-06-08 14:57:50 [INFO] backend.shopify.connection: conn: … Auth equipmentplus.myshopify.com: ConnectError — retry 3/4 in 2.4s
+2026-06-08 14:57:52 [ERROR] backend.shopify.connection: conn: ✗ Auth equipmentplus.myshopify.com: connection failed after 4 attempts (ConnectError: All connection attempts failed)
+INFO:     127.0.0.1:61121 - "POST /api/source-sites/donut-equipment.com/test-connection HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61128 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+2026-06-08 14:58:00 [INFO] backend.shopify.connection: conn: → Auth: requesting access token from donut-supplies-com.myshopify.com
+2026-06-08 14:58:00 [INFO] backend.shopify.connection: conn: … Auth donut-supplies-com.myshopify.com: ConnectError — retry 1/4 in 0.6s
+2026-06-08 14:58:00 [INFO] backend.shopify.connection: conn: … Auth donut-supplies-com.myshopify.com: ConnectError — retry 2/4 in 1.2s
+INFO:     127.0.0.1:61137 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+2026-06-08 14:58:01 [INFO] backend.shopify.connection: conn: … Auth donut-supplies-com.myshopify.com: ConnectError — retry 3/4 in 2.4s
+2026-06-08 14:58:04 [ERROR] backend.shopify.connection: conn: ✗ Auth donut-supplies-com.myshopify.com: connection failed after 4 attempts (ConnectError: All connection attempts failed)
+INFO:     127.0.0.1:61121 - "POST /api/source-sites/donut-supplies.com/test-connection HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61137 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "PUT /api/source-sites/bakerywholesalers.com/credentials HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+2026-06-08 15:00:40 [INFO] backend.shopify.connection: conn: → Auth: requesting access token from bakery-wholesalers.myshopify.com
+2026-06-08 15:00:40 [INFO] backend.shopify.connection: conn: … Auth bakery-wholesalers.myshopify.com: ConnectError — retry 1/4 in 0.6s
+2026-06-08 15:00:41 [INFO] backend.shopify.connection: conn: … Auth bakery-wholesalers.myshopify.com: ConnectError — retry 2/4 in 1.2s
+2026-06-08 15:00:42 [INFO] backend.shopify.connection: conn: … Auth bakery-wholesalers.myshopify.com: ConnectError — retry 3/4 in 2.4s
+INFO:     127.0.0.1:61215 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+2026-06-08 15:00:44 [ERROR] backend.shopify.connection: conn: ✗ Auth bakery-wholesalers.myshopify.com: connection failed after 4 attempts (ConnectError: All connection attempts failed)
+INFO:     127.0.0.1:61121 - "POST /api/source-sites/bakerywholesalers.com/test-connection HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61215 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/shopify/connection-log?n=150 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61121 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61295 - "GET /api/products?page=1&per_page=50&manufacturer=BK+Resources HTTP/1.1" 200 OK
+2026-06-08 15:05:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH] Starting: 3 products queued, 3 workers, sync_interval=300s
+2026-06-08 15:05:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0] ── Product: '60" X 30" T-430 18 GA Table SS Top'  (id=3958)
+2026-06-08 15:05:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Query:   'BK Resources SVT-6030 table buy'
+2026-06-08 15:05:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1] ── Product: '36" X 30" T-430 18 GA Table SS Top'  (id=5280)
+2026-06-08 15:05:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Query:   'BK Resources SVT-3630 table buy'
+2026-06-08 15:05:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2] ── Product: '48" X 30" T-430 18 GA Table SS Top'  (id=5314)
+2026-06-08 15:05:40 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Query:   'BK Resources SVT-4830 table buy'
+INFO:     127.0.0.1:61328 - "POST /api/products/parallel-competitor-search HTTP/1.1" 200 OK
+2026-06-08 15:05:41 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Round 1 'BK Resources SVT-4830 table buy': 0 new URLs
+2026-06-08 15:05:41 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 1 'BK Resources SVT-3630 table buy': 0 new URLs
+2026-06-08 15:05:41 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 1 'BK Resources SVT-6030 table buy': 0 new URLs
+2026-06-08 15:05:42 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 2 'BK Resources table buy': 0 new URLs
+2026-06-08 15:05:42 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Round 2 'BK Resources table buy': 0 new URLs
+2026-06-08 15:05:42 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 2 'BK Resources table buy': 0 new URLs
+2026-06-08 15:05:42 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Round 3 'commercial table buy price': 0 new URLs
+2026-06-08 15:05:42 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 3 'commercial table buy price': 0 new URLs
+2026-06-08 15:05:42 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 3 'commercial table buy price': 0 new URLs
+2026-06-08 15:05:46 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 4 'BK Resources SVT-3630 table buy alternat': 0 new URLs
+2026-06-08 15:05:46 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1] ── Done: product='36" X 30" T-430 18 GA Table SS Top'  visited=0  found=0/5
+2026-06-08 15:05:46 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 4 'BK Resources SVT-6030 table buy alternat': 0 new URLs
+2026-06-08 15:05:46 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0] ── Done: product='60" X 30" T-430 18 GA Table SS Top'  visited=0  found=0/5
+2026-06-08 15:05:46 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2]    Round 4 'BK Resources SVT-4830 table buy alternat': 0 new URLs
+2026-06-08 15:05:46 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w2] ── Done: product='48" X 30" T-430 18 GA Table SS Top'  visited=0  found=0/5
+2026-06-08 15:05:46 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH] complete: processed=3 total_found=0
+INFO:     127.0.0.1:62098 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62102 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62100 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62098 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62099 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62103 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62101 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62102 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     connection closed
+INFO:     connection closed
+INFO:     Waiting for application shutdown.
+2026-06-08 15:12:35 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-06-08 15:12:35 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [66428]
+INFO:     Started server process [89054]
+INFO:     Waiting for application startup.
+2026-06-08 15:12:35 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-06-08 15:12:35 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-08 15:12:35 [INFO] backend.database.db: Database initialized
+2026-06-08 15:12:35 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-08 15:12:35 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-06-08 15:12:35 [INFO] backend.app: Scheduler started
+2026-06-08 15:12:35 [INFO] backend.app: Log-tail broadcaster started
+2026-06-08 15:12:35 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-06-08 15:12:35 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+INFO:     127.0.0.1:62226 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62227 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62231 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62232 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:62233 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open

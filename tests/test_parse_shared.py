@@ -13,6 +13,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from backend.search.core.parse import (
+    _domain,
     _extract_price,
     _extract_price_float,
     _parse_jsonld,
@@ -65,6 +66,19 @@ def test_parse_meta_extracts_image_and_description():
     assert d['image'] == 'https://x.com/f.jpg'
     assert d['description'] == 'Fries donuts'
     assert d['price'] == 1299.99
+
+
+def test_domain_strips_only_literal_www_prefix():
+    """Regression: _domain used lstrip('www.'), which strips any leading w/. chars
+    and mangled major competitor hosts (walmart -> almart, webstaurantstore ->
+    ebstaurantstore, wayfair -> ayfair). Must strip only the literal 'www.' prefix."""
+    assert _domain('https://www.walmart.com/ip/123') == 'walmart.com'
+    assert _domain('https://www.webstaurantstore.com/p') == 'webstaurantstore.com'
+    assert _domain('https://www.wayfair.com') == 'wayfair.com'
+    # non-www hosts and subdomains are untouched
+    assert _domain('https://restaurantsupply.com/a') == 'restaurantsupply.com'
+    assert _domain('https://shop.example.com/x') == 'shop.example.com'
+    assert _domain('https://WWW.Burkett.com/Z') == 'burkett.com'
 
 
 def test_price_extractors_str_vs_float():

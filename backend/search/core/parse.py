@@ -19,8 +19,18 @@ _MODEL_RE = re.compile(
 
 
 def _domain(url: str) -> str:
+    """Return the host with a leading 'www.' removed.
+
+    NOTE: must NOT use lstrip('www.') — str.lstrip strips any leading chars in
+    the set {w, .}, so 'www.walmart.com' became 'almart.com' and
+    'www.webstaurantstore.com' became 'ebstaurantstore.com' (both major
+    competitors). Strip only the literal 'www.' prefix.
+    """
     try:
-        return urlparse(url).netloc.lstrip('www.')
+        netloc = urlparse(url).netloc.lower()
+        if netloc.startswith('www.'):
+            netloc = netloc[4:]
+        return netloc
     except Exception:
         return ''
 
