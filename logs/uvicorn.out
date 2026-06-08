@@ -119840,3 +119840,749 @@ INFO:     127.0.0.1:59287 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1
 INFO:     127.0.0.1:59283 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:59285 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:59284 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60338 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:60338 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60341 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60340 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60341 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60340 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60340 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60341 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60338 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60342 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60343 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60339 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60340 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60341 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60344 - "GET /api/products?page=1&per_page=50&manufacturer=Bear+Stewart HTTP/1.1" 200 OK
+2026-06-08 10:59:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH] Starting: 2 products queued, 2 workers, sync_interval=300s
+2026-06-08 10:59:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0] ── Product: 'Bear Stewart Premium Apple Turnover Filling- 38 pound pail'  (id=1362)
+2026-06-08 10:59:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Query:   'Bear Stewart "68501020002" Premium Apple Turnover Filling 38 pound pail buy'
+2026-06-08 10:59:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1] ── Product: 'Bear Stewart Premium Apple Turnover Filling- 18 pound pail'  (id=3700)
+2026-06-08 10:59:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Query:   'Bear Stewart "68501019006" Premium Apple Turnover Filling 18 pound pail buy'
+2026-06-08 10:59:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Pre-queuing 1 known competitor URLs
+2026-06-08 10:59:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Checking 1 prior competitor URLs
+INFO:     127.0.0.1:60344 - "POST /api/products/parallel-competitor-search HTTP/1.1" 200 OK
+2026-06-08 10:59:56 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 1 'Bear Stewart "68501019006" Premium Apple': 0 new URLs
+2026-06-08 10:59:57 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 1 'Bear Stewart "68501020002" Premium Apple': 0 new URLs
+2026-06-08 10:59:57 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 2 '"68501019006" buy': 0 new URLs
+2026-06-08 10:59:57 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 2 '"68501020002" buy': 0 new URLs
+2026-06-08 10:59:57 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 3 '"68501019006" price compare': 0 new URLs
+2026-06-08 10:59:57 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 3 '"68501020002" price compare': 0 new URLs
+2026-06-08 10:59:57 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 4 'Bear Stewart filling buy': 0 new URLs
+2026-06-08 10:59:57 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 4 'Bear Stewart filling buy': 0 new URLs
+2026-06-08 10:59:58 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 5 'commercial filling buy price': 0 new URLs
+2026-06-08 10:59:58 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 5 'commercial filling buy price': 0 new URLs
+2026-06-08 10:59:58 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1]    Round 6 'Bear Stewart "68501019006" Premium Apple': 0 new URLs
+2026-06-08 10:59:58 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w1] ── Done: product='Bear Stewart Premium Apple Turnover Filling- 18 pound pail'  visited=1  found=0/5
+2026-06-08 10:59:58 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0]    Round 6 'Bear Stewart "68501020002" Premium Apple': 0 new URLs
+2026-06-08 10:59:58 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH][w0] ── Done: product='Bear Stewart Premium Apple Turnover Filling- 38 pound pail'  visited=0  found=0/5
+2026-06-08 10:59:58 [INFO] backend.competitor.product_search: [PARALLEL-SEARCH] complete: processed=2 total_found=0
+INFO:     127.0.0.1:60344 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60873 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60344 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60871 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60872 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60873 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60870 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60874 - "GET /api/price-comparison?page=1&per_page=25 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60872 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60876 - "GET /api/search/beat-price/history?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60875 - "GET /api/products?per_page=20&search=bevles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60877 - "GET /api/search/find-customers/history?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60878 - "GET /api/domain-comparison?page=1&per_page=50&show_all=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60879 - "GET /api/system-of-record?primary=donut-equipment.com&compare_to=donut-supplies.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60881 - "GET /api/search/find-product/history?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60880 - "GET /api/products?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60882 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60883 - "GET /api/products?page=1&per_page=50&manufacturer=Bear+Stewart HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60883 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60883 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60884 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60885 - "POST /api/competitors/discover HTTP/1.1" 200 OK
+2026-06-08 11:02:06 [INFO] backend.competitor.discovery: Query '"18609124270" buy price': 0 hits, 0 total competitors so far
+2026-06-08 11:02:07 [INFO] backend.competitor.discovery: Query '"18609124577" buy price': 0 hits, 0 total competitors so far
+2026-06-08 11:02:07 [INFO] backend.competitor.discovery: Query '"00684766317819" buy price': 0 hits, 0 total competitors so far
+2026-06-08 11:02:08 [INFO] backend.competitor.discovery: Query '"Somerset Industries" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:02:08 [INFO] backend.competitor.discovery: Query '"Henry & Henry" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:02:08 [INFO] backend.competitor.discovery: Query '"LVO" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:02:08 [INFO] backend.competitor.discovery: Query '"Turbo Air" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:02:09 [INFO] backend.competitor.discovery: Query '"Adam Equipment" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:02:09 [INFO] backend.competitor.discovery: Query 'donut equipment wholesale': 0 hits, 0 total competitors so far
+2026-06-08 11:02:09 [INFO] backend.competitor.discovery: Query 'bakery supply wholesale': 0 hits, 0 total competitors so far
+2026-06-08 11:02:10 [INFO] backend.competitor.discovery: Query 'commercial donut fryer': 0 hits, 0 total competitors so far
+INFO:     127.0.0.1:60885 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61436 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61435 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61437 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61442 - "POST /api/competitors/discover HTTP/1.1" 200 OK
+2026-06-08 11:06:24 [INFO] backend.competitor.discovery: Query '"18609124270" buy price': 0 hits, 0 total competitors so far
+2026-06-08 11:06:24 [INFO] backend.competitor.discovery: Query '"18609124577" buy price': 0 hits, 0 total competitors so far
+2026-06-08 11:06:24 [INFO] backend.competitor.discovery: Query '"00684766317819" buy price': 0 hits, 0 total competitors so far
+2026-06-08 11:06:25 [INFO] backend.competitor.discovery: Query '"Somerset Industries" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:06:25 [INFO] backend.competitor.discovery: Query '"Henry & Henry" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:06:25 [INFO] backend.competitor.discovery: Query '"LVO" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:06:26 [INFO] backend.competitor.discovery: Query '"Turbo Air" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:06:46 [INFO] backend.competitor.discovery: Query '"Adam Equipment" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:06:48 [INFO] backend.competitor.discovery: Query 'donut equipment wholesale': 0 hits, 0 total competitors so far
+2026-06-08 11:06:50 [INFO] backend.competitor.discovery: Query 'bakery supply wholesale': 0 hits, 0 total competitors so far
+2026-06-08 11:06:52 [INFO] backend.competitor.discovery: Query 'commercial donut fryer': 0 hits, 0 total competitors so far
+INFO:     127.0.0.1:62224 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62226 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62225 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62227 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62228 - "POST /api/competitors/discover HTTP/1.1" 200 OK
+2026-06-08 11:07:14 [INFO] backend.competitor.discovery: Query '"18609124270" buy price': 0 hits, 0 total competitors so far
+2026-06-08 11:07:16 [INFO] backend.competitor.discovery: Query '"18609124577" buy price': 0 hits, 0 total competitors so far
+2026-06-08 11:07:17 [INFO] backend.competitor.discovery: Query '"00684766317819" buy price': 0 hits, 0 total competitors so far
+2026-06-08 11:07:18 [INFO] backend.competitor.discovery: Query '"Somerset Industries" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:07:19 [INFO] backend.competitor.discovery: Query '"Henry & Henry" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:07:21 [INFO] backend.competitor.discovery: Query '"LVO" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:07:22 [INFO] backend.competitor.discovery: Query '"Turbo Air" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:07:23 [INFO] backend.competitor.discovery: Query '"Adam Equipment" donut equipment dealer': 0 hits, 0 total competitors so far
+2026-06-08 11:07:24 [INFO] backend.competitor.discovery: Query 'donut equipment wholesale': 0 hits, 0 total competitors so far
+2026-06-08 11:07:25 [INFO] backend.competitor.discovery: Query 'bakery supply wholesale': 0 hits, 0 total competitors so far
+2026-06-08 11:07:26 [INFO] backend.competitor.discovery: Query 'commercial donut fryer': 0 hits, 0 total competitors so far
+INFO:     127.0.0.1:63035 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63032 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63033 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63034 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-06-08 11:07:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Starting web search scan: 100 products, max_results=20
+2026-06-08 11:07:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting'  query='Package51Belshaw buy'
+INFO:     127.0.0.1:63036 - "POST /api/competitors/web-search-scan HTTP/1.1" 200 OK
+2026-06-08 11:07:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting'
+2026-06-08 11:07:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting' — skipping
+2026-06-08 11:07:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  query='Belshaw Adamatic 22889-22652-22104 buy'
+2026-06-08 11:07:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'
+2026-06-08 11:07:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph' — skipping
+2026-06-08 11:07:41 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System'  query='Belshaw Adamatic 22889 buy'
+2026-06-08 11:07:41 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'BELSHAW INSIDER Ventless Donut System'
+2026-06-08 11:07:41 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'BELSHAW INSIDER Ventless Donut System' — skipping
+2026-06-08 11:07:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 0079957904 buy'
+2026-06-08 11:07:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'
+2026-06-08 11:07:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:07:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'  query='Belshaw Adamatic 0079957902-480 buy'
+2026-06-08 11:07:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'
+2026-06-08 11:07:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph' — skipping
+2026-06-08 11:07:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling'  query='Package41Belshaw buy'
+2026-06-08 11:07:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling'
+2026-06-08 11:07:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling' — skipping
+2026-06-08 11:07:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling'  query='Package31Belshaw buy'
+2026-06-08 11:07:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling'
+2026-06-08 11:07:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling' — skipping
+2026-06-08 11:07:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph'  query='Belshaw Adamatic 00799579-480 buy'
+2026-06-08 11:08:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph'
+2026-06-08 11:08:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph' — skipping
+2026-06-08 11:08:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 00799579 buy'
+2026-06-08 11:08:04 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph'
+2026-06-08 11:08:04 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:08:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 0079957902 buy'
+2026-06-08 11:08:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'
+2026-06-08 11:08:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:08:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 0079957902-480 buy'
+2026-06-08 11:08:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'
+2026-06-08 11:08:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:08:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 4.2-Avalon Package for Semi-automated Cake and Raised production Hand Cutting and Rolling'  query='Package42Avalon buy'
+2026-06-08 11:08:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small 4.2-Avalon Package for Semi-automated Cake and Raised production Hand Cutting and Rolling'
+2026-06-08 11:08:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small 4.2-Avalon Package for Semi-automated Cake and Raised production Hand Cutting and Rolling' — skipping
+2026-06-08 11:08:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic 00799325 buy'
+2026-06-08 11:08:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph'
+2026-06-08 11:08:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph' — skipping
+2026-06-08 11:08:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 0079958332301 buy'
+2026-06-08 11:08:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph'
+2026-06-08 11:08:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:08:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'  query='Belshaw Adamatic 22306W buy'
+2026-06-08 11:08:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'
+2026-06-08 11:08:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph' — skipping
+2026-06-08 11:08:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 00799271 buy'
+2026-06-08 11:08:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph'
+2026-06-08 11:08:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:08:27 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 3.2-Package for Avalon Non-automated cake and raised production hand cutting and rolling'  query='Package32Avalon buy'
+2026-06-08 11:08:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small 3.2-Package for Avalon Non-automated cake and raised production hand cutting and rolling'
+2026-06-08 11:08:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small 3.2-Package for Avalon Non-automated cake and raised production hand cutting and rolling' — skipping
+2026-06-08 11:08:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw'  query='Package2-2Belshaw buy'
+2026-06-08 11:08:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw'
+2026-06-08 11:08:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw' — skipping
+2026-06-08 11:08:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799322), DX Deck Oven with Steam, (3) deck, (3) tray, 480v/60/3-ph'  query='Belshaw Adamatic 00799322 buy'
+2026-06-08 11:08:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799322), DX Deck Oven with Steam, (3) deck, (3) tray, 480v/60/3-ph'
+2026-06-08 11:08:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799322), DX Deck Oven with Steam, (3) deck, (3) tray, 480v/60/3-ph' — skipping
+INFO:     127.0.0.1:64424 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Bear+Stewart HTTP/1.1" 200 OK
+2026-06-08 11:08:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production'  query='Belshaw Adamatic 22680-1-MKVI-1300-1-916S buy'
+2026-06-08 11:08:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production'
+2026-06-08 11:08:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production' — skipping
+2026-06-08 11:08:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production'  query='Belshaw Adamatic 22680-1-MKVI-1300-1-918 buy'
+2026-06-08 11:08:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production'
+2026-06-08 11:08:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production' — skipping
+2026-06-08 11:08:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='140 Quart Thunderbird Planetary Mixer ARM-140'  query='Thunderbird ARM140 buy'
+2026-06-08 11:08:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for '140 Quart Thunderbird Planetary Mixer ARM-140'
+2026-06-08 11:08:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for '140 Quart Thunderbird Planetary Mixer ARM-140' — skipping
+2026-06-08 11:08:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production'  query='Belshaw Adamatic 22680-MKVI-1300-1-1316 buy'
+2026-06-08 11:08:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production'
+2026-06-08 11:08:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production' — skipping
+2026-06-08 11:08:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small Package for Automated Cake Donut Production Sugaring Only-2-1 Belshaw'  query='Package2-1Belshaw buy'
+2026-06-08 11:08:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small Package for Automated Cake Donut Production Sugaring Only-2-1 Belshaw'
+2026-06-08 11:08:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small Package for Automated Cake Donut Production Sugaring Only-2-1 Belshaw' — skipping
+2026-06-08 11:08:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'  query='Turbo Air TIOM-48RSRS-N buy'
+2026-06-08 11:08:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'
+2026-06-08 11:08:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v' — skipping
+2026-06-08 11:08:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 00799583 buy'
+2026-06-08 11:08:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph'
+2026-06-08 11:08:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:08:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic 00799558-480 buy'
+2026-06-08 11:09:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph'
+2026-06-08 11:09:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph' — skipping
+2026-06-08 11:09:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case'  query='Turbo Air TIOM-36RSRS-N buy'
+2026-06-08 11:09:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case'
+2026-06-08 11:09:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case' — skipping
+2026-06-08 11:09:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-20RSRS-N buy'
+INFO:     127.0.0.1:64994 - "GET /api/search/find-product/history?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64993 - "GET /api/products?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64994 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-06-08 11:10:18 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:10:18 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+INFO:     127.0.0.1:64995 - "GET /api/products?page=1&per_page=50&manufacturer=Bear+Stewart HTTP/1.1" 200 OK
+2026-06-08 11:10:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v'  query='Turbo Air TIOM-48RSRB-N buy'
+INFO:     127.0.0.1:64995 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64996 - "GET /api/reports/competitor/411 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64996 - "GET /favicon.ico HTTP/1.1" 200 OK
+2026-06-08 11:10:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v'
+2026-06-08 11:10:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v' — skipping
+2026-06-08 11:10:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 00799578 buy'
+2026-06-08 11:11:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph'
+2026-06-08 11:11:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:11:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 0079958701 buy'
+2026-06-08 11:11:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph'
+2026-06-08 11:11:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:11:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph'  query='Belshaw Adamatic 00799636 buy'
+2026-06-08 11:11:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph'
+2026-06-08 11:11:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph' — skipping
+2026-06-08 11:11:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'  query='Belshaw Adamatic 22680 buy'
+2026-06-08 11:11:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'
+2026-06-08 11:11:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)' — skipping
+2026-06-08 11:11:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic 00799587-480 buy'
+2026-06-08 11:11:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph'
+2026-06-08 11:11:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph' — skipping
+2026-06-08 11:11:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph'  query='Turbo Air TCGBF-50S-N buy'
+2026-06-08 11:11:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph'
+2026-06-08 11:11:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph' — skipping
+2026-06-08 11:11:27 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air TIOM-48CSCB-N buy'
+2026-06-08 11:11:27 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'
+2026-06-08 11:11:27 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v' — skipping
+2026-06-08 11:11:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small Package for Non-automated Cake Donut Production Only-1 -2 Avalon'  query='Package1-2Belshaw buy'
+2026-06-08 11:11:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small Package for Non-automated Cake Donut Production Only-1 -2 Avalon'
+2026-06-08 11:11:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small Package for Non-automated Cake Donut Production Only-1 -2 Avalon' — skipping
+2026-06-08 11:11:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List'  query='DCI Consult-1 buy'
+2026-06-08 11:11:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List'
+2026-06-08 11:11:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List' — skipping
+2026-06-08 11:11:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air TIOM-36CSCB-N buy'
+2026-06-08 11:11:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'
+2026-06-08 11:11:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v' — skipping
+2026-06-08 11:11:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-36RSRB-N buy'
+2026-06-08 11:11:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:11:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:11:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air TIOM-24CSCB-N buy'
+2026-06-08 11:11:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v'
+2026-06-08 11:11:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v' — skipping
+2026-06-08 11:11:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-20RSRB-N buy'
+2026-06-08 11:11:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:11:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:11:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='ACME 330DD Donut Production Sheeter (120V) Left To Right Production'  query='Acme 330DD-LR-120V buy'
+2026-06-08 11:11:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'ACME 330DD Donut Production Sheeter (120V) Left To Right Production'
+2026-06-08 11:11:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'ACME 330DD Donut Production Sheeter (120V) Left To Right Production' — skipping
+2026-06-08 11:11:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small Package for Non-automated Cake Donut Production Only-1 -1 Belshaw'  query='Package1-1Belshaw buy'
+2026-06-08 11:11:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small Package for Non-automated Cake Donut Production Only-1 -1 Belshaw'
+2026-06-08 11:11:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small Package for Non-automated Cake Donut Production Only-1 -1 Belshaw' — skipping
+2026-06-08 11:11:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48CSB-N 73" Square Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air TIOM-48CSB-N buy'
+2026-06-08 11:11:58 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48CSB-N 73" Square Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'
+2026-06-08 11:11:58 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48CSB-N 73" Square Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v' — skipping
+2026-06-08 11:12:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RSB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-48RSB-N buy'
+2026-06-08 11:12:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48RSB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:12:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48RSB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:12:04 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36CSB-N 36" Square Island Open Air Cooler w/ (4) Display Shelves, Black Exterior, 220v'  query='Turbo Air TIOM-36CSB-N buy'
+2026-06-08 11:12:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36CSB-N 36" Square Island Open Air Cooler w/ (4) Display Shelves, Black Exterior, 220v'
+2026-06-08 11:12:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36CSB-N 36" Square Island Open Air Cooler w/ (4) Display Shelves, Black Exterior, 220v' — skipping
+2026-06-08 11:12:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36RSB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-36RSB-N buy'
+2026-06-08 11:12:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36RSB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:12:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36RSB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:12:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48SS-N 51 1/8" Stainless Steel Square Island Self-Serve Display Case with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-48SS-N buy'
+2026-06-08 11:12:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48SS-N 51 1/8" Stainless Steel Square Island Self-Serve Display Case with (4) Levels, 220v/1ph'
+2026-06-08 11:12:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48SS-N 51 1/8" Stainless Steel Square Island Self-Serve Display Case with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:12:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BakeMax Electric Artisan Stone Deck Ovens 4 Pan Wide, 1 to 4 decks'  query='BakeMax BMFD001 buy'
+2026-06-08 11:12:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'BakeMax Electric Artisan Stone Deck Ovens 4 Pan Wide, 1 to 4 decks'
+2026-06-08 11:12:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'BakeMax Electric Artisan Stone Deck Ovens 4 Pan Wide, 1 to 4 decks' — skipping
+2026-06-08 11:12:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36SS-N 39 3/8" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-36SS-N buy'
+2026-06-08 11:12:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36SS-N 39 3/8" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:12:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36SS-N 39 3/8" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:12:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'  query='Acme 330D-LR-120 buy'
+2026-06-08 11:12:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'
+2026-06-08 11:12:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production' — skipping
+2026-06-08 11:12:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RRS-N 48" Stainless Steel Vertical Round Island Open Air Cooler with (3) Levels, 220v/1ph'  query='Turbo Air TIOM-48RRS-N buy'
+2026-06-08 11:12:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48RRS-N 48" Stainless Steel Vertical Round Island Open Air Cooler with (3) Levels, 220v/1ph'
+2026-06-08 11:12:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48RRS-N 48" Stainless Steel Vertical Round Island Open Air Cooler with (3) Levels, 220v/1ph' — skipping
+2026-06-08 11:12:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='LVO SM224-9 Donut Production Table Sheeter Left to Right Production'  query='LVO SM224-9LR buy'
+2026-06-08 11:12:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'LVO SM224-9 Donut Production Table Sheeter Left to Right Production'
+2026-06-08 11:12:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'LVO SM224-9 Donut Production Table Sheeter Left to Right Production' — skipping
+2026-06-08 11:12:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='LVO SM224-9 Donut Production Table Sheeter Right to Left Production'  query='LVO SM224-9RL buy'
+2026-06-08 11:12:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'LVO SM224-9 Donut Production Table Sheeter Right to Left Production'
+2026-06-08 11:12:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'LVO SM224-9 Donut Production Table Sheeter Right to Left Production' — skipping
+2026-06-08 11:12:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BakeMax Electric Artisan Stone Deck Ovens 3 Pan Wide, 1 to 4 decks'  query='BakeMax BMTD001 buy'
+2026-06-08 11:12:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'BakeMax Electric Artisan Stone Deck Ovens 3 Pan Wide, 1 to 4 decks'
+2026-06-08 11:12:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'BakeMax Electric Artisan Stone Deck Ovens 3 Pan Wide, 1 to 4 decks' — skipping
+2026-06-08 11:12:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-96SEB-N 100 1/8" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'  query='Turbo Air TOM-96SEB-N buy'
+2026-06-08 11:12:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-96SEB-N 100 1/8" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'
+2026-06-08 11:12:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-96SEB-N 100 1/8" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:12:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-96SEW-N 100 1/8" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'  query='Turbo Air TOM-96SEW-N buy'
+2026-06-08 11:12:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-96SEW-N 100 1/8" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'
+2026-06-08 11:12:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-96SEW-N 100 1/8" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:12:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Thunderbird Bowl Lifter / Tilter'  query='Thunderbird BL-60200 buy'
+2026-06-08 11:12:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Thunderbird Bowl Lifter / Tilter'
+2026-06-08 11:12:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Thunderbird Bowl Lifter / Tilter' — skipping
+2026-06-08 11:12:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark II GP (Gas) Propane or Natural Gas for Mini Donuts only'  query='Belshaw Adamatic 22503 buy'
+2026-06-08 11:12:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark II GP (Gas) Propane or Natural Gas for Mini Donuts only'
+2026-06-08 11:12:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark II GP (Gas) Propane or Natural Gas for Mini Donuts only' — skipping
+2026-06-08 11:12:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72DXS-N 68 3/4" Stainless Steel Extra Deep Vertical Open Air Cooler w/ (5) Levels, 115v'  query='Turbo Air TOM-72DXS-N buy'
+2026-06-08 11:12:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72DXS-N 68 3/4" Stainless Steel Extra Deep Vertical Open Air Cooler w/ (5) Levels, 115v'
+2026-06-08 11:12:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72DXS-N 68 3/4" Stainless Steel Extra Deep Vertical Open Air Cooler w/ (5) Levels, 115v' — skipping
+2026-06-08 11:12:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48SB-N 50 3/8" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-48SB-N buy'
+2026-06-08 11:12:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48SB-N 50 3/8" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:12:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48SB-N 50 3/8" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:12:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='ACME 330 Standard Donut Production Sheeter (120V) Right To Left Production'  query='Acme 330D-RL buy'
+2026-06-08 11:13:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'ACME 330 Standard Donut Production Sheeter (120V) Right To Left Production'
+2026-06-08 11:13:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'ACME 330 Standard Donut Production Sheeter (120V) Right To Left Production' — skipping
+2026-06-08 11:13:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-96ES-N 92 7/8" Stainless Steel Vertical Open Air Cooler with (5) Levels, 220v/1ph'  query='Turbo Air TOM-96ES-N buy'
+2026-06-08 11:13:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-96ES-N 92 7/8" Stainless Steel Vertical Open Air Cooler with (5) Levels, 220v/1ph'
+2026-06-08 11:13:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-96ES-N 92 7/8" Stainless Steel Vertical Open Air Cooler with (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:13:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='LVO SM224-6 Donut Production Table Sheeter Left To Right Production'  query='LVO LVOSM224-6LR buy'
+2026-06-08 11:13:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'LVO SM224-6 Donut Production Table Sheeter Left To Right Production'
+2026-06-08 11:13:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'LVO SM224-6 Donut Production Table Sheeter Left To Right Production' — skipping
+2026-06-08 11:13:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='LVO SM224-6 Donut Production Table Sheeter Right To Left Production'  query='LVO SM224-6RL buy'
+2026-06-08 11:13:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'LVO SM224-6 Donut Production Table Sheeter Right To Left Production'
+2026-06-08 11:13:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'LVO SM224-6 Donut Production Table Sheeter Right To Left Production' — skipping
+2026-06-08 11:13:27 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TJMF-85SDB-N 97 1/2" Black Super Deluxe Three Section Glass Door Display Freezer – (3) Swing Doors, 115v'  query='Turbo Air TJMF-85SDB-N buy'
+2026-06-08 11:13:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TJMF-85SDB-N 97 1/2" Black Super Deluxe Three Section Glass Door Display Freezer – (3) Swing Doors, 115v'
+2026-06-08 11:13:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TJMF-85SDB-N 97 1/2" Black Super Deluxe Three Section Glass Door Display Freezer – (3) Swing Doors, 115v' — skipping
+2026-06-08 11:13:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TJMF-85SDW-N 97 1/2" White Super Deluxe Three Section Glass Door Display Freezer – (3) Swing Doors, 115v'  query='Turbo Air TJMF-85SDW-N buy'
+2026-06-08 11:13:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TJMF-85SDW-N 97 1/2" White Super Deluxe Three Section Glass Door Display Freezer – (3) Swing Doors, 115v'
+2026-06-08 11:13:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TJMF-85SDW-N 97 1/2" White Super Deluxe Three Section Glass Door Display Freezer – (3) Swing Doors, 115v' — skipping
+2026-06-08 11:13:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark V (Electric) GP for Mini Donuts Only'  query='Belshaw Adamatic 21017-GP buy'
+2026-06-08 11:13:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark V (Electric) GP for Mini Donuts Only'
+2026-06-08 11:13:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark V (Electric) GP for Mini Donuts Only' — skipping
+2026-06-08 11:13:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Double BX Convection Oven Stand With Stacking Kit (0079947902)'  query='Belshaw Adamatic 2xMFG189T-U56-0079947902 buy'
+2026-06-08 11:13:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Double BX Convection Oven Stand With Stacking Kit (0079947902)'
+2026-06-08 11:13:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Double BX Convection Oven Stand With Stacking Kit (0079947902)' — skipping
+2026-06-08 11:13:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36SB-N 39 3/8" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-36SB-N buy'
+2026-06-08 11:13:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36SB-N 39 3/8" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:13:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36SB-N 39 3/8" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:13:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark II (Natural Gas or Propane) (3 variations available in Variants) Standard Donuts with Mini Donut Option'  query='Belshaw Adamatic 22592 buy'
+2026-06-08 11:13:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark II (Natural Gas or Propane) (3 variations available in Variants) Standard Donuts with Mini Donut Option'
+2026-06-08 11:13:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark II (Natural Gas or Propane) (3 variations available in Variants) Standard Donuts with Mini Donut Option' — skipping
+2026-06-08 11:13:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark V-Electric (4 options available) With Mini Donut Option Available'  query='Belshaw Adamatic 21016-11316P buy'
+2026-06-08 11:14:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark V-Electric (4 options available) With Mini Donut Option Available'
+2026-06-08 11:14:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark V-Electric (4 options available) With Mini Donut Option Available' — skipping
+2026-06-08 11:14:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-75SEW-N 76 1/2" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'  query='Turbo Air TOM-75SEW-N buy'
+2026-06-08 11:14:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-75SEW-N 76 1/2" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'
+2026-06-08 11:14:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-75SEW-N 76 1/2" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:14:08 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-75SEB-N 76 1/2" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'  query='Turbo Air TOM-75SEB-N buy'
+2026-06-08 11:14:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-75SEB-N 76 1/2" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'
+2026-06-08 11:14:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-75SEB-N 76 1/2" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:14:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='80 Quart Thunderbird Planetary Mixer ARM-80'  query='Thunderbird ARM-80PBL buy'
+2026-06-08 11:14:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for '80 Quart Thunderbird Planetary Mixer ARM-80'
+2026-06-08 11:14:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for '80 Quart Thunderbird Planetary Mixer ARM-80' — skipping
+2026-06-08 11:14:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48CCB-N 48" Square Island Open Air Cooler w/ (4) Display Shelves, Black Exterior, 220v'  query='Turbo Air TIOM-48CCB-N buy'
+2026-06-08 11:14:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48CCB-N 48" Square Island Open Air Cooler w/ (4) Display Shelves, Black Exterior, 220v'
+2026-06-08 11:14:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48CCB-N 48" Square Island Open Air Cooler w/ (4) Display Shelves, Black Exterior, 220v' — skipping
+2026-06-08 11:14:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RRB-N 48" Black Vertical Round Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-48RRB-N buy'
+2026-06-08 11:14:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48RRB-N 48" Black Vertical Round Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:14:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48RRB-N 48" Black Vertical Round Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:14:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72DXB-SP-N 68 3/4" Black Extra Deep Vertical Open Air Cooler w/ Solid Side Panels, (5) Levels, 220v/1ph'  query='Turbo Air TOM-72DXB-SP-N buy'
+2026-06-08 11:14:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72DXB-SP-N 68 3/4" Black Extra Deep Vertical Open Air Cooler w/ Solid Side Panels, (5) Levels, 220v/1ph'
+2026-06-08 11:14:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72DXB-SP-N 68 3/4" Black Extra Deep Vertical Open Air Cooler w/ Solid Side Panels, (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:14:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TCGB-72UF-S-N 72-1/2" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v'  query='Turbo Air TCGB-72UF-S-N buy'
+2026-06-08 11:14:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TCGB-72UF-S-N 72-1/2" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v'
+2026-06-08 11:14:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TCGB-72UF-S-N 72-1/2" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v' — skipping
+2026-06-08 11:14:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TJMR-85SDB-N 97 1/2" Black Super Deluxe Three Section Glass Door Merchandiser – (3) Swing Doors, 115v'  query='Turbo Air TJMR-85SDB-N buy'
+2026-06-08 11:14:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TJMR-85SDB-N 97 1/2" Black Super Deluxe Three Section Glass Door Merchandiser – (3) Swing Doors, 115v'
+2026-06-08 11:14:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TJMR-85SDB-N 97 1/2" Black Super Deluxe Three Section Glass Door Merchandiser – (3) Swing Doors, 115v' — skipping
+2026-06-08 11:14:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TJMR-85SDW-N 97 1/2" White Super Deluxe Three Section Glass Door Merchandiser – (3) Swing Doors, 115v'  query='Turbo Air TJMR-85SDW-N buy'
+2026-06-08 11:14:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TJMR-85SDW-N 97 1/2" White Super Deluxe Three Section Glass Door Merchandiser – (3) Swing Doors, 115v'
+2026-06-08 11:14:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TJMR-85SDW-N 97 1/2" White Super Deluxe Three Section Glass Door Merchandiser – (3) Swing Doors, 115v' — skipping
+2026-06-08 11:14:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TCGB-60UF-S-N 60-1/2" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v'  query='Turbo Air TCGB-60UF-S-N buy'
+2026-06-08 11:14:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TCGB-60UF-S-N 60-1/2" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v'
+2026-06-08 11:14:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TCGB-60UF-S-N 60-1/2" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v' — skipping
+2026-06-08 11:14:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-75MSEW-N 75 1/2" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (4) Levels, 220v'  query='Turbo Air TOM-75MSEW-N buy'
+2026-06-08 11:14:41 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-75MSEW-N 75 1/2" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (4) Levels, 220v'
+2026-06-08 11:14:41 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-75MSEW-N 75 1/2" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (4) Levels, 220v' — skipping
+2026-06-08 11:14:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-75MSEB-N 75 1/2" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (4) Levels, 220v'  query='Turbo Air TOM-75MSEB-N buy'
+2026-06-08 11:14:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-75MSEB-N 75 1/2" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (4) Levels, 220v'
+2026-06-08 11:14:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-75MSEB-N 75 1/2" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (4) Levels, 220v' — skipping
+2026-06-08 11:14:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Vendor Cart with Downdraft Filtration and Automatic Fire Suppression system (SS2400)'  query='LIl Orbits FSC-24DDF buy'
+2026-06-08 11:14:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Vendor Cart with Downdraft Filtration and Automatic Fire Suppression system (SS2400)'
+2026-06-08 11:14:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Vendor Cart with Downdraft Filtration and Automatic Fire Suppression system (SS2400)' — skipping
+2026-06-08 11:14:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='AFS24 "New" Advanced Filtration Cart for the SS2400 fryer'  query='LIl Orbits AFS-24 buy'
+2026-06-08 11:14:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'AFS24 "New" Advanced Filtration Cart for the SS2400 fryer'
+2026-06-08 11:14:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'AFS24 "New" Advanced Filtration Cart for the SS2400 fryer' — skipping
+2026-06-08 11:14:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TCGB-48UF-S-N 47-7/8" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v'  query='Turbo Air TCGB-48UF-S-N buy'
+2026-06-08 11:14:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TCGB-48UF-S-N 47-7/8" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v'
+2026-06-08 11:14:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TCGB-48UF-S-N 47-7/8" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v' — skipping
+2026-06-08 11:14:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72L-UF-S-3S-N 71" Stainless Steel Horizontal Refrigerated Open Curtain Merchandiser w/ (4) Levels, 220v/1ph'  query='Turbo Air TOM-72L-UF-S-3SI-N buy'
+2026-06-08 11:14:58 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72L-UF-S-3S-N 71" Stainless Steel Horizontal Refrigerated Open Curtain Merchandiser w/ (4) Levels, 220v/1ph'
+2026-06-08 11:14:58 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72L-UF-S-3S-N 71" Stainless Steel Horizontal Refrigerated Open Curtain Merchandiser w/ (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:15:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72L-UF-S-3S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (3) Levels – Ultra Front Merchandiser, 220v/1ph'  query='Turbo Air TOM-72L-UF-S-3S-N buy'
+2026-06-08 11:15:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72L-UF-S-3S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (3) Levels – Ultra Front Merchandiser, 220v/1ph'
+2026-06-08 11:15:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72L-UF-S-3S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (3) Levels – Ultra Front Merchandiser, 220v/1ph' — skipping
+2026-06-08 11:15:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72DXB-N 69" Vertical Open Air Cooler w/ (5) Levels – Extra Deep, Black Exterior, 115v'  query='Turbo Air TOM-72DXB-N buy'
+2026-06-08 11:15:04 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72DXB-N 69" Vertical Open Air Cooler w/ (5) Levels – Extra Deep, Black Exterior, 115v'
+2026-06-08 11:15:04 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72DXB-N 69" Vertical Open Air Cooler w/ (5) Levels – Extra Deep, Black Exterior, 115v' — skipping
+2026-06-08 11:15:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72L-UFD-S-3S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (3) Levels – Ultra Front Deluxe Merchandiser, 220v/1ph'  query='Turbo Air TOM-72L-UFD-S-3S-N buy'
+2026-06-08 11:15:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72L-UFD-S-3S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (3) Levels – Ultra Front Deluxe Merchandiser, 220v/1ph'
+2026-06-08 11:15:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72L-UFD-S-3S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (3) Levels – Ultra Front Deluxe Merchandiser, 220v/1ph' — skipping
+2026-06-08 11:15:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72L-UFD-W-3SI-N 72" Drop-In Horizontal Open Air Cooler w/ (4) Levels – White Exterior, 220v/1ph'  query='Turbo Air TOM-72L-UFD-S-3SI-N buy'
+2026-06-08 11:15:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72L-UFD-W-3SI-N 72" Drop-In Horizontal Open Air Cooler w/ (4) Levels – White Exterior, 220v/1ph'
+2026-06-08 11:15:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72L-UFD-W-3SI-N 72" Drop-In Horizontal Open Air Cooler w/ (4) Levels – White Exterior, 220v/1ph' — skipping
+2026-06-08 11:15:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-96EB-N 93" Black Vertical Open Air Cooler w/ (5) Levels, 220v/1ph'  query='Turbo Air TOM-96EB-N buy'
+2026-06-08 11:15:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-96EB-N 93" Black Vertical Open Air Cooler w/ (5) Levels, 220v/1ph'
+2026-06-08 11:15:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-96EB-N 93" Black Vertical Open Air Cooler w/ (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:15:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Federal Industries (ITRSS6034-B18)-Italian Series Refrigerated- 60" x 52"(H) Self Service Open Air Case w/ Two Shelves 208-240V'  query='Federal ITRSS6034-B18-Wt buy'
+2026-06-08 11:15:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Federal Industries (ITRSS6034-B18)-Italian Series Refrigerated- 60" x 52"(H) Self Service Open Air Case w/ Two Shelves 208-240V'
+2026-06-08 11:15:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Federal Industries (ITRSS6034-B18)-Italian Series Refrigerated- 60" x 52"(H) Self Service Open Air Case w/ Two Shelves 208-240V' — skipping
+2026-06-08 11:15:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72ES-N 72" Stainless Steel Vertical Open Air Cooler w/ (5) Levels, 220v/1ph'  query='Turbo Air TOM-72ES-N buy'
+2026-06-08 11:15:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72ES-N 72" Stainless Steel Vertical Open Air Cooler w/ (5) Levels, 220v/1ph'
+2026-06-08 11:15:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72ES-N 72" Stainless Steel Vertical Open Air Cooler w/ (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:15:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72L-UF-S-2S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (2) Levels – Ultra Front Merchandiser, 220v/1ph'  query='Turbo Air TOM-72L-UF-S-2S-N buy'
+2026-06-08 11:15:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72L-UF-S-2S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (2) Levels – Ultra Front Merchandiser, 220v/1ph'
+2026-06-08 11:15:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72L-UF-S-2S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (2) Levels – Ultra Front Merchandiser, 220v/1ph' — skipping
+2026-06-08 11:15:27 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72L-UF-S-2SI-N 72" Stainless Steel Drop-In Refrigerated Open Display Case Merchandiser w/ (2) Levels, 220v/1ph'  query='Turbo Air TOM-72L-UF-S-2SI-N buy'
+2026-06-08 11:15:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72L-UF-S-2SI-N 72" Stainless Steel Drop-In Refrigerated Open Display Case Merchandiser w/ (2) Levels, 220v/1ph'
+2026-06-08 11:15:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72L-UF-S-2SI-N 72" Stainless Steel Drop-In Refrigerated Open Display Case Merchandiser w/ (2) Levels, 220v/1ph' — skipping
+2026-06-08 11:15:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TGF-72SDHB-N 78" Black Super Deluxe Three Section Display Freezer w/ Swing Doors – Bottom Mount Compressor, LED Lighting, 115v'  query='Turbo Air TGF-72SDHB-N buy'
+2026-06-08 11:15:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TGF-72SDHB-N 78" Black Super Deluxe Three Section Display Freezer w/ Swing Doors – Bottom Mount Compressor, LED Lighting, 115v'
+2026-06-08 11:15:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TGF-72SDHB-N 78" Black Super Deluxe Three Section Display Freezer w/ Swing Doors – Bottom Mount Compressor, LED Lighting, 115v' — skipping
+2026-06-08 11:15:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Complete: 100 products processed
+INFO:     127.0.0.1:52972 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52974 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52975 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52977 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52973 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52972 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52976 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52974 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52983 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Bear+Stewart HTTP/1.1" 200 OK
+2026-06-08 11:24:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Starting web search scan: 100 products, max_results=20
+2026-06-08 11:24:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting'  query='Package51Belshaw buy'
+INFO:     127.0.0.1:52984 - "POST /api/competitors/web-search-scan HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52986 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-06-08 11:25:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting'
+2026-06-08 11:25:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small 5.1 Belshaw Automated Cake and Raised production, Machine rolling and Hand cutting' — skipping
+2026-06-08 11:25:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'  query='Belshaw Adamatic 22889-22652-22104 buy'
+INFO:     127.0.0.1:52988 - "GET /api/products?page=1&per_page=50&manufacturer=Bear+Stewart HTTP/1.1" 200 OK
+2026-06-08 11:25:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph'
+2026-06-08 11:25:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'BELSHAW INSIDER Ventless Donut System -(APPROX- 226 DOZEN/HR) Mark V GP 208/240/60Hz/1 Ph' — skipping
+2026-06-08 11:25:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BELSHAW INSIDER Ventless Donut System'  query='Belshaw Adamatic 22889 buy'
+2026-06-08 11:25:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'BELSHAW INSIDER Ventless Donut System'
+2026-06-08 11:25:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'BELSHAW INSIDER Ventless Donut System' — skipping
+2026-06-08 11:25:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 0079957904 buy'
+2026-06-08 11:25:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph'
+2026-06-08 11:25:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (0079957904), DX Deck Oven with Steam, (4) deck, (4) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:25:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'  query='Belshaw Adamatic 0079957902-480 buy'
+2026-06-08 11:25:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph'
+2026-06-08 11:25:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (0079957904-480), DX Deck Oven with Steam, (4) deck, (4) tray, 480/60/3-ph' — skipping
+2026-06-08 11:25:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling'  query='Package41Belshaw buy'
+2026-06-08 11:25:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling'
+2026-06-08 11:25:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small 4.1-Belshaw Package for Semi-automated Cake and Raised Production Hand Cutting and Rolling' — skipping
+2026-06-08 11:25:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling'  query='Package31Belshaw buy'
+2026-06-08 11:25:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling'
+2026-06-08 11:25:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small 3.1-Package for Belshaw Non-automated cake and raised production hand cutting and rolling' — skipping
+2026-06-08 11:25:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph'  query='Belshaw Adamatic 00799579-480 buy'
+INFO:     127.0.0.1:53375 - "GET /api/products?page=1&per_page=50&manufacturer=Bear+Stewart HTTP/1.1" 200 OK
+2026-06-08 11:25:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph'
+2026-06-08 11:25:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799579-480), DX Deck Oven with Steam, (4) deck, (3) tray, 480v/60/3-ph' — skipping
+2026-06-08 11:25:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 00799579 buy'
+2026-06-08 11:25:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph'
+2026-06-08 11:25:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799579), DX Deck Oven with Steam, (4) deck, (3) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:25:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 0079957902 buy'
+2026-06-08 11:25:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'
+2026-06-08 11:25:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (0079957902), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:25:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 0079957902-480 buy'
+2026-06-08 11:25:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph'
+2026-06-08 11:25:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (0079957902-480), DX Deck Oven with Steam, (3) deck, (4) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:25:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 4.2-Avalon Package for Semi-automated Cake and Raised production Hand Cutting and Rolling'  query='Package42Avalon buy'
+2026-06-08 11:25:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small 4.2-Avalon Package for Semi-automated Cake and Raised production Hand Cutting and Rolling'
+2026-06-08 11:25:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small 4.2-Avalon Package for Semi-automated Cake and Raised production Hand Cutting and Rolling' — skipping
+2026-06-08 11:25:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic 00799325 buy'
+2026-06-08 11:25:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph'
+2026-06-08 11:25:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799325), DX Deck Oven with Steam, (4) deck, (2) tray, 480v/60/3-ph' — skipping
+2026-06-08 11:25:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 0079958332301 buy'
+2026-06-08 11:25:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph'
+2026-06-08 11:25:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (0079958332301), DX Deck Oven with Steam, (4) deck, (2) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:25:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'  query='Belshaw Adamatic 22306W buy'
+2026-06-08 11:26:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph'
+2026-06-08 11:26:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw 22306W Thermoglaze Frozen Donut System - 50-75 Donuts/Hr, 208v/1ph' — skipping
+2026-06-08 11:26:04 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 00799271 buy'
+2026-06-08 11:26:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph'
+2026-06-08 11:26:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799271), DX Deck Oven with Steam, (3) deck, (3) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:26:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small 3.2-Package for Avalon Non-automated cake and raised production hand cutting and rolling'  query='Package32Avalon buy'
+2026-06-08 11:26:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small 3.2-Package for Avalon Non-automated cake and raised production hand cutting and rolling'
+2026-06-08 11:26:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small 3.2-Package for Avalon Non-automated cake and raised production hand cutting and rolling' — skipping
+2026-06-08 11:26:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw'  query='Package2-2Belshaw buy'
+2026-06-08 11:26:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw'
+2026-06-08 11:26:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small Package for Automated Cake Donut Production Sugaring, Glaze & Icing-2-2 Belshaw' — skipping
+2026-06-08 11:26:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799322), DX Deck Oven with Steam, (3) deck, (3) tray, 480v/60/3-ph'  query='Belshaw Adamatic 00799322 buy'
+2026-06-08 11:26:18 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799322), DX Deck Oven with Steam, (3) deck, (3) tray, 480v/60/3-ph'
+2026-06-08 11:26:18 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799322), DX Deck Oven with Steam, (3) deck, (3) tray, 480v/60/3-ph' — skipping
+2026-06-08 11:26:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production'  query='Belshaw Adamatic 22680-1-MKVI-1300-1-916S buy'
+2026-06-08 11:26:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production'
+2026-06-08 11:26:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Star Depositor 1-9/16" for Cake Donut Production' — skipping
+2026-06-08 11:26:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production'  query='Belshaw Adamatic 22680-1-MKVI-1300-1-918 buy'
+2026-06-08 11:26:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production'
+2026-06-08 11:26:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark VI (3-3/4" Flight Bar) with Dual Plain Depositor 1-9/16" for Cake Donut Production' — skipping
+2026-06-08 11:26:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='140 Quart Thunderbird Planetary Mixer ARM-140'  query='Thunderbird ARM140 buy'
+2026-06-08 11:26:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for '140 Quart Thunderbird Planetary Mixer ARM-140'
+2026-06-08 11:26:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for '140 Quart Thunderbird Planetary Mixer ARM-140' — skipping
+2026-06-08 11:26:27 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production'  query='Belshaw Adamatic 22680-MKVI-1300-1-1316 buy'
+2026-06-08 11:26:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production'
+2026-06-08 11:26:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark VI (4-1/2" Flight Bar) with Dual Plain Depositor 1-13/16" for Cake Donut Production' — skipping
+INFO:     127.0.0.1:54313 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-06-08 11:26:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small Package for Automated Cake Donut Production Sugaring Only-2-1 Belshaw'  query='Package2-1Belshaw buy'
+2026-06-08 11:26:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small Package for Automated Cake Donut Production Sugaring Only-2-1 Belshaw'
+2026-06-08 11:26:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small Package for Automated Cake Donut Production Sugaring Only-2-1 Belshaw' — skipping
+2026-06-08 11:26:32 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'  query='Turbo Air TIOM-48RSRS-N buy'
+2026-06-08 11:26:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v'
+2026-06-08 11:26:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48RSRS-N 48" Stainless Steel Horizontal Island Open Air Cooler – 4 Level Display, 220v' — skipping
+2026-06-08 11:26:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 00799583 buy'
+2026-06-08 11:26:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph'
+2026-06-08 11:26:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799583), DX Deck Oven with Steam, (3) deck, (2) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:26:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic 00799558-480 buy'
+2026-06-08 11:26:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph'
+2026-06-08 11:26:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799558-480), DX Deck Oven with Steam, (3) deck, (2) tray, 480v/60/3-ph' — skipping
+2026-06-08 11:26:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case'  query='Turbo Air TIOM-36RSRS-N buy'
+2026-06-08 11:26:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case'
+2026-06-08 11:26:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air Self-Serve Merchandiser TIOM-36RSRS-N 48" Stainless Steel Open Air Oval Island Display Case' — skipping
+2026-06-08 11:26:42 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-20RSRS-N buy'
+2026-06-08 11:26:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:26:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-20RSRS-N 48" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:26:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v'  query='Turbo Air TIOM-48RSRB-N buy'
+2026-06-08 11:26:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v'
+2026-06-08 11:26:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48RSRB-N 48" Black Horizontal Island Open Air Cooler – 4 Level Display, 220v' — skipping
+2026-06-08 11:26:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 00799578 buy'
+2026-06-08 11:26:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph'
+2026-06-08 11:26:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799578), DX Deck Oven with Steam, (2) deck, (3) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:26:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph'  query='Belshaw Adamatic 0079958701 buy'
+2026-06-08 11:26:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph'
+2026-06-08 11:26:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (0079958701), DX Deck Oven with Steam, (2) deck, (2) tray, 208-240v/60/3-ph' — skipping
+2026-06-08 11:26:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph'  query='Belshaw Adamatic 00799636 buy'
+2026-06-08 11:26:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph'
+2026-06-08 11:26:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799636), DX Deck Oven with Steam, (2) deck, (3) tray, 480v/60/3-ph' — skipping
+2026-06-08 11:26:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'  query='Belshaw Adamatic 22680 buy'
+2026-06-08 11:27:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)'
+2026-06-08 11:27:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark VI Standard  (4 variables in Variants)' — skipping
+2026-06-08 11:27:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph'  query='Belshaw Adamatic 00799587-480 buy'
+2026-06-08 11:27:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph'
+2026-06-08 11:27:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw, (00799587-480), DX Deck Oven with Steam, (2) deck, (2) tray, 480v/60/3-ph' — skipping
+INFO:     127.0.0.1:54915 - "GET /api/products?page=1&per_page=50&manufacturer=Bear+Stewart HTTP/1.1" 200 OK
+2026-06-08 11:27:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph'  query='Turbo Air TCGBF-50S-N buy'
+INFO:     127.0.0.1:54915 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+2026-06-08 11:27:08 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph'
+2026-06-08 11:27:08 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TCGBF-50S-N 49-5/8" Straight Glass Full-Service Freezer Bakery Display Case, 3 Levels, Stainless Steel Exterior, 220v/1ph' — skipping
+2026-06-08 11:27:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air TIOM-48CSCB-N buy'
+2026-06-08 11:27:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'
+2026-06-08 11:27:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v' — skipping
+2026-06-08 11:27:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small Package for Non-automated Cake Donut Production Only-1 -2 Avalon'  query='Package1-2Belshaw buy'
+2026-06-08 11:27:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small Package for Non-automated Cake Donut Production Only-1 -2 Avalon'
+2026-06-08 11:27:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small Package for Non-automated Cake Donut Production Only-1 -2 Avalon' — skipping
+2026-06-08 11:27:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List'  query='DCI Consult-1 buy'
+2026-06-08 11:27:18 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List'
+2026-06-08 11:27:18 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Expert Donut Shop Consulting, Floor Plans, Production Training, Equipment List' — skipping
+2026-06-08 11:27:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air TIOM-36CSCB-N buy'
+2026-06-08 11:27:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'
+2026-06-08 11:27:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36CSCB-N 84" Square Glass Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v' — skipping
+INFO:     127.0.0.1:55166 - "GET /api/products?page=1&per_page=50&manufacturer=Bear+Stewart HTTP/1.1" 200 OK
+2026-06-08 11:27:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-36RSRB-N buy'
+2026-06-08 11:27:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:27:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36RSRB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:27:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air TIOM-24CSCB-N buy'
+2026-06-08 11:27:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v'
+2026-06-08 11:27:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-24CSCB-N 72" Square Glass Island Open Air Merchandiser, 24 Cu. Ft., Self-Serve, Black, 220v' — skipping
+2026-06-08 11:27:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-20RSRB-N buy'
+2026-06-08 11:27:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:27:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-20RSRB-N 48" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:27:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='ACME 330DD Donut Production Sheeter (120V) Left To Right Production'  query='Acme 330DD-LR-120V buy'
+2026-06-08 11:27:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'ACME 330DD Donut Production Sheeter (120V) Left To Right Production'
+2026-06-08 11:27:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'ACME 330DD Donut Production Sheeter (120V) Left To Right Production' — skipping
+2026-06-08 11:27:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Small Package for Non-automated Cake Donut Production Only-1 -1 Belshaw'  query='Package1-1Belshaw buy'
+2026-06-08 11:27:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Small Package for Non-automated Cake Donut Production Only-1 -1 Belshaw'
+2026-06-08 11:27:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Small Package for Non-automated Cake Donut Production Only-1 -1 Belshaw' — skipping
+2026-06-08 11:27:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48CSB-N 73" Square Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'  query='Turbo Air TIOM-48CSB-N buy'
+2026-06-08 11:27:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48CSB-N 73" Square Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v'
+2026-06-08 11:27:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48CSB-N 73" Square Island Open Air Merchandiser, 36 Cu. Ft., Self-Serve, Black, 220v' — skipping
+2026-06-08 11:27:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RSB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-48RSB-N buy'
+INFO:     127.0.0.1:55546 - "GET /api/products?page=1&per_page=50&manufacturer=Bear+Stewart HTTP/1.1" 200 OK
+2026-06-08 11:27:41 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48RSB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:27:41 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48RSB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:27:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36CSB-N 36" Square Island Open Air Cooler w/ (4) Display Shelves, Black Exterior, 220v'  query='Turbo Air TIOM-36CSB-N buy'
+2026-06-08 11:27:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36CSB-N 36" Square Island Open Air Cooler w/ (4) Display Shelves, Black Exterior, 220v'
+2026-06-08 11:27:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36CSB-N 36" Square Island Open Air Cooler w/ (4) Display Shelves, Black Exterior, 220v' — skipping
+2026-06-08 11:27:45 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36RSB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-36RSB-N buy'
+2026-06-08 11:27:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36RSB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:27:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36RSB-N 48" Black Horizontal Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:27:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48SS-N 51 1/8" Stainless Steel Square Island Self-Serve Display Case with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-48SS-N buy'
+2026-06-08 11:27:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48SS-N 51 1/8" Stainless Steel Square Island Self-Serve Display Case with (4) Levels, 220v/1ph'
+2026-06-08 11:27:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48SS-N 51 1/8" Stainless Steel Square Island Self-Serve Display Case with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:27:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BakeMax Electric Artisan Stone Deck Ovens 4 Pan Wide, 1 to 4 decks'  query='BakeMax BMFD001 buy'
+2026-06-08 11:27:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'BakeMax Electric Artisan Stone Deck Ovens 4 Pan Wide, 1 to 4 decks'
+2026-06-08 11:27:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'BakeMax Electric Artisan Stone Deck Ovens 4 Pan Wide, 1 to 4 decks' — skipping
+2026-06-08 11:27:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36SS-N 39 3/8" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-36SS-N buy'
+2026-06-08 11:27:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36SS-N 39 3/8" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:27:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36SS-N 39 3/8" Stainless Steel Vertical Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:27:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'  query='Acme 330D-LR-120 buy'
+2026-06-08 11:27:58 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production'
+2026-06-08 11:27:58 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'ACME 330 Standard Donut Production Sheeter (120V) Left To Right Production' — skipping
+2026-06-08 11:28:00 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RRS-N 48" Stainless Steel Vertical Round Island Open Air Cooler with (3) Levels, 220v/1ph'  query='Turbo Air TIOM-48RRS-N buy'
+2026-06-08 11:28:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48RRS-N 48" Stainless Steel Vertical Round Island Open Air Cooler with (3) Levels, 220v/1ph'
+2026-06-08 11:28:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48RRS-N 48" Stainless Steel Vertical Round Island Open Air Cooler with (3) Levels, 220v/1ph' — skipping
+2026-06-08 11:28:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='LVO SM224-9 Donut Production Table Sheeter Left to Right Production'  query='LVO SM224-9LR buy'
+2026-06-08 11:28:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'LVO SM224-9 Donut Production Table Sheeter Left to Right Production'
+2026-06-08 11:28:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'LVO SM224-9 Donut Production Table Sheeter Left to Right Production' — skipping
+2026-06-08 11:28:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='LVO SM224-9 Donut Production Table Sheeter Right to Left Production'  query='LVO SM224-9RL buy'
+2026-06-08 11:28:08 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'LVO SM224-9 Donut Production Table Sheeter Right to Left Production'
+2026-06-08 11:28:08 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'LVO SM224-9 Donut Production Table Sheeter Right to Left Production' — skipping
+2026-06-08 11:28:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='BakeMax Electric Artisan Stone Deck Ovens 3 Pan Wide, 1 to 4 decks'  query='BakeMax BMTD001 buy'
+2026-06-08 11:28:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'BakeMax Electric Artisan Stone Deck Ovens 3 Pan Wide, 1 to 4 decks'
+2026-06-08 11:28:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'BakeMax Electric Artisan Stone Deck Ovens 3 Pan Wide, 1 to 4 decks' — skipping
+2026-06-08 11:28:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-96SEB-N 100 1/8" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'  query='Turbo Air TOM-96SEB-N buy'
+2026-06-08 11:28:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-96SEB-N 100 1/8" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'
+2026-06-08 11:28:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-96SEB-N 100 1/8" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:28:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-96SEW-N 100 1/8" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'  query='Turbo Air TOM-96SEW-N buy'
+2026-06-08 11:28:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-96SEW-N 100 1/8" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'
+2026-06-08 11:28:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-96SEW-N 100 1/8" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:28:19 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Thunderbird Bowl Lifter / Tilter'  query='Thunderbird BL-60200 buy'
+2026-06-08 11:28:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Thunderbird Bowl Lifter / Tilter'
+2026-06-08 11:28:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Thunderbird Bowl Lifter / Tilter' — skipping
+2026-06-08 11:28:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark II GP (Gas) Propane or Natural Gas for Mini Donuts only'  query='Belshaw Adamatic 22503 buy'
+2026-06-08 11:28:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark II GP (Gas) Propane or Natural Gas for Mini Donuts only'
+2026-06-08 11:28:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark II GP (Gas) Propane or Natural Gas for Mini Donuts only' — skipping
+2026-06-08 11:28:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72DXS-N 68 3/4" Stainless Steel Extra Deep Vertical Open Air Cooler w/ (5) Levels, 115v'  query='Turbo Air TOM-72DXS-N buy'
+2026-06-08 11:28:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72DXS-N 68 3/4" Stainless Steel Extra Deep Vertical Open Air Cooler w/ (5) Levels, 115v'
+2026-06-08 11:28:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72DXS-N 68 3/4" Stainless Steel Extra Deep Vertical Open Air Cooler w/ (5) Levels, 115v' — skipping
+2026-06-08 11:28:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48SB-N 50 3/8" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-48SB-N buy'
+2026-06-08 11:28:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48SB-N 50 3/8" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:28:29 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48SB-N 50 3/8" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:28:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='ACME 330 Standard Donut Production Sheeter (120V) Right To Left Production'  query='Acme 330D-RL buy'
+2026-06-08 11:28:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'ACME 330 Standard Donut Production Sheeter (120V) Right To Left Production'
+2026-06-08 11:28:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'ACME 330 Standard Donut Production Sheeter (120V) Right To Left Production' — skipping
+2026-06-08 11:28:35 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-96ES-N 92 7/8" Stainless Steel Vertical Open Air Cooler with (5) Levels, 220v/1ph'  query='Turbo Air TOM-96ES-N buy'
+2026-06-08 11:28:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-96ES-N 92 7/8" Stainless Steel Vertical Open Air Cooler with (5) Levels, 220v/1ph'
+2026-06-08 11:28:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-96ES-N 92 7/8" Stainless Steel Vertical Open Air Cooler with (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:28:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='LVO SM224-6 Donut Production Table Sheeter Left To Right Production'  query='LVO LVOSM224-6LR buy'
+2026-06-08 11:28:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'LVO SM224-6 Donut Production Table Sheeter Left To Right Production'
+2026-06-08 11:28:38 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'LVO SM224-6 Donut Production Table Sheeter Left To Right Production' — skipping
+2026-06-08 11:28:40 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='LVO SM224-6 Donut Production Table Sheeter Right To Left Production'  query='LVO SM224-6RL buy'
+2026-06-08 11:28:41 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'LVO SM224-6 Donut Production Table Sheeter Right To Left Production'
+2026-06-08 11:28:41 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'LVO SM224-6 Donut Production Table Sheeter Right To Left Production' — skipping
+2026-06-08 11:28:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TJMF-85SDB-N 97 1/2" Black Super Deluxe Three Section Glass Door Display Freezer – (3) Swing Doors, 115v'  query='Turbo Air TJMF-85SDB-N buy'
+2026-06-08 11:28:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TJMF-85SDB-N 97 1/2" Black Super Deluxe Three Section Glass Door Display Freezer – (3) Swing Doors, 115v'
+2026-06-08 11:28:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TJMF-85SDB-N 97 1/2" Black Super Deluxe Three Section Glass Door Display Freezer – (3) Swing Doors, 115v' — skipping
+2026-06-08 11:28:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TJMF-85SDW-N 97 1/2" White Super Deluxe Three Section Glass Door Display Freezer – (3) Swing Doors, 115v'  query='Turbo Air TJMF-85SDW-N buy'
+2026-06-08 11:28:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TJMF-85SDW-N 97 1/2" White Super Deluxe Three Section Glass Door Display Freezer – (3) Swing Doors, 115v'
+2026-06-08 11:28:47 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TJMF-85SDW-N 97 1/2" White Super Deluxe Three Section Glass Door Display Freezer – (3) Swing Doors, 115v' — skipping
+2026-06-08 11:28:49 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark V (Electric) GP for Mini Donuts Only'  query='Belshaw Adamatic 21017-GP buy'
+2026-06-08 11:28:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark V (Electric) GP for Mini Donuts Only'
+2026-06-08 11:28:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark V (Electric) GP for Mini Donuts Only' — skipping
+2026-06-08 11:28:52 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Double BX Convection Oven Stand With Stacking Kit (0079947902)'  query='Belshaw Adamatic 2xMFG189T-U56-0079947902 buy'
+2026-06-08 11:28:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Double BX Convection Oven Stand With Stacking Kit (0079947902)'
+2026-06-08 11:28:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Double BX Convection Oven Stand With Stacking Kit (0079947902)' — skipping
+2026-06-08 11:28:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-36SB-N 39 3/8" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-36SB-N buy'
+2026-06-08 11:28:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-36SB-N 39 3/8" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:28:55 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-36SB-N 39 3/8" Black Vertical Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:28:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark II (Natural Gas or Propane) (3 variations available in Variants) Standard Donuts with Mini Donut Option'  query='Belshaw Adamatic 22592 buy'
+2026-06-08 11:28:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark II (Natural Gas or Propane) (3 variations available in Variants) Standard Donuts with Mini Donut Option'
+2026-06-08 11:28:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark II (Natural Gas or Propane) (3 variations available in Variants) Standard Donuts with Mini Donut Option' — skipping
+2026-06-08 11:29:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Belshaw Donut Robot® Mark V-Electric (4 options available) With Mini Donut Option Available'  query='Belshaw Adamatic 21016-11316P buy'
+2026-06-08 11:29:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Belshaw Donut Robot® Mark V-Electric (4 options available) With Mini Donut Option Available'
+2026-06-08 11:29:02 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Belshaw Donut Robot® Mark V-Electric (4 options available) With Mini Donut Option Available' — skipping
+2026-06-08 11:29:04 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-75SEW-N 76 1/2" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'  query='Turbo Air TOM-75SEW-N buy'
+2026-06-08 11:29:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-75SEW-N 76 1/2" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'
+2026-06-08 11:29:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-75SEW-N 76 1/2" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:29:07 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-75SEB-N 76 1/2" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'  query='Turbo Air TOM-75SEB-N buy'
+2026-06-08 11:29:08 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-75SEB-N 76 1/2" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph'
+2026-06-08 11:29:08 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-75SEB-N 76 1/2" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:29:10 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='80 Quart Thunderbird Planetary Mixer ARM-80'  query='Thunderbird ARM-80PBL buy'
+2026-06-08 11:29:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for '80 Quart Thunderbird Planetary Mixer ARM-80'
+2026-06-08 11:29:12 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for '80 Quart Thunderbird Planetary Mixer ARM-80' — skipping
+2026-06-08 11:29:14 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48CCB-N 48" Square Island Open Air Cooler w/ (4) Display Shelves, Black Exterior, 220v'  query='Turbo Air TIOM-48CCB-N buy'
+2026-06-08 11:29:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48CCB-N 48" Square Island Open Air Cooler w/ (4) Display Shelves, Black Exterior, 220v'
+2026-06-08 11:29:15 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48CCB-N 48" Square Island Open Air Cooler w/ (4) Display Shelves, Black Exterior, 220v' — skipping
+2026-06-08 11:29:17 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TIOM-48RRB-N 48" Black Vertical Round Island Open Air Cooler with (4) Levels, 220v/1ph'  query='Turbo Air TIOM-48RRB-N buy'
+2026-06-08 11:29:18 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TIOM-48RRB-N 48" Black Vertical Round Island Open Air Cooler with (4) Levels, 220v/1ph'
+2026-06-08 11:29:18 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TIOM-48RRB-N 48" Black Vertical Round Island Open Air Cooler with (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:29:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72DXB-SP-N 68 3/4" Black Extra Deep Vertical Open Air Cooler w/ Solid Side Panels, (5) Levels, 220v/1ph'  query='Turbo Air TOM-72DXB-SP-N buy'
+2026-06-08 11:29:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72DXB-SP-N 68 3/4" Black Extra Deep Vertical Open Air Cooler w/ Solid Side Panels, (5) Levels, 220v/1ph'
+2026-06-08 11:29:21 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72DXB-SP-N 68 3/4" Black Extra Deep Vertical Open Air Cooler w/ Solid Side Panels, (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:29:23 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TCGB-72UF-S-N 72-1/2" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v'  query='Turbo Air TCGB-72UF-S-N buy'
+2026-06-08 11:29:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TCGB-72UF-S-N 72-1/2" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v'
+2026-06-08 11:29:25 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TCGB-72UF-S-N 72-1/2" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v' — skipping
+2026-06-08 11:29:27 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TJMR-85SDB-N 97 1/2" Black Super Deluxe Three Section Glass Door Merchandiser – (3) Swing Doors, 115v'  query='Turbo Air TJMR-85SDB-N buy'
+2026-06-08 11:29:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TJMR-85SDB-N 97 1/2" Black Super Deluxe Three Section Glass Door Merchandiser – (3) Swing Doors, 115v'
+2026-06-08 11:29:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TJMR-85SDB-N 97 1/2" Black Super Deluxe Three Section Glass Door Merchandiser – (3) Swing Doors, 115v' — skipping
+2026-06-08 11:29:30 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TJMR-85SDW-N 97 1/2" White Super Deluxe Three Section Glass Door Merchandiser – (3) Swing Doors, 115v'  query='Turbo Air TJMR-85SDW-N buy'
+2026-06-08 11:29:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TJMR-85SDW-N 97 1/2" White Super Deluxe Three Section Glass Door Merchandiser – (3) Swing Doors, 115v'
+2026-06-08 11:29:31 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TJMR-85SDW-N 97 1/2" White Super Deluxe Three Section Glass Door Merchandiser – (3) Swing Doors, 115v' — skipping
+2026-06-08 11:29:33 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TCGB-60UF-S-N 60-1/2" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v'  query='Turbo Air TCGB-60UF-S-N buy'
+2026-06-08 11:29:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TCGB-60UF-S-N 60-1/2" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v'
+2026-06-08 11:29:34 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TCGB-60UF-S-N 60-1/2" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v' — skipping
+2026-06-08 11:29:36 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-75MSEW-N 75 1/2" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (4) Levels, 220v'  query='Turbo Air TOM-75MSEW-N buy'
+2026-06-08 11:29:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-75MSEW-N 75 1/2" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (4) Levels, 220v'
+2026-06-08 11:29:37 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-75MSEW-N 75 1/2" White Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (4) Levels, 220v' — skipping
+2026-06-08 11:29:39 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-75MSEB-N 75 1/2" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (4) Levels, 220v'  query='Turbo Air TOM-75MSEB-N buy'
+2026-06-08 11:29:41 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-75MSEB-N 75 1/2" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (4) Levels, 220v'
+2026-06-08 11:29:41 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-75MSEB-N 75 1/2" Black Narrow Depth Vertical Open Air Cooler / Air Curtain Display Case with (4) Levels, 220v' — skipping
+2026-06-08 11:29:43 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Vendor Cart with Downdraft Filtration and Automatic Fire Suppression system (SS2400)'  query='LIl Orbits FSC-24DDF buy'
+2026-06-08 11:29:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Vendor Cart with Downdraft Filtration and Automatic Fire Suppression system (SS2400)'
+2026-06-08 11:29:44 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Vendor Cart with Downdraft Filtration and Automatic Fire Suppression system (SS2400)' — skipping
+2026-06-08 11:29:46 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='AFS24 "New" Advanced Filtration Cart for the SS2400 fryer'  query='LIl Orbits AFS-24 buy'
+2026-06-08 11:29:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'AFS24 "New" Advanced Filtration Cart for the SS2400 fryer'
+2026-06-08 11:29:48 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'AFS24 "New" Advanced Filtration Cart for the SS2400 fryer' — skipping
+2026-06-08 11:29:50 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TCGB-48UF-S-N 47-7/8" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v'  query='Turbo Air TCGB-48UF-S-N buy'
+2026-06-08 11:29:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TCGB-48UF-S-N 47-7/8" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v'
+2026-06-08 11:29:51 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TCGB-48UF-S-N 47-7/8" Refrigerated Straight Glass Full-Service Bakery Display Case, 3 Levels, Stainless Steel Exterior, 115v' — skipping
+2026-06-08 11:29:53 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72L-UF-S-3S-N 71" Stainless Steel Horizontal Refrigerated Open Curtain Merchandiser w/ (4) Levels, 220v/1ph'  query='Turbo Air TOM-72L-UF-S-3SI-N buy'
+2026-06-08 11:29:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72L-UF-S-3S-N 71" Stainless Steel Horizontal Refrigerated Open Curtain Merchandiser w/ (4) Levels, 220v/1ph'
+2026-06-08 11:29:54 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72L-UF-S-3S-N 71" Stainless Steel Horizontal Refrigerated Open Curtain Merchandiser w/ (4) Levels, 220v/1ph' — skipping
+2026-06-08 11:29:56 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72L-UF-S-3S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (3) Levels – Ultra Front Merchandiser, 220v/1ph'  query='Turbo Air TOM-72L-UF-S-3S-N buy'
+2026-06-08 11:29:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72L-UF-S-3S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (3) Levels – Ultra Front Merchandiser, 220v/1ph'
+2026-06-08 11:29:57 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72L-UF-S-3S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (3) Levels – Ultra Front Merchandiser, 220v/1ph' — skipping
+2026-06-08 11:29:59 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72DXB-N 69" Vertical Open Air Cooler w/ (5) Levels – Extra Deep, Black Exterior, 115v'  query='Turbo Air TOM-72DXB-N buy'
+2026-06-08 11:30:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72DXB-N 69" Vertical Open Air Cooler w/ (5) Levels – Extra Deep, Black Exterior, 115v'
+2026-06-08 11:30:01 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72DXB-N 69" Vertical Open Air Cooler w/ (5) Levels – Extra Deep, Black Exterior, 115v' — skipping
+2026-06-08 11:30:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72L-UFD-S-3S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (3) Levels – Ultra Front Deluxe Merchandiser, 220v/1ph'  query='Turbo Air TOM-72L-UFD-S-3S-N buy'
+2026-06-08 11:30:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72L-UFD-S-3S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (3) Levels – Ultra Front Deluxe Merchandiser, 220v/1ph'
+2026-06-08 11:30:03 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72L-UFD-S-3S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (3) Levels – Ultra Front Deluxe Merchandiser, 220v/1ph' — skipping
+2026-06-08 11:30:05 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72L-UFD-W-3SI-N 72" Drop-In Horizontal Open Air Cooler w/ (4) Levels – White Exterior, 220v/1ph'  query='Turbo Air TOM-72L-UFD-S-3SI-N buy'
+2026-06-08 11:30:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72L-UFD-W-3SI-N 72" Drop-In Horizontal Open Air Cooler w/ (4) Levels – White Exterior, 220v/1ph'
+2026-06-08 11:30:06 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72L-UFD-W-3SI-N 72" Drop-In Horizontal Open Air Cooler w/ (4) Levels – White Exterior, 220v/1ph' — skipping
+2026-06-08 11:30:08 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-96EB-N 93" Black Vertical Open Air Cooler w/ (5) Levels, 220v/1ph'  query='Turbo Air TOM-96EB-N buy'
+2026-06-08 11:30:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-96EB-N 93" Black Vertical Open Air Cooler w/ (5) Levels, 220v/1ph'
+2026-06-08 11:30:09 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-96EB-N 93" Black Vertical Open Air Cooler w/ (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:30:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Federal Industries (ITRSS6034-B18)-Italian Series Refrigerated- 60" x 52"(H) Self Service Open Air Case w/ Two Shelves 208-240V'  query='Federal ITRSS6034-B18-Wt buy'
+2026-06-08 11:30:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Federal Industries (ITRSS6034-B18)-Italian Series Refrigerated- 60" x 52"(H) Self Service Open Air Case w/ Two Shelves 208-240V'
+2026-06-08 11:30:11 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Federal Industries (ITRSS6034-B18)-Italian Series Refrigerated- 60" x 52"(H) Self Service Open Air Case w/ Two Shelves 208-240V' — skipping
+2026-06-08 11:30:13 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72ES-N 72" Stainless Steel Vertical Open Air Cooler w/ (5) Levels, 220v/1ph'  query='Turbo Air TOM-72ES-N buy'
+2026-06-08 11:30:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72ES-N 72" Stainless Steel Vertical Open Air Cooler w/ (5) Levels, 220v/1ph'
+2026-06-08 11:30:16 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72ES-N 72" Stainless Steel Vertical Open Air Cooler w/ (5) Levels, 220v/1ph' — skipping
+2026-06-08 11:30:18 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72L-UF-S-2S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (2) Levels – Ultra Front Merchandiser, 220v/1ph'  query='Turbo Air TOM-72L-UF-S-2S-N buy'
+2026-06-08 11:30:18 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72L-UF-S-2S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (2) Levels – Ultra Front Merchandiser, 220v/1ph'
+2026-06-08 11:30:18 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72L-UF-S-2S-N 70 3/4" Stainless Steel Low Profile Horizontal Open Air Cooler w/ (2) Levels – Ultra Front Merchandiser, 220v/1ph' — skipping
+2026-06-08 11:30:20 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TOM-72L-UF-S-2SI-N 72" Stainless Steel Drop-In Refrigerated Open Display Case Merchandiser w/ (2) Levels, 220v/1ph'  query='Turbo Air TOM-72L-UF-S-2SI-N buy'
+2026-06-08 11:30:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TOM-72L-UF-S-2SI-N 72" Stainless Steel Drop-In Refrigerated Open Display Case Merchandiser w/ (2) Levels, 220v/1ph'
+2026-06-08 11:30:22 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TOM-72L-UF-S-2SI-N 72" Stainless Steel Drop-In Refrigerated Open Display Case Merchandiser w/ (2) Levels, 220v/1ph' — skipping
+2026-06-08 11:30:24 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Searching: product='Turbo Air TGF-72SDHB-N 78" Black Super Deluxe Three Section Display Freezer w/ Swing Doors – Bottom Mount Compressor, LED Lighting, 115v'  query='Turbo Air TGF-72SDHB-N buy'
+2026-06-08 11:30:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Search returned 0 results for 'Turbo Air TGF-72SDHB-N 78" Black Super Deluxe Three Section Display Freezer w/ Swing Doors – Bottom Mount Compressor, LED Lighting, 115v'
+2026-06-08 11:30:26 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] No search results for 'Turbo Air TGF-72SDHB-N 78" Black Super Deluxe Three Section Display Freezer w/ Swing Doors – Bottom Mount Compressor, LED Lighting, 115v' — skipping
+2026-06-08 11:30:28 [INFO] backend.competitor.web_search_scan: [WEB-SCAN] Complete: 100 products processed
+INFO:     127.0.0.1:58655 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58656 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58658 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58660 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58659 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58657 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58655 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58656 - "GET /api/stats HTTP/1.1" 200 OK
