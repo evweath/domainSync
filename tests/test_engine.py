@@ -38,9 +38,9 @@ async def test_find_suppliers_includes_shopping_engines():
         captured_engine_calls.append(engines or [])
         return []
 
-    with patch('backend.search.engine.multi_engine_search', side_effect=fake_multi_engine_search), \
-         patch('backend.search.engine._google_shopping_search', new_callable=AsyncMock, return_value=[]), \
-         patch('backend.search.engine._image_search', new_callable=AsyncMock, return_value=[]):
+    with patch('backend.search.pages.beat_price.multi_engine_search', side_effect=fake_multi_engine_search), \
+         patch('backend.search.pages.beat_price._google_shopping_search', new_callable=AsyncMock, return_value=[]), \
+         patch('backend.search.pages.beat_price._image_search', new_callable=AsyncMock, return_value=[]):
         await find_suppliers(description='Acme Widget Model X100', max_results=5)
 
     pattern_calls = captured_engine_calls  # all calls from the pattern loop
@@ -92,9 +92,9 @@ async def test_find_suppliers_price_preserved_from_shopping_result():
             return [organic_result, shopping_result]
         return []
 
-    with patch('backend.search.engine.multi_engine_search', side_effect=fake_multi_engine_search), \
-         patch('backend.search.engine._google_shopping_search', new_callable=AsyncMock, return_value=[]), \
-         patch('backend.search.engine._image_search', new_callable=AsyncMock, return_value=[]):
+    with patch('backend.search.pages.beat_price.multi_engine_search', side_effect=fake_multi_engine_search), \
+         patch('backend.search.pages.beat_price._google_shopping_search', new_callable=AsyncMock, return_value=[]), \
+         patch('backend.search.pages.beat_price._image_search', new_callable=AsyncMock, return_value=[]):
         results, _ = await find_suppliers(
             description='Acme Widget Model X100',
             max_results=5,
@@ -137,9 +137,9 @@ async def test_find_suppliers_returns_results_when_shopping_has_prices():
     async def fake_multi_engine_search(query, max_results=10, engines=None):
         return shopping_results
 
-    with patch('backend.search.engine.multi_engine_search', side_effect=fake_multi_engine_search), \
-         patch('backend.search.engine._google_shopping_search', new_callable=AsyncMock, return_value=[]), \
-         patch('backend.search.engine._image_search', new_callable=AsyncMock, return_value=[]):
+    with patch('backend.search.pages.beat_price.multi_engine_search', side_effect=fake_multi_engine_search), \
+         patch('backend.search.pages.beat_price._google_shopping_search', new_callable=AsyncMock, return_value=[]), \
+         patch('backend.search.pages.beat_price._image_search', new_callable=AsyncMock, return_value=[]):
         results, _ = await find_suppliers(
             description='Acme Widget Model X100',
             max_results=5,

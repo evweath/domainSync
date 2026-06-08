@@ -4,24 +4,31 @@
 
 ```
 POST /api/beat-price
-  → routes.py: find_suppliers(description, price_min, price_max, ...)
-    → engine.py: multi_engine_search(query, engines=[...])  ← CRITICAL: must include 'shopping','bing_shopping'
-    → engine.py: _score_and_merge()  ← preserves price across domain dedup
-    → engine.py: _aggregate_and_rank()
+  → routes.py: find_suppliers(description, price_min, price_max, ...)   [search/pages/beat_price.py]
+    → core/rank.py: multi_engine_search(query, engines=[...])  ← CRITICAL: must include 'shopping','bing_shopping'
+    → beat_price.py: _score_and_merge()  ← preserves price across domain dedup
+    → core/rank.py: _aggregate_and_rank()
   → routes.py: returns BeatPriceResult rows (or cached fallback)
 Frontend: index.html:2303 renders price column; app.js:2036 colors price diff
 ```
+
+**NOTE (2026-06-08 refactor):** the search layer was split into `core/` (plumbing)
+and `pages/` (per-page logic). `find_suppliers` and `_score_and_merge` now live in
+`backend/search/pages/beat_price.py`. `multi_engine_search`/`_aggregate_and_rank`
+live in `backend/search/core/rank.py`. `backend/search/engine.py` is now a re-export
+shim. The engine-list and price-carry-over logic are unchanged — just relocated.
+Tests patch `backend.search.pages.beat_price.multi_engine_search` (patch where used).
 
 ## Confirmed Root Causes (do not re-investigate)
 
 ### Price null for all results (RESOLVED — 2026-06-05)
 - **Root cause:** `find_suppliers` called `multi_engine_search` with only organic engines (`ddg`, `bing`, `google`, `yahoo`). Shopping engines were in a separate `_google_shopping_search` call that returned 0 results.
-- **Fix:** Added `shopping`, `bing_shopping` to `multi_engine_search` call at `engine.py:1198`.
+- **Fix:** Added `shopping`, `bing_shopping` to the `multi_engine_search` call in the pattern loop. Now in `backend/search/pages/beat_price.py` (was `engine.py:1198` pre-refactor).
 - **Key insight:** Organic search snippets almost never contain `$XX.XX` price patterns. Shopping engines are the only reliable source. Any future "price null" bug: check the engine list first.
 
 ### Price lost during domain dedup (RESOLVED — 2026-06-05)
 - **Root cause:** `_score_and_merge` overwrote a lower-fuzzy shopping result (which had a price) with a higher-fuzzy organic result (no price), discarding the price.
-- **Fix:** Added price carry-over logic at `engine.py:1241–1247`. If the new winner has no price but the displaced entry did, copy the price. Also promotes price from lower-score result if winner lacks one.
+- **Fix:** Added price carry-over logic in `_score_and_merge` (now in `backend/search/pages/beat_price.py`, was `engine.py:1241–1247`). If the new winner has no price but the displaced entry did, copy the price. Also promotes price from lower-score result if winner lacks one.
 
 ### Price column hidden when null (RESOLVED — 2026-06-05)
 - **Root cause:** Frontend template had `x-show="r.price != null"` on outer price div, hiding the entire column slot when price was null.

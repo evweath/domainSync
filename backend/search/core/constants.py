@@ -1,0 +1,57 @@
+"""
+Shared constants for the search core: HTTP headers, domain blocklists, and the
+URL patterns used when searching a competitor's own site.
+
+These are page-agnostic plumbing — one copy, imported by the engine adapters and
+the ranking layer. Do not duplicate these into per-page modules.
+"""
+import asyncio
+
+_SEARCH_HEADERS = {
+    'User-Agent': (
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) '
+        'AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15'
+    ),
+    'Accept': 'text/html,application/xhtml+xml',
+    'Accept-Language': 'en-US,en;q=0.9',
+}
+
+_DDG_SEARCH_LOCK = asyncio.Lock()  # serialize DDG calls to avoid rate-limit bans
+
+_BING_SKIP_DOMAINS = frozenset({'bing.com', 'r.bing.com', 'go.microsoft.com', 'microsoft.com',
+                                  'facebook.com', 'youtube.com'})
+
+# Domains that should never appear as product results regardless of search engine
+_NOISE_DOMAINS = frozenset({
+    'google.com', 'shopping.google.com',
+    'merriam-webster.com', 'dictionary.com', 'dictionary.cambridge.org',
+    'wikipedia.org', 'wikimedia.org',
+    'reddit.com', 'quora.com',
+    'twitter.com', 'x.com', 'instagram.com', 'pinterest.com', 'tiktok.com',
+    'youtube.com', 'facebook.com',
+    'yelp.com',
+    'offerup.com', 'letgo.com', 'craigslist.org',
+    # Own/source stores — should never appear as competitor or supplier results
+    'bakerywholesalers.com', 'donut-supplies.com', 'donut-equipment.com',
+    # Unrelated sites that pollute results
+    'zillow.com',
+})
+
+# URL patterns to try when searching a competitor's own site, ordered by likelihood.
+_SITE_SEARCH_PATTERNS = [
+    '/search?q={q}',
+    '/search/?q={q}',
+    '/search?query={q}',
+    '/search.php?search_query={q}',     # BigCommerce
+    '/catalogsearch/result/?q={q}',     # Magento
+    '/?s={q}',                          # WordPress / WooCommerce
+    '/?search={q}',
+    '/search/{q}',                      # Shopify path-style
+    '/search?keywords={q}',
+    '/search?term={q}',
+]
+
+_SITE_SKIP_HREFS = frozenset([
+    '/cart', '/login', '/account', '/blog', '/category', '/categories',
+    '/collections', '/tag/', '/page/', '/checkout', 'javascript:', 'mailto:',
+])

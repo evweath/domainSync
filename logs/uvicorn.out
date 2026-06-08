@@ -121004,3 +121004,44 @@ ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 874
 2026-06-08 12:14:55 [INFO] backend.scheduler.scheduler: Scheduler stopped
 2026-06-08 12:14:55 [INFO] backend.app: Donut Intel Platform shut down.
 INFO:     127.0.0.1:59141 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59388 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59388 - "GET /static/vendor/alpine.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59389 - "GET /static/vendor/chart.umd.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59390 - "GET /static/css/style.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59391 - "GET /static/vendor/tailwind.min.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59392 - "GET /static/js/app.js?v=20260605-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59388 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59389 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59390 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59393 - "POST /api/auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59396 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59395 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59396 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59395 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59396 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59395 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59393 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59397 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59398 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59394 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59396 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59395 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59399 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:59406 - "POST /api/source-sites/donut-supplies.com/test-connection HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59409 - "PUT /api/source-sites/donut-equipment.com/credentials HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59409 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59409 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59409 - "POST /api/source-sites/donut-equipment.com/test-connection HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59412 - "PUT /api/source-sites/donut-equipment.com/credentials HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59412 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59412 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59412 - "POST /api/source-sites/donut-equipment.com/test-connection HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59419 - "PUT /api/source-sites/donut-equipment.com/credentials HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59419 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59419 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59419 - "POST /api/source-sites/donut-equipment.com/test-connection HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59422 - "POST /api/source-sites/donut-equipment.com/test-connection HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59425 - "PUT /api/source-sites/donut-equipment.com/credentials HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59425 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59425 - "GET /api/settings/webhook HTTP/1.1" 200 OK
