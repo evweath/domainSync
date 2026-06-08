@@ -120586,3 +120586,15 @@ INFO:     127.0.0.1:58659 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 2
 INFO:     127.0.0.1:58657 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:58655 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:58656 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58736 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58737 - "GET /api/price-comparison?page=1&per_page=25&manufacturer=Bear+Stewart HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58738 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58738 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58752 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58753 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58754 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58753 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58755 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58756 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58771 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58771 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
