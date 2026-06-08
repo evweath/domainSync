@@ -120598,3 +120598,409 @@ INFO:     127.0.0.1:58755 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
 INFO:     127.0.0.1:58756 - "GET /api/shopify-live/scan-status HTTP/1.1" 200 OK
 INFO:     127.0.0.1:58771 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
 INFO:     127.0.0.1:58771 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET / HTTP/1.1" 200 OK
+INFO:     connection closed
+INFO:     connection closed
+INFO:     127.0.0.1:58897 - "GET /static/vendor/alpine.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58898 - "GET /static/vendor/chart.umd.min.js?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58900 - "GET /static/css/style.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58899 - "GET /static/vendor/tailwind.min.css?v=20260529-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58901 - "GET /static/js/app.js?v=20260605-01 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58898 - "GET /api/auth/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58900 - "GET /favicon.ico HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58898 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58898 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58898 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58900 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58900 - "GET /api/scan/sessions?per_page=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58899 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58900 - "GET /api/settings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58901 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58901 - "GET /api/scheduler/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58901 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET /api/export/history HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58902 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58899 - "GET /api/competitors/managed-lists HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58900 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58898 - "GET /api/products/filters/options HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58901 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58897 - "GET /api/settings/webhook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58902 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58900 - "GET /api/dedup/candidates?status=pending&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58903 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:58899 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58898 - "GET /api/logs/tail?lines=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58904 - "WebSocket /ws/scan-progress" [accepted]
+INFO:     connection open
+INFO:     127.0.0.1:58901 - "GET /api/products?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58901 - "GET /api/competitors?page=1&per_page=50 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58901 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58907 - "GET /api/products/store-comparison?page=1&per_page=25&has_empty=manufacturer&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58907 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58908 - "GET /api/shopify-sync/config HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58908 - "GET /api/products/store-comparison?page=1&per_page=25&sort_by=title&sort_order=asc HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58908 - "GET /api/products?source_site=donut-supplies.com&page=1&per_page=50 HTTP/1.1" 200 OK
+2026-06-08 11:53:38 [INFO] backend.dedup.engine: Starting deduplication run
+INFO:     127.0.0.1:58911 - "POST /api/dedup/run HTTP/1.1" 200 OK
+2026-06-08 11:53:38 [INFO] backend.dedup.engine: Comparing 2223 products for duplicates
+2026-06-08 11:55:07 [INFO] backend.scrapers.source_scraper: Starting scrape of Donut Supplies (https://donut-supplies.com)
+2026-06-08 11:55:07 [INFO] backend.scrapers.source_scraper: Starting scrape of Donut Equipment (https://donut-equipment.com)
+2026-06-08 11:55:07 [INFO] backend.scrapers.source_scraper: Starting scrape of Bakery Wholesalers (https://bakerywholesalers.com)
+INFO:     127.0.0.1:58916 - "POST /api/scan/all-sources HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58916 - "GET /api/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58917 - "GET /api/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58919 - "GET /api/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58918 - "GET /api/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58920 - "GET /api/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58921 - "GET /api/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58916 - "GET /api/scan/cycle-status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58917 - "GET /api/tasks HTTP/1.1" 200 OK
+2026-06-08 11:55:07 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-06-08 11:55:07 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-06-08 11:55:07 [INFO] backend.scrapers.base_scraper: Browser profile: safari_mac (engine=webkit)
+2026-06-08 11:55:08 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-supplies.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/sitemap.xml", waitin
+2026-06-08 11:55:08 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:08 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://donut-supplies.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:08 [WARNING] backend.scrapers.base_scraper: Context error on https://bakerywholesalers.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/sitemap.xml", wai
+2026-06-08 11:55:08 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:08 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakerywholesalers.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:08 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-equipment.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/sitemap.xml", waiti
+2026-06-08 11:55:08 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:08 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://donut-equipment.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:19 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-equipment.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/sitemap.xml", waiti
+2026-06-08 11:55:19 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:19 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://donut-equipment.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:19 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-supplies.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/sitemap.xml", waitin
+2026-06-08 11:55:19 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:19 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://donut-supplies.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:19 [WARNING] backend.scrapers.base_scraper: Context error on https://bakerywholesalers.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/sitemap.xml", wai
+2026-06-08 11:55:19 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:19 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakerywholesalers.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-supplies.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/sitemap.xml", waitin
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:34 [ERROR] backend.scrapers.base_scraper: Failed https://donut-supplies.com/sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-equipment.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/sitemap.xml", waiti
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:34 [ERROR] backend.scrapers.base_scraper: Failed https://donut-equipment.com/sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Context error on https://bakerywholesalers.com/sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/sitemap.xml", wai
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:34 [ERROR] backend.scrapers.base_scraper: Failed https://bakerywholesalers.com/sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-supplies.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/sitemap_index.xml", 
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://donut-supplies.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-equipment.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/sitemap_index.xml",
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://donut-equipment.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Context error on https://bakerywholesalers.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/sitemap_index.xml
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:34 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakerywholesalers.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:44 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-supplies.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/sitemap_index.xml", 
+2026-06-08 11:55:44 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:44 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://donut-supplies.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:44 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-equipment.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/sitemap_index.xml",
+2026-06-08 11:55:44 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:44 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://donut-equipment.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:44 [WARNING] backend.scrapers.base_scraper: Context error on https://bakerywholesalers.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/sitemap_index.xml
+2026-06-08 11:55:44 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:44 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakerywholesalers.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:59 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-supplies.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/sitemap_index.xml", 
+2026-06-08 11:55:59 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:59 [ERROR] backend.scrapers.base_scraper: Failed https://donut-supplies.com/sitemap_index.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:59 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-equipment.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/sitemap_index.xml",
+2026-06-08 11:55:59 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:59 [ERROR] backend.scrapers.base_scraper: Failed https://donut-equipment.com/sitemap_index.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:55:59 [WARNING] backend.scrapers.base_scraper: Context error on https://bakerywholesalers.com/sitemap_index.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/sitemap_index.xml
+2026-06-08 11:55:59 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:55:59 [ERROR] backend.scrapers.base_scraper: Failed https://bakerywholesalers.com/sitemap_index.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/sitemap_index.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:56:00 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-supplies.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/product-sitemap.xml"
+2026-06-08 11:56:00 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:00 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://donut-supplies.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:56:00 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-equipment.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/product-sitemap.xml
+2026-06-08 11:56:00 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:00 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://donut-equipment.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:56:00 [WARNING] backend.scrapers.base_scraper: Context error on https://bakerywholesalers.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/product-sitemap.x
+2026-06-08 11:56:00 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:00 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakerywholesalers.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:56:10 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-equipment.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/product-sitemap.xml
+2026-06-08 11:56:10 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:10 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://donut-equipment.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:56:10 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-supplies.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/product-sitemap.xml"
+2026-06-08 11:56:10 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:10 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://donut-supplies.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:56:10 [WARNING] backend.scrapers.base_scraper: Context error on https://bakerywholesalers.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/product-sitemap.x
+2026-06-08 11:56:10 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:10 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakerywholesalers.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-equipment.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/product-sitemap.xml
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:25 [ERROR] backend.scrapers.base_scraper: Failed https://donut-equipment.com/product-sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-supplies.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/product-sitemap.xml"
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:25 [ERROR] backend.scrapers.base_scraper: Failed https://donut-supplies.com/product-sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Context error on https://bakerywholesalers.com/product-sitemap.xml: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/product-sitemap.x
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:25 [ERROR] backend.scrapers.base_scraper: Failed https://bakerywholesalers.com/product-sitemap.xml after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/product-sitemap.xml", waiting until "domcontentloaded"
+
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-supplies.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/", waiting until "do
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://donut-supplies.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/", waiting until "domcontentloaded"
+
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-equipment.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/", waiting until "d
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://donut-equipment.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/", waiting until "domcontentloaded"
+
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Context error on https://bakerywholesalers.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/", waiting until 
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:25 [WARNING] backend.scrapers.base_scraper: Retry 1/2 for https://bakerywholesalers.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/", waiting until "domcontentloaded"
+
+2026-06-08 11:56:36 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-equipment.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/", waiting until "d
+2026-06-08 11:56:36 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:36 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://donut-equipment.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/", waiting until "domcontentloaded"
+
+2026-06-08 11:56:36 [WARNING] backend.scrapers.base_scraper: Context error on https://bakerywholesalers.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/", waiting until 
+2026-06-08 11:56:36 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:36 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://bakerywholesalers.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/", waiting until "domcontentloaded"
+
+2026-06-08 11:56:36 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-supplies.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/", waiting until "do
+2026-06-08 11:56:36 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:36 [WARNING] backend.scrapers.base_scraper: Retry 2/2 for https://donut-supplies.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/", waiting until "domcontentloaded"
+
+2026-06-08 11:56:51 [WARNING] backend.scrapers.base_scraper: Context error on https://bakerywholesalers.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/", waiting until 
+2026-06-08 11:56:51 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:51 [ERROR] backend.scrapers.base_scraper: Failed https://bakerywholesalers.com after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://bakerywholesalers.com/", waiting until "domcontentloaded"
+
+2026-06-08 11:56:51 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://bakerywholesalers.com
+2026-06-08 11:56:51 [INFO] backend.scrapers.source_scraper: Found 0 product URLs on Bakery Wholesalers
+2026-06-08 11:56:51 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-supplies.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/", waiting until "do
+2026-06-08 11:56:51 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:51 [ERROR] backend.scrapers.base_scraper: Failed https://donut-supplies.com after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-supplies.com/", waiting until "domcontentloaded"
+
+2026-06-08 11:56:51 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://donut-supplies.com
+2026-06-08 11:56:51 [INFO] backend.scrapers.source_scraper: Found 0 product URLs on Donut Supplies
+2026-06-08 11:56:51 [WARNING] backend.scrapers.base_scraper: Context error on https://donut-equipment.com: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/", waiting until "d
+2026-06-08 11:56:51 [WARNING] backend.scrapers.base_scraper: Skipping context rebuild — context is already fresh (server-side block, not contamination)
+2026-06-08 11:56:51 [ERROR] backend.scrapers.base_scraper: Failed https://donut-equipment.com after 2 retries: Page.goto: The network connection was lost.
+Call log:
+  - navigating to "https://donut-equipment.com/", waiting until "domcontentloaded"
+
+2026-06-08 11:56:51 [INFO] backend.scrapers.base_scraper: Discovered 0 product URLs on https://donut-equipment.com
+2026-06-08 11:56:51 [INFO] backend.scrapers.source_scraper: Found 0 product URLs on Donut Equipment
+2026-06-08 11:56:51 [INFO] backend.scrapers.source_scraper: Completed Donut Supplies: {'scraped': 0, 'new': 0, 'updated': 0, 'errors': 0, 'skipped': 0, 'archived': 1973}
+2026-06-08 11:56:51 [INFO] backend.scrapers.source_scraper: Completed Bakery Wholesalers: {'scraped': 0, 'new': 0, 'updated': 0, 'errors': 0, 'skipped': 0, 'archived': 1972}
+2026-06-08 11:56:51 [INFO] backend.scrapers.source_scraper: Completed Donut Equipment: {'scraped': 0, 'new': 0, 'updated': 0, 'errors': 0, 'skipped': 0, 'archived': 2221}
+INFO:     127.0.0.1:58925 - "GET /api/tasks HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:58926 - "GET /api/scan/cycle-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:58927 - "GET /api/tasks HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:58925 - "GET /api/tasks HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:58928 - "GET /api/scan/cycle-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:58929 - "GET /api/tasks HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:58930 - "GET /api/scan/cycle-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:58925 - "GET /api/scan/cycle-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:58926 - "GET /api/tasks HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:58927 - "GET /api/scan/cycle-status HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:58928 - "GET /api/tasks HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:58929 - "GET /api/scan/cycle-status HTTP/1.1" 401 Unauthorized
+2026-06-08 11:56:53 [INFO] backend.dedup.engine: Starting deduplication run
+2026-06-08 11:56:54 [INFO] backend.dedup.engine: Comparing 2223 products for duplicates
+INFO:     Started server process [96888]
+INFO:     Waiting for application startup.
+2026-06-08 12:14:52 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-06-08 12:14:52 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-08 12:14:52 [INFO] backend.database.db: Database initialized
+2026-06-08 12:14:52 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-08 12:14:52 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-06-08 12:14:52 [INFO] backend.app: Scheduler started
+2026-06-08 12:14:52 [INFO] backend.app: Log-tail broadcaster started
+2026-06-08 12:14:52 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-06-08 12:14:52 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+INFO:     Application startup complete.
+INFO:     Uvicorn running on https://127.0.0.1:8743 (Press CTRL+C to quit)
+🍩 Starting Donut Intel Platform on https://localhost:8743
+   API docs: https://localhost:8743/api/docs
+   Press Ctrl+C to stop
+
+2026-06-08 12:14:55 [INFO] backend.app: Donut Intel Platform v2.0 starting up...
+2026-06-08 12:14:55 [INFO] backend.database.db: Database path: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-08 12:14:55 [INFO] backend.database.db: Database initialized
+2026-06-08 12:14:55 [INFO] backend.app: Database ready at: /Users/evw/dev/productComparison/donut-intel/data/donut_intel.db
+2026-06-08 12:14:55 [INFO] backend.scheduler.scheduler: Scheduler started
+2026-06-08 12:14:55 [INFO] backend.app: Scheduler started
+2026-06-08 12:14:55 [INFO] backend.app: Log-tail broadcaster started
+2026-06-08 12:14:55 [INFO] backend.app: Dashboard: https://localhost:8743
+2026-06-08 12:14:55 [INFO] backend.app: API docs:  https://localhost:8743/api/docs
+ERROR:    [Errno 48] error while attempting to bind on address ('127.0.0.1', 8743): address already in use
+2026-06-08 12:14:55 [INFO] backend.scheduler.scheduler: Scheduler stopped
+2026-06-08 12:14:55 [INFO] backend.app: Donut Intel Platform shut down.
+INFO:     127.0.0.1:59141 - "GET / HTTP/1.1" 200 OK
