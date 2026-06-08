@@ -47,6 +47,15 @@ source stores (2"-wide box, polls every 3s while Settings is open).
 - **Buffer is per-process, in-memory** — cleared on server restart. If the panel is
   empty after a restart, that's expected until the next connection attempt.
 
+### Connect failures + per-store auth (DIAGNOSED 2026-06-08)
+- **Symptom:** `ConnectError: All connection attempts failed` / `ConnectTimeout` when connecting source stores after a credentials reset.
+- **Root cause #1 (network):** This machine is on a VPN/corporate network (`utun0–3`, `10.141.222.x`) with **intermittent/flapping outbound egress**. Live tests to Shopify's IP (`23.227.38.74:443`) alternated CONNECTED / "Network is unreachable" / ConnectTimeout within ~2 min, then went 8/8 stable. DNS is dual-stack. The error is purely TCP-layer (no HTTP response) — credentials are irrelevant to it.
+  - **Fix applied:** retry-with-backoff on transient `httpx` connection errors in `client.py` (`_with_connect_retry`, 4 attempts, 0.6→1.2→2.4→4.8s) wrapping `fetch_access_token` + all `ShopifyClient` request methods, plus explicit `connect` timeouts. After this, all three stores reached Shopify with no ConnectError.
+- **Root cause #2 (per-store creds):** With the network mitigated, `client_credentials` token exchange results split:
+  - `donut-supplies.com` → **works end-to-end** (token + get_shop OK, plan professional). Proves the `client_credentials` algorithm + flow are valid (earlier doubt about it was wrong).
+  - `donut-equipment.com` (equipmentplus) and `bakerywholesalers.com` (bakery-wholesalers) → Shopify returns **HTTP 400 "Oauth error invalid_request"** at auth. That's a credential rejection, not a network issue → **the client_id/client_secret for those two stores are wrong / mismatched / not configured for the token exchange.** Re-enter those two stores' API credentials (correct app for that store, no whitespace).
+- **Diagnostic value of the panel:** `✗ ... ConnectError` = network/egress; `✗ Auth ... 400` = credentials. The panel distinguishes them directly.
+
 ## Known Failure Modes
 
 - **Shopify API rate limits:** Shopify enforces 2 req/s for REST API. Bulk sync can hit this. The sync pipeline should throttle — verify it does before adding more products to sync batch.

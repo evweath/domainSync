@@ -24,6 +24,50 @@ def _host_of(store_url: str) -> str:
     return u.split("/")[0] or "(unknown)"
 
 
+# Transient connection-layer errors worth retrying. These occur when the network
+# path flaps (VPN/firewall/egress filtering) — the request never reached Shopify,
+# so a retry a moment later usually succeeds. HTTP 4xx/5xx responses are NOT here:
+# those mean Shopify answered, and retrying blindly would be wrong.
+_TRANSIENT_CONN_ERRORS = (
+    httpx.ConnectError,
+    httpx.ConnectTimeout,
+    httpx.ReadTimeout,
+    httpx.WriteTimeout,
+    httpx.PoolTimeout,
+    httpx.RemoteProtocolError,
+)
+_CONNECT_RETRIES = 4
+_CONNECT_BACKOFF_BASE = 0.6  # seconds: 0.6, 1.2, 2.4, 4.8
+
+
+async def _with_connect_retry(make_request, *, host: str, label: str):
+    """Run an httpx request, retrying transient connection failures with backoff.
+
+    make_request is a zero-arg callable returning the request awaitable, so each
+    retry issues a fresh request. Raises the last transient error if all attempts
+    fail. Non-transient exceptions (and HTTP error responses) propagate immediately.
+    """
+    last_exc: Optional[BaseException] = None
+    for attempt in range(_CONNECT_RETRIES):
+        try:
+            return await make_request()
+        except _TRANSIENT_CONN_ERRORS as exc:
+            last_exc = exc
+            if attempt + 1 >= _CONNECT_RETRIES:
+                break
+            wait = _CONNECT_BACKOFF_BASE * (2 ** attempt)
+            connlog.record(
+                f"… {label} {host}: {type(exc).__name__} — retry {attempt + 1}/{_CONNECT_RETRIES} in {wait:.1f}s"
+            )
+            await asyncio.sleep(wait)
+    connlog.record(
+        f"✗ {label} {host}: connection failed after {_CONNECT_RETRIES} attempts "
+        f"({type(last_exc).__name__}: {last_exc})",
+        level="error",
+    )
+    raise last_exc  # type: ignore[misc]
+
+
 async def fetch_access_token(store_url: str, client_id: str, client_secret: str) -> str:
     """Exchange client_id + client_secret for a short-lived Admin API access token (~24h)."""
     url = store_url.strip().rstrip("/")
@@ -31,16 +75,16 @@ async def fetch_access_token(store_url: str, client_id: str, client_secret: str)
         url = "https://" + url
     host = _host_of(url)
     connlog.record(f"→ Auth: requesting access token from {host}")
-    try:
-        async with httpx.AsyncClient(timeout=10) as http:
-            resp = await http.post(
+    timeout = httpx.Timeout(connect=10.0, read=15.0, write=15.0, pool=10.0)
+    async with httpx.AsyncClient(timeout=timeout) as http:
+        resp = await _with_connect_retry(
+            lambda: http.post(
                 f"{url}/admin/oauth/access_token",
                 data={"client_id": client_id, "client_secret": client_secret, "grant_type": "client_credentials"},
                 headers={"Content-Type": "application/x-www-form-urlencoded"},
-            )
-    except Exception as exc:
-        connlog.record(f"✗ Auth: network error to {host}: {type(exc).__name__}: {exc}", level="error")
-        raise
+            ),
+            host=host, label="Auth",
+        )
     if resp.status_code >= 400:
         connlog.record(f"✗ Auth: {host} returned {resp.status_code} {resp.text[:120]}", level="error")
         raise ShopifyError(resp.status_code, resp.text)
@@ -69,7 +113,8 @@ class ShopifyClient:
         self._client: Optional[httpx.AsyncClient] = None
 
     async def __aenter__(self):
-        self._client = httpx.AsyncClient(headers=self._headers, timeout=30)
+        timeout = httpx.Timeout(connect=10.0, read=30.0, write=30.0, pool=10.0)
+        self._client = httpx.AsyncClient(headers=self._headers, timeout=timeout)
         connlog.record(f"→ Opening session to {self._host}")
         return self
 
@@ -80,11 +125,10 @@ class ShopifyClient:
     async def _get(self, path: str, params: Optional[Dict] = None) -> httpx.Response:
         assert self._client, "Use as async context manager"
         for attempt in range(4):
-            try:
-                resp = await self._client.get(f"{self.base}{path}", params=params)
-            except Exception as exc:
-                connlog.record(f"✗ GET {self._host}{path}: {type(exc).__name__}: {exc}", level="error")
-                raise
+            resp = await _with_connect_retry(
+                lambda: self._client.get(f"{self.base}{path}", params=params),
+                host=self._host, label=f"GET {path}",
+            )
             if resp.status_code == 429:
                 retry_after = float(resp.headers.get("Retry-After", 2 ** attempt))
                 connlog.record(f"… Rate limited by {self._host} — retrying in {retry_after:.1f}s")
@@ -101,11 +145,15 @@ class ShopifyClient:
     async def _post(self, path: str, data: Dict) -> Dict:
         assert self._client
         for attempt in range(4):
-            resp = await self._client.post(f"{self.base}{path}", json=data)
+            resp = await _with_connect_retry(
+                lambda: self._client.post(f"{self.base}{path}", json=data),
+                host=self._host, label=f"POST {path}",
+            )
             if resp.status_code == 429:
                 await asyncio.sleep(2 ** attempt)
                 continue
             if resp.status_code >= 400:
+                connlog.record(f"✗ POST {self._host}{path} → {resp.status_code}", level="error")
                 raise ShopifyError(resp.status_code, resp.text)
             return resp.json()
         raise ShopifyError(429, "Rate limited")
@@ -113,22 +161,33 @@ class ShopifyClient:
     async def _put(self, path: str, data: Dict) -> Dict:
         assert self._client
         for attempt in range(4):
-            resp = await self._client.put(f"{self.base}{path}", json=data)
+            resp = await _with_connect_retry(
+                lambda: self._client.put(f"{self.base}{path}", json=data),
+                host=self._host, label=f"PUT {path}",
+            )
             if resp.status_code == 429:
                 await asyncio.sleep(2 ** attempt)
                 continue
             if resp.status_code >= 400:
+                connlog.record(f"✗ PUT {self._host}{path} → {resp.status_code}", level="error")
                 raise ShopifyError(resp.status_code, resp.text)
             return resp.json()
         raise ShopifyError(429, "Rate limited")
 
     async def _delete(self, path: str) -> None:
         assert self._client
-        resp = await self._client.delete(f"{self.base}{path}")
+        resp = await _with_connect_retry(
+            lambda: self._client.delete(f"{self.base}{path}"),
+            host=self._host, label=f"DELETE {path}",
+        )
         if resp.status_code == 429:
             await asyncio.sleep(2)
-            resp = await self._client.delete(f"{self.base}{path}")
+            resp = await _with_connect_retry(
+                lambda: self._client.delete(f"{self.base}{path}"),
+                host=self._host, label=f"DELETE {path}",
+            )
         if resp.status_code not in (200, 204):
+            connlog.record(f"✗ DELETE {self._host}{path} → {resp.status_code}", level="error")
             raise ShopifyError(resp.status_code, resp.text)
 
     def _next_page_info(self, resp: httpx.Response) -> Optional[str]:
