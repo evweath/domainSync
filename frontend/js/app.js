@@ -60,6 +60,7 @@ function app() {
     productCompSearchProducts: [],          // [{id, title, price, primary_image}] — products being searched
     productCompCounts: {},                  // {product_id: {found, target, done, searching, current_domain}}
     productCompPauseState: null,            // {product_id, product_title, found, visited, max} when paused
+    productCompNetworkError: false,         // true if the search completed with 0 found AND the internet was unreachable
     priceComparison: null,
     priceHistory: null,
     loadingPriceComp: false,
@@ -587,6 +588,7 @@ function app() {
       this.productCompIsParallel = useParallel;
       this.productCompProgress = null;
       this.productCompPauseState = null;
+      this.productCompNetworkError = false;
 
       try {
         if (useParallel) {
@@ -2522,6 +2524,9 @@ function app() {
           this.productCompIsParallel = false;
           this.productCompProgress = null;
           this.productCompPauseState = null;
+          // Surface a network banner when the search finished with nothing found
+          // because the internet was unreachable (vs. genuinely no competitors).
+          this.productCompNetworkError = msg.network_ok === false;
           this.loadCompetitors(1);
           this.loadPriceMatrix(1);
           if (msg.event === 'product_competitor_search_error' || msg.event === 'parallel_search_error') {

@@ -51,3 +51,22 @@ async def _curl_get(url: str, extra_headers: Optional[List[str]] = None, timeout
                 await asyncio.sleep(_FETCH_BACKOFF_BASE * (2 ** attempt))
     logger.debug("primp_get failed for %s after %d attempts: %s", url, _FETCH_RETRIES, last_exc)
     return ''
+
+
+async def check_internet_reachable(timeout: int = 6) -> bool:
+    """Quick probe to tell 'network down' apart from 'genuinely no results'.
+
+    Tries a couple of high-availability hosts (the same engines search relies on);
+    returns True if any responds at all. Used so the UI can show a 'couldn't reach
+    the internet' banner instead of a misleading 'Done — 0 found' when egress is down.
+    """
+    import primp
+    for url in ("https://www.bing.com", "https://duckduckgo.com"):
+        try:
+            async with primp.AsyncClient(impersonate='random', timeout=timeout) as client:
+                r = await asyncio.wait_for(client.get(url), timeout + 2)
+                if r.text:
+                    return True
+        except Exception:
+            continue
+    return False

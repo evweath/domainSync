@@ -363,6 +363,20 @@
 
       <!-- ── Search-Mode View (shown while competitor search is running) ────── -->
       <div x-show="productCompMode" class="space-y-3">
+        <!-- Network-unreachable banner: search finished with 0 found because the internet wasn't reachable -->
+        <div x-show="productCompNetworkError" x-cloak
+          class="flex items-start gap-3 rounded-xl border border-red-300 bg-red-50 dark:bg-red-900/30 dark:border-red-700 px-4 py-3">
+          <span class="text-xl leading-none">📡</span>
+          <div class="flex-1">
+            <div class="font-semibold text-red-700 dark:text-red-300 text-sm">Couldn't reach the internet</div>
+            <div class="text-xs text-red-600 dark:text-red-400 mt-0.5">
+              The search couldn't connect to any search engines, so no competitors could be found — this is a network/VPN/firewall issue, not a sign that no competitors exist. Check your connection and run the search again.
+            </div>
+          </div>
+          <button @click="productCompNetworkError = false"
+            class="text-red-400 hover:text-red-600 text-lg leading-none">×</button>
+        </div>
+
         <div class="flex items-center justify-between">
           <div class="text-sm text-gray-600 dark:text-gray-400">
             Searching <span class="font-semibold" x-text="productCompSearchProducts.length"></span>

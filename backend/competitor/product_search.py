@@ -23,7 +23,7 @@ from backend.database.models import (
     PriceHistory,
     Product,
 )
-from backend.search.core.fetch import _curl_get
+from backend.search.core.fetch import _curl_get, check_internet_reachable
 from backend.search.core.parse import (
     _domain,
     _extract_price_float as _extract_price,
@@ -631,7 +631,10 @@ async def run_product_competitor_search(
             search_query_override=search_query,
         )
 
-    return {'product_ids': product_ids, 'total_found': total_found}
+    # Found nothing? Distinguish "no competitors exist" from "couldn't reach the
+    # internet" (the network on this deployment flaps), so the UI can say which.
+    network_ok = True if total_found > 0 else await check_internet_reachable()
+    return {'product_ids': product_ids, 'total_found': total_found, 'network_ok': network_ok}
 
 
 # ---------------------------------------------------------------------------
@@ -836,18 +839,21 @@ async def run_parallel_product_competitor_search(
         await asyncio.gather(*worker_tasks, refresh_task, return_exceptions=True)
         _parallel_state['task'] = None
 
+    network_ok = True if progress['total_found'] > 0 else await check_internet_reachable()
     await emit('parallel_search_complete', {
         'total_processed': progress['processed'],
         'total_found': progress['total_found'],
         'total_queued': progress['total_queued'],
+        'network_ok': network_ok,
     })
     logger.info(
-        "[PARALLEL-SEARCH] complete: processed=%d total_found=%d",
-        progress['processed'], progress['total_found'],
+        "[PARALLEL-SEARCH] complete: processed=%d total_found=%d network_ok=%s",
+        progress['processed'], progress['total_found'], network_ok,
     )
 
     return {
         'total_processed': progress['processed'],
         'total_found': progress['total_found'],
         'total_queued': progress['total_queued'],
+        'network_ok': network_ok,
     }
