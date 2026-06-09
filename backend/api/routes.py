@@ -1221,30 +1221,24 @@ def save_source_site_credentials(domain: str, req: ShopifyCredentialsRequest):
 @router.post("/api/source-sites/{domain}/test-connection")
 async def test_source_site_connection(domain: str):
     """Verify Shopify API credentials by fetching the shop info endpoint."""
+    import httpx
     sites = config.get("source_sites", default=[])
     site = next((s for s in sites if s.get("domain") == domain), None)
     if site is None:
         raise HTTPException(status_code=404, detail=f"Source site not found: {domain}")
 
     store_url = (site.get("shopify_store_url") or "").strip().rstrip("/")
-    client_id = (site.get("shopify_client_id") or "").strip()
-    client_secret = (site.get("shopify_client_secret") or "").strip()
+    access_token = (site.get("shopify_access_token") or "").strip()
 
-    if not store_url or not client_id or not client_secret:
-        return {"ok": False, "error": "Store URL, Client ID, and Client Secret are required"}
+    if not store_url:
+        return {"ok": False, "error": "Store URL is required"}
+    if not access_token:
+        return {"ok": False, "error": "Access token is required — enter the Admin API access token for this store"}
 
     if not store_url.startswith("http"):
         store_url = "https://" + store_url
 
-    from backend.shopify.client import fetch_access_token, ShopifyError
-    import httpx
-    try:
-        access_token = await fetch_access_token(store_url, client_id, client_secret)
-        _shopify_token_cache[domain] = {"token": access_token, "expires_at": time.time() + 86399}
-    except ShopifyError as exc:
-        return {"ok": False, "error": f"Token exchange failed — {exc}"}
-    except Exception as exc:
-        return {"ok": False, "error": str(exc)}
+    _shopify_token_cache[domain] = {"token": access_token, "expires_at": time.time() + 86399}
 
     try:
         url = f"{store_url}/admin/api/2024-01/shop.json"
