@@ -1,30 +1,40 @@
-# Session State — 2026-06-05T21:36Z
+# Session State — 2026-06-09T18:00:00Z
 
 ## Accomplished This Session
-
-- **Beat This Price — price display fixed (root cause):** `find_suppliers` was using only organic engines (`ddg`, `bing`, `google`, `yahoo`) for pattern queries; shopping engines (`shopping`, `bing_shopping`) were in a separate `_google_shopping_search` call that returned 0 results. Fix: added `shopping` and `bing_shopping` to the `multi_engine_search` call in `find_suppliers` loop (`engine.py:1198`).
-- **Domain dedup preserved prices:** `_score_and_merge` was overwriting a lower-fuzzy shopping result (which had a price) with a higher-fuzzy organic result (no price). Fixed to carry price from either result during dedup (`engine.py:1241`).
-- **Beat This Price — price column always visible:** Removed outer `x-show="r.price != null"` wrapper; now every result row shows a price slot — `—` when null, actual price when available (`index.html:2303`).
-- **Color logic corrected everywhere:** competitor cheaper → RED (bad), competitor more expensive → GREEN (good). Fixed in `index.html` (lines 2305, 2309) and `app.js` `priceDiffClass` (line 2036).
-- **Cached fallback when live search returns empty:** Rate-limiting causes `find_suppliers` to return 0 results. Added fallback in `routes.py` that loads most recent `BeatPriceResult` rows from DB for that product when live results are empty.
-- **GitHub push:** pushed 23 pending commits to `origin/main` (cfa0c37 → e5cd4de).
-- **L5 OTS stamp:** SHA-256 `ef9f143c37cf273e69b4d13691901b5cc98d1263b41750ed69a05fa082ebd0de`, stamped to 4 OTS calendars, `.ots` at `/Users/evw/dev/security/donut-intel-2026-06-05.hash.ots`, logged in `l5-hash-log.txt`.
+- Renamed app from "Donut Intel Platform" to **domainSync** throughout all files
+- Changed server port **8743 → 8800**
+- Removed 7 pages from frontend and all associated backend code:
+  - Competitors page
+  - Products (catalog browse) page
+  - Source Domain Products page
+  - Find This Product page
+  - Beat This Price page
+  - Find Me Customers page
+  - Price Comparison (matrix) page
+- Deleted backend modules no longer needed:
+  - `backend/competitor/` (entire directory — 7 files)
+  - `backend/search/pages/find_product.py`, `beat_price.py`, `find_customers.py`, `competitor_site.py`
+- Extracted `_is_shopify_store` / `scrape_shopify_store` from deleted `competitor/scraper.py` into new `backend/scrapers/shopify_scraper.py` so `source_scraper.py` still works
+- Restored `GET /api/competitors/managed-lists`, `POST /api/competitors/managed-domain`, `DELETE /api/competitors/managed-domain` — used by Settings page managed-lists UI
+- Fixed `addManagedUrl` / `removeManagedDomain` in app.js to call the new slimmer endpoints
+- All 4 tests pass; server boots cleanly on port 8800
+- Committed as `f7e4d0d` on branch `main`
+- Backed up to `~/.claude_home/domainSync/`
 
 ## In Progress
-
-- Nothing; session closed cleanly.
+- **GitHub push is pending** — the SSH key in `~/.ssh/id_ed25519` is a deploy key scoped only to `evweath/donut-intel`; it cannot push to `evweath/domainSync`
 
 ## Next Steps
-
-1. Verify Beat This Price in browser: Cmd+Shift+R reload, run search, confirm price column shows for all rows.
-2. If live search returns 0 results, rate-limit may still be active — wait ~1 hour; cached fallback will show prior results in the meantime.
+1. Push to GitHub — pick one:
+   - Add the deploy key to `https://github.com/evweath/domainSync/settings/keys` (Allow write access), then run `git push domainsync main`
+   - Or: `git push https://<PAT>@github.com/evweath/domainSync.git main`
+2. Verify the live app at `https://localhost:8800` — run `bash start.sh` from the project root
+3. Optional: update `config/settings.yaml` database path if you want domainSync to use a separate DB from donut-intel (currently shares `./data/donut_intel.db`)
 
 ## Key Context
-
-- **Why prices were missing for 5+ attempts:** Root cause was upstream — `_google_shopping_search` returned 0 results, and organic engines don't include prices in snippets. Shopping results only come through `multi_engine_search` with `shopping`/`bing_shopping` engines.
-- **Rate limiting:** Bing/Google/DDG rate-limit after heavy use. Cached fallback added to `routes.py` so the UI shows last successful results instead of empty.
-- **Server restart:** `lsof -ti :8743 | xargs kill -9` then `bash start.sh &`
-- **Key files:** `backend/search/engine.py:1198` (shopping engines added), `engine.py:1241` (price dedup fix), `backend/api/routes.py:2925` (cached fallback), `frontend/index.html:2303` (price column always visible), `frontend/js/app.js:2036` (color logic).
-- **Auth**: POST `/api/auth/login` `{"username":"admin","password":"changeme"}` — cookie-based.
-- **CRITICAL**: `config/settings.yaml` has real API keys — never commit.
-- **git remote**: github.com:evweath/donut-intel.git, branch: main
+- Project root: `/Users/evw/dev/domainSync/donut-intel/`
+- Remote added: `domainsync → git@github.com:evweath/domainSync.git` (write blocked until deploy key added)
+- Port: 8800 (set in `config/settings.yaml` and hardened in `backend/app.py` CORS + startup log)
+- Settings page managed-lists section still works fully — uses the new trimmed endpoints
+- `backend/search/core/` and the search engine shim were preserved (used by source scanning)
+- `backend/competitor/` models (Competitor, CompetitorProductMatch) remain in the DB schema and are still referenced by `GET /api/stats` — safe to keep
