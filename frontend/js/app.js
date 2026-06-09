@@ -153,6 +153,8 @@ function app() {
     shopifyConnLog: [],        // recent Shopify connection-attempt log lines
     shopifyConnLogTimer: null, // setInterval handle for polling the connection log
     shopifyTestMessage: {},    // domain -> string
+    newSiteForm: { show: false, name: '', shopify_store_url: '', is_destination: false },
+    removeSiteConfirm: null,   // domain pending removal confirmation
 
     // Shopify Webhook Management (per store)
     shopifyWebhooks: {},       // domain -> { live: [], saved: [], liveLoading, savedLoading, acting, error }
@@ -1324,6 +1326,43 @@ function app() {
         this.toast(`Credentials saved for ${domain}`, 'success', 2500);
         await this.loadSettings();
       } catch (e) { this.toast('Failed to save credentials: ' + e.message, 'error'); }
+    },
+
+    async addSourceSite() {
+      const url = (this.newSiteForm.shopify_store_url || '').trim().replace(/^https?:\/\//, '').replace(/\/$/, '');
+      if (!this.newSiteForm.name.trim() || !url) {
+        this.toast('Name and Store URL are required', 'error'); return;
+      }
+      // Derive domain from the myshopify URL (strip scheme, keep host)
+      const domain = url.split('/')[0].toLowerCase();
+      try {
+        await this.api('/api/source-sites', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: this.newSiteForm.name.trim(),
+            domain,
+            shopify_store_url: 'https://' + url,
+            is_destination: this.newSiteForm.is_destination,
+          }),
+        });
+        this.newSiteForm = { show: false, name: '', shopify_store_url: '', is_destination: false };
+        this.toast(`Store "${domain}" added`, 'success', 3000);
+        await this.loadSettings();
+      } catch (e) { this.toast('Failed to add store: ' + e.message, 'error'); }
+    },
+
+    async removeSourceSite(domain) {
+      if (this.removeSiteConfirm !== domain) {
+        this.removeSiteConfirm = domain;
+        setTimeout(() => { if (this.removeSiteConfirm === domain) this.removeSiteConfirm = null; }, 4000);
+        return;
+      }
+      this.removeSiteConfirm = null;
+      try {
+        await this.api(`/api/source-sites/${encodeURIComponent(domain)}`, { method: 'DELETE' });
+        this.toast(`Removed ${domain}`, 'success', 2500);
+        await this.loadSettings();
+      } catch (e) { this.toast('Failed to remove: ' + e.message, 'error'); }
     },
 
     async testShopifyConnection(domain) {

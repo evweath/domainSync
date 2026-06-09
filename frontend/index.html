@@ -2514,6 +2514,7 @@
                     <span class="font-medium text-sm" x-text="site.name"></span>
                     <span class="ml-2 text-xs text-gray-400 font-mono" x-text="site.domain"></span>
                   </div>
+                  <div class="flex items-center gap-2">
                   <!-- Connection status badge -->
                   <span x-show="shopifyTestStatus[site.domain] === 'ok'"
                     class="text-xs bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-2 py-0.5 rounded-full font-medium">
@@ -2527,6 +2528,13 @@
                     class="text-xs bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 px-2 py-0.5 rounded-full font-medium">
                     Testing…
                   </span>
+                  <button @click="removeSourceSite(site.domain)"
+                    :class="removeSiteConfirm === site.domain ? 'bg-red-500 text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-red-100 dark:hover:bg-red-900 hover:text-red-600'"
+                    class="text-xs font-medium px-2 py-1 rounded-lg transition"
+                    :title="removeSiteConfirm === site.domain ? 'Click again to confirm removal' : 'Remove this store'">
+                    <span x-text="removeSiteConfirm === site.domain ? 'Confirm remove?' : '✕ Remove'"></span>
+                  </button>
+                  </div>
                 </div>
                 <div class="grid grid-cols-1 gap-2">
                   <div>
@@ -2680,6 +2688,43 @@
                 </div>
               </div>
             </template>
+
+            <!-- Add Store Form -->
+            <div x-show="!newSiteForm.show" class="pt-1">
+              <button @click="newSiteForm.show = true"
+                class="w-full border-2 border-dashed border-gray-300 dark:border-gray-600 hover:border-orange-400 dark:hover:border-orange-500 text-gray-400 hover:text-orange-500 rounded-xl py-3 text-sm font-medium transition">
+                + Add Store
+              </button>
+            </div>
+            <div x-show="newSiteForm.show" class="border border-orange-300 dark:border-orange-700 rounded-xl p-4 bg-orange-50 dark:bg-orange-900/10">
+              <h4 class="text-sm font-semibold mb-3 text-orange-600 dark:text-orange-400">New Shopify Store</h4>
+              <div class="grid grid-cols-1 gap-2">
+                <div>
+                  <label class="text-xs font-medium block mb-1 text-gray-600 dark:text-gray-300">Display Name</label>
+                  <input type="text" placeholder="My Store" x-model="newSiteForm.name"
+                    class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                </div>
+                <div>
+                  <label class="text-xs font-medium block mb-1 text-gray-600 dark:text-gray-300">Shopify Store URL <span class="font-normal text-gray-400">(mystore.myshopify.com)</span></label>
+                  <input type="text" placeholder="mystore.myshopify.com" x-model="newSiteForm.shopify_store_url"
+                    class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm font-mono bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+                </div>
+                <label class="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300 cursor-pointer">
+                  <input type="checkbox" x-model="newSiteForm.is_destination" class="accent-orange-500" />
+                  This is a <strong>destination</strong> store (products are synced TO this store)
+                </label>
+              </div>
+              <div class="flex gap-2 mt-3">
+                <button @click="addSourceSite()"
+                  class="bg-orange-500 hover:bg-orange-600 text-white text-xs font-medium px-4 py-1.5 rounded-lg transition">
+                  Add Store
+                </button>
+                <button @click="newSiteForm = { show: false, name: '', shopify_store_url: '', is_destination: false }"
+                  class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 text-xs font-medium px-4 py-1.5 rounded-lg transition">
+                  Cancel
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 

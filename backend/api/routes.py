@@ -1187,6 +1187,59 @@ def db_health():
 
 
 # ---------------------------------------------------------------------------
+# Source-site management (add / remove)
+# ---------------------------------------------------------------------------
+
+class AddSourceSiteRequest(BaseModel):
+    name: str
+    domain: str
+    shopify_store_url: str
+    is_destination: bool = False
+
+
+@router.post("/api/source-sites")
+def add_source_site(req: AddSourceSiteRequest):
+    name = req.name.strip()
+    domain = req.domain.strip().lower().rstrip("/")
+    store_url = req.shopify_store_url.strip().rstrip("/")
+    if not name or not domain or not store_url:
+        raise HTTPException(status_code=422, detail="name, domain, and shopify_store_url are required")
+    sites = config.get("source_sites", default=[])
+    if any(s.get("domain") == domain for s in sites):
+        raise HTTPException(status_code=409, detail=f"A site with domain '{domain}' already exists")
+    if not store_url.startswith("http"):
+        store_url = "https://" + store_url
+    sites.append({
+        "name": name,
+        "domain": domain,
+        "base_url": f"https://{domain}",
+        "shopify_store_url": store_url,
+        "enabled": True,
+        "is_destination": req.is_destination,
+        "shopify_api_key": "",
+        "shopify_access_token": "",
+        "shopify_client_id": "",
+        "shopify_client_secret": "",
+        "sync_draft": False,
+        "sync_archived": False,
+    })
+    config._settings["source_sites"] = sites
+    config._save()
+    return {"status": "added", "domain": domain}
+
+
+@router.delete("/api/source-sites/{domain}")
+def remove_source_site(domain: str):
+    sites = config.get("source_sites", default=[])
+    new_sites = [s for s in sites if s.get("domain") != domain]
+    if len(new_sites) == len(sites):
+        raise HTTPException(status_code=404, detail=f"Source site not found: {domain}")
+    config._settings["source_sites"] = new_sites
+    config._save()
+    return {"status": "removed", "domain": domain}
+
+
+# ---------------------------------------------------------------------------
 # Source-site Shopify credentials
 # ---------------------------------------------------------------------------
 
