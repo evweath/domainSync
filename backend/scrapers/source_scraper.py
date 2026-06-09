@@ -121,7 +121,10 @@ class SourceScraper:
         for site in enabled_sites:
             if self._cancelled:
                 break
-            stats = await self.run_site(site["base_url"], site["name"], site["domain"])
+            # Prefer the myshopify.com URL for detection/scraping when configured;
+            # base_url may be a custom domain that doesn't resolve.
+            scrape_url = site.get("shopify_store_url") or site["base_url"]
+            stats = await self.run_site(scrape_url, site["name"], site["domain"])
             overall_stats["sites_scanned"] += 1
             overall_stats["total_scraped"] += stats.get("scraped", 0)
             overall_stats["new_products"] += stats.get("new", 0)
