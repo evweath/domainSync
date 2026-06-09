@@ -1171,8 +1171,12 @@ class UpdateSettingRequest(BaseModel):
     value: Any
 
 
+_SETTINGS_WRITE_BLOCKED = {"auth"}  # edit settings.yaml directly to change credentials
+
 @router.put("/api/settings")
 def update_setting(req: UpdateSettingRequest):
+    if req.keys and req.keys[0] in _SETTINGS_WRITE_BLOCKED:
+        raise HTTPException(status_code=403, detail=f"'{req.keys[0]}' settings must be changed in settings.yaml directly")
     config.set(*req.keys, req.value)
     return {"status": "saved"}
 
