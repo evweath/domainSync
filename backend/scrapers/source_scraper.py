@@ -22,7 +22,7 @@ from backend.database.models import (
     ProductSource,
     ScanSession,
 )
-from backend.competitor.scraper import _is_shopify_store, scrape_shopify_store
+from backend.scrapers.shopify_scraper import _is_shopify_store, scrape_shopify_store
 from backend.scrapers.base_scraper import BaseScraper, ScrapedProduct
 
 logger = logging.getLogger(__name__)

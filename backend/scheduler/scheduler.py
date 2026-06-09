@@ -142,28 +142,6 @@ async def _execute_job(job_id: int):
             from backend.scrapers.source_scraper import run_source_scan
             await run_source_scan(site_filter=target or None)
 
-        elif job_type == "competitor_scan":
-            from backend.competitor.scraper import run_competitor_scan
-            competitor_ids = json.loads(target) if target and target.startswith("[") else []
-            session_name = f"Scheduled {datetime.utcnow().strftime('%Y-%m-%d %H:%M')}"
-            for cid in competitor_ids:
-                await run_competitor_scan(
-                    competitor_id=cid,
-                    session_name=session_name,
-                    criteria_dict=config_data.get("criteria"),
-                )
-
-        elif job_type == "price_check":
-            from backend.competitor.scraper import run_competitor_scan
-            from backend.database.db import session_scope
-            with session_scope() as db:
-                from backend.database.models import Competitor
-                competitors = db.query(Competitor).filter(Competitor.is_active == True).all()
-                comp_ids = [c.id for c in competitors]
-            session_name = f"Price Check {datetime.utcnow().strftime('%Y-%m-%d %H:%M')}"
-            for cid in comp_ids:
-                await run_competitor_scan(competitor_id=cid, session_name=session_name)
-
         elif job_type == "export":
             from backend.export.exporter import export_products
             fmt = config_data.get("format", "xlsx")

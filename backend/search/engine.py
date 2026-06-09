@@ -53,15 +53,3 @@ from backend.search.core.rank import (  # noqa: F401
     multi_engine_search,
 )
 
-# Pages — one public entry point per app page
-from backend.search.pages.beat_price import find_suppliers  # noqa: F401
-from backend.search.pages.competitor_site import search_competitor_websites  # noqa: F401
-from backend.search.pages.find_customers import (  # noqa: F401
-    _extract_phone,
-    _fetch_nap,
-    _geocode,
-    _haversine_miles,
-    _parse_schema_nap,
-    find_customers,
-)
-from backend.search.pages.find_product import find_products  # noqa: F401

@@ -1,5 +1,5 @@
 /**
- * Donut Intel Platform — Frontend Alpine.js application v2.0
+ * domainSync — Frontend Alpine.js application v2.0
  * Covers all features F01-F74 (except F68 which was excluded).
  */
 
@@ -23,18 +23,11 @@ function app() {
     // Nav items
     navItems: [
       { id: 'dashboard',    icon: '📊', label: 'Dashboard',        badge: 0 },
-      { id: 'products',     icon: '📦', label: 'Products',          badge: 0 },
-      { id: 'competitors',  icon: '🏪', label: 'Competitors',       badge: 0 },
-      { id: 'pricing',      icon: '💰', label: 'Price Comparison',  badge: 0 },
       { id: 'scans',        icon: '🔍', label: 'Scans',             badge: 0 },
       { id: 'duplicates',   icon: '🔁', label: 'Duplicates',        badge: 0 },
-      { id: 'source-products', icon: '📂', label: 'Source Products',   badge: 0 },
       { id: 'store-compare',   icon: '🔀', label: 'Store Compare',      badge: 0 },
       { id: 'shopify-sync',     icon: '🛍️', label: 'Shopify Sync',        badge: 0 },
       { id: 'live-sync',        icon: '⚡', label: 'Live Sync',           badge: 0 },
-      { id: 'find-product',    icon: '🔎', label: 'Find Product',       badge: 0 },
-      { id: 'beat-price',      icon: '💡', label: 'Beat This Price',    badge: 0 },
-      { id: 'find-customers',  icon: '👥', label: 'Find Customers',     badge: 0 },
       { id: 'sync',         icon: '🔄', label: 'Source Sync',        badge: 0 },
       { id: 'system-of-record', icon: '🏛️', label: 'System of Record',   badge: 0 },
       { id: 'scheduler',    icon: '⏰', label: 'Scheduler',         badge: 0 },
@@ -45,25 +38,6 @@ function app() {
 
     // Dashboard
     stats: {},
-
-    // Products
-    productData: { products: [], total: 0, page: 1, pages: 1 },
-    productFilters: { search: '', manufacturer: '', category: '', source_site: '', min_price: '', max_price: '' },
-    filterOptions: { manufacturers: [], categories: [], source_sites: [] },
-    loadingProducts: false,
-    productSelected: {},          // { product_id: true/false }
-    productCompMax: 5,
-    productCompRunning: false,
-    productCompIsParallel: false,           // true when using parallel endpoint (2+ products)
-    productCompProgress: null,    // { product_title, found, max, phase, current_domain }
-    productCompMode: false,                 // true while search-mode view is active
-    productCompSearchProducts: [],          // [{id, title, price, primary_image}] — products being searched
-    productCompCounts: {},                  // {product_id: {found, target, done, searching, current_domain}}
-    productCompPauseState: null,            // {product_id, product_title, found, visited, max} when paused
-    productCompNetworkError: false,         // true if the search completed with 0 found AND the internet was unreachable
-    priceComparison: null,
-    priceHistory: null,
-    loadingPriceComp: false,
 
     // Scans
     scanSessions: { sessions: [] },
@@ -78,45 +52,10 @@ function app() {
     dupSelected: {},
     dupDomainFilters: {},
 
-    // Source Domain Product Browser
-    sourceProducts: { products: [], total: 0, page: 1, pages: 1 },
-    sourceProductDomain: '',
-    sourceProductSearch: '',
-    sourceProductSelected: {},
-
     // Dashboard live log tail
     logTail: [],
     logLevelFilter: 'all',  // 'all' | 'INFO' | 'WARNING' | 'CRITICAL'
     _logPollTimer: null,
-
-    // Find This Product
-    findProductQuery: '',
-    findProductModelNumber: '',
-    findProductCategory: '',
-    findProductMinFuzzyScore: 0,
-    findProductIds: [],
-    findProductCatalogSearch: '',
-    findProductCatalogResults: [],
-    findProductMaxResults: 5,
-    findProductResults: [],
-    findProductCompResults: [],
-    findProductLoading: false,
-    findProductSearched: false,
-    findProductHistory: [],
-    findProductHistoryOpen: false,
-
-    // Beat This Price
-    beatPriceForm: { description: '', price_min: '', price_max: '', max_results: 10 },
-    beatPriceChars: { size: '', color: '', manufacturer: '', country_of_origin: '', features: '' },
-    beatPriceResults: [],            // Flat list when free-text only
-    beatPriceGroupedResults: [],     // Per-product groups when products selected
-    beatPriceLoading: false,
-    beatPriceProductIds: [],         // IDs of selected master products
-    beatPriceCatalogSearch: '',
-    beatPriceCatalogResults: [],
-    beatPriceProgress: '',           // Status text while running multi-product
-    beatPriceHistory: [],
-    beatPriceHistoryOpen: false,
 
     // Store Comparison
     storeComp: { products: [], total: 0, page: 1, pages: 1, source_sites: [] },
@@ -177,19 +116,6 @@ function app() {
     sorFuzzyLoading: false,
     sorFuzzyThreshold: 60,
 
-    // Find Me Customers
-    findCustForm: { business_type: '', location: '', radius_miles: '', max_results: 20 },
-    findCustKeywords: [],
-    findCustKeywordInput: '',
-    findCustExcludeWebsites: [],
-    findCustExcludeWebsiteInput: '',
-    findCustExcludeNames: [],
-    findCustExcludeNameInput: '',
-    findCustResults: [],
-    findCustLoading: false,
-    findCustHistory: [],
-    findCustHistoryOpen: false,
-
     // Source Sync / Domain Comparison
     domainComparison: { products: [], total: 0, all_domains: [], page: 1, pages: 1 },
     domainCompPage: 1,
@@ -199,52 +125,9 @@ function app() {
     taskList: [],
     parallelScanRunning: false,
 
-    // Competitors
-    competitors: { competitors: [], total: 0 },
-    competitorPage: 1,
-    competitorSearch: '',
-    discoverForm: { max_results: 20, session_name: '' },
-    discoverKeywords: ['commercial donut fryer', 'bakery equipment dealer', 'donut equipment wholesale'],
-    newKeyword: '',
-    keywordEditIndex: -1,
-    keywordEditText: '',
-    bulkImportText: '',
-    bulkImportSessionName: '',
-    competitorScanForm: { ids: [], session_name: '', find_similar: false, max_pages: 100, criteria: {} },
-    competitorScanRunning: false,
-    webSearchRunning: false,
-    webSearchCheckpoint: null,
-    webSearchUrlLog: [],
-    webSearchMaxResults: 20,
-    webSearchProductLimit: 100,
-    competitorProfile: null,
-    competitorProfileSaving: false,
     productSort: { col: '', dir: 'asc' },
-    competitorSort: { col: '', dir: 'asc' },
     dupSort: { col: '', dir: 'asc' },
     sourceProductSort: { col: '', dir: 'asc' },
-    competitorCols: ['domain', 'matches', 'session', 'last_scanned'],
-    competitorDragFrom: null,
-    competitorScanCriteria: {
-      use_model_number: true, use_manufacturer: true, use_title_fuzzy: true,
-      use_title_exact: true, use_price: false, fuzzy_threshold: 70,
-    },
-    competitorDetail: null,
-    discoverRunning: false,
-    competitorEditId: null,
-    competitorEditForm: { name: '', base_url: '' },
-    competitorSelected: [],
-    competitorDeleteModal: false,
-    competitorDeleteExclude: false,
-
-    // Pricing matrix
-    priceMatrix: { rows: [], competitors: [], total: 0, page: 1, pages: 1 },
-    priceMatrixPage: 1,
-    priceMatrixSortDir: 'asc',  // 'asc' = cheapest first, 'desc' = most expensive first
-    priceMatrixFilters: { search: '', manufacturer: '', category: '', source_site: '' },
-    priceMatrixSelected: {},
-    priceMatrixHasSearched: false,
-    loadingMatrix: false,
 
     // Scheduler
     jobs: [],
@@ -294,11 +177,9 @@ function app() {
     async postLoginInit() {
       await Promise.all([
         this.loadStats(),
-        this.loadFilterOptions(),
         this.loadScanSessions(),
         this.loadSettings(),
         this.loadManagedLists(),
-        this.loadCompetitors(),
         this.loadJobs(),
         this.loadExportHistory(),
         this.loadCycleStatus(),
@@ -514,189 +395,7 @@ function app() {
         const dupBadge = this.stats.pending_duplicates || 0;
         const nav = this.navItems.find(n => n.id === 'duplicates');
         if (nav) nav.badge = dupBadge;
-        const compNav = this.navItems.find(n => n.id === 'competitors');
-        if (compNav) compNav.badge = this.stats.total_competitors || 0;
       } catch (e) { this.toast('Failed to load stats: ' + e.message, 'error'); }
-    },
-
-    // -----------------------------------------------------------------------
-    // Products
-    // -----------------------------------------------------------------------
-    async loadProducts(page = 1) {
-      this.loadingProducts = true;
-      try {
-        const params = new URLSearchParams({ page, per_page: 50 });
-        if (this.productFilters.search)       params.set('search', this.productFilters.search);
-        if (this.productFilters.manufacturer) params.set('manufacturer', this.productFilters.manufacturer);
-        if (this.productFilters.category)     params.set('category', this.productFilters.category);
-        if (this.productFilters.source_site)  params.set('source_site', this.productFilters.source_site);
-        if (this.productFilters.min_price)    params.set('min_price', this.productFilters.min_price);
-        if (this.productFilters.max_price)    params.set('max_price', this.productFilters.max_price);
-        if (this.productSort.col) {
-          params.set('sort_by', this.productSort.col);
-          params.set('sort_order', this.productSort.dir);
-        }
-        this.productData = await this.api(`/api/products?${params}`) || { products: [], total: 0 };
-      } catch (e) { this.toast('Failed to load products: ' + e.message, 'error'); }
-      finally { this.loadingProducts = false; }
-    },
-
-    async loadFilterOptions() {
-      try { this.filterOptions = await this.api('/api/products/filters/options') || {}; } catch {}
-    },
-
-    async openProduct(product) {
-      try { this.selectedProduct = await this.api(`/api/products/${product.id}`) || product; }
-      catch { this.selectedProduct = product; }
-      this.productMatches = [];
-      await this.loadProductMatches(product.id);
-    },
-
-    async loadProductMatches(productId) {
-      this.productMatchesLoading = true;
-      try {
-        const res = await this.api(`/api/products/${productId}/competitor-matches`);
-        this.productMatches = res?.matches || [];
-      } catch {}
-      finally { this.productMatchesLoading = false; }
-    },
-
-    async denyProductMatch(productId, matchId) {
-      await this.api(`/api/products/${productId}/competitor-matches/${matchId}`, { method: 'DELETE' });
-      this.productMatches = this.productMatches.filter(m => m.id !== matchId);
-      this.toast('Match denied and removed', 'info');
-    },
-
-    async runProductCompSearch() {
-      const ids = Object.keys(this.productSelected).filter(k => this.productSelected[k]).map(Number);
-      if (!ids.length) { this.toast('Select at least one product', 'warning'); return; }
-      if (this.productCompRunning) return;
-
-      const target = Math.max(1, parseInt(this.productCompMax) || 5);
-
-      // Switch to search-mode view showing only the selected products
-      this.productCompSearchProducts = (this.productData.products || [])
-        .filter(p => ids.includes(p.id))
-        .map(p => ({ id: p.id, title: p.title || p.canonical_title, price: p.price, primary_image: p.primary_image }));
-      this.productCompCounts = {};
-      for (const p of this.productCompSearchProducts) {
-        this.productCompCounts[p.id] = { found: 0, target, done: false, searching: false, current_domain: null };
-      }
-      const useParallel = ids.length > 1;
-      this.productCompMode = true;
-      this.productCompRunning = true;
-      this.productCompIsParallel = useParallel;
-      this.productCompProgress = null;
-      this.productCompPauseState = null;
-      this.productCompNetworkError = false;
-
-      try {
-        if (useParallel) {
-          await this.api('/api/products/parallel-competitor-search', {
-            method: 'POST',
-            body: JSON.stringify({
-              product_ids: ids,
-              max_competitors: target,
-              num_workers: Math.min(4, ids.length),
-              max_urls: 150,
-            }),
-          });
-        } else {
-          await this.api('/api/products/competitor-search', {
-            method: 'POST',
-            body: JSON.stringify({
-              product_ids: ids,
-              max_competitors: target,
-              max_urls: 150,
-              num_fetchers: 4,
-              pause_after: 100,
-            }),
-          });
-        }
-      } catch (e) {
-        this.productCompRunning = false;
-        this.productCompMode = false;
-        this.toast('Failed to start competitor search: ' + e.message, 'error');
-      }
-    },
-
-    async resumeCompSearch() {
-      this.productCompPauseState = null;
-      try {
-        await this.api('/api/products/competitor-search/resume', { method: 'POST' });
-      } catch (e) {
-        this.toast('Resume failed: ' + e.message, 'error');
-      }
-    },
-
-    async stopCompSearch() {
-      this.productCompPauseState = null;
-      this.productCompRunning = false;
-      const endpoint = this.productCompIsParallel
-        ? '/api/products/parallel-competitor-search/stop'
-        : '/api/products/competitor-search/stop';
-      try {
-        await this.api(endpoint, { method: 'POST' });
-      } catch (e) {
-        this.toast('Stop failed: ' + e.message, 'error');
-      }
-    },
-
-    clearProductSelection() {
-      this.productSelected = {};
-    },
-
-    exitCompSearchMode() {
-      this.productCompMode = false;
-      this.productCompSearchProducts = [];
-      this.productCompCounts = {};
-      this.productCompPauseState = null;
-      this.loadProducts();
-    },
-
-    // Triggered from the Find This Product page using its own selection model.
-    async runFindProductCompSearch() {
-      const ids = (this.findProductIds || []).map(Number);
-      if (!ids.length) { this.toast('Select at least one product from the catalog', 'warning'); return; }
-      if (this.productCompRunning) return;
-      this.productCompRunning = true;
-      this.productCompProgress = null;
-      try {
-        await this.api('/api/products/competitor-search', {
-          method: 'POST',
-          body: JSON.stringify({
-            product_ids: ids,
-            max_competitors: Math.max(1, parseInt(this.productCompMax) || 5),
-            max_urls: 30,
-          }),
-        });
-        this.toast(`Competitor search started for ${ids.length} product${ids.length !== 1 ? 's' : ''}`, 'info');
-      } catch (e) {
-        this.productCompRunning = false;
-        this.toast('Failed to start competitor search: ' + e.message, 'error');
-      }
-    },
-
-    toggleAllProducts() {
-      const all = this.sortedProducts();
-      const allSelected = all.every(p => this.productSelected[p.id]);
-      all.forEach(p => { this.productSelected[p.id] = !allSelected; });
-    },
-
-    async loadPriceComparison(productId) {
-      this.loadingPriceComp = true;
-      this.priceComparison = null;
-      try {
-        this.priceComparison = await this.api(`/api/products/${productId}/price-comparison`);
-      } catch (e) { this.toast('Failed to load price comparison: ' + e.message, 'error'); }
-      finally { this.loadingPriceComp = false; }
-    },
-
-    async aiCategorize(productIds) {
-      try {
-        await this.api('/api/ai/categorize', { method: 'POST', body: JSON.stringify({ product_ids: productIds }) });
-        this.toast('AI categorization started...', 'info');
-      } catch (e) { this.toast('AI categorize failed: ' + e.message, 'error'); }
     },
 
     // -----------------------------------------------------------------------
@@ -709,9 +408,6 @@ function app() {
           const filters = {};
           this.sourceSites.forEach(s => { filters[s.domain] = true; });
           this.dupDomainFilters = filters;
-        }
-        if (!this.sourceProductDomain && this.sourceSites.length) {
-          this.sourceProductDomain = this.sourceSites[0].domain;
         }
       }
     },
@@ -825,64 +521,6 @@ function app() {
     },
 
     // -----------------------------------------------------------------------
-    // Source Domain Product Browser
-    // -----------------------------------------------------------------------
-    async loadSourceProducts(domain, page = 1) {
-      if (domain) this.sourceProductDomain = domain;
-      if (!this.sourceProductDomain && this.sourceSites.length) {
-        this.sourceProductDomain = this.sourceSites[0].domain;
-      }
-      try {
-        const params = new URLSearchParams({ source_site: this.sourceProductDomain, page, per_page: 50 });
-        if (this.sourceProductSearch) params.set('search', this.sourceProductSearch);
-        this.sourceProducts = await this.api(`/api/products?${params}`) || { products: [], total: 0, page: 1, pages: 1 };
-        this.sourceProductSelected = {};
-      } catch (e) { this.toast('Failed to load products: ' + e.message, 'error'); }
-    },
-
-    sourceProductSelectedCount() {
-      return Object.values(this.sourceProductSelected).filter(Boolean).length;
-    },
-
-    sourceProductAllSelected() {
-      const prods = this.sourceProducts.products || [];
-      return prods.length > 0 && prods.every(p => this.sourceProductSelected[p.id]);
-    },
-
-    sourceProductToggleSelectAll() {
-      const prods = this.sourceProducts.products || [];
-      const selectAll = !this.sourceProductAllSelected();
-      const updated = {};
-      prods.forEach(p => { updated[p.id] = selectAll; });
-      this.sourceProductSelected = updated;
-    },
-
-    async sourceProductSelectAllPages() {
-      try {
-        const params = new URLSearchParams({ source_site: this.sourceProductDomain });
-        if (this.sourceProductSearch) params.set('search', this.sourceProductSearch);
-        const res = await this.api(`/api/products/ids?${params}`);
-        const all = {};
-        (res.ids || []).forEach(id => { all[id] = true; });
-        this.sourceProductSelected = all;
-        this.toast(`Selected ${res.ids.length} product${res.ids.length !== 1 ? 's' : ''} across all pages`, 'info');
-      } catch (e) { this.toast('Failed to select all: ' + e.message, 'error'); }
-    },
-
-    async deactivateSelectedProducts() {
-      const ids = Object.entries(this.sourceProductSelected).filter(([, v]) => v).map(([k]) => parseInt(k));
-      if (!ids.length) return;
-      try {
-        const res = await this.api('/api/products/bulk-deactivate', {
-          method: 'POST', body: JSON.stringify({ product_ids: ids }),
-        });
-        this.toast(`Deactivated ${res.deactivated} product${res.deactivated !== 1 ? 's' : ''}`, 'success');
-        await this.loadSourceProducts(null, this.sourceProducts.page);
-        await this.loadStats();
-      } catch (e) { this.toast('Failed to deactivate: ' + e.message, 'error'); }
-    },
-
-    // -----------------------------------------------------------------------
     // Dashboard — live log tail + cycle status helpers
     // -----------------------------------------------------------------------
     async loadLogTail() {
@@ -968,225 +606,7 @@ function app() {
       }[s] || '';
     },
 
-    // -----------------------------------------------------------------------
-    // Find This Product
-    // -----------------------------------------------------------------------
-    async findProductSearchCatalog() {
-      try {
-        const params = new URLSearchParams({ per_page: 20 });
-        if (this.findProductCatalogSearch) params.set('search', this.findProductCatalogSearch);
-        const r = await this.api(`/api/products?${params}`);
-        this.findProductCatalogResults = r?.products || [];
-      } catch {}
-    },
-
-    findProductToggle(id) {
-      const idx = this.findProductIds.indexOf(id);
-      if (idx >= 0) {
-        this.findProductIds = this.findProductIds.filter(x => x !== id);
-      } else if (this.findProductIds.length < 5) {
-        this.findProductIds = [...this.findProductIds, id];
-      } else {
-        this.toast('Maximum 5 products can be selected', 'info');
-      }
-    },
-
-    findProductAllResults() {
-      const web = (this.findProductResults || []).map(r => ({ ...r, result_type: 'web' }));
-      const comp = (this.findProductCompResults || [])
-        .filter(r => r.fuzzy_score >= this.findProductMinFuzzyScore)
-        .map(r => ({ ...r, result_type: 'competitor', domain: r.domain || r.competitor_domain }));
-      return [...web, ...comp];
-    },
-
-    async loadFindProductHistory() {
-      try {
-        const res = await this.api('/api/search/find-product/history?limit=20');
-        this.findProductHistory = res?.searches || [];
-      } catch {}
-    },
-
-    async runFindProduct() {
-      if (!this.findProductQuery && !this.findProductIds.length) {
-        this.toast('Enter a query or select products from the catalog', 'info');
-        return;
-      }
-      this.findProductLoading = true;
-      this.findProductSearched = false;
-      this.findProductResults = [];
-      this.findProductCompResults = [];
-      try {
-        const res = await this.api('/api/search/find-product', {
-          method: 'POST',
-          body: JSON.stringify({
-            product_ids: this.findProductIds.length ? this.findProductIds : null,
-            query: this.findProductQuery || null,
-            model_number: this.findProductModelNumber || null,
-            category: this.findProductCategory || null,
-            max_results: this.findProductMaxResults,
-            min_fuzzy_score: this.findProductMinFuzzyScore || 0,
-            search_competitor_sites: true,
-          }),
-        });
-        this.findProductResults = res?.results || [];
-        this.findProductCompResults = res?.competitor_results || [];
-        await this.loadFindProductHistory();
-      } catch (e) { this.toast('Search failed: ' + e.message, 'error'); }
-      finally { this.findProductLoading = false; this.findProductSearched = true; }
-    },
-
-    // -----------------------------------------------------------------------
-    // Beat This Price
-    // -----------------------------------------------------------------------
-    async beatPriceSearchCatalog() {
-      try {
-        const params = new URLSearchParams({ per_page: 20 });
-        if (this.beatPriceCatalogSearch) params.set('search', this.beatPriceCatalogSearch);
-        const r = await this.api(`/api/products?${params}`);
-        this.beatPriceCatalogResults = r?.products || [];
-      } catch {}
-    },
-
-    beatPriceToggleProduct(id) {
-      const i = this.beatPriceProductIds.indexOf(id);
-      if (i >= 0) this.beatPriceProductIds = this.beatPriceProductIds.filter(x => x !== id);
-      else this.beatPriceProductIds = [...this.beatPriceProductIds, id];
-    },
-
-    beatPriceClearProducts() {
-      this.beatPriceProductIds = [];
-    },
-
-    beatPriceReset() {
-      this.beatPriceProductIds = [];
-      this.beatPriceResults = [];
-      this.beatPriceGroupedResults = [];
-      this.beatPriceForm = { description: '', price_min: '', price_max: '', max_results: 10 };
-      this.beatPriceChars = {};
-      this.beatPriceCatalogSearch = '';
-      this.beatPriceCatalogResults = [];
-    },
-
-    async runBeatPrice() {
-      const hasProducts = this.beatPriceProductIds.length > 0;
-      const hasDescription = !!(this.beatPriceForm.description || '').trim();
-      if (!hasProducts && !hasDescription) {
-        this.toast('Select at least one product or enter a description', 'info');
-        return;
-      }
-
-      this.beatPriceLoading = true;
-      this.beatPriceResults = [];
-      this.beatPriceGroupedResults = [];
-      this.beatPriceProgress = hasProducts ? `Searching ${this.beatPriceProductIds.length} product(s)...` : '';
-
-      const chars = Object.fromEntries(Object.entries(this.beatPriceChars).filter(([, v]) => v));
-      const payload = {
-        description: this.beatPriceForm.description || null,
-        product_ids: hasProducts ? this.beatPriceProductIds : null,
-        price_min: this.beatPriceForm.price_min ? parseFloat(this.beatPriceForm.price_min) : null,
-        price_max: this.beatPriceForm.price_max ? parseFloat(this.beatPriceForm.price_max) : null,
-        characteristics: Object.keys(chars).length ? chars : null,
-        max_results: this.beatPriceForm.max_results || 10,
-      };
-
-      try {
-        const res = await this.api('/api/search/beat-price', { method: 'POST', body: JSON.stringify(payload) });
-        this.beatPriceResults = res?.results || [];
-        this.beatPriceGroupedResults = res?.groups || [];
-        const total = this.beatPriceResults.length + (res?.groups || []).reduce((n, g) => n + (g.results?.length || 0), 0);
-        if (!total) this.toast('No suppliers found — try broadening the description', 'info');
-        else this.toast(`${total} supplier result${total !== 1 ? 's' : ''} found`, 'success');
-      } catch (e) {
-        this.toast('Search failed: ' + e.message, 'error');
-      } finally {
-        this.beatPriceLoading = false;
-        this.beatPriceProgress = '';
-        await this.loadBeatPriceHistory();
-      }
-    },
-
-    async loadBeatPriceHistory() {
-      try {
-        const res = await this.api('/api/search/beat-price/history?limit=20');
-        this.beatPriceHistory = res?.searches || [];
-      } catch {}
-    },
-
-    // -----------------------------------------------------------------------
-    // Find Me New Customers
-    // -----------------------------------------------------------------------
-    addFindCustKeyword() {
-      const kw = this.findCustKeywordInput.trim();
-      if (kw && !this.findCustKeywords.includes(kw)) {
-        this.findCustKeywords = [...this.findCustKeywords, kw];
-        this.findCustKeywordInput = '';
-      }
-    },
-
-    removeFindCustKeyword(kw) {
-      this.findCustKeywords = this.findCustKeywords.filter(k => k !== kw);
-    },
-
-    addFindCustExcludeWebsite() {
-      const v = this.findCustExcludeWebsiteInput.trim().replace(/^https?:\/\//, '').replace(/\/$/, '');
-      if (v && !this.findCustExcludeWebsites.includes(v)) {
-        this.findCustExcludeWebsites = [...this.findCustExcludeWebsites, v];
-        this.findCustExcludeWebsiteInput = '';
-      }
-    },
-
-    removeFindCustExcludeWebsite(v) {
-      this.findCustExcludeWebsites = this.findCustExcludeWebsites.filter(x => x !== v);
-    },
-
-    addFindCustExcludeName() {
-      const v = this.findCustExcludeNameInput.trim();
-      if (v && !this.findCustExcludeNames.includes(v)) {
-        this.findCustExcludeNames = [...this.findCustExcludeNames, v];
-        this.findCustExcludeNameInput = '';
-      }
-    },
-
-    removeFindCustExcludeName(v) {
-      this.findCustExcludeNames = this.findCustExcludeNames.filter(x => x !== v);
-    },
-
-    async runFindCustomers() {
-      if (!this.findCustForm.business_type && !this.findCustForm.location && !this.findCustKeywords.length) {
-        this.toast('Enter at least a business type, location, or keyword', 'info');
-        return;
-      }
-      this.findCustLoading = true;
-      this.findCustResults = [];
-      try {
-        const res = await this.api('/api/search/find-customers', {
-          method: 'POST',
-          body: JSON.stringify({
-            business_type: this.findCustForm.business_type || null,
-            location: this.findCustForm.location || null,
-            radius_miles: this.findCustForm.radius_miles ? parseInt(this.findCustForm.radius_miles) : null,
-            keywords: this.findCustKeywords.length ? this.findCustKeywords : null,
-            exclude_websites: this.findCustExcludeWebsites,
-            exclude_names: this.findCustExcludeNames,
-            max_results: this.findCustForm.max_results,
-          }),
-        });
-        this.findCustResults = res?.results || [];
-        if (!this.findCustResults.length) this.toast('No customers found — try different criteria', 'info');
-        await this.loadFindCustHistory();
-      } catch (e) { this.toast('Search failed: ' + e.message, 'error'); }
-      finally { this.findCustLoading = false; }
-    },
-
-    async loadFindCustHistory() {
-      try {
-        const res = await this.api('/api/search/find-customers/history?limit=20');
-        this.findCustHistory = res?.searches || [];
-      } catch {}
-    },
-
-    // Returns an array of comparison rows for the duplicate card.
+        // Returns an array of comparison rows for the duplicate card.
     // Each row: { label, primary, secondary, score, mono }
     dupFields(dup) {
       const r = dup.match_reasons || {};
@@ -1705,380 +1125,6 @@ function app() {
     },
 
     // -----------------------------------------------------------------------
-    // Competitors (F12-F21)
-    // -----------------------------------------------------------------------
-    async loadCompetitors(page = 1) {
-      try {
-        this.competitorPage = page;
-        this.competitors = await this.api(`/api/competitors?page=${page}&per_page=50`) || { competitors: [], total: 0 };
-      } catch (e) { this.toast('Failed to load competitors: ' + e.message, 'error'); }
-    },
-
-    async discoverCompetitors() {
-      this.discoverRunning = true;
-      try {
-        const body = {
-          max_results: this.discoverForm.max_results,
-          session_name: this.discoverForm.session_name || undefined,
-          custom_keywords: this.discoverKeywords.length ? this.discoverKeywords : undefined,
-        };
-        await this.api('/api/competitors/discover', { method: 'POST', body: JSON.stringify(body) });
-        this.toast('Competitor discovery started...', 'info');
-      } catch (e) {
-        this.discoverRunning = false;
-        this.toast('Discovery failed: ' + e.message, 'error');
-      }
-    },
-
-    addKeyword() {
-      const kw = this.newKeyword.trim();
-      if (!kw || this.discoverKeywords.includes(kw)) return;
-      this.discoverKeywords.push(kw);
-      this.newKeyword = '';
-    },
-
-    removeKeyword(i) {
-      this.discoverKeywords.splice(i, 1);
-    },
-
-    startEditKeyword(i) {
-      this.keywordEditIndex = i;
-      this.keywordEditText = this.discoverKeywords[i];
-    },
-
-    saveKeyword() {
-      const kw = this.keywordEditText.trim();
-      if (kw) this.discoverKeywords[this.keywordEditIndex] = kw;
-      this.keywordEditIndex = -1;
-      this.keywordEditText = '';
-    },
-
-    cancelKeywordEdit() {
-      this.keywordEditIndex = -1;
-      this.keywordEditText = '';
-    },
-
-    async bulkImportCompetitors() {
-      const domains = this.bulkImportText.split('\n').map(d => d.trim()).filter(Boolean);
-      if (!domains.length) return;
-      try {
-        const r = await this.api('/api/competitors/bulk-import', {
-          method: 'POST',
-          body: JSON.stringify({ domains, session_name: this.bulkImportSessionName || undefined }),
-        });
-        this.toast(`Imported ${r.added} new competitors (${r.parsed} parsed)`, 'success');
-        this.bulkImportText = '';
-        await this.loadCompetitors();
-      } catch (e) { this.toast('Bulk import failed: ' + e.message, 'error'); }
-    },
-
-    async scanCompetitors(ids) {
-      if (!ids || !ids.length) { this.toast('Select at least one competitor', 'warning'); return; }
-      try {
-        const body = {
-          competitor_ids: ids,
-          session_name: this.competitorScanForm.session_name || undefined,
-          find_similar: this.competitorScanForm.find_similar,
-          max_pages: this.competitorScanForm.max_pages,
-          criteria: this.competitorScanCriteria,
-        };
-        await this.api('/api/competitors/scan', { method: 'POST', body: JSON.stringify(body) });
-        this.competitorScanRunning = true;
-        this.toast(`Scanning ${ids.length} competitor(s)...`, 'info');
-      } catch (e) { this.toast('Competitor scan failed: ' + e.message, 'error'); }
-    },
-
-    async scanAllCompetitors() {
-      if (this.competitorScanRunning) return;
-      if (!this.competitors.competitors.length) await this.loadCompetitors();
-      const ids = this.competitors.competitors.map(c => c.id);
-      if (!ids.length) { this.toast('No competitors configured yet', 'warning'); return; }
-      await this.scanCompetitors(ids);
-    },
-
-    async startWebSearchScan() {
-      if (this.webSearchRunning) return;
-      const n = Math.max(1, Math.min(100, parseInt(this.webSearchMaxResults) || 20));
-      const limit = parseInt(this.webSearchProductLimit) || null;
-      this.webSearchMaxResults = n;
-      this.webSearchRunning = true;
-      this.webSearchCheckpoint = null;
-      try {
-        await this.api('/api/competitors/web-search-scan', {
-          method: 'POST',
-          body: JSON.stringify({ max_results: n, product_limit: limit || null }),
-        });
-        const productDesc = limit ? `${limit} products` : 'all products';
-        this.toast(`Web search scan started — ${productDesc}, top ${n} results each`, 'info');
-      } catch (e) {
-        this.webSearchRunning = false;
-        this.toast('Failed to start web search scan: ' + e.message, 'error');
-      }
-    },
-
-    async stopWebSearchScan() {
-      try {
-        await this.api('/api/competitors/web-search-scan/stop', { method: 'POST' });
-        this.toast('Stop requested — scan will halt after current product', 'info');
-      } catch (e) {
-        this.toast('Failed to stop scan: ' + e.message, 'error');
-      }
-    },
-
-    async openCompetitor(comp) {
-      try {
-        this.competitorDetail = await this.api(`/api/competitors/${comp.id}`);
-        this.competitorProfile = null;
-        this.loadCompetitorProfile(comp.id);
-      } catch (e) { this.toast('Failed to load competitor: ' + e.message, 'error'); }
-    },
-
-    async loadCompetitorProfile(id) {
-      try {
-        this.competitorProfile = await this.api(`/api/competitors/${id}/profile`);
-      } catch (e) { this.competitorProfile = null; }
-    },
-
-    async saveCompetitorProfile() {
-      if (!this.competitorDetail || !this.competitorProfile) return;
-      this.competitorProfileSaving = true;
-      try {
-        await this.api(`/api/competitors/${this.competitorDetail.id}/profile`, {
-          method: 'PUT',
-          body: JSON.stringify({
-            preferred_scraper: this.competitorProfile.preferred_scraper,
-            min_crawl_interval_hours: this.competitorProfile.min_crawl_interval_hours,
-            request_delay_ms: this.competitorProfile.request_delay_ms,
-            max_pages_per_scan: this.competitorProfile.max_pages_per_scan,
-            notes: this.competitorProfile.notes,
-          }),
-        });
-        this.toast('Scraping profile saved', 'success');
-      } catch (e) {
-        this.toast('Failed to save profile: ' + e.message, 'error');
-      } finally {
-        this.competitorProfileSaving = false;
-      }
-    },
-
-    _sortRows(rows, col, dir, accessor) {
-      if (!col) return rows;
-      return [...rows].sort((a, b) => {
-        const av = accessor(a, col), bv = accessor(b, col);
-        if (av == null && bv == null) return 0;
-        if (av == null) return 1;
-        if (bv == null) return -1;
-        const cmp = (typeof av === 'number' && typeof bv === 'number')
-          ? av - bv
-          : String(av).localeCompare(String(bv), undefined, { sensitivity: 'base' });
-        return dir === 'asc' ? cmp : -cmp;
-      });
-    },
-    setSort(state, col) {
-      if (state.col === col) state.dir = state.dir === 'asc' ? 'desc' : 'asc';
-      else { state.col = col; state.dir = 'asc'; }
-      if (state === this.productSort) this.loadProducts(1);
-    },
-    sortIcon(state, col) {
-      if (state.col !== col) return '⇅';
-      return state.dir === 'asc' ? '↑' : '↓';
-    },
-    sortedProducts() {
-      // Sort is server-side; return current page data as-is
-      return this.productData?.products || [];
-    },
-    sortedCompetitors() {
-      const rows = this.competitors?.competitors || [];
-      return this._sortRows(rows, this.competitorSort.col, this.competitorSort.dir, (c, col) => {
-        if (col === 'domain') return c.domain || '';
-        if (col === 'matches') return c.total_matching_products || 0;
-        if (col === 'session') return c.scan_session_name || '';
-        if (col === 'last_scanned') return c.last_scanned_at || '';
-        return '';
-      });
-    },
-    sortedDups() {
-      const rows = this.duplicates?.candidates || [];
-      return this._sortRows(rows, this.dupSort.col, this.dupSort.dir, (d, col) => {
-        if (col === 'confidence_score') return d.confidence_score || 0;
-        if (col === 'primary_title') return d.primary?.title || '';
-        if (col === 'secondary_title') return d.secondary?.title || '';
-        return '';
-      });
-    },
-    sortedSourceProducts() {
-      const rows = this.sourceProducts?.products || [];
-      return this._sortRows(rows, this.sourceProductSort.col, this.sourceProductSort.dir, (p, col) => {
-        if (col === 'title') return p.canonical_title || p.title || '';
-        if (col === 'manufacturer') return p.manufacturer || '';
-        if (col === 'model_number') return p.model_number || '';
-        if (col === 'price') return p.price_canonical ? Number(p.price_canonical) : 0;
-        if (col === 'category') return p.category || '';
-        return '';
-      });
-    },
-    competitorColLabel(col) {
-      const labels = { domain: 'Domain', matches: 'Matches', session: 'Session', last_scanned: 'Last Scanned' };
-      return labels[col] || col;
-    },
-    competitorColDrop(toCol) {
-      if (!this.competitorDragFrom || this.competitorDragFrom === toCol) { this.competitorDragFrom = null; return; }
-      const cols = [...this.competitorCols];
-      const fi = cols.indexOf(this.competitorDragFrom);
-      const ti = cols.indexOf(toCol);
-      if (fi < 0 || ti < 0) { this.competitorDragFrom = null; return; }
-      cols.splice(fi, 1);
-      cols.splice(ti, 0, this.competitorDragFrom);
-      this.competitorCols = cols;
-      this.competitorDragFrom = null;
-    },
-
-    deleteCompetitor(id) {
-      this.competitorSelected = [id];
-      this.competitorDeleteExclude = false;
-      this.competitorDeleteModal = true;
-    },
-
-    toggleCompetitorSelect(id) {
-      const idx = this.competitorSelected.indexOf(id);
-      if (idx >= 0) this.competitorSelected.splice(idx, 1);
-      else this.competitorSelected.push(id);
-    },
-
-    isCompetitorSelected(id) {
-      return this.competitorSelected.includes(id);
-    },
-
-    selectAllCompetitors() {
-      const all = (this.competitors?.competitors || []).map(c => c.id);
-      this.competitorSelected = this.competitorSelected.length === all.length ? [] : [...all];
-    },
-
-    openBulkDeleteModal() {
-      this.competitorDeleteExclude = false;
-      this.competitorDeleteModal = true;
-    },
-
-    async confirmDeleteCompetitors() {
-      const ids = [...this.competitorSelected];
-      if (!ids.length) return;
-      try {
-        const r = await this.api('/api/competitors/bulk-delete', {
-          method: 'POST',
-          body: JSON.stringify({ ids, exclude: this.competitorDeleteExclude }),
-        });
-        const rm = r?.removed || {};
-        const n = ids.length;
-        const detail = `matches=${rm.matches || 0}, prices=${rm.price_history || 0}, scans=${rm.scans || 0}`;
-        this.toast(`${n} competitor${n !== 1 ? 's' : ''} deleted (${detail})`, 'success');
-        this.competitorSelected = [];
-        this.competitorDeleteModal = false;
-        this.competitorEditId = null;
-        this.competitorDetail = null;
-        await this.loadCompetitors();
-        this.loadStats();
-      } catch (e) { this.toast('Failed to delete: ' + e.message, 'error'); }
-    },
-
-    startEditCompetitor(c) {
-      this.competitorEditId = c.id;
-      this.competitorEditForm = { name: c.name || '', base_url: c.base_url || '' };
-    },
-
-    cancelEditCompetitor() {
-      this.competitorEditId = null;
-      this.competitorEditForm = { name: '', base_url: '' };
-    },
-
-    async saveCompetitor() {
-      try {
-        await this.api(`/api/competitors/${this.competitorEditId}`, {
-          method: 'PUT',
-          body: JSON.stringify(this.competitorEditForm),
-        });
-        this.toast('Competitor updated', 'success');
-        this.competitorEditId = null;
-        await this.loadCompetitors();
-      } catch (e) { this.toast('Update failed: ' + e.message, 'error'); }
-    },
-
-    // -----------------------------------------------------------------------
-    // Price Comparison Matrix (F26)
-    // -----------------------------------------------------------------------
-    async loadPriceMatrix(page = 1) {
-      this.loadingMatrix = true;
-      this.priceMatrixPage = page;
-      this.priceMatrixHasSearched = true;
-      const f = this.priceMatrixFilters;
-      const params = new URLSearchParams({ page, per_page: 25 });
-      if (f.search)       params.set('search',       f.search);
-      if (f.manufacturer) params.set('manufacturer', f.manufacturer);
-      if (f.category)     params.set('category',     f.category);
-      if (f.source_site)  params.set('source_site',  f.source_site);
-      try {
-        this.priceMatrix = await this.api(`/api/price-comparison?${params}`) || { rows: [], competitors: [] };
-      } catch (e) { this.toast('Failed to load price matrix: ' + e.message, 'error'); }
-      finally { this.loadingMatrix = false; }
-    },
-
-    toggleAllPriceMatrix() {
-      const rows = this.priceMatrix.rows || [];
-      const allSelected = rows.length > 0 && rows.every(r => this.priceMatrixSelected[r.product_id]);
-      if (allSelected) {
-        rows.forEach(r => { delete this.priceMatrixSelected[r.product_id]; });
-      } else {
-        rows.forEach(r => { this.priceMatrixSelected[r.product_id] = true; });
-      }
-      this.priceMatrixSelected = { ...this.priceMatrixSelected };
-    },
-
-    priceDiff(ourPrice, theirPrice) {
-      if (!ourPrice || !theirPrice) return null;
-      return ((theirPrice - ourPrice) / ourPrice * 100).toFixed(1);
-    },
-
-    priceDiffClass(diff) {
-      if (diff === null) return '';
-      return parseFloat(diff) < 0 ? 'text-red-600 font-bold' : 'text-green-600 font-bold';
-    },
-
-    // Dollar difference: positive = competitor costs more (green/good), negative = they're cheaper (red/bad)
-    priceDiffDollar(ourPrice, theirPrice) {
-      if (ourPrice == null || theirPrice == null) return null;
-      return theirPrice - ourPrice;
-    },
-
-    priceDiffDollarClass(diff) {
-      if (diff === null) return 'hidden';
-      return diff < 0 ? 'text-red-600 font-bold text-[10px]' : 'text-green-600 font-bold text-[10px]';
-    },
-
-    fmtDollarDiff(diff) {
-      if (diff === null) return '';
-      const abs = Math.abs(diff).toFixed(2);
-      return diff >= 0 ? `+$${abs}` : `-$${abs}`;
-    },
-
-    // Return matched competitors for a row, sorted by price per the page's
-    // current sort direction (default 'asc' = cheapest first).
-    matchedCompetitors(row) {
-      const by = row?.by_competitor || {};
-      const out = [];
-      for (const [domain, info] of Object.entries(by)) {
-        if (info && info.price != null) {
-          out.push({ domain, price: info.price, url: info.url, in_stock: info.in_stock, low_confidence: !!info.low_confidence });
-        }
-      }
-      const dir = this.priceMatrixSortDir === 'desc' ? -1 : 1;
-      out.sort((a, b) => (a.price - b.price) * dir);
-      return out;
-    },
-
-    compShortName(domain) {
-      return (domain || '').split('.')[0];
-    },
-
-    // -----------------------------------------------------------------------
     // Scheduler (F43-F47)
     // -----------------------------------------------------------------------
     async loadJobs() {
@@ -2233,9 +1279,9 @@ function app() {
       const url = (raw || '').trim();
       if (!url) return;
       try {
-        await this.api('/api/competitors/bulk-import', {
+        await this.api('/api/competitors/managed-domain', {
           method: 'POST',
-          body: JSON.stringify({ domains: [url], domain_type: type }),
+          body: JSON.stringify({ domain: url, domain_type: type }),
         });
         this.newManagedUrl[type] = '';
         await this.loadManagedLists();
@@ -2245,9 +1291,8 @@ function app() {
 
     async removeManagedDomain(domain) {
       try {
-        await this.api('/api/competitors/by-domain', {
+        await this.api(`/api/competitors/managed-domain?domain=${encodeURIComponent(domain)}`, {
           method: 'DELETE',
-          body: JSON.stringify({ domain }),
         });
         await this.loadManagedLists();
         this.toast(`Removed ${domain}`, 'success', 2000);
@@ -2419,7 +1464,7 @@ function app() {
         case 'scan_complete':
           this.scanRunning = false; this.scanStatus = {};
           this.toast('Source scan completed!', 'success');
-          this.loadStats(); this.loadProducts(); this.loadScanSessions(); break;
+          this.loadStats(); this.loadScanSessions(); break;
         case 'scan_error':
           this.scanRunning = false; this.scanStatus = {};
           this.toast('Scan error: ' + (msg.error || 'Unknown'), 'error');
@@ -2433,115 +1478,6 @@ function app() {
         case 'dedup_error':
           this.toast('Deduplication failed: ' + (msg.error || 'Unknown'), 'error');
           break;
-        case 'competitor_found':
-          this.toast(`Found competitor: ${msg.domain} (${msg.total} total)`, 'info', 2000); break;
-        case 'discovery_complete':
-          this.discoverRunning = false;
-          this.toast(`Discovery done — ${msg.added} new competitors added`, 'success');
-          this.loadCompetitors(); this.loadStats(); break;
-        case 'competitor_scan_start':
-          this.toast(`Scanning ${msg.competitor}...`, 'info', 2000); break;
-        case 'competitor_scan_complete':
-          this.toast(`${msg.competitor}: ${msg.matches_found} matches found`, 'success');
-          this.competitorScanRunning = false;
-          this.loadCompetitors(); this.loadStats();
-          if (this.currentView === 'pricing') this.loadPriceMatrix(this.priceMatrixPage);
-          break;
-        case 'competitor_scan_error':
-          this.competitorScanRunning = false;
-          this.toast(`Competitor scan error: ${msg.error}`, 'error'); break;
-        case 'web_search_product_done':
-          if (msg.matches_found > 0)
-            this.toast(`${msg.product_title?.slice(0,40)}: ${msg.matches_found} match(es) found`, 'success', 2500);
-          break;
-        case 'web_search_url_attempted':
-          this.webSearchUrlLog.push({
-            url: msg.url,
-            domain: msg.domain,
-            status: msg.status,
-            product_title: msg.product_title,
-            ts: new Date().toLocaleTimeString(),
-          });
-          this.$nextTick(() => {
-            const el = document.getElementById('webSearchUrlLog');
-            if (el) el.scrollTop = el.scrollHeight;
-          });
-          break;
-        case 'web_search_scan_checkpoint':
-          this.webSearchCheckpoint = {
-            total_urls_visited: msg.total_urls_visited,
-            total_matches: msg.total_matches,
-            session_name: msg.session_name,
-          };
-          break;
-        case 'web_search_scan_complete':
-          this.webSearchRunning = false;
-          this.webSearchCheckpoint = null;
-          this.toast(`Web search scan complete — ${msg.total_matches_in_db} total matches in DB`, 'success');
-          this.loadCompetitors(); this.loadStats();
-          if (this.currentView === 'pricing') this.loadPriceMatrix(this.priceMatrixPage);
-          break;
-        case 'web_search_scan_error':
-          this.webSearchRunning = false;
-          this.webSearchCheckpoint = null;
-          this.toast(`Web search scan error: ${msg.error}`, 'error'); break;
-        case 'product_comp_search_progress':
-          this.productCompProgress = msg;
-          if (msg.product_id && this.productCompCounts[msg.product_id]) {
-            const entry = this.productCompCounts[msg.product_id];
-            if (msg.phase === 'found') {
-              entry.found = msg.found;
-              entry.current_domain = msg.domain || null;
-            } else if (msg.phase === 'visiting') {
-              entry.current_domain = msg.current_domain || null;
-              entry.searching = true;
-            } else if (msg.phase === 'searching') {
-              entry.current_domain = null;
-              entry.searching = true;
-            }
-            this.productCompCounts = { ...this.productCompCounts };
-          }
-          break;
-        case 'product_comp_search_product_done':
-          if (msg.product_id && this.productCompCounts[msg.product_id]) {
-            const entry = this.productCompCounts[msg.product_id];
-            entry.found = msg.found;
-            entry.done = true;
-            entry.searching = false;
-            entry.current_domain = null;
-            this.productCompCounts = { ...this.productCompCounts };
-          }
-          break;
-        case 'product_comp_search_pause':
-          this.productCompPauseState = msg;
-          break;
-        case 'product_competitor_search_complete':
-        case 'product_competitor_search_error':
-        case 'parallel_search_complete':
-        case 'parallel_search_cancelled':
-        case 'parallel_search_error':
-          this.productCompRunning = false;
-          this.productCompIsParallel = false;
-          this.productCompProgress = null;
-          this.productCompPauseState = null;
-          // Surface a network banner when the search finished with nothing found
-          // because the internet was unreachable (vs. genuinely no competitors).
-          this.productCompNetworkError = msg.network_ok === false;
-          this.loadCompetitors(1);
-          this.loadPriceMatrix(1);
-          if (msg.event === 'product_competitor_search_error' || msg.event === 'parallel_search_error') {
-            this.toast('Competitor search error: ' + (msg.error || 'unknown'), 'error');
-            this.productCompMode = false;
-          } else if (msg.event === 'parallel_search_cancelled') {
-            this.toast('Competitor search cancelled', 'info');
-          } else {
-            const found = msg.total_found || 0;
-            this.toast(`Competitor search complete — ${found} match${found !== 1 ? 'es' : ''} found`, 'success');
-          }
-          break;
-        case 'ai_categorize_complete':
-          this.toast(`AI categorized ${msg.categorized}/${msg.total} products`, 'success');
-          this.loadProducts(); break;
         case 'crawl_progress':
           if (msg.pages_visited % 10 === 0)
             this.scanStatus.message = `Crawling... ${msg.pages_visited} pages, ${msg.products_found} found`;

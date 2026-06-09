@@ -1,11 +1,5 @@
 """
 Tests for the shared product-page parsers in backend/search/core/parse.py.
-
-These lock in the Phase-3 consolidation: the two competitor scan modules
-(product_search, web_search_scan) must use the SAME _parse_jsonld / _parse_meta
-so they can never drift again. Before consolidation, product_search extracted
-image+description while web_search_scan did not. See
-.claude/investigations/competitor-search.md.
 """
 import sys
 import os
@@ -19,18 +13,6 @@ from backend.search.core.parse import (
     _parse_jsonld,
     _parse_meta,
 )
-import backend.competitor.product_search as ps
-import backend.competitor.web_search_scan as wss
-
-
-def test_scan_modules_share_the_same_parsers():
-    """The two scan modules must reference the identical core parser objects.
-
-    If this fails, someone reintroduced a local _parse_jsonld/_parse_meta in one
-    module — the exact drift that hid image/description from the web-search scan.
-    """
-    assert ps._parse_jsonld is wss._parse_jsonld is _parse_jsonld
-    assert ps._parse_meta is wss._parse_meta is _parse_meta
 
 
 def test_parse_jsonld_extracts_image_and_description():

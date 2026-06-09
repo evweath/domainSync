@@ -1,5 +1,5 @@
 """
-Donut Intel Platform — Main FastAPI application.
+domainSync — Main FastAPI application.
 HTTPS via self-signed cert (F31), session auth (F38), static frontend serving.
 Scheduler (F43), Webhooks (F72) wired at startup.
 """
@@ -97,9 +97,9 @@ PROJECT_ROOT = Path(__file__).parent.parent
 FRONTEND_DIR = PROJECT_ROOT / "frontend"
 
 app = FastAPI(
-    title="Donut Intel Platform",
-    description="Product intelligence and competitor pricing for donut/bakery supply market",
-    version="2.0.0",
+    title="domainSync",
+    description="Domain product sync and catalog management platform",
+    version="1.0.0",
     docs_url="/api/docs",
     redoc_url="/api/redoc",
 )
@@ -113,7 +113,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"] if config.get("app", "debug", default=False) else [
-        "http://localhost:8743", "https://localhost:8743"
+        "http://localhost:8800", "https://localhost:8800"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -260,7 +260,7 @@ async def serve_spa(request: Request, path: str = ""):
 
 @app.on_event("startup")
 async def on_startup():
-    logger.info("Donut Intel Platform v2.0 starting up...")
+    logger.info("domainSync v1.0 starting up...")
     init_db()
     logger.info(f"Database ready at: {config.db_path()}")
 
@@ -296,7 +296,7 @@ async def on_startup():
     except Exception as exc:
         logger.warning(f"Log-tail broadcaster failed to start: {exc}")
 
-    port = config.get("app", "port", default=8743)
+    port = config.get("app", "port", default=8800)
     logger.info(f"Dashboard: https://localhost:{port}")
     logger.info(f"API docs:  https://localhost:{port}/api/docs")
 
@@ -311,4 +311,4 @@ async def on_shutdown():
     task = getattr(app.state, "log_tail_task", None)
     if task is not None:
         task.cancel()
-    logger.info("Donut Intel Platform shut down.")
+    logger.info("domainSync shut down.")
