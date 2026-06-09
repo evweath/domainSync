@@ -297,8 +297,8 @@ async def on_startup():
         logger.warning(f"Log-tail broadcaster failed to start: {exc}")
 
     port = config.get("app", "port", default=8800)
-    logger.info(f"Dashboard: http://localhost:{port}")
-    logger.info(f"API docs:  http://localhost:{port}/api/docs")
+    logger.info(f"Dashboard: https://localhost:{port}")
+    logger.info(f"API docs:  https://localhost:{port}/api/docs")
 
 
 @app.on_event("shutdown")
