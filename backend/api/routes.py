@@ -1220,29 +1220,21 @@ def save_source_site_credentials(domain: str, req: ShopifyCredentialsRequest):
 
 @router.post("/api/source-sites/{domain}/test-connection")
 async def test_source_site_connection(domain: str):
-    """Verify Shopify API credentials by fetching the shop info endpoint."""
-    import httpx
-    sites = config.get("source_sites", default=[])
-    site = next((s for s in sites if s.get("domain") == domain), None)
-    if site is None:
-        raise HTTPException(status_code=404, detail=f"Source site not found: {domain}")
-
-    store_url = (site.get("shopify_store_url") or "").strip().rstrip("/")
-    access_token = (site.get("shopify_access_token") or "").strip()
-
-    if not store_url:
-        return {"ok": False, "error": "Store URL is required"}
-    if not access_token:
-        return {"ok": False, "error": "Access token is required — enter the Admin API access token for this store"}
-
-    if not store_url.startswith("http"):
-        store_url = "https://" + store_url
-
-    _shopify_token_cache[domain] = {"token": access_token, "expires_at": time.time() + 86399}
-
+    """Verify Shopify credentials by exchanging client_id+secret for a token, then fetching shop info."""
+    from backend.shopify.client import ShopifyError
     try:
-        url = f"{store_url}/admin/api/2024-01/shop.json"
-        headers = {"X-Shopify-Access-Token": access_token, "Content-Type": "application/json"}
+        store_url, token = await _get_site_credentials(domain)
+    except HTTPException as exc:
+        return {"ok": False, "error": exc.detail}
+    except ShopifyError as exc:
+        return {"ok": False, "error": f"Token exchange failed — {exc}"}
+    except Exception as exc:
+        return {"ok": False, "error": str(exc)}
+
+    import httpx
+    try:
+        url = f"{store_url.rstrip('/')}/admin/api/2024-01/shop.json"
+        headers = {"X-Shopify-Access-Token": token, "Content-Type": "application/json"}
         async with httpx.AsyncClient(timeout=10) as client:
             resp = await client.get(url, headers=headers)
         if resp.status_code == 200:
