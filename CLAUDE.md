@@ -13,7 +13,7 @@
 - **Routes:** `backend/api/routes.py`
 - **Frontend:** `frontend/index.html` (Alpine.js), `frontend/js/app.js`
 - **Config:** `config/settings.yaml` — **never commit, contains real API keys**
-- **Server:** `bash start.sh` / `lsof -ti :8743 | xargs kill -9`
+- **Server:** `bash start.sh` / `lsof -ti :8800 | xargs kill -9`
 - **Tests:** `.venv/bin/python -m pytest tests/ -v`
 
 ## Critical Facts (do not re-learn these)
