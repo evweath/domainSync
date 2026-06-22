@@ -26,6 +26,16 @@ Store Compare page
 - **Root cause:** Status (active/draft/archived) was stored at product level, not per source site. A product archived on BW but active on DE appeared as archived everywhere.
 - **Fix:** Added per-source status tracking; status is now stored and compared per site.
 
+## Behavioral Changes (not bugs)
+
+### `missing_from` filter: count-based → per-store (CHANGED — 2026-06-22)
+- **What changed:** The "Missing from store:" dropdown on the Store Compare filter panel used to be count-based (Any / 1+ / 2+ / All stores) and `missing_from` was an `int` meaning "missing from at least N stores." It is now a **per-store** filter: options are "All" + one entry per `storeComp.source_sites` (label = `site.split('.')[0]`), and the selected value is a store domain.
+- **Files:**
+  - `frontend/index.html` — dropdown now `<option value="">All</option>` + `x-for` over `storeComp.source_sites`. Also added 3 `&nbsp;` after "Diffs only" label (cosmetic spacing).
+  - `backend/api/routes.py` — `missing_from` param type `int` → `str`; gating changed `missing_from is not None` → `missing_from`; filter logic now `if missing_from and missing_from in site_srcs: continue` (keep only products where the selected store has no active source record). The old `missing_n` count computation was removed.
+- **Why it's safe:** Frontend only sends `missing_from` when non-empty (`app.js` `f.missing_from !== ''`), so the empty-string "All" case never reaches the backend gate.
+- **Note:** The old count-based filter is GONE — not kept alongside the new one. If a future request wants both, split into two separate controls/params.
+
 ## Known Failure Modes
 
 - **Stale scrape data:** Store Compare reflects whatever was last scraped. If a source site hasn't been scraped recently, diffs will be stale. Check scrape timestamps before investigating "wrong" diffs.

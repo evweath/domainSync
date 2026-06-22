@@ -400,7 +400,7 @@ def get_store_comparison(
     max_price: Optional[float] = None,
     in_stock: Optional[bool] = None,
     has_diffs: bool = False,
-    missing_from: Optional[int] = None,
+    missing_from: Optional[str] = None,
     has_empty: Optional[str] = None,
     sort_by: str = "title",
     sort_order: str = "asc",
@@ -441,7 +441,7 @@ def get_store_comparison(
     sort_col = _SC_SORT_COLS.get(sort_by, Product.canonical_title)
     sort_expr = sort_col.desc().nullslast() if sort_order == "desc" else sort_col.asc().nullsfirst()
 
-    if has_diffs or missing_from is not None:
+    if has_diffs or missing_from:
         # Light pass: evaluate diff/missing predicates before paginating
         light = (
             base_q.options(joinedload(Product.sources))
@@ -455,8 +455,9 @@ def get_store_comparison(
                 if src.is_active and src.source_site not in site_srcs:
                     site_srcs[src.source_site] = src
 
-            missing_n = len([site for site in source_sites if site not in site_srcs])
-            if missing_from is not None and missing_n < missing_from:
+            # missing_from is a specific store domain: keep only products
+            # where that store has no active source record.
+            if missing_from and missing_from in site_srcs:
                 continue
 
             if has_diffs:

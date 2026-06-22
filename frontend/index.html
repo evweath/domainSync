@@ -640,16 +640,16 @@
             <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Show:</span>
             <label class="flex items-center gap-1.5 text-sm cursor-pointer select-none">
               <input type="checkbox" x-model="storeCompFilters.has_diffs" @change="loadStoreComparison(1)" class="w-4 h-4 accent-amber-500" />
-              <span class="text-amber-600 dark:text-amber-400 font-medium">Diffs only</span>
+              <span class="text-amber-600 dark:text-amber-400 font-medium">Diffs only&nbsp;&nbsp;&nbsp;</span>
             </label>
             <div class="flex items-center gap-2 text-sm">
               <span class="text-gray-500 dark:text-gray-400 text-xs">Missing from store:</span>
               <select x-model="storeCompFilters.missing_from" @change="loadStoreComparison(1)"
                 class="border rounded px-2 py-1 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
-                <option value="">Any</option>
-                <option value="1">1+ stores</option>
-                <option value="2">2+ stores</option>
-                <option value="3">All stores</option>
+                <option value="">All</option>
+                <template x-for="site in storeComp.source_sites" :key="site">
+                  <option :value="site" x-text="site.split('.')[0]"></option>
+                </template>
               </select>
             </div>
           </div>
