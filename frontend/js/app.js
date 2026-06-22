@@ -1369,13 +1369,14 @@ function app() {
       this.shopifyTestStatus = { ...this.shopifyTestStatus, [domain]: 'testing' };
       try {
         const result = await this.api(`/api/source-sites/${encodeURIComponent(domain)}/test-connection`, { method: 'POST' });
-        this.shopifyTestStatus = {
-          ...this.shopifyTestStatus,
-          [domain]: result.ok ? 'ok' : 'error',
-        };
+        // Auth + shop read can succeed while product read is blocked by a missing
+        // scope (products_ok === false) — surface that as a warning, not a green ✓.
+        const status = !result.ok ? 'error' : (result.products_ok === false ? 'warn' : 'ok');
+        this.shopifyTestStatus = { ...this.shopifyTestStatus, [domain]: status };
         this.shopifyTestMessage = {
           ...this.shopifyTestMessage,
-          [domain]: result.ok ? `Connected — ${result.shop_name} (${result.plan})` : result.error,
+          [domain]: !result.ok ? result.error
+            : (result.products_ok === false ? result.warning : `Connected — ${result.shop_name} (${result.plan})`),
         };
       } catch (e) {
         this.shopifyTestStatus = { ...this.shopifyTestStatus, [domain]: 'error' };

@@ -1290,17 +1290,40 @@ async def test_source_site_connection(domain: str):
         return {"ok": False, "error": str(exc)}
 
     import httpx
+    from backend.shopify.client import missing_scope
+    base = f"{store_url.rstrip('/')}/admin/api/2024-01"
+    headers = {"X-Shopify-Access-Token": token, "Content-Type": "application/json"}
     try:
-        url = f"{store_url.rstrip('/')}/admin/api/2024-01/shop.json"
-        headers = {"X-Shopify-Access-Token": token, "Content-Type": "application/json"}
         async with httpx.AsyncClient(timeout=10) as client:
-            resp = await client.get(url, headers=headers)
-        if resp.status_code == 200:
+            resp = await client.get(f"{base}/shop.json", headers=headers)
+            if resp.status_code != 200:
+                return {"ok": False, "error": f"HTTP {resp.status_code}: {resp.text[:200]}"}
             shop = resp.json().get("shop", {})
-            return {"ok": True, "shop_name": shop.get("name", ""), "plan": shop.get("plan_name", "")}
-        return {"ok": False, "error": f"HTTP {resp.status_code}: {resp.text[:200]}"}
+
+            # /shop.json needs no special scope, so it succeeds even when the app
+            # was never granted read_products — which makes Scan/Sync 403 later.
+            # Probe a product read so "Connected" actually means "can read products".
+            prod = await client.get(f"{base}/products.json", params={"limit": 1}, headers=headers)
     except Exception as exc:
         return {"ok": False, "error": str(exc)}
+
+    result = {"ok": True, "shop_name": shop.get("name", ""), "plan": shop.get("plan_name", "")}
+    if prod.status_code == 200:
+        result["products_ok"] = True
+        return result
+
+    result["products_ok"] = False
+    scope = missing_scope(prod.status_code, prod.text)
+    if scope:
+        result["missing_scope"] = scope
+        result["warning"] = (
+            f"Connected, but the app is missing the '{scope}' scope — Scan Now and "
+            f"Live Sync will fail until it's granted in Shopify Admin → Develop apps "
+            f"→ Admin API access scopes."
+        )
+    else:
+        result["warning"] = f"Connected, but product read failed: HTTP {prod.status_code}."
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -2258,22 +2281,49 @@ def shopify_sync_export(req: ShopifySyncRequest, db: Session = Depends(get_db_se
 _shopify_token_cache: Dict[str, Dict] = {}
 
 
+def _static_token(site: Dict) -> Optional[tuple]:
+    """Pre-issued Admin API token path.
+
+    In-admin custom apps (Settings → Develop apps) hand you a permanent Admin API
+    access token directly — no client_credentials exchange, and the store can't
+    refuse the install the way it does for Partner/Plus-org apps. If a site has
+    both a store URL and an access token configured, return (store_url, token) to
+    use verbatim; otherwise None so the caller falls through to the exchange.
+    """
+    store_url = (site.get("shopify_store_url") or "").strip()
+    token = (site.get("shopify_access_token") or "").strip()
+    if store_url and token:
+        return store_url, token
+    return None
+
+
 async def _get_site_credentials(domain: str):
-    """Return (store_url, access_token) for a domain, fetching a fresh token via client credentials if needed."""
+    """Return (store_url, access_token) for a domain.
+
+    Prefers a pre-issued Admin API access token if one is configured; otherwise
+    exchanges client_id + client_secret for a fresh token via client_credentials.
+    """
     sites = config.get("source_sites", default=[])
     site = next((s for s in sites if s.get("domain") == domain), None)
     if site is None:
         raise HTTPException(status_code=404, detail=f"Unknown source site: {domain}")
 
+    # Pre-issued token wins — it's static, never cached/exchanged, and works on
+    # stores where the client_credentials app can't be installed.
+    static = _static_token(site)
+    if static:
+        return static
+
     store_url = (site.get("shopify_store_url") or "").strip()
     client_id = (site.get("shopify_client_id") or "").strip()
     client_secret = (site.get("shopify_client_secret") or "").strip()
 
-    if not store_url or not client_id or not client_secret:
+    if not store_url or not (client_id and client_secret):
         raise HTTPException(
             status_code=422,
             detail=f"Shopify credentials not configured for {domain}. "
-                   "Add Store URL, Client ID, and Client Secret in Settings.",
+                   "Add Store URL plus either an Access Token, or a Client ID and "
+                   "Client Secret, in Settings.",
         )
 
     cached = _shopify_token_cache.get(domain, {})
@@ -2318,6 +2368,7 @@ async def shopify_live_scan(req: LiveScanRequest):
     """Fetch full product/collection/metafield snapshot from a Shopify store."""
     store_url, token = await _get_site_credentials(req.domain)
     from backend.shopify.scanner import scan_store
+    from backend.shopify.client import ShopifyError
 
     progress_log: List[str] = []
 
@@ -2327,6 +2378,21 @@ async def shopify_live_scan(req: LiveScanRequest):
 
     try:
         snapshot = await scan_store(store_url, token, progress_cb=_cb)
+    except ShopifyError as exc:
+        # The token authenticated fine (Settings shows "connected"), but reading
+        # products needs a scope the merchant hasn't approved. Say which one.
+        scope = exc.missing_scope
+        if scope:
+            raise HTTPException(
+                status_code=403,
+                detail=(
+                    f"{req.domain}: the Shopify app is missing the '{scope}' access scope. "
+                    f"Enable it in Shopify Admin → Settings → Apps and sales channels → "
+                    f"Develop apps → (your app) → Configuration → Admin API access scopes, "
+                    f"then re-install the app and try again."
+                ),
+            )
+        raise HTTPException(status_code=502, detail=f"Scan failed: {exc}")
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"Scan failed: {exc}")
 

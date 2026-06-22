@@ -16,6 +16,25 @@ logger = logging.getLogger(__name__)
 
 _API_VERSION = "2024-01"
 
+# Shopify returns 403 with a body like
+#   {"errors":"[API] This action requires merchant approval for read_products scope."}
+# when the app's token is valid but the merchant never granted that access scope.
+_SCOPE_APPROVAL_RE = re.compile(r"requires merchant approval for (\w+) scope", re.IGNORECASE)
+
+
+def missing_scope(status: int, body: Optional[str]) -> Optional[str]:
+    """Return the un-granted Admin API scope name (e.g. ``read_products``) if a
+    Shopify error is a 403 'requires merchant approval for X scope', else None.
+
+    Used to turn an opaque 403 into an actionable "enable this scope" message.
+    Only 403s mean a scope-approval problem — a 401/429 with similar wording is
+    something else, so status is checked first.
+    """
+    if status != 403:
+        return None
+    m = _SCOPE_APPROVAL_RE.search(body or "")
+    return m.group(1) if m else None
+
 
 def _host_of(store_url: str) -> str:
     """Extract a bare host (no scheme/path) for connection-log messages."""
@@ -88,8 +107,15 @@ async def fetch_access_token(store_url: str, client_id: str, client_secret: str)
     if resp.status_code >= 400:
         connlog.record(f"✗ Auth: {host} returned {resp.status_code} {resp.text[:120]}", level="error")
         raise ShopifyError(resp.status_code, resp.text)
-    connlog.record(f"✓ Auth: received access token from {host}")
-    return resp.json()["access_token"]
+    data = resp.json()
+    # Shopify returns the scopes ACTUALLY granted to this token in `scope`. This is
+    # the ground truth — it can differ from what the app's config screen shows if the
+    # app wasn't (re)installed after scopes changed, or the creds point at a different
+    # app. Log it (scopes aren't secret) so the Connection Log panel reveals exactly
+    # what the token can do, e.g. a missing read_products explains a later 403.
+    granted = data.get("scope") or data.get("associated_user_scope") or ""
+    connlog.record(f"✓ Auth: token from {host} — granted scopes: {granted or '(none reported)'}")
+    return data["access_token"]
 
 
 class ShopifyError(Exception):
@@ -97,6 +123,11 @@ class ShopifyError(Exception):
         self.status = status
         self.body = body
         super().__init__(f"Shopify API {status}: {body[:300]}")
+
+    @property
+    def missing_scope(self) -> Optional[str]:
+        """The un-granted Admin API scope, if this is a 403 scope-approval error."""
+        return missing_scope(self.status, self.body)
 
 
 class ShopifyClient:

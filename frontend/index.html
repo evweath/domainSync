@@ -2520,6 +2520,10 @@
                     class="text-xs bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-2 py-0.5 rounded-full font-medium">
                     ✓ Connected — <span x-text="shopifyTestMessage[site.domain]"></span>
                   </span>
+                  <span x-show="shopifyTestStatus[site.domain] === 'warn'"
+                    class="text-xs bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300 px-2 py-0.5 rounded-full font-medium">
+                    ⚠ <span x-text="shopifyTestMessage[site.domain]"></span>
+                  </span>
                   <span x-show="shopifyTestStatus[site.domain] === 'error'"
                     class="text-xs bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 px-2 py-0.5 rounded-full font-medium">
                     ✗ <span x-text="shopifyTestMessage[site.domain]"></span>
