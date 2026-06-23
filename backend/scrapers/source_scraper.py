@@ -577,9 +577,26 @@ async def run_source_scan(
             site = next((s for s in sites if s.get("domain") == site_filter), None)
             if not site:
                 raise ValueError(f"Site not found: {site_filter}")
-            stats = await scraper.run_site(site["base_url"], site["name"], site["domain"])
+            # Prefer the myshopify URL: the custom domain can 503 mid-pagination
+            # and silently truncate the catalog (matches run_all_sources).
+            scrape_url = site.get("shopify_store_url") or site["base_url"]
+            stats = await scraper.run_site(scrape_url, site["name"], site["domain"])
         else:
             stats = await scraper.run_all_sources()
+
+        # SoR variant consolidation (Stage 4): after every scan, auto-merge each
+        # store's listings INTO the donut-equipment.com system-of-record product
+        # (SKU → model → title). Runs off the event loop; never fails the scan.
+        try:
+            await scraper._emit("status", {"message": "Merging into system of record…"})
+            from backend.dedup.force_merge import force_merge_source_sites
+            merge_summary = await asyncio.to_thread(force_merge_source_sites)
+            stats["sor_merged"] = merge_summary.get("merged", 0)
+            await scraper._emit("status", {
+                "message": f"SoR merge: {merge_summary.get('merged', 0)} listings linked"
+            })
+        except Exception as merge_exc:
+            logger.error("SoR auto-merge failed (scan still succeeded): %s", merge_exc)
 
         with session_scope() as db:
             sess = db.get(ScanSession, scan_session_id)

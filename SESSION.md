@@ -47,11 +47,29 @@ variants) is captured and kept identical across stores.
 - Backups: `data/donut_intel.db.bak-presor-20260623-170324` (pre-regen),
   `data/donut_intel.db.bak-prematchmig-20260623-172013` (post-regen, pre-match-migration).
 
+### Stage 4 — DONE (SoR-pinned cross-store auto-merge)
+- Rewrote `backend/dedup/force_merge.py`: precedence now **SKU → model → title**
+  (was model → title). SKU is the stable cross-store key; title-fuzzy is gated to
+  titles UNIQUE among SoR products (threshold 80) so it can't merge into an
+  arbitrary sibling variant. donut-equipment.com is always the primary that stays
+  active; default secondary sites = all 4 other stores. Testable helper
+  `_best_primary_match()` (tests: `tests/test_force_merge_match.py`, 6).
+- Hooked into `run_source_scan`: after every scan it runs `force_merge_source_sites`
+  off the event loop (never fails the scan). Also fixed the production single-site
+  scan path to prefer `shopify_store_url` (same custom-domain 503 bug as Stage 3).
+- Ran once against the live DB (`scripts/stage4_force_merge.py`):
+  **10,663 merged** (sku=10,328, title=335, model=0), 42 uncertain, 16 unmatched.
+  Catalog: 13,477 → **2,814 active products**; store-count distribution:
+  5-store=2406, 4=216, 3=69, 2=36, 1-store=87. Competitor matches: 9,601 on
+  active, 27 stranded. Backup `data/donut_intel.db.bak-prestage4-20260623-172517`.
+
+### Open question (raised, awaiting answer)
+- **Canonical price not SoR-pinned.** `recompute_product_prices` sets
+  `price_canonical` to the most-recently-scraped source price, not the
+  donut-equipment.com (SoR) price. Plan's "consequences" wanted canonical =
+  equipmentplus values. Cross-cutting change (exports, competitor compare, price
+  filters) — confirm before changing.
+
 ### NEXT
-- Stage 4: SoR-pinned cross-store auto-merge (`backend/dedup/force_merge.py`):
-  SKU→model→title, donut-equipment.com always primary, all secondary stores,
-  run automatically at end of every scan. This re-unifies the per-store variants
-  into shared products (Store Compare then works natively).
-- Stage 5: surface missing/extra products per store.
-- Watch: downstream code assuming one Product per handle (Store Compare, Shopify
-  sync/mapping) — now there are per-store, per-variant products until Stage 4 merges.
+- Stage 5: surface missing/extra products per store (the 87 single-store products
+  are the candidates). Lean on Store Compare missing/extra surfacing.
