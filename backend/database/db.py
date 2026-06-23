@@ -56,6 +56,9 @@ _MIGRATIONS = [
     ("competitors", "excluded_from_search", "BOOLEAN DEFAULT 0"),
     ("competitors", "is_manufacturer", "BOOLEAN DEFAULT 0"),
     ("competitors", "is_category_only", "BOOLEAN DEFAULT 0"),
+    # SoR variant consolidation: parent grouping for first-class variant records
+    ("products", "parent_handle", "VARCHAR(500)"),
+    ("products", "shopify_product_id", "VARCHAR(50)"),
 ]
 
 

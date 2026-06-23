@@ -43,6 +43,23 @@ _TRACKING_PARAM_NAMES = {
 }
 
 
+def _variant_id(url: str) -> Optional[str]:
+    """Return the Shopify `variant` query-param value, or None if absent.
+
+    Used to keep distinct variants of one product (same handle) from collapsing
+    into a single ProductSource row in the legacy handle-match fallback.
+    """
+    if not url:
+        return None
+    try:
+        for k, v in parse_qsl(urlparse(url).query, keep_blank_values=False):
+            if k.lower() == "variant":
+                return v
+    except Exception:
+        return None
+    return None
+
+
 def normalize_source_url(url: str) -> str:
     """Canonicalize a product URL for storage + dedupe.
 
@@ -355,8 +372,12 @@ class SourceScraper:
 
             # Shopify handle fallback: legacy rows may still hold the un-normalized
             # URL form. Match on `/products/<handle>` and migrate to canonical.
+            # SoR variant consolidation: variants of one product share a handle but
+            # are distinct records, so the fallback also requires the same
+            # `variant` id (a row with no variant id only matches a URL with none).
             if not existing_source:
                 handle_match = re.search(r'/products/([^/?#]+)', canonical)
+                want_variant = _variant_id(canonical)
                 if handle_match:
                     handle = handle_match.group(1)
                     candidates = (
@@ -369,7 +390,11 @@ class SourceScraper:
                     )
                     for cand in candidates:
                         cand_m = re.search(r'/products/([^/?#]+)', cand.source_url or '')
-                        if cand_m and cand_m.group(1) == handle:
+                        if (
+                            cand_m
+                            and cand_m.group(1) == handle
+                            and _variant_id(cand.source_url or '') == want_variant
+                        ):
                             existing_source = cand
                             cand.source_url = canonical  # migrate to canonical
                             break
@@ -400,6 +425,11 @@ class SourceScraper:
                 product = db.get(Product, existing_source.product_id)
                 if product:
                     product.updated_at = datetime.utcnow()
+                    # Backfill SoR variant grouping on existing rows.
+                    if scraped.parent_handle and not product.parent_handle:
+                        product.parent_handle = scraped.parent_handle
+                    if scraped.shopify_product_id and not product.shopify_product_id:
+                        product.shopify_product_id = scraped.shopify_product_id
                     if scraped.price and (not product.price_canonical or
                             abs((scraped.price - product.price_canonical) / max(product.price_canonical, 0.01)) > 0.01):
                         product.price_canonical = scraped.price
@@ -423,6 +453,8 @@ class SourceScraper:
                     category=scraped.category,
                     in_stock=scraped.in_stock,
                     content_hash=scraped.content_hash,
+                    parent_handle=scraped.parent_handle,
+                    shopify_product_id=scraped.shopify_product_id,
                     is_active=True,
                     version=1,
                 )
@@ -473,42 +505,26 @@ class SourceScraper:
         self, store_url: str, access_token: str, domain: str, status: str
     ) -> Dict[str, int]:
         """Fetch draft or archived products via Shopify Admin API and persist them."""
-        from backend.scrapers.base_scraper import ScrapedProduct
+        from backend.scrapers.shopify_scraper import _expand_variants
         from backend.shopify.client import ShopifyClient
-        import re as _re
 
         stats = {"scraped": 0, "new": 0, "updated": 0, "errors": 0}
         base = store_url.rstrip("/")
         async with ShopifyClient(store_url, access_token) as client:
             async for item in client.iter_products(status=status):
-                try:
-                    variant = item["variants"][0] if item.get("variants") else {}
-                    price_raw = variant.get("price")
-                    price = float(price_raw) if price_raw else None
-                    images = [img["src"] for img in item.get("images", []) if img.get("src")]
-                    sp = ScrapedProduct(
-                        url=f"{base}/products/{item['handle']}",
-                        title=item.get("title", ""),
-                        price=price,
-                        price_raw=price_raw,
-                        in_stock=variant.get("available", False),
-                        sku=variant.get("sku") or None,
-                        manufacturer=item.get("vendor") or None,
-                        category=(item.get("product_type") or "").strip() or None,
-                        description=_re.sub(r"<[^>]+>", " ", item.get("body_html") or "").strip() or None,
-                        images=images,
-                        source_site=domain,
-                    )
-                    sp.compute_hash()
-                    result = self._persist_product(sp, domain, source_status=status)
-                    stats["scraped"] += 1
-                    if result == "new":
-                        stats["new"] += 1
-                    elif result == "updated":
-                        stats["updated"] += 1
-                except Exception as exc:
-                    logger.error("Admin %s fetch error for %s: %s", status, domain, exc)
-                    stats["errors"] += 1
+                # SoR variant consolidation: persist every variant as its own
+                # record, mirroring the public /products.json fast path.
+                for sp in _expand_variants(item, base, domain):
+                    try:
+                        result = self._persist_product(sp, domain, source_status=status)
+                        stats["scraped"] += 1
+                        if result == "new":
+                            stats["new"] += 1
+                        elif result == "updated":
+                            stats["updated"] += 1
+                    except Exception as exc:
+                        logger.error("Admin %s fetch error for %s: %s", status, domain, exc)
+                        stats["errors"] += 1
         logger.info("Admin %s fetch for %s: %s", status, domain, stats)
         return stats
 

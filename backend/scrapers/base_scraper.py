@@ -45,6 +45,11 @@ class ScrapedProduct:
     in_stock: Optional[bool] = None
     content_hash: Optional[str] = None
     error: Optional[str] = None
+    # SoR variant consolidation: parent grouping for first-class variant records.
+    # Each Shopify variant is its own ScrapedProduct/Product; these regroup them
+    # into a product-with-variants for Shopify sync/display.
+    parent_handle: Optional[str] = None
+    shopify_product_id: Optional[str] = None
 
     def compute_hash(self) -> str:
         key = f"{self.title}|{self.price}|{self.model_number}|{self.manufacturer}"

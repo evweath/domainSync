@@ -74,6 +74,10 @@ class Product(Base):
     in_stock = Column(Boolean, default=True)
     content_hash = Column(String(64))       # MD5 of key fields for change detection
     version = Column(Integer, default=1)    # F55 product versioning
+    # SoR variant consolidation: each Shopify variant is its own Product; these
+    # regroup variants into a product-with-variants for Shopify sync/display.
+    parent_handle = Column(String(500))         # Shopify handle shared by all variants
+    shopify_product_id = Column(String(50))     # Shopify numeric product id (str)
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=func.now())
     updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
@@ -102,6 +106,8 @@ class Product(Base):
         Index("idx_products_sku", "sku"),
         Index("idx_products_category", "category"),
         Index("idx_products_price", "price_canonical"),
+        Index("idx_products_parent_handle", "parent_handle"),
+        Index("idx_products_shopify_product_id", "shopify_product_id"),
     )
 
 
