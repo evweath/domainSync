@@ -84,7 +84,7 @@
         <div :class="toast.type === 'error' ? 'bg-red-600' : toast.type === 'success' ? 'bg-green-600' : 'bg-blue-600'"
           class="text-white px-4 py-3 rounded-lg shadow-lg max-w-sm text-sm flex items-start gap-2 animate-fade-in">
           <span x-text="toast.icon"></span>
-          <span x-text="toast.message" class="flex-1"></span>
+          <span x-text="toast.message" class="flex-1 whitespace-pre-line"></span>
           <button @click="removeToast(toast.id)" class="opacity-70 hover:opacity-100">✕</button>
         </div>
       </template>
@@ -458,7 +458,7 @@
       </div>
 
       <!-- Sort bar -->
-      <div x-show="duplicates.candidates && duplicates.candidates.length > 0" class="flex items-center gap-2 flex-wrap">
+      <div x-show="sortedDups().length > 0" class="flex items-center gap-2 flex-wrap">
         <span class="text-xs text-gray-500 font-medium">Sort:</span>
         <button @click="setSort(dupSort, 'confidence_score')"
           :class="dupSort.col === 'confidence_score' ? 'bg-orange-500 text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'"
@@ -477,9 +477,10 @@
         </button>
       </div>
 
-      <div x-show="duplicates.candidates && duplicates.candidates.length === 0" class="bg-white dark:bg-gray-800 rounded-xl shadow p-12 text-center text-gray-400">
+      <div x-show="sortedDups().length === 0" class="bg-white dark:bg-gray-800 rounded-xl shadow p-12 text-center text-gray-400">
         <div class="text-4xl mb-2">✅</div>
-        <div>No pending duplicates.</div>
+        <div x-show="(duplicates.candidates || []).length === 0">No duplicates to review.</div>
+        <div x-show="(duplicates.candidates || []).length > 0">No duplicates match the selected domains.</div>
       </div>
 
       <div class="space-y-3">
@@ -579,6 +580,26 @@
         <!-- ── Filter panel ── -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 space-y-3">
 
+          <!-- Row 0: pick two stores to compare against each other -->
+          <div class="flex flex-wrap items-center gap-2 pb-1">
+            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Compare store:</span>
+            <select x-model="storeCompFilters.store_a" @change="loadStoreComparison(1)"
+              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400">
+              <option value="">Store A…</option>
+              <template x-for="s in filterOptions.source_sites" :key="s">
+                <option :value="s" x-text="s"></option>
+              </template>
+            </select>
+            <span class="text-gray-400 text-sm font-medium">vs</span>
+            <select x-model="storeCompFilters.store_b" @change="loadStoreComparison(1)"
+              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400">
+              <option value="">Store B…</option>
+              <template x-for="s in filterOptions.source_sites" :key="s">
+                <option :value="s" x-text="s"></option>
+              </template>
+            </select>
+          </div>
+
           <!-- Row 1: text search + manufacturer + category + source site -->
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
             <input x-model="storeCompFilters.search" @input.debounce.400ms="loadStoreComparison(1)"
@@ -600,8 +621,8 @@
             </select>
           </div>
 
-          <!-- Row 2: price + source site + in stock + sort -->
-          <div class="grid grid-cols-2 lg:grid-cols-6 gap-3">
+          <!-- Row 2: price + source site + sort -->
+          <div class="grid grid-cols-2 lg:grid-cols-5 gap-3">
             <input x-model="storeCompFilters.min_price" @input.debounce.400ms="loadStoreComparison(1)"
               type="number" min="0" step="0.01" placeholder="Min $"
               class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none" />
@@ -614,12 +635,6 @@
               <template x-for="s in filterOptions.source_sites" :key="s">
                 <option :value="s" x-text="s"></option>
               </template>
-            </select>
-            <select x-model="storeCompFilters.in_stock" @change="loadStoreComparison(1)"
-              class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
-              <option value="">Any Stock</option>
-              <option value="true">In Stock</option>
-              <option value="false">Out of Stock</option>
             </select>
             <select x-model="storeCompFilters.sort_by" @change="loadStoreComparison(1)"
               class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
@@ -2749,90 +2764,6 @@
                 :value="settingsData?.price_alerts?.alert_drop_pct || 10"
                 @change="saveSetting(['price_alerts','alert_drop_pct'], parseInt($event.target.value))"
                 class="w-full border rounded-lg px-3 py-2 dark:bg-gray-700 dark:border-gray-600" />
-            </div>
-          </div>
-        </div>
-
-        <!-- Competitor URL Management -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
-          <h3 class="font-semibold mb-1 text-orange-500">🔗 Competitor URL Management</h3>
-          <p class="text-xs text-gray-400 mb-4">Manually classify websites into one of three categories. Changes take effect on the next discovery scan.</p>
-
-          <!-- Manufacturer Websites -->
-          <div class="mb-5">
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-sm font-semibold">🏭 Manufacturer Websites</span>
-              <span class="text-xs bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-300 rounded-full px-2 py-0.5" x-text="managedLists.manufacturers.length"></span>
-            </div>
-            <p class="text-xs text-gray-400 mb-2">OEM / brand-owner sites. Auto-excluded from all competitor searches — never counted as competitors.</p>
-            <div class="flex flex-wrap gap-2 mb-2 min-h-[28px]">
-              <template x-for="c in managedLists.manufacturers" :key="c.domain">
-                <span class="inline-flex items-center gap-1 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-700 text-orange-700 dark:text-orange-300 rounded-full px-3 py-1 text-xs font-mono">
-                  <span x-text="c.domain"></span>
-                  <button @click="removeManagedDomain(c.domain)" class="ml-1 text-orange-400 hover:text-red-500 leading-none">✕</button>
-                </span>
-              </template>
-              <span x-show="!managedLists.manufacturers.length" class="text-xs text-gray-400 italic">None added yet — manufacturers are also auto-detected during scans.</span>
-            </div>
-            <div class="flex gap-2">
-              <input x-model="newManagedUrl.manufacturer"
-                @keyup.enter="addManagedUrl('manufacturer', newManagedUrl.manufacturer)"
-                placeholder="e.g. hobartcorp.com or https://hobartcorp.com/products/foo"
-                class="flex-1 border rounded-lg px-3 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
-              <button @click="addManagedUrl('manufacturer', newManagedUrl.manufacturer)"
-                class="px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-sm font-medium">Add</button>
-            </div>
-          </div>
-
-          <!-- Exclusionary Websites -->
-          <div class="mb-5">
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-sm font-semibold">🚫 Exclusionary Websites</span>
-              <span class="text-xs bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-full px-2 py-0.5" x-text="managedLists.excluded.length"></span>
-            </div>
-            <p class="text-xs text-gray-400 mb-2">Sites confirmed not to sell relevant products or categories. Permanently skipped in future searches. Sites are also auto-added here when scans find no match and no category signal.</p>
-            <div class="flex flex-wrap gap-2 mb-2 min-h-[28px]">
-              <template x-for="c in managedLists.excluded" :key="c.domain">
-                <span class="inline-flex items-center gap-1 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 rounded-full px-3 py-1 text-xs font-mono">
-                  <span x-text="c.domain"></span>
-                  <button @click="removeManagedDomain(c.domain)" class="ml-1 text-red-400 hover:text-red-600 leading-none">✕</button>
-                </span>
-              </template>
-              <span x-show="!managedLists.excluded.length" class="text-xs text-gray-400 italic">None added yet.</span>
-            </div>
-            <div class="flex gap-2">
-              <input x-model="newManagedUrl.excluded"
-                @keyup.enter="addManagedUrl('excluded', newManagedUrl.excluded)"
-                placeholder="e.g. allrecipes.com"
-                class="flex-1 border rounded-lg px-3 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
-              <button @click="addManagedUrl('excluded', newManagedUrl.excluded)"
-                class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm font-medium">Add</button>
-            </div>
-          </div>
-
-          <!-- Competitor Websites -->
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-sm font-semibold">🏪 Competitor Websites</span>
-              <span class="text-xs bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300 rounded-full px-2 py-0.5" x-text="managedLists.competitors.length"></span>
-            </div>
-            <p class="text-xs text-gray-400 mb-2">Active competitors to track and scan. Includes both direct product matches and category-level competitors discovered automatically.</p>
-            <div class="flex flex-wrap gap-2 mb-2 min-h-[28px]" style="max-height:160px;overflow-y:auto;">
-              <template x-for="c in managedLists.competitors" :key="c.domain">
-                <span class="inline-flex items-center gap-1 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 text-green-700 dark:text-green-300 rounded-full px-3 py-1 text-xs font-mono">
-                  <span x-text="c.domain"></span>
-                  <button @click="removeManagedDomain(c.domain)" class="ml-1 text-green-400 hover:text-red-500 leading-none">✕</button>
-                </span>
-              </template>
-              <span x-show="!managedLists.competitors.length" class="text-xs text-gray-400 italic">No competitors tracked yet. Run a discovery scan or add domains manually.</span>
-            </div>
-            <div class="flex gap-2">
-              <input x-model="newManagedUrl.competitor"
-                @keyup.enter="addManagedUrl('competitor', newManagedUrl.competitor)"
-                placeholder="e.g. bakell.com or https://bakell.com"
-                class="flex-1 border rounded-lg px-3 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
-              <button @click="addManagedUrl('competitor', newManagedUrl.competitor)"
-                class="px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium">Add</button>
             </div>
           </div>
         </div>

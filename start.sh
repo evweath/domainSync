@@ -12,10 +12,14 @@ echo "   API docs: https://localhost:$PORT/api/docs"
 echo "   Press Ctrl+C to stop"
 echo ""
 
+# --timeout-keep-alive 75: uvicorn's 5s default closes idle keep-alive sockets
+# while the browser is still reusing them, which surfaces as intermittent
+# "Load failed" on the next request (e.g. saving a form after typing a while).
 if [ -f "$CERT" ] && [ -f "$KEY" ]; then
   uvicorn backend.app:app --host 127.0.0.1 --port "$PORT" \
     --ssl-certfile "$CERT" --ssl-keyfile "$KEY" \
-    --log-level warning
+    --timeout-keep-alive 75 --log-level warning
 else
-  uvicorn backend.app:app --host 127.0.0.1 --port "$PORT" --log-level warning
+  uvicorn backend.app:app --host 127.0.0.1 --port "$PORT" \
+    --timeout-keep-alive 75 --log-level warning
 fi

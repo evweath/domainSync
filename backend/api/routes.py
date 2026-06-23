@@ -182,73 +182,6 @@ def get_stats(db: Session = Depends(get_db_session)):
 
 
 # ---------------------------------------------------------------------------
-# Competitor managed lists (used by Settings page to show/manage domain lists)
-# ---------------------------------------------------------------------------
-
-@router.get("/api/competitors/managed-lists")
-def get_managed_lists(db: Session = Depends(get_db_session)):
-    """Return manufacturer, excluded, and active competitor domain lists for Settings."""
-    manufacturers = [
-        {"domain": c.domain, "name": c.name}
-        for c in db.query(Competitor).filter(Competitor.is_manufacturer == True).order_by(Competitor.domain).all()
-    ]
-    excluded = [
-        {"domain": c.domain, "name": c.name}
-        for c in db.query(Competitor)
-        .filter(Competitor.excluded_from_search == True, Competitor.is_manufacturer == False)
-        .order_by(Competitor.domain).all()
-    ]
-    competitors = [
-        {"domain": c.domain, "name": c.name}
-        for c in db.query(Competitor)
-        .filter(Competitor.is_active == True, Competitor.excluded_from_search == False)
-        .order_by(Competitor.domain).all()
-    ]
-    return {"manufacturers": manufacturers, "excluded": excluded, "competitors": competitors}
-
-
-class ManagedDomainRequest(BaseModel):
-    domain: str
-    domain_type: str = "competitor"  # "manufacturer" | "excluded" | "competitor"
-
-
-@router.post("/api/competitors/managed-domain")
-def add_managed_domain(req: ManagedDomainRequest, db: Session = Depends(get_db_session)):
-    """Add or reclassify a domain in the managed lists."""
-    from urllib.parse import urlparse as _urlparse
-    raw = req.domain.strip()
-    domain = _urlparse(raw).netloc or raw
-    domain = domain.lstrip("www.").lower() if domain else raw.lower()
-    existing = db.query(Competitor).filter(Competitor.domain == domain).first()
-    is_mfr = req.domain_type == "manufacturer"
-    is_excl = req.domain_type in ("manufacturer", "excluded")
-    if not existing:
-        db.add(Competitor(
-            domain=domain, name=domain,
-            base_url=f"https://{domain}",
-            is_manufacturer=is_mfr,
-            excluded_from_search=is_excl,
-            is_active=not is_excl,
-        ))
-    else:
-        existing.is_manufacturer = is_mfr
-        existing.excluded_from_search = is_excl
-        existing.is_active = not is_excl
-    db.commit()
-    return {"status": "ok", "domain": domain}
-
-
-@router.delete("/api/competitors/managed-domain")
-def remove_managed_domain(domain: str, db: Session = Depends(get_db_session)):
-    """Remove a domain from managed lists (hard delete)."""
-    comp = db.query(Competitor).filter(Competitor.domain == domain).first()
-    if comp:
-        db.delete(comp)
-        db.commit()
-    return {"status": "ok"}
-
-
-# ---------------------------------------------------------------------------
 # Products
 # ---------------------------------------------------------------------------
 
@@ -396,6 +329,8 @@ def get_store_comparison(
     manufacturer: Optional[str] = None,
     category: Optional[str] = None,
     source_site: Optional[str] = None,
+    store_a: Optional[str] = None,
+    store_b: Optional[str] = None,
     min_price: Optional[float] = None,
     max_price: Optional[float] = None,
     in_stock: Optional[bool] = None,
@@ -408,6 +343,15 @@ def get_store_comparison(
 ):
     per_page = min(per_page, 100)
     source_sites = [s["domain"] for s in config.get("source_sites", default=[]) if s.get("enabled", True)]
+
+    # When the user picks two stores to compare, scope the comparison columns to
+    # just those two (and include any selected store even if not enabled-by-config).
+    compare_pair = [s for s in (store_a, store_b) if s]
+    if compare_pair:
+        source_sites = [s for s in source_sites if s in compare_pair]
+        for s in compare_pair:
+            if s not in source_sites:
+                source_sites.append(s)
 
     base_q = db.query(Product).filter(Product.is_active == True)
     if search:
@@ -426,6 +370,11 @@ def get_store_comparison(
         base_q = (base_q.join(Product.sources)
                   .filter(ProductSource.source_site == source_site, ProductSource.is_active == True)
                   .distinct())
+    if compare_pair:
+        # Only products that appear in at least one of the two selected stores.
+        base_q = base_q.filter(Product.sources.any(
+            ProductSource.source_site.in_(compare_pair) & (ProductSource.is_active == True)
+        ))
     if min_price is not None:
         base_q = base_q.filter(Product.price_canonical >= min_price)
     if max_price is not None:
@@ -1387,6 +1336,15 @@ async def start_parallel_scan(db: Session = Depends(get_db_session)):
     if not sites:
         raise HTTPException(status_code=400, detail="No enabled source sites configured")
 
+    # Pre-flight: every Shopify domain must be reachable with its client_id +
+    # client_secret before we start a new scan. If any can't connect, abort
+    # without touching cycle state and tell the user which domains to fix.
+    unreachable = await _unreachable_shopify_domains(sites)
+    if unreachable:
+        lines = [f"Unable to connect to Shopify domain {d}" for d in unreachable]
+        lines.append("Change connection data in the Settings section.")
+        raise HTTPException(status_code=400, detail="\n".join(lines))
+
     # Reset cycle state
     state = {
         "status": "scanning",
@@ -2339,6 +2297,37 @@ async def _get_site_credentials(domain: str):
 
     _shopify_token_cache[domain] = {"token": token, "expires_at": time.time() + 86399}
     return store_url, token
+
+
+async def _unreachable_shopify_domains(sites: List[Dict]) -> List[str]:
+    """Pre-flight the Shopify connection for each Shopify-configured site.
+
+    For every site set up to use the Shopify Admin API (i.e. it has a store URL
+    or client credentials configured), try to establish a connection by
+    exchanging its client_id + client_secret for an access token. All checks run
+    concurrently. Returns the domains that could NOT be reached — bad or missing
+    credentials, or a network failure — so the caller can block the scan and tell
+    the user exactly which domains to fix in Settings. Sites with no Shopify
+    configuration at all (scrape-only sources) are skipped.
+    """
+    shopify_sites = [
+        s for s in sites
+        if s.get("shopify_store_url") or s.get("shopify_client_id") or s.get("shopify_client_secret")
+    ]
+
+    async def _check(site: Dict) -> Optional[str]:
+        domain = site.get("domain", "")
+        try:
+            await _get_site_credentials(domain)
+            return None
+        except Exception as exc:
+            # HTTPException (missing creds / token exchange failure) or a
+            # transient network error after retries — either way, unreachable.
+            logger.warning("Pre-flight Shopify connection failed for %s: %s", domain, exc)
+            return domain
+
+    results = await asyncio.gather(*[_check(s) for s in shopify_sites])
+    return [d for d in results if d]
 
 
 # In-memory scan cache: domain -> snapshot dict

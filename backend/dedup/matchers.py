@@ -9,6 +9,14 @@ from typing import Optional, Tuple
 from rapidfuzz import fuzz, process
 
 
+# A duplicate must come from the same manufacturer, but the names need not be
+# identical: spelling variants, word-order, and longer/shorter forms of the
+# same maker (e.g. "Belshaw" vs "Belshaw Adamatic") all count. token_set_ratio
+# handles subset/extra-word cases; anything below this threshold is treated as
+# a genuinely different manufacturer and disqualifies the pair.
+_MANUFACTURER_MATCH_MIN = 80.0
+
+
 # ---------------------------------------------------------------------------
 # Text normalization
 # ---------------------------------------------------------------------------
@@ -112,8 +120,11 @@ def manufacturer_match(mfr_a: Optional[str], mfr_b: Optional[str]) -> float:
     nb = normalize_manufacturer(mfr_b)
     if not na or not nb:
         return 0.0
-    # token_sort_ratio handles word order differences ("Belshaw Adamatic" vs "Adamatic Belshaw")
-    return fuzz.token_sort_ratio(na, nb)
+    # token_sort_ratio handles word-order differences ("Belshaw Adamatic" vs
+    # "Adamatic Belshaw"); token_set_ratio handles a longer/shorter form of the
+    # same maker ("Belshaw" vs "Belshaw Adamatic"). Take the more forgiving of
+    # the two so the same manufacturer named differently still scores high.
+    return max(fuzz.token_sort_ratio(na, nb), fuzz.token_set_ratio(na, nb))
 
 
 def title_match_exact(title_a: Optional[str], title_b: Optional[str]) -> float:
@@ -190,8 +201,9 @@ def compute_confidence(
     factor breakdown.
 
     Scoring logic:
-    - If model numbers are present and DON'T match → hard cap at 30 (not dupes)
-    - If SKUs are present and DON'T match → hard cap at 25
+    - If manufacturers are present and clearly differ → not a duplicate (cap at 5)
+    - If model numbers are present and DON'T match → hard cap at 5 (not dupes)
+    - If SKUs are present and DON'T match → hard cap at 5
     - Otherwise weighted sum of individual factor scores, normalized to 100
     """
     scores = {
@@ -204,6 +216,14 @@ def compute_confidence(
     }
 
     # Hard disqualifiers
+    # Manufacturer must be the same maker for a duplicate. Compare with
+    # token_set_ratio so spelling variants and longer/shorter forms still match;
+    # a genuinely different manufacturer disqualifies the pair outright.
+    na_mfr = normalize_manufacturer(manufacturer_a)
+    nb_mfr = normalize_manufacturer(manufacturer_b)
+    if na_mfr and nb_mfr and fuzz.token_set_ratio(na_mfr, nb_mfr) < _MANUFACTURER_MATCH_MIN:
+        return 5.0, {**scores, "disqualifier": "manufacturer_mismatch"}
+
     if model_a and model_b and normalize_model(model_a) and normalize_model(model_b):
         if scores["model_number"] == 0.0:
             return 5.0, {**scores, "disqualifier": "model_number_mismatch"}

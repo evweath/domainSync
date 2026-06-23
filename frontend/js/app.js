@@ -58,9 +58,11 @@ function app() {
     _logPollTimer: null,
 
     // Store Comparison
+    filterOptions: { manufacturers: [], categories: [], source_sites: [] },
     storeComp: { products: [], total: 0, page: 1, pages: 1, source_sites: [] },
     storeCompFilters: {
       search: '', manufacturer: '', category: '', source_site: '',
+      store_a: '', store_b: '',
       min_price: '', max_price: '', in_stock: '',
       has_diffs: false, missing_from: '', has_empty: [],
       sort_by: 'title', sort_order: 'asc',
@@ -126,7 +128,7 @@ function app() {
     parallelScanRunning: false,
 
     productSort: { col: '', dir: 'asc' },
-    dupSort: { col: '', dir: 'asc' },
+    dupSort: { col: 'confidence_score', dir: 'desc' },
     sourceProductSort: { col: '', dir: 'asc' },
 
     // Scheduler
@@ -159,9 +161,6 @@ function app() {
     // Shopify Webhook Management (per store)
     shopifyWebhooks: {},       // domain -> { live: [], saved: [], liveLoading, savedLoading, acting, error }
 
-    managedLists: { manufacturers: [], excluded: [], competitors: [] },
-    newManagedUrl: { manufacturer: '', excluded: '', competitor: '' },
-
     // WebSocket
     ws: null,
     wsConnected: false,
@@ -181,7 +180,7 @@ function app() {
         this.loadStats(),
         this.loadScanSessions(),
         this.loadSettings(),
-        this.loadManagedLists(),
+        this.loadFilterOptions(),
         this.loadJobs(),
         this.loadExportHistory(),
         this.loadCycleStatus(),
@@ -372,10 +371,22 @@ function app() {
     // API helper
     // -----------------------------------------------------------------------
     async api(path, options = {}) {
-      const r = await fetch(path, {
+      const opts = {
         headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
         ...options,
-      });
+      };
+      // A reused keep-alive socket that the server already closed makes fetch()
+      // reject with a TypeError ("Load failed"/"Failed to fetch") even though the
+      // server is healthy. That's a dead connection, not a real error — retry once
+      // on a fresh socket before surfacing it.
+      let r;
+      for (let attempt = 0; ; attempt++) {
+        try { r = await fetch(path, opts); break; }
+        catch (e) {
+          if (attempt >= 1) throw e;
+          await new Promise(res => setTimeout(res, 200));
+        }
+      }
       if (r.status === 401) { this.authenticated = false; return null; }
       if (!r.ok) {
         let msg = `HTTP ${r.status}`;
@@ -465,10 +476,83 @@ function app() {
 
     async loadDuplicates() {
       try {
-        const params = new URLSearchParams({ status: this.dupFilter, per_page: 50 });
-        this.duplicates = await this.api(`/api/dedup/candidates?${params}`) || { candidates: [] };
+        // Load every candidate (across all pages) so the review list shows ALL
+        // suspected duplicates; domain filtering and sorting are then applied
+        // client-side in sortedDups()/dupFilteredCandidates().
+        const perPage = 100;
+        const all = [];
+        let page = 1;
+        let totalPages = 1;
+        do {
+          const params = new URLSearchParams({ status: this.dupFilter, per_page: perPage, page });
+          const res = await this.api(`/api/dedup/candidates?${params}`) || { candidates: [], total: 0 };
+          all.push(...(res.candidates || []));
+          // Derive page count from the candidate total (a page may return fewer
+          // rows than per_page when a product was deleted, so we can't rely on
+          // batch length to know when to stop).
+          totalPages = Math.max(1, Math.ceil((res.total || 0) / perPage));
+          page += 1;
+        } while (page <= totalPages && page <= 500);
+        this.duplicates = { candidates: all, total: all.length };
         this.dupSelected = {};
       } catch {}
+    },
+
+    // Candidates filtered to the domain(s) ticked in the "Scan domains" bar.
+    // A candidate is kept if either its primary or secondary product has a
+    // source on a selected domain. With no domains selected (or before
+    // settings load) no domain filtering is applied.
+    dupFilteredCandidates() {
+      const cands = (this.duplicates && this.duplicates.candidates) || [];
+      const selected = Object.entries(this.dupDomainFilters || {})
+        .filter(([, v]) => v).map(([k]) => k);
+      if (selected.length === 0) return cands;
+      const sel = new Set(selected);
+      return cands.filter(d => {
+        const domains = [
+          ...((d.primary && d.primary.sources) || []),
+          ...((d.secondary && d.secondary.sources) || []),
+        ];
+        return domains.some(x => sel.has(x));
+      });
+    },
+
+    // Filtered candidates ordered by the active sort column (confidence %,
+    // primary title, or secondary title).
+    sortedDups() {
+      const list = this.dupFilteredCandidates();
+      const { col, dir } = this.dupSort;
+      if (!col) return list;
+      const mul = dir === 'desc' ? -1 : 1;
+      const keyOf = (d) => {
+        if (col === 'confidence_score') return d.confidence_score ?? 0;
+        if (col === 'primary_title') return ((d.primary && d.primary.title) || '').toLowerCase();
+        if (col === 'secondary_title') return ((d.secondary && d.secondary.title) || '').toLowerCase();
+        return '';
+      };
+      return [...list].sort((a, b) => {
+        const va = keyOf(a), vb = keyOf(b);
+        if (va < vb) return -1 * mul;
+        if (va > vb) return 1 * mul;
+        return 0;
+      });
+    },
+
+    // Toggle/activate a sort column on a sort-state object {col, dir}.
+    // Clicking the active column flips direction; a new column starts desc for
+    // confidence (highest first) and asc for titles (A→Z).
+    setSort(state, col) {
+      if (state.col === col) {
+        state.dir = state.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        state.col = col;
+        state.dir = col === 'confidence_score' ? 'desc' : 'asc';
+      }
+    },
+
+    sortIcon(state, col) {
+      if (state.col !== col) return '↕';
+      return state.dir === 'asc' ? '↑' : '↓';
     },
 
     async resolvedup(candidateId, action) {
@@ -487,12 +571,12 @@ function app() {
     },
 
     dupAllSelected() {
-      const candidates = this.duplicates.candidates || [];
+      const candidates = this.dupFilteredCandidates();
       return candidates.length > 0 && candidates.every(d => this.dupSelected[d.id]);
     },
 
     dupToggleSelectAll() {
-      const candidates = this.duplicates.candidates || [];
+      const candidates = this.dupFilteredCandidates();
       const selectAll = !this.dupAllSelected();
       const updated = {};
       candidates.forEach(d => { updated[d.id] = selectAll; });
@@ -512,14 +596,14 @@ function app() {
       } catch (e) { this.toast('Failed to delete: ' + e.message, 'error'); }
     },
 
-    async dupSelectAllPages() {
-      try {
-        const res = await this.api(`/api/dedup/candidates/ids?status=${this.dupFilter}`);
-        const all = {};
-        (res.ids || []).forEach(id => { all[id] = true; });
-        this.dupSelected = all;
-        this.toast(`Selected ${res.ids.length} duplicate${res.ids.length !== 1 ? 's' : ''} across all pages`, 'info');
-      } catch (e) { this.toast('Failed to select all: ' + e.message, 'error'); }
+    dupSelectAllPages() {
+      // All candidates are already loaded client-side, so this selects the
+      // entire filtered set (respecting the active domain filter).
+      const candidates = this.dupFilteredCandidates();
+      const all = {};
+      candidates.forEach(d => { all[d.id] = true; });
+      this.dupSelected = all;
+      this.toast(`Selected ${candidates.length} duplicate${candidates.length !== 1 ? 's' : ''}`, 'info');
     },
 
     // -----------------------------------------------------------------------
@@ -746,6 +830,8 @@ function app() {
         if (f.manufacturer) params.set('manufacturer', f.manufacturer);
         if (f.category)     params.set('category', f.category);
         if (f.source_site)  params.set('source_site', f.source_site);
+        if (f.store_a)      params.set('store_a', f.store_a);
+        if (f.store_b)      params.set('store_b', f.store_b);
         if (f.min_price !== '') params.set('min_price', f.min_price);
         if (f.max_price !== '') params.set('max_price', f.max_price);
         if (f.in_stock !== '')  params.set('in_stock', f.in_stock);
@@ -764,9 +850,14 @@ function app() {
 
     storeCompCellStatus(canonVal, srcVal, siteExists, fieldType = 'text') {
       if (!siteExists) return 'absent';
-      const norm = v => fieldType === 'price'
-        ? Number(v || 0).toFixed(2)
-        : String(v || '').trim().toLowerCase();
+      // An absent price must stay absent — do NOT coerce null/'' to 0.00, or a
+      // store with no price would falsely compare equal ("same price") to
+      // another empty price. A real $0.00 is kept as "0.00".
+      const norm = v => {
+        if (fieldType === 'price')
+          return (v === null || v === undefined || v === '') ? '' : Number(v).toFixed(2);
+        return String(v || '').trim().toLowerCase();
+      };
       const cNorm = norm(canonVal);
       const sNorm = norm(srcVal);
       if (!sNorm) return cNorm ? 'missing' : 'empty';
@@ -809,6 +900,7 @@ function app() {
     storeCompHasActiveFilters() {
       const f = this.storeCompFilters;
       return f.search || f.manufacturer || f.category || f.source_site ||
+             f.store_a || f.store_b ||
              f.min_price !== '' || f.max_price !== '' || f.in_stock !== '' ||
              f.has_diffs || f.missing_from !== '' || f.has_empty.length > 0;
     },
@@ -816,11 +908,19 @@ function app() {
     storeCompClearFilters() {
       this.storeCompFilters = {
         search: '', manufacturer: '', category: '', source_site: '',
+        store_a: '', store_b: '',
         min_price: '', max_price: '', in_stock: '',
         has_diffs: false, missing_from: '', has_empty: [],
         sort_by: 'title', sort_order: 'asc',
       };
       this.loadStoreComparison(1);
+    },
+
+    async loadFilterOptions() {
+      try {
+        this.filterOptions = await this.api('/api/products/filters/options')
+          || { manufacturers: [], categories: [], source_sites: [] };
+      } catch {}
     },
 
     async adoptSourceValue(productId, field, value) {
@@ -1107,7 +1207,10 @@ function app() {
         await this.loadCycleStatus();
         await this.loadTaskList();
       } catch (e) {
-        this.toast('Failed to start scan: ' + e.message, 'error');
+        // e.message carries the server detail — e.g. the list of unreachable
+        // Shopify domains. Show it as-is (multi-line) and hold it longer so the
+        // user can read every domain before it dismisses.
+        this.toast(e.message, 'error', 9000);
         this.parallelScanRunning = false;
       }
     },
@@ -1269,36 +1372,6 @@ function app() {
           this.webhookForm.events = wh.events || [];
         }
       } catch {}
-    },
-
-    async loadManagedLists() {
-      try {
-        this.managedLists = await this.api('/api/competitors/managed-lists') || { manufacturers: [], excluded: [], competitors: [] };
-      } catch {}
-    },
-
-    async addManagedUrl(type, raw) {
-      const url = (raw || '').trim();
-      if (!url) return;
-      try {
-        await this.api('/api/competitors/managed-domain', {
-          method: 'POST',
-          body: JSON.stringify({ domain: url, domain_type: type }),
-        });
-        this.newManagedUrl[type] = '';
-        await this.loadManagedLists();
-        this.toast(`Added to ${type} list`, 'success', 2000);
-      } catch (e) { this.toast('Failed to add URL: ' + e.message, 'error'); }
-    },
-
-    async removeManagedDomain(domain) {
-      try {
-        await this.api(`/api/competitors/managed-domain?domain=${encodeURIComponent(domain)}`, {
-          method: 'DELETE',
-        });
-        await this.loadManagedLists();
-        this.toast(`Removed ${domain}`, 'success', 2000);
-      } catch (e) { this.toast('Failed to remove: ' + e.message, 'error'); }
     },
 
     async saveSetting(keys, value) {

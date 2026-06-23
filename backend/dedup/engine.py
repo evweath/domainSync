@@ -1,7 +1,9 @@
 """
 Deduplication engine for Donut Intel Platform (F06–F11).
-Detects duplicate products across the 3 source websites.
-Duplicates = same product listed on 2+ different source sites (not within one site).
+Detects duplicate products WITHIN a single store (source site).
+Duplicates = the same product listed more than once in the same store.
+The same product appearing in different stores is NOT a duplicate (that is a
+cross-store comparison, surfaced on the Store Comparison page).
 """
 import json
 import logging
@@ -21,6 +23,48 @@ from backend.database.models import (
 from backend.dedup.matchers import compute_confidence
 
 logger = logging.getLogger(__name__)
+
+
+def recompute_product_prices(session: Session, product: Product) -> bool:
+    """Set ``price_canonical`` to the most-recently-scraped active source price,
+    and ``price_min``/``price_max`` to the range across active source prices.
+
+    Canonical is always a REAL store price (the latest one a store charges) —
+    never a synthetic average. It feeds exports, reports, competitor comparison,
+    price filters and dedup scoring, so it must equal a price a store actually
+    lists. Returns True if a price was set.
+    """
+    session.flush()  # ensure freshly re-attached sources are visible
+    srcs = (
+        session.query(ProductSource)
+        .filter(
+            ProductSource.product_id == product.id,
+            ProductSource.is_active == True,
+            ProductSource.source_price != None,
+            ProductSource.source_price > 0,
+        )
+        .all()
+    )
+    prices = [s.source_price for s in srcs]
+    if not prices:
+        return False
+    latest = max(srcs, key=lambda s: s.scraped_at or datetime.min)
+    product.price_canonical = latest.source_price
+    product.price_min = min(prices)
+    product.price_max = max(prices)
+    return True
+
+
+def recompute_all_product_prices(session: Session) -> int:
+    """Backfill: recompute prices for every active product from its active
+    sources. Use to correct products whose canonical price was previously a
+    synthetic average. Returns the number of products updated."""
+    updated = 0
+    for product in session.query(Product).filter(Product.is_active == True).all():
+        if recompute_product_prices(session, product):
+            updated += 1
+    session.commit()
+    return updated
 
 
 class DeduplicationEngine:
@@ -48,7 +92,8 @@ class DeduplicationEngine:
     ) -> dict:
         """
         Run deduplication across all products (or a subset).
-        Only compares products from DIFFERENT source sites.
+        Only compares products that share a common store (source site) —
+        duplicates are listings of the same product within one store.
         Returns summary stats.
         """
         logger.info("Starting deduplication run")
@@ -85,8 +130,10 @@ class DeduplicationEngine:
             for j, (prod_b, sites_b) in enumerate(product_data):
                 if i >= j:
                     continue
-                # Only compare across DIFFERENT source sites
-                if sites_a == sites_b and len(sites_a) == 1:
+                # Duplicates live WITHIN one store: only compare products that
+                # share at least one common source site. Products that appear
+                # only in different stores are not duplicates of each other.
+                if not (sites_a & sites_b):
                     continue
                 # Don't compare products that already have a resolved duplicate record
                 pair_key = (min(prod_a.id, prod_b.id), max(prod_a.id, prod_b.id))
@@ -133,16 +180,15 @@ class DeduplicationEngine:
                 if confidence < self.review_threshold:
                     continue
 
+                # Merging is always manual now: every detected duplicate is
+                # recorded as a pending candidate for the user to merge/reject.
+                # Nothing is auto-merged regardless of confidence.
                 if existing:
                     # Update score if re-running
                     existing.confidence_score = confidence
                     existing.match_reasons_json = json.dumps(factor_scores)
                     if existing.status == "pending":
-                        if confidence >= self.auto_merge_threshold:
-                            self._merge_products(session, prod_a, prod_b, existing, auto=True)
-                            stats["auto_merged"] += 1
-                        else:
-                            stats["flagged_for_review"] += 1
+                        stats["flagged_for_review"] += 1
                 else:
                     candidate = DuplicateCandidate(
                         primary_product_id=pair_key[0],
@@ -153,12 +199,7 @@ class DeduplicationEngine:
                     )
                     session.add(candidate)
                     session.flush()
-
-                    if confidence >= self.auto_merge_threshold:
-                        self._merge_products(session, prod_a, prod_b, candidate, auto=True)
-                        stats["auto_merged"] += 1
-                    else:
-                        stats["flagged_for_review"] += 1
+                    stats["flagged_for_review"] += 1
 
                 # Commit + release the write lock periodically. With ~5k
                 # products the inner loop runs ~13M times, and SQLite only
@@ -220,23 +261,10 @@ class DeduplicationEngine:
             if (opt.option_group, opt.option_value) not in existing_options:
                 opt.product_id = primary.id
 
-        # Update price range
-        all_prices = [
-            p for p in [
-                primary.price_canonical,
-                secondary.price_canonical,
-                primary.price_min,
-                secondary.price_min,
-                primary.price_max,
-                secondary.price_max,
-            ]
-            if p and p > 0
-        ]
-        if all_prices:
-            primary.price_min = min(all_prices)
-            primary.price_max = max(all_prices)
-            # Canonical = most commonly occurring price (first pass: use average)
-            primary.price_canonical = sum(all_prices) / len(all_prices)
+        # Recompute prices from the combined active sources. Canonical is the
+        # most-recent real source price, NOT an average of the two products'
+        # prices (averaging produced a synthetic price matching no store).
+        recompute_product_prices(session, primary)
 
         # Fill in missing fields from secondary
         if not primary.manufacturer and secondary.manufacturer:

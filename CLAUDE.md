@@ -43,7 +43,8 @@ Located in `.claude/investigations/`. Read the relevant file before working on a
 
 - `beat-this-price.md` — Beat This Price search, price display, color logic
 - `competitor-search.md` — competitor product search, query building, DB locking, rate limiting
-- `store-compare.md` — cross-store diff detection, attribute status
+- `store-compare.md` — cross-store diff detection, attribute status, Store A/B compare
+- `deduplication.md` — duplicate definition (within-store), matcher disqualifiers, scope
 - `shopify-sync.md` — Shopify API credentials, live sync pipeline
 - `yahoo-scraper.md` — Yahoo Shopping PLA scraper, domain blocklist
 
