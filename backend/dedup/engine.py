@@ -25,14 +25,21 @@ from backend.dedup.matchers import compute_confidence
 logger = logging.getLogger(__name__)
 
 
-def recompute_product_prices(session: Session, product: Product) -> bool:
-    """Set ``price_canonical`` to the most-recently-scraped active source price,
-    and ``price_min``/``price_max`` to the range across active source prices.
+# System of record: canonical fields (incl. price) mirror this store when present.
+# Stored in the DB as source_site="donut-equipment.com" (its Shopify store is
+# equipmentplus.myshopify.com — see the store-architecture notes).
+SOR_SITE = "donut-equipment.com"
 
-    Canonical is always a REAL store price (the latest one a store charges) —
-    never a synthetic average. It feeds exports, reports, competitor comparison,
-    price filters and dedup scoring, so it must equal a price a store actually
-    lists. Returns True if a price was set.
+
+def recompute_product_prices(session: Session, product: Product) -> bool:
+    """Set ``price_canonical`` from the system-of-record store, and
+    ``price_min``/``price_max`` to the range across active source prices.
+
+    Canonical is always a REAL store price — never a synthetic average. Per the
+    SoR model it must mirror the donut-equipment.com (equipmentplus) listing
+    whenever the product has one; only products with no SoR source fall back to
+    the most-recently-scraped store price. It feeds exports, reports, competitor
+    comparison, price filters and dedup scoring. Returns True if a price was set.
     """
     session.flush()  # ensure freshly re-attached sources are visible
     srcs = (
@@ -48,7 +55,10 @@ def recompute_product_prices(session: Session, product: Product) -> bool:
     prices = [s.source_price for s in srcs]
     if not prices:
         return False
-    latest = max(srcs, key=lambda s: s.scraped_at or datetime.min)
+    # Prefer the SoR store's most-recent price; fall back to latest overall.
+    sor_srcs = [s for s in srcs if s.source_site == SOR_SITE]
+    pick_from = sor_srcs or srcs
+    latest = max(pick_from, key=lambda s: s.scraped_at or datetime.min)
     product.price_canonical = latest.source_price
     product.price_min = min(prices)
     product.price_max = max(prices)

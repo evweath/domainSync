@@ -63,12 +63,14 @@ variants) is captured and kept identical across stores.
   5-store=2406, 4=216, 3=69, 2=36, 1-store=87. Competitor matches: 9,601 on
   active, 27 stranded. Backup `data/donut_intel.db.bak-prestage4-20260623-172517`.
 
-### Open question (raised, awaiting answer)
-- **Canonical price not SoR-pinned.** `recompute_product_prices` sets
-  `price_canonical` to the most-recently-scraped source price, not the
-  donut-equipment.com (SoR) price. Plan's "consequences" wanted canonical =
-  equipmentplus values. Cross-cutting change (exports, competitor compare, price
-  filters) — confirm before changing.
+### Canonical price → SoR-pinned (DONE, user-confirmed)
+- User: "canonical price must always come from donut-equipment.com / equipmentplus."
+- `recompute_product_prices` (engine.py) now prefers the SoR source's price
+  (`SOR_SITE="donut-equipment.com"`), falling back to latest-scraped only when a
+  product has no SoR source. price_min/max still span all stores.
+- Backfilled live DB via `recompute_all_product_prices`: 146 products corrected,
+  0 mismatches remain. Backup `data/donut_intel.db.bak-precanon-20260623-173304`.
+- Tests: `tests/test_canonical_price_sor.py` (2).
 
 ### NEXT
 - Stage 5: surface missing/extra products per store (the 87 single-store products
