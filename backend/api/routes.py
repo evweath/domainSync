@@ -569,6 +569,66 @@ def get_store_comparison(
     }
 
 
+@router.get("/api/products/store-comparison/summary")
+def get_store_comparison_summary(db: Session = Depends(get_db_session)):
+    """Per-store gap overview for Store Compare (SoR consolidation Stage 5).
+
+    For each store: how many catalog products it carries (`present`), how many it
+    is MISSING (present in the catalog but not on this store), and how many are
+    EXCLUSIVE to it (`only_here` — its only active source, i.e. not yet in any
+    other store incl. the SoR). `missing` on the SoR row = products missing from
+    the system of record. Counts are catalog-wide (active products with at least
+    one active source); the per-store `missing_from` filter drills into the list.
+    """
+    from backend.dedup.engine import SOR_SITE
+
+    source_sites = [s["domain"] for s in config.get("source_sites", default=[]) if s.get("enabled", True)]
+
+    total = db.execute(text("""
+        SELECT COUNT(*) FROM products p
+        WHERE p.is_active=1 AND EXISTS (
+            SELECT 1 FROM product_sources s
+            WHERE s.product_id=p.id AND s.source_status!='archived')
+    """)).scalar() or 0
+
+    # present[site] and only_here[site] in two aggregate passes.
+    present = {
+        row[0]: row[1] for row in db.execute(text("""
+            SELECT s.source_site, COUNT(DISTINCT s.product_id)
+            FROM product_sources s JOIN products p ON p.id=s.product_id
+            WHERE p.is_active=1 AND s.source_status!='archived'
+            GROUP BY s.source_site
+        """)).fetchall()
+    }
+    only_here = {
+        row[0]: row[1] for row in db.execute(text("""
+            SELECT site, COUNT(*) FROM (
+                SELECT s.product_id, MAX(s.source_site) AS site
+                FROM product_sources s JOIN products p ON p.id=s.product_id
+                WHERE p.is_active=1 AND s.source_status!='archived'
+                GROUP BY s.product_id
+                HAVING COUNT(DISTINCT s.source_site)=1
+            ) GROUP BY site
+        """)).fetchall()
+    }
+
+    stores = [
+        {
+            "site": site,
+            "present": present.get(site, 0),
+            "missing": total - present.get(site, 0),
+            "only_here": only_here.get(site, 0),
+        }
+        for site in source_sites
+    ]
+    return {
+        "total_products": total,
+        "sor_site": SOR_SITE,
+        "missing_from_sor": total - present.get(SOR_SITE, 0),
+        "stores": stores,
+    }
+
+
 class UpdateCanonicalRequest(BaseModel):
     canonical_title: Optional[str] = None
     canonical_description: Optional[str] = None

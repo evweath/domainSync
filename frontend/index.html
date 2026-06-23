@@ -45,7 +45,7 @@
     <nav class="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
       <template x-for="item in navItems" :key="item.id">
         <button
-          @click="currentView = item.id; item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'store-compare' && loadStoreComparison(1); item.id === 'shopify-sync' && loadShopifySyncConfig(); item.id === 'live-sync' && (loadShopifySyncConfig(), loadLiveSyncScanStatus()); item.id === 'system-of-record' && loadSystemOfRecord()"
+          @click="currentView = item.id; item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'store-compare' && (loadStoreComparison(1), loadStoreCompSummary()); item.id === 'shopify-sync' && loadShopifySyncConfig(); item.id === 'live-sync' && (loadShopifySyncConfig(), loadLiveSyncScanStatus()); item.id === 'system-of-record' && loadSystemOfRecord()"
           :class="currentView === item.id
             ? 'bg-orange-600 text-white'
             : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
@@ -573,8 +573,33 @@
             <h2 class="text-2xl font-bold">Store Comparison</h2>
             <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Compare every attribute of each canonical product across all source stores. Adopt any source value into the canonical record.</p>
           </div>
-          <button @click="loadStoreComparison(storeComp.page)"
+          <button @click="loadStoreComparison(storeComp.page); loadStoreCompSummary()"
             class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 rounded-lg text-sm">↺ Refresh</button>
+        </div>
+
+        <!-- ── Per-store gap summary (SoR consolidation Stage 5) ── -->
+        <div x-show="storeCompSummary.total_products > 0"
+          class="bg-white dark:bg-gray-800 rounded-xl shadow p-3 flex flex-wrap items-center gap-2">
+          <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide mr-1">Gaps:</span>
+          <span class="text-xs text-gray-500 dark:text-gray-400"
+            x-text="storeCompSummary.total_products + ' shared products ·'"></span>
+          <template x-for="st in storeCompSummary.stores" :key="st.site">
+            <button @click="storeCompShowMissingFrom(st.site)"
+              :title="st.site + ': present ' + st.present + ', missing ' + st.missing + ', only here ' + st.only_here"
+              class="text-xs px-2.5 py-1 rounded-full border transition"
+              :class="storeCompFilters.missing_from === st.site
+                ? 'bg-orange-500 text-white border-orange-500'
+                : (st.site === storeCompSummary.sor_site
+                    ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 hover:bg-amber-100'
+                    : 'bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600')">
+              <span class="font-semibold" x-text="storeCompShortSite(st.site)"></span>
+              <span x-show="st.site === storeCompSummary.sor_site" class="opacity-60">(SoR)</span>
+              <span class="ml-1" x-text="'missing ' + st.missing"></span>
+            </button>
+          </template>
+          <span x-show="storeCompFilters.missing_from"
+            class="text-xs text-orange-600 dark:text-orange-400 cursor-pointer underline ml-1"
+            @click="storeCompShowMissingFrom(storeCompFilters.missing_from)">clear</span>
         </div>
 
         <!-- ── Filter panel ── -->

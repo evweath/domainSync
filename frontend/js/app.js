@@ -60,6 +60,7 @@ function app() {
     // Store Comparison
     filterOptions: { manufacturers: [], categories: [], source_sites: [] },
     storeComp: { products: [], total: 0, page: 1, pages: 1, source_sites: [] },
+    storeCompSummary: { total_products: 0, sor_site: '', missing_from_sor: 0, stores: [] },
     storeCompFilters: {
       search: '', manufacturer: '', category: '', source_site: '',
       store_a: '', store_b: '',
@@ -842,6 +843,24 @@ function app() {
         params.set('sort_order', f.sort_order);
         this.storeComp = await this.api(`/api/products/store-comparison?${params}`) || { products: [], total: 0, page: 1, pages: 1, source_sites: [] };
       } catch (e) { this.toast('Failed to load store comparison: ' + e.message, 'error'); }
+    },
+
+    // Per-store gap overview (SoR consolidation Stage 5).
+    async loadStoreCompSummary() {
+      try {
+        this.storeCompSummary = await this.api('/api/products/store-comparison/summary')
+          || { total_products: 0, sor_site: '', missing_from_sor: 0, stores: [] };
+      } catch (e) { /* non-fatal: the comparison table still works without the summary */ }
+    },
+
+    // Click a gap chip → filter the table to products missing from that store.
+    storeCompShowMissingFrom(site) {
+      this.storeCompFilters.missing_from = (this.storeCompFilters.missing_from === site) ? '' : site;
+      this.loadStoreComparison(1);
+    },
+
+    storeCompShortSite(site) {
+      return (site || '').split('.')[0];
     },
 
     toggleStoreCompExpanded(productId) {

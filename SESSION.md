@@ -72,6 +72,22 @@ variants) is captured and kept identical across stores.
   0 mismatches remain. Backup `data/donut_intel.db.bak-precanon-20260623-173304`.
 - Tests: `tests/test_canonical_price_sor.py` (2).
 
-### NEXT
-- Stage 5: surface missing/extra products per store (the 87 single-store products
-  are the candidates). Lean on Store Compare missing/extra surfacing.
+### Stage 5 — DONE (surface missing/extra per store, in Store Compare)
+- New endpoint `GET /api/products/store-comparison/summary` returns per-store
+  `present` / `missing` / `only_here` counts over the merged catalog, plus
+  `missing_from_sor`. Aggregate SQL, catalog-wide.
+- Store Compare page: gap-summary strip of clickable chips (one per store, SoR
+  highlighted) showing each store's missing count; clicking sets the existing
+  `missing_from` filter to drill into the list. `app.js`: `loadStoreCompSummary`,
+  `storeCompShowMissingFrom`, `storeCompShortSite`, `storeCompSummary` state.
+- The pre-existing per-store `missing_from` filter already surfaces both
+  directions (missing-from-store and missing-from-SoR = missing_from=DE) now that
+  products are merged — Stage 5 makes it discoverable + quantified.
+- Verified end-to-end via running server: summary 200 (2814 total, SoR missing 58),
+  drill-down `missing_from=donut-equipment.com` total=58 (consistent).
+- Tests: `tests/test_store_compare_summary.py` (1). Full suite green (42).
+
+## SoR variant consolidation: COMPLETE (Stages 1–5 + canonical-price)
+All five stages done on branch `sor-variant-consolidation`. Catalog is unified
+(2,814 shared products, 2,406 in all 5 stores), canonical price = SoR, auto-merge
+runs at end of every scan, gaps surfaced per store.
