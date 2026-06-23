@@ -1075,6 +1075,11 @@ function app() {
       return this.liveSyncTransactions.filter(t => t.approved === null).length;
     },
 
+    // Short, friendly store label for buttons (e.g. "donut-equipment").
+    liveSyncShortSite(site) {
+      return (site || '').split('.')[0];
+    },
+
     async runLiveExecute() {
       const approvedCount = this.liveSyncApprovedCount();
       if (approvedCount === 0) { this.toast('No transactions approved.', 'error'); return; }
