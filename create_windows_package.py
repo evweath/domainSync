@@ -1350,21 +1350,39 @@ and either merge them automatically (high confidence) or flag them for your revi
 # Sanitized settings.yaml for the ZIP
 # ---------------------------------------------------------------------------
 
+# Any config key whose name contains one of these substrings is a secret and is
+# redacted before the config goes into the shared ZIP. Recursive + name-based so
+# a NEW secret field can never silently leak (the old hard-coded list missed
+# anthropic_api_key, auth.password, and smtp_password).
+_SECRET_KEY_MARKERS = (
+    'api_key', 'apikey', 'access_token', 'secret', 'token',
+    'password', 'passwd', 'client_id', 'client_secret', 'credential', 'private_key',
+)
+
+
+def _redact_secrets(obj):
+    """Recursively replace any secret-named field's value with a placeholder."""
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if isinstance(v, (dict, list)):
+                _redact_secrets(v)
+            elif isinstance(k, str) and any(m in k.lower() for m in _SECRET_KEY_MARKERS):
+                if 'password' in k.lower() or 'passwd' in k.lower():
+                    obj[k] = 'CHANGE_ME'
+                elif k.lower() == 'secret_key':
+                    obj[k] = 'CHANGE_ME_REPLACE_WITH_RANDOM_32_CHARACTER_STRING'
+                else:
+                    obj[k] = f'YOUR_{k.upper()}_HERE'
+    elif isinstance(obj, list):
+        for item in obj:
+            _redact_secrets(item)
+    return obj
+
+
 def _sanitized_config() -> str:
     config_path = ROOT / 'config' / 'settings.yaml'
     cfg = yaml.safe_load(config_path.read_text(encoding='utf-8'))
-
-    cfg['app']['secret_key'] = 'CHANGE_ME_REPLACE_WITH_RANDOM_32_CHARACTER_STRING'
-
-    cfg['anthropic']['api_key'] = 'YOUR_ANTHROPIC_API_KEY_HERE'
-    cfg['serpapi']['api_key'] = 'YOUR_SERPAPI_API_KEY_HERE'
-
-    for site in cfg.get('source_sites', []):
-        site['shopify_api_key'] = 'YOUR_SHOPIFY_API_KEY_HERE'
-        site['shopify_access_token'] = 'YOUR_SHOPIFY_ACCESS_TOKEN_HERE'
-        site['shopify_client_id'] = 'YOUR_SHOPIFY_CLIENT_ID_HERE'
-        site['shopify_client_secret'] = 'YOUR_SHOPIFY_CLIENT_SECRET_HERE'
-
+    _redact_secrets(cfg)
     return yaml.dump(cfg, default_flow_style=False, allow_unicode=True, sort_keys=False)
 
 
