@@ -448,7 +448,7 @@ def main():
 
     # force-dedup
     p = sub.add_parser('force-dedup', help='Force-merge DS/BW products into DE counterparts')
-    p.add_argument('--threshold', type=float, default=65.0, help='Min title similarity % to merge (default 65)')
+    p.add_argument('--threshold', type=float, default=65.0, help='Min title similarity percent to merge (default 65)')
     p.set_defaults(func=cmd_force_dedup)
 
     # import

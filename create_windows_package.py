@@ -192,7 +192,7 @@ HTML = """<!DOCTYPE html>
     A step-by-step guide to installing, setting up,<br>and using the Donut Intel Platform on Windows.
   </p>
   <div class="meta">
-    Version 2.0 &nbsp;|&nbsp; Written for Windows 10 and Windows 11<br>
+    Version 2.1 &nbsp;|&nbsp; Written for Windows 10 and Windows 11<br>
     Read this guide from start to finish before you begin.
   </div>
 </div>
@@ -417,7 +417,7 @@ HTML = """<!DOCTYPE html>
   <div class="num-content">
     Open <strong>File Explorer</strong> (the folder icon in your taskbar) and navigate to
     <code>C:\\DonutIntel</code>. You should see a list of files including
-    <code>start.py</code>, <code>stop.py</code>, <code>setup_env.py</code>, and folders
+    <code>setup.bat</code>, <code>start.bat</code>, <code>stop.bat</code>, and folders
     like <code>backend</code> and <code>frontend</code>.
     If you see these files, you're ready for the next step!
   </div>
@@ -427,9 +427,10 @@ HTML = """<!DOCTYPE html>
   <div class="box-title">📁 What's Inside the App Folder?</div>
   <table style="margin:8px 0 0;">
     <tr><th>File / Folder</th><th>What It Is</th></tr>
-    <tr><td><code>start.py</code></td><td>Start the app server</td></tr>
-    <tr><td><code>stop.py</code></td><td>Stop the app server</td></tr>
-    <tr><td><code>setup_env.py</code></td><td>First-time setup script</td></tr>
+    <tr><td><code>setup.bat</code></td><td>First-time setup — double-click this once</td></tr>
+    <tr><td><code>start.bat</code></td><td>Start the app — double-click to turn it on</td></tr>
+    <tr><td><code>stop.bat</code></td><td>Stop the app — double-click to turn it off</td></tr>
+    <tr><td><code>start.py</code> / <code>stop.py</code> / <code>setup_env.py</code></td><td>The scripts the .bat files run (for advanced users)</td></tr>
     <tr><td><code>generate_certs.py</code></td><td>Creates security certificates</td></tr>
     <tr><td><code>cli.py</code></td><td>Command line tools</td></tr>
     <tr><td><code>requirements.txt</code></td><td>List of extra software the app needs</td></tr>
@@ -479,10 +480,17 @@ HTML = """<!DOCTYPE html>
 
 <h2>Run the Setup Script</h2>
 
+<div class="step-box" style="margin-top:0">
+  <div class="box-title">✅ Easiest way</div>
+  Open the <code>C:\\DonutIntel</code> folder and <strong>double-click
+  <code>setup.bat</code></strong>. It does the steps below for you. Then skip to
+  Section 6.
+</div>
+
 <div class="num-step">
   <div class="num">3</div>
   <div class="num-content">
-    Type the following and press <strong>Enter</strong>:
+    Or, in Command Prompt, type the following and press <strong>Enter</strong>:
     <pre><code>python setup_env.py</code></pre>
   </div>
 </div>
@@ -492,9 +500,10 @@ HTML = """<!DOCTYPE html>
     The setup script will start. You will see messages scrolling by.
     <strong>This will take 5–15 minutes</strong> — it is downloading files from the internet.
     Do not close the window. Just wait until you see:
-    <pre><code>Setup complete!
-  Start:  python start.py
-  Stop:   python stop.py</code></pre>
+    <pre><code>Setup complete!</code></pre>
+    When you see that, setup is done. On Windows the easiest way to start and
+    stop the app is to double-click <code>start.bat</code> and <code>stop.bat</code>
+    (covered in the next steps).
   </div>
 </div>
 
@@ -637,43 +646,44 @@ HTML = """<!DOCTYPE html>
 
 <h2>How to Start</h2>
 
+<div class="step-box" style="margin-top:0">
+  <div class="box-title">✅ Easiest way</div>
+  Open the <code>C:\\DonutIntel</code> folder and <strong>double-click
+  <code>start.bat</code></strong>. A black window opens, the app turns on, and your
+  web browser opens the app for you after a few seconds.
+</div>
+
 <div class="num-step">
   <div class="num">1</div>
   <div class="num-content">
-    Open <strong>Command Prompt</strong>
-    (press Windows key, type <code>cmd</code>, press Enter).
+    In <strong>File Explorer</strong>, open <code>C:\\DonutIntel</code>.
   </div>
 </div>
 <div class="num-step">
   <div class="num">2</div>
   <div class="num-content">
-    Navigate to the app folder:
-    <pre><code>cd C:\\DonutIntel</code></pre>
-  </div>
-</div>
-<div class="num-step">
-  <div class="num">3</div>
-  <div class="num-content">
-    Start the app:
-    <pre><code>python start.py</code></pre>
-  </div>
-</div>
-<div class="num-step">
-  <div class="num">4</div>
-  <div class="num-content">
-    You will see a message like this:
-    <pre><code>Starting Donut Intel Platform on https://localhost:8743
-  API docs: https://localhost:8743/api/docs
+    Double-click <code>start.bat</code>. You will see a message like this:
+    <pre><code>Starting Donut Intel Platform on https://localhost:8800
+  API docs: https://localhost:8800/api/docs
   Press Ctrl+C to stop</code></pre>
-    The app is now running! <strong>Leave this window open</strong> — closing it will stop the app.
+    The app is now running! <strong>Leave the black window open</strong> — closing it
+    turns the app off.
   </div>
 </div>
 
 <div class="tip-box">
+  <div class="box-title">💡 Prefer to type commands?</div>
+  Open Command Prompt and run:
+  <pre><code>cd C:\\DonutIntel
+.venv\\Scripts\\python start.py</code></pre>
+  Use the app's own Python in <code>.venv\\Scripts</code> — the plain
+  <code>python start.py</code> will not find the app's packages.
+</div>
+
+<div class="tip-box">
   <div class="box-title">💡 Keep the Window Open</div>
-  The Command Prompt window <em>must stay open</em> while you use the app.
-  You can minimize it (click the minus button), but do not close it.
-  Open a <em>separate</em> Command Prompt window if you need to type more commands.
+  The black window <em>must stay open</em> while you use the app.
+  You can minimize it (the minus button), but do not close it.
 </div>
 
 <!-- ======================================================== SECTION 8 -->
@@ -692,7 +702,7 @@ HTML = """<!DOCTYPE html>
   <div class="num">2</div>
   <div class="num-content">
     In the address bar at the top, type the following address exactly and press Enter:
-    <pre><code>https://localhost:8743</code></pre>
+    <pre><code>https://localhost:8800</code></pre>
   </div>
 </div>
 
@@ -751,17 +761,15 @@ HTML = """<!DOCTYPE html>
 <div class="section-label">Section 9</div>
 <h1 id="s9">Step 7 — Stop the App</h1>
 
-<h2>Method 1 — The Proper Way (Recommended)</h2>
-<p>Open a <strong>new</strong> Command Prompt window (don't close the one running the app yet),
-navigate to the app folder, and type:</p>
-<pre><code>cd C:\\DonutIntel
-python stop.py</code></pre>
-<p>You will see: <code>Stopped 1 process(es).</code></p>
+<h2>Method 1 — The Easiest Way</h2>
+<p>Open the <code>C:\\DonutIntel</code> folder and <strong>double-click
+<code>stop.bat</code></strong>. You will see: <code>Stopped 1 process(es).</code></p>
 
 <h2>Method 2 — Quick Stop</h2>
 <p>
-  Click on the Command Prompt window where the app is running, then press
+  Click on the black window where the app is running, then press
   <strong>Ctrl+C</strong> on your keyboard. The app will stop gracefully.
+  (Or just close that window.)
 </p>
 
 <div class="warning-box">
@@ -774,7 +782,7 @@ python stop.py</code></pre>
 <!-- ======================================================== SECTION 10 -->
 <div class="page-break"></div>
 <div class="section-label">Section 10</div>
-<h1 id="s10">All Features Explained — The Dashboard</h1>
+<h1 id="s10">All Features Explained (The Menu)</h1>
 
 <p>
   The dashboard is the main screen of the app. It is a website that opens in your browser.
@@ -800,62 +808,6 @@ python stop.py</code></pre>
     <li><strong>Last scan status</strong> — When did the app last check your websites for new products?</li>
     <li><strong>Live log</strong> — A running record of what the app is currently doing (you can filter by Info, Warning, or Critical messages)</li>
   </ul>
-</div>
-
-<!-- PRODUCTS -->
-<div class="feature avoid-break">
-  <div class="feature-name">📦 Products — Your Product Catalog</div>
-  <div class="feature-tagline">Browse and search everything you sell</div>
-  <p>
-    This is your complete list of products — like a giant shopping catalog for your business.
-    Every product the app has found on your websites appears here.
-    You can search, filter, sort, and click on any product to see its full details.
-  </p>
-  <h4>How to Use It:</h4>
-  <ol>
-    <li>Click <strong>Products</strong> in the left sidebar.</li>
-    <li>Use the search box to find a specific product by name.</li>
-    <li>Use the filters (dropdowns at the top) to narrow by category, manufacturer, or price range.</li>
-    <li>Click any product to open its detail page, where you can see its full price history and competitor matches.</li>
-    <li>To search for competitors for multiple products at once: check the boxes next to the products you want, then click <strong>"Search Competitors"</strong>.</li>
-  </ol>
-</div>
-
-<!-- COMPETITORS -->
-<div class="feature avoid-break">
-  <div class="feature-name">🏪 Competitors — Track Other Stores</div>
-  <div class="feature-tagline">Keep an eye on who's selling what you sell</div>
-  <p>
-    This section keeps a list of all the competitor websites the app is watching.
-    You can add new competitors, see how many of their products match yours,
-    and check when the app last looked at their website.
-  </p>
-  <h4>How to Use It:</h4>
-  <ol>
-    <li>Click <strong>Competitors</strong> in the left sidebar.</li>
-    <li>To add a new competitor: type the website address (domain) in the search box and click <strong>"Add Competitor"</strong>.</li>
-    <li>To import many competitors at once: click <strong>"Bulk Import"</strong> and upload a text file with one domain per line.</li>
-    <li>To scan a competitor: click the <strong>Scan</strong> button next to their name.</li>
-    <li>Click a competitor's name to see all the products the app found on their site.</li>
-  </ol>
-</div>
-
-<!-- PRICE COMPARISON -->
-<div class="feature avoid-break">
-  <div class="feature-name">💰 Price Comparison — See Who's Cheaper</div>
-  <div class="feature-tagline">Your prices vs. your competitors' prices, side by side</div>
-  <p>
-    This is one of the most powerful features. It shows a table with your products on the left
-    and your competitors' prices on the right. At a glance, you can see which competitors
-    are selling the same product for less — and by how much.
-  </p>
-  <h4>How to Use It:</h4>
-  <ol>
-    <li>Click <strong>Price Comparison</strong> in the left sidebar.</li>
-    <li>Use the filters to search for a specific product or category.</li>
-    <li>Prices highlighted in <strong>red</strong> or shown as lower mean a competitor is cheaper than you.</li>
-    <li>Click any price to see the source URL and visit that competitor's page.</li>
-  </ol>
 </div>
 
 <!-- SCANS -->
@@ -895,23 +847,6 @@ python stop.py</code></pre>
   </ol>
 </div>
 
-<!-- SOURCE PRODUCTS -->
-<div class="feature avoid-break">
-  <div class="feature-name">📂 Source Products — Browse by Website</div>
-  <div class="feature-tagline">See raw product data from each individual source site</div>
-  <p>
-    While the Products section shows all products merged together,
-    Source Products lets you look at the raw data from each specific website separately.
-    This is useful for checking what the app found on a particular website.
-  </p>
-  <h4>How to Use It:</h4>
-  <ol>
-    <li>Click <strong>Source Products</strong> in the left sidebar.</li>
-    <li>Choose which website you want to browse from the dropdown at the top.</li>
-    <li>You will see all the products the app found on that website, with their prices and details.</li>
-  </ol>
-</div>
-
 <!-- STORE COMPARE -->
 <div class="feature avoid-break">
   <div class="feature-name">🔀 Store Compare — Products Across Your Sites</div>
@@ -919,7 +854,7 @@ python stop.py</code></pre>
   <p>
     If you have products on multiple websites, Store Compare helps you find any
     products that are missing from one site but present on another,
-    and shows you where the same product has different prices across your stores.
+    and shows you where the same product has different prices across your stores. A <strong>Gaps</strong> bar at the top shows how many products each store is missing — click a store’s chip to see just those products.
   </p>
   <h4>How to Use It:</h4>
   <ol>
@@ -953,71 +888,29 @@ python stop.py</code></pre>
 
 <!-- LIVE SYNC -->
 <div class="feature avoid-break">
-  <div class="feature-name">⚡ Live Sync — Real-Time Shopify Updates</div>
-  <div class="feature-tagline">Keep your Shopify store in sync automatically</div>
+  <div class="feature-name">⚡ Live Sync — Push Changes Into a Shopify Store</div>
+  <div class="feature-tagline">Copy product info from one Shopify store into another</div>
   <p>
-    Similar to Shopify Sync but uses Shopify's live API connection for real-time updates.
-    This is the more powerful version that lets you map specific fields
-    (title, price, images, inventory) between your data and your Shopify store.
-    Changes are shown with a risk level (Low, Medium, High) before you confirm.
-    <em>Requires Shopify API credentials in settings.</em>
-  </p>
-</div>
-
-<!-- FIND PRODUCT -->
-<div class="feature avoid-break">
-  <div class="feature-name">🔎 Find Product — Search Your Catalog</div>
-  <div class="feature-tagline">Quickly look up any product in your catalog</div>
-  <p>
-    A fast search tool for finding a specific product in your catalog.
-    Type a description, model number, or keywords and the app will find the closest matches.
-    The results show a <strong>match score</strong> so you know how closely each result matches your search.
+    Live Sync copies product information <strong>from one Shopify store (the source)
+    into another (the destination)</strong>. Only the destination is changed — the
+    source is read-only and never touched. It walks you through five steps:
+    <strong>Set up → Preview → Review &amp; approve → Apply → Done</strong>.
   </p>
   <h4>How to Use It:</h4>
   <ol>
-    <li>Click <strong>Find Product</strong> in the left sidebar.</li>
-    <li>Type what you're looking for in the search box.</li>
-    <li>Adjust the <strong>minimum match score</strong> slider if you're getting too many or too few results.</li>
-    <li>Your past searches are saved in a history list at the bottom.</li>
+    <li><strong>Set up:</strong> pick a Source store and a Destination store. Tick the
+    fields to copy (Title, Description, Vendor, Product Type, Tags, Variants &amp; Pricing,
+    Images, Collections) using the checkbox under each one. Optionally turn on
+    “Include new products” or, carefully, “Include deletes.”</li>
+    <li>Click <strong>“Compare Stores &amp; Preview Changes.”</strong> This only looks —
+    nothing is written yet.</li>
+    <li><strong>Review &amp; approve:</strong> every proposed change shows its old value,
+    new value, and warnings. Filter the list by product characteristic (Title, Images,
+    Tags, and so on). Approve or reject each one, or use the Approve/Reject buttons.</li>
+    <li><strong>Apply:</strong> click “Apply N Approved Change(s).” Only the changes
+    you approved are written to the destination store.</li>
   </ol>
-</div>
-
-<!-- BEAT THIS PRICE -->
-<div class="feature avoid-break">
-  <div class="feature-name">💡 Beat This Price — Find a Cheaper Source</div>
-  <div class="feature-tagline">Can you buy something cheaper from a competitor?</div>
-  <p>
-    You describe a product and give a target price.
-    The app searches the internet to find if any competitors are selling that product below your price.
-    Great for checking if you can find a better deal on something you need to buy or sell.
-  </p>
-  <h4>How to Use It:</h4>
-  <ol>
-    <li>Click <strong>Beat This Price</strong> in the left sidebar.</li>
-    <li>Type a product description and the price you want to beat.</li>
-    <li>Optionally add details like manufacturer, size, or color to narrow down the search.</li>
-    <li>Click <strong>Search</strong> and wait for results.</li>
-    <li>Results show competitor stores and their prices for that product.</li>
-  </ol>
-</div>
-
-<!-- FIND CUSTOMERS -->
-<div class="feature avoid-break">
-  <div class="feature-name">👥 Find Customers — Discover New Business Leads</div>
-  <div class="feature-tagline">Find businesses that might want to buy what you sell</div>
-  <p>
-    This feature searches the internet for businesses in a specific area that might be
-    good customers for your products.
-    You give it a business type, a city or region, and it finds matching businesses.
-  </p>
-  <h4>How to Use It:</h4>
-  <ol>
-    <li>Click <strong>Find Customers</strong> in the left sidebar.</li>
-    <li>Enter the type of business you are looking for (e.g., "bakery" or "café").</li>
-    <li>Enter a location (city, state, or zip code).</li>
-    <li>Optionally enter website addresses or company names to exclude from results.</li>
-    <li>Click <strong>Search</strong> to get a list of matching businesses.</li>
-  </ol>
+  <p><em>Needs Shopify keys in Settings.</em></p>
 </div>
 
 <!-- SOURCE SYNC -->
@@ -1267,7 +1160,7 @@ and either merge them automatically (high confidence) or flag them for your revi
 
 <div class="warning-box">
   <div class="box-title">⚠️ The App Must Be Running for Scheduled Tasks to Work</div>
-  Scheduled tasks only run while the app's server is running (i.e., while <code>start.py</code> is active).
+  Scheduled tasks only run while the app's server is running (i.e., while <code>start.bat</code> is running).
   If the app is stopped, scheduled tasks will not fire.
   Consider keeping the app running at all times on a dedicated machine or server.
 </div>
@@ -1319,9 +1212,9 @@ and either merge them automatically (high confidence) or flag them for your revi
     <td>Uninstall Python and reinstall it. On the first screen of the installer, check "Add python.exe to PATH" before clicking Install.</td>
   </tr>
   <tr>
-    <td>Browser shows "This site can't be reached" at <code>https://localhost:8743</code></td>
+    <td>Browser shows "This site can't be reached" at <code>https://localhost:8800</code></td>
     <td>The app is not running</td>
-    <td>Open Command Prompt, <code>cd C:\\DonutIntel</code>, and run <code>python start.py</code>. Keep that window open.</td>
+    <td>Open the app folder and double-click <code>start.bat</code>. Keep the black window it opens open.</td>
   </tr>
   <tr>
     <td>Browser shows a security warning (certificate error)</td>
@@ -1341,7 +1234,7 @@ and either merge them automatically (high confidence) or flag them for your revi
   <tr>
     <td>"Address already in use" error when starting</td>
     <td>A previous instance of the app is still running</td>
-    <td>Run <code>python stop.py</code> first, then <code>python start.py</code>.</td>
+    <td>Double-click <code>stop.bat</code> first, then <code>start.bat</code>.</td>
   </tr>
   <tr>
     <td>Login page says "Invalid username or password"</td>
@@ -1354,9 +1247,9 @@ and either merge them automatically (high confidence) or flag them for your revi
     <td>Wait — this step can take 5–10 minutes on a slow connection. If it fails, run <code>python setup_env.py</code> again to resume.</td>
   </tr>
   <tr>
-    <td>Port 8743 is blocked by a firewall or antivirus</td>
+    <td>Port 8800 is blocked by a firewall or antivirus</td>
     <td>Security software blocking the port</td>
-    <td>Add an exception for port 8743 in your Windows Firewall settings, or change the port in <code>config\\settings.yaml</code> under <code>app.port</code>.</td>
+    <td>Add an exception for port 8800 in your Windows Firewall settings, or change the port in <code>config\\settings.yaml</code> under <code>app.port</code>.</td>
   </tr>
 </table>
 
@@ -1410,7 +1303,7 @@ and either merge them automatically (high confidence) or flag them for your revi
   <dd>A secure version of the web. The "S" stands for Secure. When a website address starts with <code>https://</code>, the connection between your browser and the website is encrypted (scrambled) so no one can spy on it.</dd>
 
   <dt>localhost</dt>
-  <dd>A special address that means "this computer." When you visit <code>https://localhost:8743</code>, your browser is connecting to a web server running on your own machine — not the internet.</dd>
+  <dd>A special address that means "this computer." When you visit <code>https://localhost:8800</code>, your browser is connecting to a web server running on your own machine — not the internet.</dd>
 
   <dt>Match Score</dt>
   <dd>A number from 0 to 100% that says how similar two things are. A score of 100% means they are identical. A score of 60% means they are probably the same but with some differences. The app uses match scores to identify duplicate products and competitor price matches.</dd>
@@ -1419,7 +1312,7 @@ and either merge them automatically (high confidence) or flag them for your revi
   <dd>A list of folders that Windows searches when you type a command. When you check "Add Python to PATH" during installation, it tells Windows where to find Python so you can type <code>python</code> in Command Prompt without typing the full path to the program.</dd>
 
   <dt>Port</dt>
-  <dd>Like a door number on a computer. Multiple programs can run at the same time, each listening on a different port number. This app uses port <code>8743</code>, which is why the address ends with <code>:8743</code>.</dd>
+  <dd>Like a door number on a computer. Multiple programs can run at the same time, each listening on a different port number. This app uses port <code>8800</code>, which is why the address ends with <code>:8800</code>.</dd>
 
   <dt>Python</dt>
   <dd>A popular programming language used to build many kinds of software, including this app. It is free and works on all major operating systems.</dd>
@@ -1431,7 +1324,7 @@ and either merge them automatically (high confidence) or flag them for your revi
   <dd>A feature that runs tasks automatically at set times — like an alarm clock for the app.</dd>
 
   <dt>Server</dt>
-  <dd>A program that runs in the background and responds to requests. When you type <code>python start.py</code>, you are starting the app's server. Your browser connects to this server to show you the dashboard.</dd>
+  <dd>A program that runs in the background and responds to requests. When you double-click <code>start.bat</code>, you are starting the app's server. Your browser connects to this server to show you the dashboard.</dd>
 
   <dt>Shopify</dt>
   <dd>A popular e-commerce platform for building online stores. If your store runs on Shopify, this app can connect to it using a Shopify API key to sync product data.</dd>
@@ -1445,7 +1338,7 @@ and either merge them automatically (high confidence) or flag them for your revi
 
 <hr>
 <p style="text-align:center;color:#888;font-size:12px;margin-top:30px;">
-  Donut Intel Platform — Windows Setup &amp; User Guide &nbsp;|&nbsp; Version 2.0<br>
+  Donut Intel Platform — Windows Setup &amp; User Guide &nbsp;|&nbsp; Version 2.1<br>
   For support, check the log files at <code>C:\\DonutIntel\\logs\\donut_intel.log</code>
 </p>
 
