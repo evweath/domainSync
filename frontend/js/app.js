@@ -1029,11 +1029,33 @@ function app() {
       }
     },
 
+    // Map a transaction to a friendly product-characteristic group.
+    liveSyncCharacteristic(txn) {
+      const rt = txn.resource_type;
+      if (rt === 'product') return 'Whole product';
+      if (rt === 'tags') return 'Tags';
+      if (rt === 'image') return 'Images';
+      if (rt === 'variant' || rt === 'variant_field') return 'Variants & pricing';
+      if (rt === 'collection' || rt === 'collection_membership') return 'Collections';
+      if (rt === 'product_field') return (txn.field || 'Other').replace(' (HTML)', '');
+      return 'Other';
+    },
+
+    // Distinct characteristics present in the current diff, for the filter dropdown.
+    liveSyncCharacteristics() {
+      const seen = new Set(this.liveSyncTransactions.map(t => this.liveSyncCharacteristic(t)));
+      return Array.from(seen).sort();
+    },
+
     liveSyncFilteredTransactions() {
       let txns = this.liveSyncTransactions;
       if (this.liveSyncFilter === 'pending') txns = txns.filter(t => t.approved === null);
       else if (this.liveSyncFilter === 'approved') txns = txns.filter(t => t.approved === true);
       else if (this.liveSyncFilter === 'rejected') txns = txns.filter(t => t.approved === false);
+      else if (this.liveSyncFilter.startsWith('char:')) {
+        const c = this.liveSyncFilter.slice(5);
+        txns = txns.filter(t => this.liveSyncCharacteristic(t) === c);
+      }
       else if (['LOW','MEDIUM','HIGH','CRITICAL'].includes(this.liveSyncFilter)) {
         txns = txns.filter(t => t.risk_level === this.liveSyncFilter);
       }

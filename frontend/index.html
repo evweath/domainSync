@@ -1236,15 +1236,18 @@
         <!-- Field selection + options -->
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
           <h3 class="text-sm font-semibold mb-3 text-gray-700 dark:text-gray-200">What to Sync</h3>
-          <div class="flex flex-wrap gap-2 mb-4">
+          <div class="flex flex-wrap gap-x-3 gap-y-2 mb-4">
             <template x-for="f in liveSyncFieldOptions" :key="f.id">
-              <label class="flex items-center gap-1.5 cursor-pointer text-sm px-3 py-1.5 rounded-full border transition"
-                :class="liveSyncFields.includes(f.id) ? 'bg-indigo-500 text-white border-indigo-500' : 'bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-indigo-400'">
-                <input type="checkbox" :value="f.id" class="hidden"
+              <div class="flex flex-col items-center gap-1.5">
+                <button type="button"
+                  @click="liveSyncFields.includes(f.id) ? liveSyncFields.splice(liveSyncFields.indexOf(f.id), 1) : liveSyncFields.push(f.id)"
+                  class="text-sm px-3 py-1.5 rounded-full border transition"
+                  :class="liveSyncFields.includes(f.id) ? 'bg-indigo-500 text-white border-indigo-500' : 'bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-indigo-400'"
+                  x-text="f.label"></button>
+                <input type="checkbox" :value="f.id" class="w-4 h-4 accent-indigo-500 cursor-pointer"
                   :checked="liveSyncFields.includes(f.id)"
                   @change="liveSyncFields.includes(f.id) ? liveSyncFields.splice(liveSyncFields.indexOf(f.id), 1) : liveSyncFields.push(f.id)" />
-                <span x-text="f.label"></span>
-              </label>
+              </div>
             </template>
           </div>
           <div class="flex flex-wrap gap-4 text-sm">
@@ -1365,10 +1368,11 @@
             <option value="pending">Pending only</option>
             <option value="approved">Approved only</option>
             <option value="rejected">Rejected only</option>
-            <option value="LOW">LOW risk</option>
-            <option value="MEDIUM">MEDIUM risk</option>
-            <option value="HIGH">HIGH risk</option>
-            <option value="CRITICAL">CRITICAL risk</option>
+            <optgroup label="By product characteristic">
+              <template x-for="c in liveSyncCharacteristics()" :key="c">
+                <option :value="'char:' + c" x-text="c"></option>
+              </template>
+            </optgroup>
           </select>
           <input x-model="liveSyncSearch" type="text" placeholder="Search by product title, handle, or field…"
             class="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100" />
