@@ -23,3 +23,8 @@ exports/
 
 # Local config with secrets (API keys, credentials)
 config/settings.yaml
+
+# Generated Windows distribution artifacts (rebuild via create_windows_package.py)
+DonutIntel-Windows.zip
+WINDOWS-SETUP-GUIDE.pdf
+_guide_tmp.html
