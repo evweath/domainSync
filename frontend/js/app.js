@@ -5,10 +5,8 @@
 
 function app() {
   return {
-    // Auth
-    authenticated: false,
-    loginForm: { username: 'admin', password: '' },
-    loginError: '',
+    // Auth (login removed — always authenticated)
+    authenticated: true,
 
     // UI state
     darkMode: localStorage.getItem('darkMode') === 'true',
@@ -98,6 +96,8 @@ function app() {
     liveSyncExecuting: false,
     liveSyncResults: null,
     liveSyncShowDisableWarning: false,
+    liveSyncChangeLog: [],        // applied changes: {time, domain, status, text, error}
+    liveSyncCollapsedGroups: {},  // collection group name -> collapsed?
 
     // Shopify Sync (CSV export — existing)
     shopifySyncConfig: { attribute_groups: [], source_sites: [] },
@@ -172,8 +172,7 @@ function app() {
     // -----------------------------------------------------------------------
     async init() {
       this.$watch('darkMode', v => localStorage.setItem('darkMode', v));
-      await this.checkAuth();
-      if (this.authenticated) await this.postLoginInit();
+      await this.postLoginInit();
     },
 
     async postLoginInit() {
@@ -326,37 +325,6 @@ function app() {
     // -----------------------------------------------------------------------
     // Auth
     // -----------------------------------------------------------------------
-    async checkAuth() {
-      try {
-        const r = await fetch('/api/auth/status');
-        const d = await r.json();
-        if (d.authenticated || !d.auth_enabled) this.authenticated = true;
-      } catch {}
-    },
-
-    async doLogin() {
-      this.loginError = '';
-      try {
-        const r = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(this.loginForm),
-        });
-        if (r.ok) {
-          this.authenticated = true;
-          await this.postLoginInit();
-        } else {
-          this.loginError = (await r.json()).detail || 'Invalid credentials';
-        }
-      } catch { this.loginError = 'Could not reach server.'; }
-    },
-
-    async doLogout() {
-      await fetch('/api/auth/logout', { method: 'POST' });
-      this.authenticated = false;
-      if (this.ws) this.ws.close();
-    },
-
     // -----------------------------------------------------------------------
     // Toasts
     // -----------------------------------------------------------------------
@@ -388,7 +356,7 @@ function app() {
           await new Promise(res => setTimeout(res, 200));
         }
       }
-      if (r.status === 401) { this.authenticated = false; return null; }
+      if (r.status === 401) { return null; }  // login removed — never bounce to a login screen
       if (!r.ok) {
         let msg = `HTTP ${r.status}`;
         try { msg = (await r.json()).detail || msg; } catch {}
@@ -1117,6 +1085,7 @@ function app() {
           }),
         });
         this.liveSyncResults = result;
+        this._liveSyncLogRun(result);
         this.liveSyncStep = 'done';
       } catch (e) {
         this.liveSyncStep = 'review';
@@ -1142,6 +1111,80 @@ function app() {
         'HIGH':     'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300',
         'CRITICAL': 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300',
       }[risk] || '';
+    },
+
+    // A transaction that creates a brand-new collection in the destination.
+    _isCollectionCreate(t) {
+      return t.action === 'CREATE' && t.resource_type === 'collection';
+    },
+
+    _collectionNameOf(t) {
+      return (t.meta && t.meta.collection_title) || t.new_value || '(unnamed)';
+    },
+
+    // Group new-collection transactions (from the currently filtered set) by
+    // collection name so they can be shown as one expandable/collapsible block.
+    liveSyncCollectionGroups() {
+      const groups = {};
+      for (const t of this.liveSyncFilteredTransactions()) {
+        if (!this._isCollectionCreate(t)) continue;
+        const name = this._collectionNameOf(t);
+        (groups[name] = groups[name] || []).push(t);
+      }
+      return Object.keys(groups).map(name => ({ name, key: name, txns: groups[name] }));
+    },
+
+    // Everything except the grouped collection creations (rendered as a flat list).
+    liveSyncNonCollectionTransactions() {
+      return this.liveSyncFilteredTransactions().filter(t => !this._isCollectionCreate(t));
+    },
+
+    liveSyncToggleGroup(name) {
+      this.liveSyncCollapsedGroups = { ...this.liveSyncCollapsedGroups, [name]: !this.liveSyncCollapsedGroups[name] };
+    },
+
+    liveSyncGroupSet(grp, approve) {
+      const ids = new Set(grp.txns.map(t => t.id));
+      this.liveSyncTransactions.forEach(t => { if (ids.has(t.id)) t.approved = approve; });
+      this.liveSyncTransactions = [...this.liveSyncTransactions];
+    },
+
+    // Rename the collection that will be written to the destination store. Updates
+    // every transaction in the group so the executor creates it under the new name.
+    liveSyncRenameCollection(oldName, newName) {
+      newName = (newName || '').trim();
+      if (!newName || newName === oldName) return;
+      for (const t of this.liveSyncTransactions) {
+        if (this._isCollectionCreate(t) && this._collectionNameOf(t) === oldName) {
+          t.new_value = newName;
+          t.meta = { ...(t.meta || {}), collection_title: newName };
+        }
+      }
+      if (oldName in this.liveSyncCollapsedGroups) {
+        this.liveSyncCollapsedGroups[newName] = this.liveSyncCollapsedGroups[oldName];
+        delete this.liveSyncCollapsedGroups[oldName];
+      }
+      this.liveSyncTransactions = [...this.liveSyncTransactions];
+      this.toast(`Collection will be created as "${newName}"`, 'success', 2500);
+    },
+
+    // Append the results of an execute run to the change log (newest first).
+    _liveSyncLogRun(result) {
+      const byId = {};
+      this.liveSyncTransactions.forEach(t => { byId[t.id] = t; });
+      const stamp = new Date().toLocaleString();
+      const entries = (result?.results || []).map(r => {
+        const t = byId[r.id] || {};
+        const field = t.field && t.field !== '*' ? ` (${t.field})` : '';
+        return {
+          time: stamp,
+          domain: this.liveSyncDest,
+          status: r.status,
+          text: `${(t.action || '').toUpperCase()} ${(t.resource_type || '').replace('_', ' ')} — ${t.title || ''}${field}`,
+          error: r.error || '',
+        };
+      });
+      this.liveSyncChangeLog = [...entries, ...this.liveSyncChangeLog].slice(0, 300);
     },
 
     // -----------------------------------------------------------------------

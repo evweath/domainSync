@@ -319,6 +319,13 @@ class ShopifyClient:
     async def remove_from_collection(self, collect_id: int) -> None:
         await self._delete(f"/collects/{collect_id}.json")
 
+    async def create_custom_collection(self, title: str) -> Dict:
+        """Create an empty custom collection with the given title."""
+        result = await self._post("/custom_collections.json", {
+            "custom_collection": {"title": title}
+        })
+        return result.get("custom_collection", {})
+
     # -----------------------------------------------------------------------
     # Metafields
     # -----------------------------------------------------------------------

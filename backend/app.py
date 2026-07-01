@@ -124,7 +124,9 @@ app.add_middleware(
 # Auth middleware (F38)
 # ---------------------------------------------------------------------------
 
-AUTH_ENABLED = config.get("auth", "enabled", default=True)
+# Login removed — auth enforcement disabled (the middleware below short-circuits
+# and /api/auth/status reports auth_enabled=false so the frontend loads straight in).
+AUTH_ENABLED = False
 _AUTH_USERNAME = config.get("auth", "username", default="admin")
 _AUTH_PASSWORD = config.get("auth", "password", default="changeme")
 

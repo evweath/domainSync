@@ -24,6 +24,9 @@ async def execute_transactions(
     """
     approved = [t for t in transactions if t.get("approved") is True]
     results = []
+    # Multiple product transactions can reference the same new collection name;
+    # create each distinct collection only once per run.
+    created_collections: set = set()
 
     async with ShopifyClient(dest_store_url, dest_access_token) as client:
         for txn in approved:
@@ -37,6 +40,19 @@ async def execute_transactions(
                 if action == "CREATE" and rtype == "product":
                     src = meta.get("source_product", {})
                     await client.create_product(_strip_ids(src))
+
+                elif action == "CREATE" and rtype == "collection":
+                    # Collection name is editable in the UI — write whatever the
+                    # transaction now carries (meta.collection_title / new_value).
+                    title = (meta.get("collection_title") or txn.get("new_value") or "").strip()
+                    if not title:
+                        result["status"] = "skipped"
+                        result["error"] = "No collection title"
+                    elif title.lower() in created_collections:
+                        pass  # already created this collection earlier in the run
+                    else:
+                        await client.create_custom_collection(title)
+                        created_collections.add(title.lower())
 
                 elif action == "CREATE" and rtype == "variant":
                     if pid:

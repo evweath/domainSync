@@ -14,23 +14,8 @@
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-200">
 
-<!-- Login Screen -->
-<div x-show="!authenticated" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-400 to-orange-500">
-  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 w-full max-w-md">
-    <div class="text-center mb-6">
-      <div class="text-5xl mb-2">🍩</div>
-      <h1 class="text-2xl font-bold text-gray-800 dark:text-white">domainSync</h1>
-      <p class="text-gray-500 text-sm mt-1">Product Intelligence Dashboard</p>
-    </div>
-    <div x-show="loginError" class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm" x-text="loginError"></div>
-    <input x-model="loginForm.username" type="text" placeholder="Username" class="w-full border rounded-lg px-4 py-3 mb-3 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:bg-gray-700 dark:border-gray-600" @keyup.enter="doLogin()" />
-    <input x-model="loginForm.password" type="password" placeholder="Password" class="w-full border rounded-lg px-4 py-3 mb-4 focus:outline-none focus:ring-2 focus:ring-orange-400 dark:bg-gray-700 dark:border-gray-600" @keyup.enter="doLogin()" />
-    <button @click="doLogin()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition">Sign In</button>
-  </div>
-</div>
-
-<!-- Main App -->
-<div x-show="authenticated" class="flex h-screen overflow-hidden">
+<!-- Main App (login removed) -->
+<div class="flex h-screen overflow-hidden">
 
   <!-- Sidebar -->
   <aside class="w-64 bg-gray-900 dark:bg-gray-950 flex-shrink-0 flex flex-col shadow-xl">
@@ -70,7 +55,6 @@
         <button @click="darkMode = !darkMode" class="text-gray-400 hover:text-white transition text-lg">
           <span x-text="darkMode ? '☀️' : '🌙'"></span>
         </button>
-        <button @click="doLogout()" class="text-gray-400 hover:text-red-400 transition text-xs">Sign Out</button>
       </div>
     </div>
   </aside>
@@ -1143,6 +1127,31 @@
         </div>
       </div>
 
+      <!-- ── Change log: what changes were made to which domain ── -->
+      <div class="mb-4 bg-gray-900 rounded-xl shadow overflow-hidden border border-gray-700">
+        <div class="flex items-center justify-between px-3 py-1.5 bg-gray-800 border-b border-gray-700">
+          <span class="text-xs font-semibold text-gray-200">📝 Change Log — applied changes by destination domain</span>
+          <button x-show="liveSyncChangeLog.length" @click="liveSyncChangeLog = []"
+            class="text-xs text-gray-400 hover:text-white transition">Clear</button>
+        </div>
+        <div class="overflow-y-auto font-mono text-xs px-3 py-2 space-y-0.5" style="height: 2in;">
+          <template x-if="liveSyncChangeLog.length === 0">
+            <div class="text-gray-500 italic">No changes applied yet. Once you apply approved changes, each one is logged here with the destination domain it was written to.</div>
+          </template>
+          <template x-for="(e, ei) in liveSyncChangeLog" :key="ei">
+            <div class="flex items-start gap-2">
+              <span class="text-gray-500 flex-shrink-0" x-text="e.time"></span>
+              <span class="flex-shrink-0"
+                :class="e.status === 'ok' ? 'text-green-400' : e.status === 'error' ? 'text-red-400' : 'text-yellow-400'"
+                x-text="e.status === 'ok' ? '✓' : e.status === 'error' ? '✗' : '•'"></span>
+              <span class="text-orange-300 flex-shrink-0" x-text="e.domain"></span>
+              <span class="text-gray-200 truncate" x-text="e.text"></span>
+              <span x-show="e.error" class="text-red-400 truncate" x-text="'— ' + e.error"></span>
+            </div>
+          </template>
+        </div>
+      </div>
+
       <!-- ── Plain-language overview (Set up step) ── -->
       <div x-show="liveSyncStep === 'configure'" class="mb-4 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800 rounded-xl p-4">
         <div class="flex items-start gap-3">
@@ -1361,6 +1370,16 @@
           </div>
         </div>
 
+        <!-- Apply bar (top) — mirrors the purple Apply button at the bottom of the page -->
+        <div class="flex items-center justify-end">
+          <button @click="runLiveExecute()"
+            :disabled="liveSyncApprovedCount() === 0 || liveSyncExecuting"
+            :title="'Write the ' + liveSyncApprovedCount() + ' approved change(s) to ' + liveSyncDest + ' via the Shopify Admin API'"
+            class="bg-indigo-500 hover:bg-indigo-600 disabled:opacity-40 text-white font-medium px-6 py-2 rounded-xl text-sm transition">
+            Apply <span x-text="liveSyncApprovedCount()"></span> Approved Change(s) to <span x-text="liveSyncShortSite(liveSyncDest)"></span> →
+          </button>
+        </div>
+
         <!-- Filter + search -->
         <div class="flex gap-3">
           <select x-model="liveSyncFilter" class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
@@ -1380,7 +1399,50 @@
 
         <!-- Transaction list -->
         <div class="space-y-2 max-h-[60vh] overflow-y-auto pr-1">
-          <template x-for="txn in liveSyncFilteredTransactions()" :key="txn.id">
+          <!-- New collections to be created in the destination, grouped by name (expand/collapse) -->
+          <template x-for="grp in liveSyncCollectionGroups()" :key="grp.key">
+            <div class="rounded-xl border border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-900/20">
+              <!-- Group header -->
+              <div class="flex items-center gap-2 p-3">
+                <button @click="liveSyncToggleGroup(grp.name)"
+                  class="flex-shrink-0 w-6 h-6 flex items-center justify-center text-indigo-500 hover:text-indigo-700 text-xs"
+                  :title="liveSyncCollapsedGroups[grp.name] ? 'Expand' : 'Collapse'">
+                  <span x-text="liveSyncCollapsedGroups[grp.name] ? '▶' : '▼'"></span>
+                </button>
+                <span class="text-lg leading-none">📁</span>
+                <span class="text-xs font-semibold text-indigo-700 dark:text-indigo-300 uppercase tracking-wide flex-shrink-0">New collection</span>
+                <input type="text" :value="grp.name"
+                  @change="liveSyncRenameCollection(grp.name, $event.target.value)"
+                  @click.stop @keydown.enter="$event.target.blur()"
+                  class="flex-1 min-w-0 border border-indigo-300 dark:border-indigo-700 rounded-lg px-2 py-1 text-sm font-medium bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                  title="Edit the collection name that will be created in the destination store" />
+                <span class="text-xs text-gray-500 flex-shrink-0" x-text="grp.txns.length + ' product(s)'"></span>
+                <button @click.stop="liveSyncGroupSet(grp, true)"
+                  class="flex-shrink-0 bg-green-500 hover:bg-green-600 text-white text-xs font-medium px-2 py-1 rounded transition">✓ all</button>
+                <button @click.stop="liveSyncGroupSet(grp, false)"
+                  class="flex-shrink-0 bg-gray-200 dark:bg-gray-700 hover:bg-red-100 text-gray-600 dark:text-gray-300 hover:text-red-600 text-xs font-medium px-2 py-1 rounded transition">✗ all</button>
+              </div>
+              <!-- Group members -->
+              <div x-show="!liveSyncCollapsedGroups[grp.name]" class="px-3 pb-3 space-y-1.5">
+                <template x-for="txn in grp.txns" :key="txn.id">
+                  <div class="flex items-center gap-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-2"
+                    :class="txn.approved === true ? 'opacity-100' : txn.approved === false ? 'opacity-50' : ''">
+                    <button @click="liveSyncToggle(txn.id)"
+                      class="flex-shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center text-xs font-bold transition"
+                      :class="txn.approved === true ? 'bg-green-500 border-green-500 text-white' : txn.approved === false ? 'bg-gray-200 dark:bg-gray-700 border-gray-300 text-gray-400 line-through' : 'border-gray-300 dark:border-gray-600 text-gray-400 hover:border-green-400 hover:text-green-500'">
+                      <span x-show="txn.approved === true">✓</span>
+                      <span x-show="txn.approved === false">✗</span>
+                      <span x-show="txn.approved === null">?</span>
+                    </button>
+                    <span class="text-sm text-gray-900 dark:text-gray-100 truncate flex-1" x-text="txn.title"></span>
+                    <span class="text-xs text-gray-400 flex-shrink-0">will be added to this collection</span>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </template>
+
+          <template x-for="txn in liveSyncNonCollectionTransactions()" :key="txn.id">
             <div class="rounded-xl border p-3 transition"
               :class="[liveSyncRiskClass(txn.risk_level), txn.approved === true ? 'opacity-100' : txn.approved === false ? 'opacity-50' : '']">
               <div class="flex items-start gap-3">
@@ -3135,6 +3197,6 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260605-01"></script>
+<script src="/static/js/app.js?v=20260701-livesync"></script>
 </body>
 </html>
