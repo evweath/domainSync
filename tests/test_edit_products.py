@@ -77,7 +77,6 @@ def test_project_snapshot_one_row_per_variant():
     assert a_small["description"] == "Great widget ."  # HTML stripped
     assert a_small["variant_title"] == "Small"
     assert a_small["url"] == "https://shop.example/products/widget-a"
-    assert a_small["country_of_origin"] is None    # not in Shopify objects
     # Every row carries every declared column.
     for col in ep.COLUMNS:
         assert col in a_small
@@ -162,8 +161,7 @@ def db_session(tmp_path, monkeypatch):
 
     with session_scope() as db:
         db.add(Product(canonical_title="Canon Widget", manufacturer="Acme",
-                       category="Tools", weight=3.0, country_of_origin="USA",
-                       is_active=True))
+                       category="Tools", weight=3.0, is_active=True))
         db.flush()
         db.add(ProductSource(product_id=1, source_site="db-store.com",
                              source_url="https://db-store.com/p/1",
@@ -190,7 +188,6 @@ def test_project_db_fallback(db_session):
     assert row["price"] == 47.0                 # 42 + 5 modifier
     assert row["tags"] == ["clearance"]
     assert row["weight"] == 3.0                 # from canonical Product
-    assert row["country_of_origin"] == "USA"
     assert row["variant_title"] == "Size / XL"
     for col in ep.COLUMNS:
         assert col in row
@@ -252,6 +249,26 @@ def test_build_edit_transactions_blocks_db_rows():
     assert item["pushable"] is False
     assert item["txn"] is None
     assert "scan" in item["reason"].lower()
+
+
+def test_build_edit_transactions_collections_add_remove():
+    ch = {"store": "s.com", "data_source": "scan", "product_id": "111", "variant_id": "42",
+          "field": "collections", "scope": "product", "old": ["A", "B"], "new": ["B", "C", "D"]}
+    item = ep.build_edit_transactions([ch])[0]
+    assert item["pushable"] is True
+    assert item["txn"]["resource_type"] == "collections"
+    assert item["txn"]["product_id"] == 111
+    assert item["txn"]["meta"]["add"] == ["C", "D"]
+    assert item["txn"]["meta"]["remove"] == ["A"]
+
+
+def test_build_edit_transactions_category_not_pushed():
+    ch = {"store": "s.com", "data_source": "scan", "product_id": "111", "variant_id": "42",
+          "field": "category", "scope": "product", "old": "", "new": "Fryers"}
+    item = ep.build_edit_transactions([ch])[0]
+    assert item["pushable"] is False       # Shopify taxonomy Category not writable here
+    assert item["txn"] is None
+    assert "category" in item["reason"].lower()
 
 
 @pytest.fixture

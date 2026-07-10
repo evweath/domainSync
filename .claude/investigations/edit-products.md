@@ -92,6 +92,49 @@ resizable/sortable grid. Designed for mass/bulk edits across one or many stores.
   Only scan-sourced rows are pushable (real Shopify ids); DB-sourced changes are
   marked blocked ("rescan to push").
 
+## Taxonomy editing (Product Type / Category / Collections)
+
+- **Columns:** `product_type` (labelled "Product Type") and new `category` column.
+  Category is blank on scan rows — Shopify's taxonomy Category is NOT in the
+  snapshots (confirmed: product objects have no `category` key) and isn't a REST
+  writable field. DB-fallback rows get category from `Product.category`.
+- **Suggestion pools:** `edit_products.taxonomy_pools(db)` (route
+  `GET /api/edit-products/taxonomy`) returns existing product types (DB
+  `source_category` + all snapshot `product_type`s), categories (DB
+  `Product.category`), and collections (all snapshot collection titles). Wired to
+  `<datalist>`s so inline + bulk edits autocomplete existing values OR accept a
+  brand-new one.
+- **Editable + scope:** product_type/category = product-scope text; collections =
+  product-scope list (comma, like tags).
+- **Bulk modes for list fields:** collections/tags support **Add / Remove / Set**
+  (`editBulkMode`) — Add/Remove merge into each row's OWN current list; Set
+  replaces. Other fields just set.
+- **Push mapping (`build_edit_transactions`):**
+  - product_type → `product_field` (pushes).
+  - collections → ONE `collections` transaction per product with `meta.add` /
+    `meta.remove` (title diff). Executor handler resolves/creates collections for
+    adds and finds+deletes the collect for removes (custom collections only;
+    smart collections are rule-based and skipped).
+  - category → **pushable=false**, reason "Shopify Category needs a rescan +
+    GraphQL write — staged, not pushed." (No REST field; would need a scanner
+    change to capture the taxonomy node + a GraphQL `productUpdate(category:)`
+    write + a taxonomy picker. Follow-up.)
+
+## Editor UX (columns, pickers, widths)
+
+- **Free-form OR select:** every taxonomy field can be typed free-form (datalist
+  autocomplete inline; text box in the bulk bar) OR chosen from a "Select
+  existing" checkbox picker in the bulk bar (`editBulkPool`/`editBulkTogglePick`)
+  — multi-select for list fields (collections/tags), single-select for
+  type/category.
+- **Column show/hide:** "Columns" chooser (`editColVisible`, persisted to
+  localStorage; grid loops over `editVisibleColumns()`). Toggling re-wires the
+  resizable grid (`_wireEditGrid` resets table-layout + pinned widths so grip
+  indices realign).
+- **Long-column default width:** `editLongCols` (currently `['description']`)
+  render inside `.edit-col-long` (`max-width: 30ch` + ellipsis, full text in the
+  `title` tooltip) — ~30-character default. Title is intentionally NOT capped.
+
 ## Gotchas / notes
 
 - ~5,500 variant rows across the 2 scan stores; filtering/sorting is done in

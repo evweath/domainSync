@@ -23,7 +23,7 @@
       <span class="text-2xl">🍩</span>
       <div>
         <div class="font-bold text-white text-sm">domainSync</div>
-        <div class="text-gray-400 text-xs">Platform v1.0</div>
+        <div class="text-gray-400 text-xs">Platform v3.0</div>
       </div>
     </div>
 
@@ -1108,14 +1108,14 @@
     </div>
 
     <!-- ===== EDIT PRODUCTS VIEW ===== -->
-    <div x-show="currentView === 'edit-products'" class="p-6" x-cloak>
-      <div class="mb-4">
+    <div x-show="currentView === 'edit-products'" class="p-6 flex flex-col h-screen overflow-hidden" x-cloak>
+      <div class="mb-4 flex-shrink-0">
         <h2 class="text-2xl font-bold mb-1">✏️ Edit Products</h2>
         <p class="text-sm text-gray-500 dark:text-gray-400">Every product from the most recent store scan, one row per variant. Search by any attribute, then bulk-edit across stores. Columns are sortable (click a header) and resizable (drag the divider).</p>
       </div>
 
       <!-- Search / filter panel -->
-      <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 mb-4 space-y-3">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 mb-4 space-y-3 flex-shrink-0">
         <!-- Store selector -->
         <div class="flex flex-wrap items-center gap-2 pb-1 border-b border-gray-100 dark:border-gray-700">
           <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Stores:</span>
@@ -1136,7 +1136,7 @@
         </div>
 
         <!-- Global search + controls -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-3">
           <input x-model="editFilters.search" @input.debounce.400ms="loadEditProducts(1)" type="text"
             placeholder="Search any attribute — title, SKU, tags, collections, description…"
             class="col-span-2 border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
@@ -1144,6 +1144,23 @@
             class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 flex items-center justify-center gap-1">
             <span x-text="editShowFilters ? '▼' : '▶'"></span> Attribute filters
           </button>
+          <!-- Column chooser (add/remove columns) -->
+          <div class="relative" @click.outside="editColChooserOpen = false">
+            <button @click="editColChooserOpen = !editColChooserOpen"
+              class="w-full border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 flex items-center justify-center gap-1">
+              <span>▤</span> Columns <span class="text-xs text-gray-400" x-text="'(' + editVisibleColumns().length + '/' + (editData.columns||[]).length + ')'"></span>
+            </button>
+            <div x-show="editColChooserOpen" x-cloak
+              class="absolute z-30 mt-1 right-0 w-56 max-h-80 overflow-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-xl p-2">
+              <div class="text-xs text-gray-400 px-1 pb-1">Show columns</div>
+              <template x-for="col in (editData.columns||[])" :key="col">
+                <label class="flex items-center gap-2 px-1 py-1 text-sm rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                  <input type="checkbox" :checked="editColVisible[col] !== false" @change="editToggleColumn(col)" class="w-4 h-4 accent-orange-500" />
+                  <span x-text="editColLabels[col] || col"></span>
+                </label>
+              </template>
+            </div>
+          </div>
           <select x-model="editFilters.per_page" @change="loadEditProducts(1)"
             class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
             <option value="25">25 / page</option>
@@ -1213,24 +1230,54 @@
 
       <!-- Bulk edit bar -->
       <div x-show="editSelectedCount() > 0" x-cloak
-        class="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl p-3 mb-3 flex flex-wrap items-center gap-2">
+        class="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl p-3 mb-3 flex flex-wrap items-center gap-2 flex-shrink-0">
         <span class="text-sm font-semibold text-orange-800 dark:text-orange-300" x-text="editSelectedCount() + ' row' + (editSelectedCount() === 1 ? '' : 's') + ' selected'"></span>
-        <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">Set</span>
         <select x-model="editBulkField" @change="editBulkFieldChanged()"
           class="border rounded-lg px-2 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
           <option value="">field…</option>
           <template x-for="f in editBulkFields()" :key="f"><option :value="f" x-text="editColLabels[f] || f"></option></template>
         </select>
-        <span class="text-xs text-gray-500 dark:text-gray-400">to</span>
+        <!-- List fields (collections/tags) support add / remove / replace -->
+        <template x-if="editBulkIsList()">
+          <select x-model="editBulkMode" class="border rounded-lg px-2 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+            <option value="add">Add</option>
+            <option value="remove">Remove</option>
+            <option value="set">Set (replace)</option>
+          </select>
+        </template>
+        <span class="text-xs text-gray-500 dark:text-gray-400" x-text="editBulkIsList() ? '↔' : 'to'"></span>
         <template x-if="editBulkField && editColType[editBulkField] === 'select'">
           <select x-model="editBulkValue" class="border rounded-lg px-2 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
             <template x-for="opt in editSelectOptions(editBulkField)" :key="opt"><option :value="opt" x-text="opt"></option></template>
           </select>
         </template>
         <template x-if="editBulkField && editColType[editBulkField] !== 'select'">
-          <input x-model="editBulkValue" :type="editColType[editBulkField] === 'number' ? 'number' : 'text'" step="0.01"
-            :placeholder="editColType[editBulkField] === 'tags' ? 'tag1, tag2, …' : 'new value'"
+          <input x-model="editBulkValue" :type="editColType[editBulkField] === 'number' ? 'number' : 'text'" step="0.01" :list="editListId(editBulkField)"
+            :placeholder="editColType[editBulkField] === 'tags' ? 'type free-form (comma-separated)…' : 'type free-form…'"
             class="border rounded-lg px-2 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+        </template>
+        <!-- OR select one/more existing values -->
+        <template x-if="editBulkHasPicker()">
+          <div class="relative" @click.outside="editBulkPickerOpen = false">
+            <button @click="editBulkPickerOpen = !editBulkPickerOpen"
+              class="border rounded-lg px-2 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 flex items-center gap-1">
+              <span>Select existing</span> <span class="text-xs">▾</span>
+            </button>
+            <div x-show="editBulkPickerOpen" x-cloak
+              class="absolute z-30 mt-1 left-0 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-xl p-2">
+              <input x-model="editBulkPickerSearch" type="text" placeholder="Filter…"
+                class="w-full border rounded px-2 py-1 text-xs mb-1 dark:bg-gray-700 dark:border-gray-600 focus:outline-none" />
+              <div class="max-h-56 overflow-auto">
+                <template x-for="v in editBulkPickerFiltered()" :key="v">
+                  <label class="flex items-center gap-2 px-1 py-1 text-sm rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                    <input type="checkbox" :checked="editBulkIsPicked(v)" @change="editBulkTogglePick(v)" class="w-4 h-4 accent-orange-500" />
+                    <span class="truncate" x-text="v"></span>
+                  </label>
+                </template>
+                <div x-show="editBulkPickerFiltered().length === 0" class="text-xs text-gray-400 px-1 py-2">No matches</div>
+              </div>
+            </div>
+          </div>
         </template>
         <button @click="editBulkApply()" :disabled="!editBulkField"
           class="px-3 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium disabled:opacity-40">Apply to selected</button>
@@ -1238,15 +1285,23 @@
         <button @click="editClearSelection()" class="text-sm text-blue-500 hover:underline ml-auto">Clear selection</button>
       </div>
 
+      <!-- Suggestion pools (existing values from the DB + all scans) for datalists -->
+      <datalist id="edit-pool-types"><template x-for="v in editPools.product_types" :key="v"><option :value="v"></option></template></datalist>
+      <datalist id="edit-pool-categories"><template x-for="v in editPools.categories" :key="v"><option :value="v"></option></template></datalist>
+      <datalist id="edit-pool-collections"><template x-for="v in editPools.collections" :key="v"><option :value="v"></option></template></datalist>
+
       <!-- Empty state -->
       <div x-show="!editLoading && editData.rows.length === 0" class="bg-white dark:bg-gray-800 rounded-xl shadow p-12 text-center text-gray-400">
         <div class="text-4xl mb-2">✏️</div>
         <div x-text="editSelectedStores().length === 0 ? 'Select at least one store above.' : 'No products match your search or filters.'"></div>
       </div>
 
-      <!-- Horizontal editable grid -->
-      <div x-show="editData.rows.length > 0" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden flex flex-col" style="max-height: calc(100vh - 270px)">
-        <div class="overflow-auto flex-1 min-h-0">
+      <!-- Horizontal editable grid. flex-1 makes it fill all remaining vertical
+           space so the scroll viewport always reaches the bottom of the screen —
+           the horizontal scrollbar stays pinned at the bottom and the vertical
+           scrollbar at the right, regardless of how many rows are shown. -->
+      <div x-show="editData.rows.length > 0" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden flex flex-col flex-1 min-h-0">
+        <div class="edit-grid-scroll flex-1 min-h-0">
           <table class="text-xs border-collapse" style="min-width: max-content">
             <thead class="sticky top-0 z-10 bg-gray-100 dark:bg-gray-700">
               <tr>
@@ -1254,7 +1309,7 @@
                   <input type="checkbox" :checked="editAllOnPageSelected()" @change="editToggleAllOnPage($event.target.checked)" class="w-4 h-4 accent-orange-500" />
                 </th>
                 <th class="px-2 py-2 w-12 text-left font-semibold text-gray-500 dark:text-gray-300 bg-gray-100 dark:bg-gray-700">Img</th>
-                <template x-for="col in editData.columns" :key="col">
+                <template x-for="col in editVisibleColumns()" :key="col">
                   <th @click="editSort(col)"
                     class="px-2 py-2 text-left font-semibold text-gray-600 dark:text-gray-200 whitespace-nowrap cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 bg-gray-100 dark:bg-gray-700 select-none">
                     <span x-text="editColLabels[col] || col"></span>
@@ -1278,7 +1333,7 @@
                       <span class="text-gray-300">—</span>
                     </template>
                   </td>
-                  <template x-for="col in editData.columns" :key="col">
+                  <template x-for="col in editVisibleColumns()" :key="col">
                     <td @click="editIsEditable(col) && editActiveCell !== editCellKey(row,col) && editStartCell(row, col)"
                       class="px-2 py-1.5 whitespace-nowrap"
                       :class="[editNumericCol(col) ? 'text-right tabular-nums' : '',
@@ -1296,7 +1351,7 @@
                             </select>
                           </template>
                           <template x-if="editColType[col] !== 'select'">
-                            <input id="editcell-input" :type="editColType[col] === 'number' ? 'number' : 'text'" step="0.01" x-model="editDraft"
+                            <input id="editcell-input" :type="editColType[col] === 'number' ? 'number' : 'text'" step="0.01" x-model="editDraft" :list="editListId(col)"
                               @keydown.enter.prevent="editCommitCell(row,col)" @blur="editCommitCell(row,col)" @keydown.escape.stop="editCancelCell()"
                               class="w-full min-w-[70px] border border-orange-400 rounded px-1 py-0.5 text-xs dark:bg-gray-700 focus:outline-none" />
                           </template>
@@ -1319,7 +1374,8 @@
                             </span>
                           </template>
                           <template x-if="!['title','data_source','store'].includes(col)">
-                            <span :class="col === 'description' ? 'text-gray-500 dark:text-gray-400' : ''"
+                            <span :class="[col === 'description' ? 'text-gray-500 dark:text-gray-400' : '', editIsLongCol(col) ? 'edit-col-long' : '']"
+                              :title="editIsLongCol(col) ? editDisplay(row, col) : ''"
                               x-text="editDisplay(row, col) || (editIsEditable(col) ? '—' : '')"></span>
                           </template>
                         </span>

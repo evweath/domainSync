@@ -640,6 +640,13 @@ def edit_products_stores(db: Session = Depends(get_db_session)):
     return {"stores": edit_products.list_stores(db)}
 
 
+@router.get("/api/edit-products/taxonomy")
+def edit_products_taxonomy(db: Session = Depends(get_db_session)):
+    """Existing product types, categories, and collections to pick from (or add new)."""
+    from backend.shopify import edit_products
+    return edit_products.taxonomy_pools(db)
+
+
 @router.get("/api/edit-products")
 def edit_products_query(
     stores: Optional[str] = None,

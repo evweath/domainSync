@@ -40,10 +40,10 @@ _ANY_AGE_DAYS = 10_000_000
 # The canonical, ordered column set. The frontend renders these in order; the
 # projection guarantees every row carries every key (never KeyError in the UI).
 COLUMNS: List[str] = [
-    "store", "data_source", "status", "title", "vendor", "product_type",
+    "store", "data_source", "status", "title", "vendor", "product_type", "category",
     "sku", "barcode", "price", "compare_at_price", "weight", "weight_unit",
     "inventory_quantity", "variant_title", "option1", "option2", "option3",
-    "tags", "collections", "image_count", "country_of_origin",
+    "tags", "collections", "image_count",
     "description", "handle",
 ]
 
@@ -126,6 +126,9 @@ def _project_snapshot(domain: str, snap: Dict[str, Any]) -> List[Dict[str, Any]]
                 "title": p.get("title") or "",
                 "vendor": p.get("vendor") or "",
                 "product_type": p.get("product_type") or "",
+                # Shopify's taxonomy Category isn't captured in these snapshots;
+                # blank until a rescan fetches it. Editable but not pushed yet.
+                "category": "",
                 "status": p.get("status") or "",
                 "tags": tags,
                 "collections": col_names,
@@ -143,7 +146,6 @@ def _project_snapshot(domain: str, snap: Dict[str, Any]) -> List[Dict[str, Any]]
                 "option1": opt("option1"),
                 "option2": opt("option2"),
                 "option3": opt("option3"),
-                "country_of_origin": None,  # not present in Shopify product objects
                 "url": f"https://{domain}/products/{handle}" if handle else "",
             })
     return rows
@@ -224,6 +226,7 @@ def _project_db(db, domain: str) -> List[Dict[str, Any]]:
             "title": s.source_title or (p.canonical_title if p else "") or "",
             "vendor": s.source_manufacturer or (p.manufacturer if p else "") or "",
             "product_type": s.source_category or (p.category if p else "") or "",
+            "category": (p.category if p else "") or "",
             "status": s.source_status or "",
             "tags": tags_by.get(s.product_id, []),
             "collections": [],  # collection membership isn't tracked in the DB
@@ -234,7 +237,6 @@ def _project_db(db, domain: str) -> List[Dict[str, Any]]:
             "weight": (p.weight if p else None),
             "weight_unit": "",
             "inventory_quantity": None,
-            "country_of_origin": (p.country_of_origin if p else None),
             "url": s.source_url or "",
         }
         opts = opts_by.get(s.product_id, [])
@@ -438,12 +440,14 @@ def _sort_key(col: str):
 
 
 def _facets(rows: List[Dict[str, Any]]) -> Dict[str, List[str]]:
-    vendors, types, statuses, collections, tags = set(), set(), set(), set(), set()
+    vendors, types, cats, statuses, collections, tags = set(), set(), set(), set(), set(), set()
     for r in rows:
         if r.get("vendor"):
             vendors.add(r["vendor"])
         if r.get("product_type"):
             types.add(r["product_type"])
+        if r.get("category"):
+            cats.add(r["category"])
         if r.get("status"):
             statuses.add(r["status"])
         for c in r.get("collections") or []:
@@ -453,9 +457,74 @@ def _facets(rows: List[Dict[str, Any]]) -> Dict[str, List[str]]:
     return {
         "vendors": sorted(vendors),
         "product_types": sorted(types),
+        "categories": sorted(cats),
         "statuses": sorted(statuses),
         "collections": sorted(collections),
         "tags": sorted(tags),
+    }
+
+
+_POOL_CACHE: Dict[str, Tuple[float, Dict[str, Any]]] = {}
+
+
+def _snapshot_pools(domain: str) -> Dict[str, Any]:
+    """Distinct product_types + collection titles from one snapshot (mtime-cached)."""
+    path = scan_cache._path(domain)
+    if not path.exists():
+        return {"product_types": set(), "collections": set()}
+    mtime = path.stat().st_mtime
+    cached = _POOL_CACHE.get(domain)
+    if cached and cached[0] == mtime:
+        return cached[1]
+    snap = scan_cache.load_snapshot(domain, max_age_days=_ANY_AGE_DAYS)
+    if not snap:
+        return {"product_types": set(), "collections": set()}
+    types = {p.get("product_type") for p in (snap.get("products") or {}).values() if p.get("product_type")}
+    colls = {c.get("title") for c in (snap.get("collections") or {}).values() if c.get("title")}
+    pools = {"product_types": types, "collections": colls}
+    _POOL_CACHE[domain] = (mtime, pools)
+    return pools
+
+
+def taxonomy_pools(db) -> Dict[str, List[str]]:
+    """Comprehensive suggestion pools for the editor's datalists.
+
+    Pulls every existing product type, category, and collection from the DB and
+    from all on-disk scan snapshots so the user can pick an existing value or
+    type a brand-new one.
+    """
+    from backend.database.models import Product, ProductSource
+
+    product_types: set = set()
+    categories: set = set()
+    collections: set = set()
+
+    # DB: product types (scraped source_category) + canonical categories.
+    for (v,) in db.query(ProductSource.source_category).distinct().all():
+        if v:
+            product_types.add(v)
+    for (v,) in db.query(Product.category).distinct().all():
+        if v:
+            categories.add(v)
+
+    # Snapshots: real Shopify product types + collection titles across all scans.
+    if scan_cache._CACHE_DIR.exists():
+        for p in scan_cache._CACHE_DIR.glob("*.json"):
+            try:
+                with p.open() as fh:
+                    domain = json.load(fh).get("domain")
+            except Exception:
+                continue
+            if not domain:
+                continue
+            pools = _snapshot_pools(domain)
+            product_types |= pools["product_types"]
+            collections |= pools["collections"]
+
+    return {
+        "product_types": sorted(product_types),
+        "categories": sorted(categories),
+        "collections": sorted(collections),
     }
 
 
@@ -509,7 +578,8 @@ def query(
 # Write-back (Phase 4): staged edits → executor transactions.
 # ---------------------------------------------------------------------------
 # A field's risk drives the review's colour coding + the user's caution.
-_RISK = {"status": "HIGH", "price": "MEDIUM", "compare_at_price": "MEDIUM", "title": "MEDIUM"}
+_RISK = {"status": "HIGH", "price": "MEDIUM", "compare_at_price": "MEDIUM",
+         "title": "MEDIUM", "collections": "MEDIUM"}
 # Our column names → Shopify product-level field keys (executor product_field).
 _PRODUCT_FIELD_KEYS = {
     "title": "title", "vendor": "vendor", "product_type": "product_type", "status": "status",
@@ -564,7 +634,12 @@ def build_edit_transactions(changes: List[Dict[str, Any]]) -> List[Dict[str, Any
             items.append(item)
             continue
 
-        if field == "tags":
+        if field == "category":
+            # Shopify's taxonomy Category has no REST write field and isn't in
+            # the scans — editable + staged, but not pushed to Shopify here.
+            item.update(pushable=False,
+                        reason="Shopify Category needs a rescan + GraphQL write — staged, not pushed.")
+        elif field == "tags":
             old = ch.get("old") or []
             new = ch.get("new") or []
             adds = [t for t in new if t not in old]
@@ -572,6 +647,15 @@ def build_edit_transactions(changes: List[Dict[str, Any]]) -> List[Dict[str, Any
             item["txn"] = {
                 "id": cid, "action": "UPDATE", "resource_type": "tags", "product_id": pid,
                 "meta": {"tags_to_add": adds, "tags_to_remove": removes}, "approved": True,
+            }
+        elif field == "collections":
+            old = ch.get("old") or []
+            new = ch.get("new") or []
+            adds = [c for c in new if c not in old]
+            removes = [c for c in old if c not in new]
+            item["txn"] = {
+                "id": cid, "action": "UPDATE", "resource_type": "collections", "product_id": pid,
+                "meta": {"add": adds, "remove": removes}, "approved": True,
             }
         elif field in _PRODUCT_FIELD_KEYS:
             item["txn"] = {

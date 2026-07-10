@@ -51,6 +51,10 @@ aside::-webkit-scrollbar { width: 3px; }
 .overflow-hidden { overflow: hidden; }
 .overflow-y-auto { overflow-y: auto; }
 .flex-shrink-0 { flex-shrink: 0; }
+/* min-h-0 is absent from the purged Tailwind build. Without it, a flex item's
+   default min-height:auto stops it shrinking below content — so a tall grid
+   grows past its flex-1 cap instead of scrolling internally. */
+.min-h-0 { min-height: 0; }
 .transition-colors { transition: color 0.15s, background-color 0.15s; }
 
 /* Visible column dividers on every data table.
@@ -156,6 +160,39 @@ table.price-matrix > thead > tr > th {
 /* The competitor chip cell's inner scroller is the ONLY place chips can
    exceed the cell width; keep its scrollbar slim. */
 table.price-matrix .overflow-x-auto::-webkit-scrollbar { height: 4px; }
+
+/* Edit Products grid — force ALWAYS-VISIBLE horizontal + vertical scrollbars.
+   macOS overlay scrollbars auto-hide (invisible until you scroll); `overflow:
+   scroll` plus explicit ::-webkit-scrollbar styling switches to persistent,
+   grabbable bars so the user can drag laterally and down at any time. */
+.edit-grid-scroll { overflow: scroll; }
+.edit-grid-scroll::-webkit-scrollbar { width: 14px; height: 14px; }
+.edit-grid-scroll::-webkit-scrollbar-track {
+  background: #e5e7eb;                 /* gray-200 */
+}
+.edit-grid-scroll::-webkit-scrollbar-thumb {
+  background: #9ca3af;                 /* gray-400 */
+  border-radius: 7px;
+  border: 3px solid #e5e7eb;          /* inset look against the track */
+}
+.edit-grid-scroll::-webkit-scrollbar-thumb:hover { background: #6b7280; }  /* gray-500 */
+.edit-grid-scroll::-webkit-scrollbar-corner { background: #e5e7eb; }
+.dark .edit-grid-scroll::-webkit-scrollbar-track,
+.dark .edit-grid-scroll::-webkit-scrollbar-corner { background: #374151; }  /* gray-700 */
+.dark .edit-grid-scroll::-webkit-scrollbar-thumb {
+  background: #6b7280; border-color: #374151;
+}
+
+/* Edit Products — long columns (e.g. Description) default to ~30 characters
+   wide and clip with an ellipsis; the full text is in the cell's title tooltip. */
+.edit-col-long {
+  display: inline-block;
+  max-width: 30ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
 
 /* Edit Products — inline-edit affordances. The purged Tailwind build ships no
    amber/ring utilities, so the dirty-cell highlight is defined here directly. */

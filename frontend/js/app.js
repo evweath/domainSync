@@ -79,6 +79,7 @@ function app() {
     editRowSel: {},                 // {row_id: rowObject} — selected rows (persists across pages)
     editBulkField: '',              // field chosen in the bulk-edit bar
     editBulkValue: '',              // value to apply across the selection
+    editBulkMode: 'set',            // list fields (collections/tags): set | add | remove
     editShowFilters: false,         // advanced attribute filters expander
 
     // Inline editing (Phase 2). Row objects are never mutated; edits are held as
@@ -97,17 +98,29 @@ function app() {
     _suppressBlur: false,           // discard the blur that follows Escape
     // Which columns are editable + how to render/parse them.
     editColType: {
-      title: 'text', vendor: 'text', product_type: 'text', status: 'select', tags: 'tags',
+      title: 'text', vendor: 'text', product_type: 'text', category: 'text',
+      status: 'select', tags: 'tags', collections: 'tags',
       sku: 'text', barcode: 'text', price: 'number', compare_at_price: 'number',
       weight: 'number', weight_unit: 'select',
     },
     editColScope: {
-      title: 'product', vendor: 'product', product_type: 'product', status: 'product', tags: 'product',
+      title: 'product', vendor: 'product', product_type: 'product', category: 'product',
+      status: 'product', tags: 'product', collections: 'product',
       sku: 'variant', barcode: 'variant', price: 'variant', compare_at_price: 'variant',
       weight: 'variant', weight_unit: 'variant',
     },
     editStatusOptions: ['active', 'draft', 'archived'],
     editWeightUnitOptions: ['kg', 'g', 'lb', 'oz'],
+    // Existing values pulled from the DB + all scans, for datalist suggestions.
+    editPools: { product_types: [], categories: [], collections: [] },
+    // Column show/hide (persisted). Missing key = visible.
+    editColVisible: {},
+    editColChooserOpen: false,
+    // "Select from existing" picker in the bulk bar (alternative to typing).
+    editBulkPickerOpen: false,
+    editBulkPickerSearch: '',
+    // Columns capped to a ~30-character default width (long, non-essential text).
+    editLongCols: ['description'],
     editFilters: {
       search: '', title: '', sku: '', vendor: '', product_type: '', status: '',
       tag: '', collection: '', min_price: '', max_price: '',
@@ -117,12 +130,12 @@ function app() {
     // Human labels for the grid columns (order comes from the API `columns`).
     editColLabels: {
       store: 'Store', data_source: 'Src', status: 'Status', title: 'Title',
-      vendor: 'Vendor', product_type: 'Type', sku: 'SKU', barcode: 'Barcode',
+      vendor: 'Vendor', product_type: 'Product Type', category: 'Category', sku: 'SKU', barcode: 'Barcode',
       price: 'Price', compare_at_price: 'Compare $', weight: 'Weight',
       weight_unit: 'Wt Unit', inventory_quantity: 'Qty', variant_title: 'Variant',
       option1: 'Option 1', option2: 'Option 2', option3: 'Option 3',
       tags: 'Tags', collections: 'Collections', image_count: 'Photos',
-      country_of_origin: 'Country', description: 'Description', handle: 'Handle',
+      description: 'Description', handle: 'Handle',
     },
 
     // Shopify Live Sync (API-based)
@@ -977,6 +990,7 @@ function app() {
     async initEditProducts() {
       if (this._editInit) return;
       this._editInit = true;
+      try { this.editColVisible = JSON.parse(localStorage.getItem('editColVisible') || '{}'); } catch {}
       try {
         const r = await this.api('/api/edit-products/stores') || { stores: [] };
         this.editStores = r.stores;
@@ -988,7 +1002,63 @@ function app() {
         pick.forEach(s => { sel[s.domain] = true; });
         this.editStoreSel = sel;
       } catch (e) { this.toast('Failed to load stores: ' + e.message, 'error'); }
+      try {
+        this.editPools = await this.api('/api/edit-products/taxonomy') || this.editPools;
+      } catch { /* suggestions are optional */ }
       await this.loadEditProducts(1);
+    },
+
+    // Which datalist (of existing values) backs a given editable column, if any.
+    editListId(col) {
+      if (col === 'product_type') return 'edit-pool-types';
+      if (col === 'category') return 'edit-pool-categories';
+      if (col === 'collections') return 'edit-pool-collections';
+      return '';
+    },
+
+    // ---- Column show/hide -------------------------------------------------
+    editVisibleColumns() {
+      return (this.editData.columns || []).filter(c => this.editColVisible[c] !== false);
+    },
+    editToggleColumn(col) {
+      this.editColVisible = { ...this.editColVisible, [col]: this.editColVisible[col] === false };
+      try { localStorage.setItem('editColVisible', JSON.stringify(this.editColVisible)); } catch {}
+      // Column set changed → re-measure/re-wire the resizable grid.
+      this._editGridWired = false;
+      this._wireEditGrid();
+    },
+    editIsLongCol(col) { return this.editLongCols.includes(col); },
+
+    // ---- Bulk "select from existing" picker ------------------------------
+    editBulkPool() {
+      const f = this.editBulkField;
+      if (f === 'product_type') return this.editPools.product_types;
+      if (f === 'category') return this.editPools.categories;
+      if (f === 'collections') return this.editPools.collections;
+      if (f === 'tags') return this.editFacets.tags || [];
+      return [];
+    },
+    editBulkHasPicker() { return this.editBulkPool().length > 0; },
+    editBulkPickerFiltered() {
+      const q = this.editBulkPickerSearch.trim().toLowerCase();
+      const pool = this.editBulkPool();
+      return q ? pool.filter(v => v.toLowerCase().includes(q)) : pool;
+    },
+    _bulkTokens() {
+      return String(this.editBulkValue || '').split(',').map(s => s.trim()).filter(Boolean);
+    },
+    editBulkIsPicked(v) { return this._bulkTokens().includes(v); },
+    editBulkTogglePick(v) {
+      if (this.editBulkIsList()) {
+        const toks = this._bulkTokens();
+        const i = toks.indexOf(v);
+        if (i >= 0) toks.splice(i, 1); else toks.push(v);
+        this.editBulkValue = toks.join(', ');
+      } else {
+        // Single-value field: pick replaces and closes.
+        this.editBulkValue = v;
+        this.editBulkPickerOpen = false;
+      }
     },
 
     editSelectedStores() {
@@ -1047,6 +1117,9 @@ function app() {
         if (!t) { this._editGridWired = false; return; }
         t.__colResizeWired = false;
         t.__pinned = false;
+        t.style.tableLayout = '';
+        t.classList.remove('col-resize-active');
+        t.querySelectorAll('th').forEach(th => { th.style.width = ''; th.style.minWidth = ''; });
         t.querySelectorAll('.col-resize-grip').forEach(g => g.remove());
         this._wireTableResize(t);
       });
@@ -1233,18 +1306,35 @@ function app() {
       return (this.editData.columns || []).filter(c => this.editIsEditable(c));
     },
     // When the field changes, seed a sensible default value (first option for
-    // selects, empty otherwise).
+    // selects, empty otherwise) and reset the list mode.
     editBulkFieldChanged() {
+      this.editBulkMode = 'set';
       this.editBulkValue = (this.editColType[this.editBulkField] === 'select')
         ? this.editSelectOptions(this.editBulkField)[0] : '';
     },
+    editBulkIsList() { return this.editColType[this.editBulkField] === 'tags'; },
     editBulkApply() {
       if (!this.editBulkField) return;
-      const parsed = this.editParseValue(this.editBulkField, this.editBulkValue);
+      const field = this.editBulkField;
       const rows = Object.values(this.editRowSel);
-      rows.forEach(row => this._editSet(row, this.editBulkField, parsed));
-      const label = this.editColLabels[this.editBulkField] || this.editBulkField;
-      this.toast(`Set ${label} on ${rows.length} row${rows.length === 1 ? '' : 's'}`, 'success');
+      const label = this.editColLabels[field] || field;
+      if (this.editBulkIsList() && this.editBulkMode !== 'set') {
+        // Add/remove values into each row's own current list (collections/tags).
+        const vals = this.editParseValue(field, this.editBulkValue);
+        rows.forEach(row => {
+          const cur = (this.editEffective(row, field) || []).slice();
+          const next = this.editBulkMode === 'add'
+            ? cur.concat(vals.filter(v => !cur.includes(v)))
+            : cur.filter(v => !vals.includes(v));
+          this._editSet(row, field, next);
+        });
+        const verb = this.editBulkMode === 'add' ? 'Added to' : 'Removed from';
+        this.toast(`${verb} ${label} on ${rows.length} row${rows.length === 1 ? '' : 's'}`, 'success');
+      } else {
+        const parsed = this.editParseValue(field, this.editBulkValue);
+        rows.forEach(row => this._editSet(row, field, parsed));
+        this.toast(`Set ${label} on ${rows.length} row${rows.length === 1 ? '' : 's'}`, 'success');
+      }
     },
 
     editCancelCell() { this._suppressBlur = true; this.editActiveCell = null; },
