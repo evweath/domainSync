@@ -30,7 +30,7 @@
     <nav class="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
       <template x-for="item in navItems" :key="item.id">
         <button
-          @click="currentView = item.id; item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'store-compare' && (loadStoreComparison(1), loadStoreCompSummary()); item.id === 'shopify-sync' && loadShopifySyncConfig(); item.id === 'live-sync' && (loadShopifySyncConfig(), loadLiveSyncScanStatus()); item.id === 'system-of-record' && loadSystemOfRecord()"
+          @click="currentView = item.id; item.id === 'scheduler' && loadJobs(); item.id === 'export' && loadExportHistory(); item.id === 'sync' && loadDomainComparison(); item.id === 'store-compare' && (loadStoreComparison(1), loadStoreCompSummary()); item.id === 'edit-products' && initEditProducts(); item.id === 'shopify-sync' && loadShopifySyncConfig(); item.id === 'live-sync' && (loadShopifySyncConfig(), loadLiveSyncScanStatus()); item.id === 'system-of-record' && loadSystemOfRecord()"
           :class="currentView === item.id
             ? 'bg-orange-600 text-white'
             : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
@@ -1107,6 +1107,315 @@
       </div>
     </div>
 
+    <!-- ===== EDIT PRODUCTS VIEW ===== -->
+    <div x-show="currentView === 'edit-products'" class="p-6" x-cloak>
+      <div class="mb-4">
+        <h2 class="text-2xl font-bold mb-1">✏️ Edit Products</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Every product from the most recent store scan, one row per variant. Search by any attribute, then bulk-edit across stores. Columns are sortable (click a header) and resizable (drag the divider).</p>
+      </div>
+
+      <!-- Search / filter panel -->
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 mb-4 space-y-3">
+        <!-- Store selector -->
+        <div class="flex flex-wrap items-center gap-2 pb-1 border-b border-gray-100 dark:border-gray-700">
+          <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Stores:</span>
+          <template x-for="s in editStores" :key="s.domain">
+            <label class="flex items-center gap-1.5 text-sm cursor-pointer select-none px-2 py-1 rounded-lg border"
+              :class="editStoreSel[s.domain] ? 'border-orange-400 bg-orange-50 dark:bg-orange-900/20' : 'border-gray-200 dark:border-gray-600'">
+              <input type="checkbox" :checked="editStoreSel[s.domain]" @change="editToggleStore(s.domain)" class="w-4 h-4 accent-orange-500" />
+              <span class="font-medium" x-text="editStoreShort(s.domain)"></span>
+              <span class="text-xs px-1.5 py-0.5 rounded-full font-medium"
+                :class="s.data_source === 'scan' ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300' : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'"
+                x-text="s.data_source === 'scan' ? 'scan' : 'db'"></span>
+              <span class="text-xs text-gray-400" x-text="s.product_count"></span>
+              <span x-show="s.age_days !== null && s.age_days > 5" class="text-xs text-amber-600 dark:text-amber-400" :title="'Scanned ' + s.age_days + ' days ago'" x-text="'⚠ ' + s.age_days + 'd'"></span>
+            </label>
+          </template>
+          <button @click="editSelectAllStores(true)" class="text-xs text-blue-500 hover:underline ml-1">All</button>
+          <button @click="editSelectAllStores(false)" class="text-xs text-blue-500 hover:underline">None</button>
+        </div>
+
+        <!-- Global search + controls -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <input x-model="editFilters.search" @input.debounce.400ms="loadEditProducts(1)" type="text"
+            placeholder="Search any attribute — title, SKU, tags, collections, description…"
+            class="col-span-2 border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+          <button @click="editShowFilters = !editShowFilters"
+            class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 flex items-center justify-center gap-1">
+            <span x-text="editShowFilters ? '▼' : '▶'"></span> Attribute filters
+          </button>
+          <select x-model="editFilters.per_page" @change="loadEditProducts(1)"
+            class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+            <option value="25">25 / page</option>
+            <option value="50">50 / page</option>
+            <option value="100">100 / page</option>
+            <option value="250">250 / page</option>
+          </select>
+        </div>
+
+        <!-- Advanced attribute filters -->
+        <div x-show="editShowFilters" x-cloak class="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
+          <input x-model="editFilters.title" @input.debounce.400ms="loadEditProducts(1)" type="text" placeholder="Title contains…"
+            class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+          <input x-model="editFilters.sku" @input.debounce.400ms="loadEditProducts(1)" type="text" placeholder="SKU contains…"
+            class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+          <select x-model="editFilters.vendor" @change="loadEditProducts(1)" class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+            <option value="">All Vendors</option>
+            <template x-for="v in editFacets.vendors" :key="v"><option :value="v" x-text="v"></option></template>
+          </select>
+          <select x-model="editFilters.product_type" @change="loadEditProducts(1)" class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+            <option value="">All Types</option>
+            <template x-for="t in editFacets.product_types" :key="t"><option :value="t" x-text="t"></option></template>
+          </select>
+          <select x-model="editFilters.status" @change="loadEditProducts(1)" class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+            <option value="">All Statuses</option>
+            <template x-for="s in editFacets.statuses" :key="s"><option :value="s" x-text="s"></option></template>
+          </select>
+          <input x-model="editFilters.tag" @input.debounce.400ms="loadEditProducts(1)" type="text" placeholder="Tag contains…"
+            class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+          <input x-model="editFilters.collection" @input.debounce.400ms="loadEditProducts(1)" type="text" placeholder="Collection contains…"
+            class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+          <select x-model="editFilters.has_image" @change="loadEditProducts(1)" class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+            <option value="">Any photos</option>
+            <option value="true">Has photos</option>
+            <option value="false">No photos</option>
+          </select>
+          <div class="flex items-center gap-2">
+            <input x-model="editFilters.min_price" @input.debounce.400ms="loadEditProducts(1)" type="number" min="0" step="0.01" placeholder="Min $"
+              class="w-full border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+            <input x-model="editFilters.max_price" @input.debounce.400ms="loadEditProducts(1)" type="number" min="0" step="0.01" placeholder="Max $"
+              class="w-full border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+          </div>
+          <div class="flex items-center gap-2">
+            <input x-model="editFilters.min_weight" @input.debounce.400ms="loadEditProducts(1)" type="number" min="0" step="0.01" placeholder="Min wt"
+              class="w-full border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+            <input x-model="editFilters.max_weight" @input.debounce.400ms="loadEditProducts(1)" type="number" min="0" step="0.01" placeholder="Max wt"
+              class="w-full border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+          </div>
+        </div>
+
+        <!-- Result summary + clear -->
+        <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 pt-1">
+          <span x-show="!editLoading" x-text="editData.total.toLocaleString() + ' variants'"></span>
+          <span x-show="editLoading" class="text-orange-500">Loading…</span>
+          <span x-show="editSelectedCount() > 0" class="text-orange-600 dark:text-orange-400 font-medium" x-text="editSelectedCount() + ' selected'"></span>
+          <template x-if="editPendingCount() > 0">
+            <span class="flex items-center gap-2">
+              <span class="text-amber-600 dark:text-amber-400 font-medium" x-text="editPendingCount() + ' unsaved edit' + (editPendingCount() === 1 ? '' : 's')"></span>
+              <span class="text-gray-400">(staged locally)</span>
+              <button @click="editOpenReview()" class="px-2.5 py-1 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium">Review &amp; push →</button>
+              <button @click="editRevertAll()" class="text-blue-500 hover:underline">Revert all</button>
+            </span>
+          </template>
+          <button x-show="editHasActiveFilters()" @click="editClearFilters()" class="text-blue-500 hover:underline ml-auto">Clear filters</button>
+        </div>
+      </div>
+
+      <!-- Bulk edit bar -->
+      <div x-show="editSelectedCount() > 0" x-cloak
+        class="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl p-3 mb-3 flex flex-wrap items-center gap-2">
+        <span class="text-sm font-semibold text-orange-800 dark:text-orange-300" x-text="editSelectedCount() + ' row' + (editSelectedCount() === 1 ? '' : 's') + ' selected'"></span>
+        <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">Set</span>
+        <select x-model="editBulkField" @change="editBulkFieldChanged()"
+          class="border rounded-lg px-2 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+          <option value="">field…</option>
+          <template x-for="f in editBulkFields()" :key="f"><option :value="f" x-text="editColLabels[f] || f"></option></template>
+        </select>
+        <span class="text-xs text-gray-500 dark:text-gray-400">to</span>
+        <template x-if="editBulkField && editColType[editBulkField] === 'select'">
+          <select x-model="editBulkValue" class="border rounded-lg px-2 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+            <template x-for="opt in editSelectOptions(editBulkField)" :key="opt"><option :value="opt" x-text="opt"></option></template>
+          </select>
+        </template>
+        <template x-if="editBulkField && editColType[editBulkField] !== 'select'">
+          <input x-model="editBulkValue" :type="editColType[editBulkField] === 'number' ? 'number' : 'text'" step="0.01"
+            :placeholder="editColType[editBulkField] === 'tags' ? 'tag1, tag2, …' : 'new value'"
+            class="border rounded-lg px-2 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+        </template>
+        <button @click="editBulkApply()" :disabled="!editBulkField"
+          class="px-3 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium disabled:opacity-40">Apply to selected</button>
+        <span class="text-xs text-gray-400">(staged locally)</span>
+        <button @click="editClearSelection()" class="text-sm text-blue-500 hover:underline ml-auto">Clear selection</button>
+      </div>
+
+      <!-- Empty state -->
+      <div x-show="!editLoading && editData.rows.length === 0" class="bg-white dark:bg-gray-800 rounded-xl shadow p-12 text-center text-gray-400">
+        <div class="text-4xl mb-2">✏️</div>
+        <div x-text="editSelectedStores().length === 0 ? 'Select at least one store above.' : 'No products match your search or filters.'"></div>
+      </div>
+
+      <!-- Horizontal editable grid -->
+      <div x-show="editData.rows.length > 0" class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden flex flex-col" style="max-height: calc(100vh - 270px)">
+        <div class="overflow-auto flex-1 min-h-0">
+          <table class="text-xs border-collapse" style="min-width: max-content">
+            <thead class="sticky top-0 z-10 bg-gray-100 dark:bg-gray-700">
+              <tr>
+                <th class="px-2 py-2 w-8 text-center bg-gray-100 dark:bg-gray-700">
+                  <input type="checkbox" :checked="editAllOnPageSelected()" @change="editToggleAllOnPage($event.target.checked)" class="w-4 h-4 accent-orange-500" />
+                </th>
+                <th class="px-2 py-2 w-12 text-left font-semibold text-gray-500 dark:text-gray-300 bg-gray-100 dark:bg-gray-700">Img</th>
+                <template x-for="col in editData.columns" :key="col">
+                  <th @click="editSort(col)"
+                    class="px-2 py-2 text-left font-semibold text-gray-600 dark:text-gray-200 whitespace-nowrap cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 bg-gray-100 dark:bg-gray-700 select-none">
+                    <span x-text="editColLabels[col] || col"></span>
+                    <span x-show="editFilters.sort_by === col" class="text-orange-500" x-text="editFilters.sort_order === 'asc' ? ' ↑' : ' ↓'"></span>
+                  </th>
+                </template>
+              </tr>
+            </thead>
+            <tbody>
+              <template x-for="row in editData.rows" :key="row.row_id">
+                <tr class="border-t border-gray-100 dark:border-gray-700 hover:bg-orange-50/40 dark:hover:bg-gray-700/40"
+                  :class="editIsRowSelected(row.row_id) ? 'bg-orange-50 dark:bg-orange-900/10' : ''">
+                  <td class="px-2 py-1.5 text-center">
+                    <input type="checkbox" :checked="editIsRowSelected(row.row_id)" @change="editToggleRow(row)" class="w-4 h-4 accent-orange-500" />
+                  </td>
+                  <td class="px-2 py-1.5">
+                    <template x-if="row.primary_image">
+                      <img :src="row.primary_image" loading="lazy" class="w-8 h-8 object-cover rounded border border-gray-200 dark:border-gray-600" />
+                    </template>
+                    <template x-if="!row.primary_image">
+                      <span class="text-gray-300">—</span>
+                    </template>
+                  </td>
+                  <template x-for="col in editData.columns" :key="col">
+                    <td @click="editIsEditable(col) && editActiveCell !== editCellKey(row,col) && editStartCell(row, col)"
+                      class="px-2 py-1.5 whitespace-nowrap"
+                      :class="[editNumericCol(col) ? 'text-right tabular-nums' : '',
+                               editIsEditable(col) ? 'edit-cell-editable' : '',
+                               editIsDirty(row,col) ? 'edit-cell-dirty' : '']">
+
+                      <!-- Active inline editor -->
+                      <template x-if="editActiveCell === editCellKey(row,col)">
+                        <span @click.stop>
+                          <template x-if="editColType[col] === 'select'">
+                            <select id="editcell-input" x-model="editDraft"
+                              @change="editCommitCell(row,col)" @blur="editCommitCell(row,col)" @keydown.escape.stop="editCancelCell()"
+                              class="w-full border border-orange-400 rounded px-1 py-0.5 text-xs dark:bg-gray-700 focus:outline-none">
+                              <template x-for="opt in editSelectOptions(col)" :key="opt"><option :value="opt" x-text="opt"></option></template>
+                            </select>
+                          </template>
+                          <template x-if="editColType[col] !== 'select'">
+                            <input id="editcell-input" :type="editColType[col] === 'number' ? 'number' : 'text'" step="0.01" x-model="editDraft"
+                              @keydown.enter.prevent="editCommitCell(row,col)" @blur="editCommitCell(row,col)" @keydown.escape.stop="editCancelCell()"
+                              class="w-full min-w-[70px] border border-orange-400 rounded px-1 py-0.5 text-xs dark:bg-gray-700 focus:outline-none" />
+                          </template>
+                        </span>
+                      </template>
+
+                      <!-- Display -->
+                      <template x-if="editActiveCell !== editCellKey(row,col)">
+                        <span>
+                          <template x-if="col === 'data_source'">
+                            <span class="text-xs px-1.5 py-0.5 rounded-full"
+                              :class="row.data_source === 'scan' ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300' : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'"
+                              x-text="row.data_source"></span>
+                          </template>
+                          <template x-if="col === 'store'"><span x-text="editStoreShort(row.store)"></span></template>
+                          <template x-if="col === 'title'">
+                            <span>
+                              <span :class="editIsDirty(row,col) ? 'font-medium' : ''" x-text="editDisplay(row, col) || '—'"></span>
+                              <a :href="row.url" target="_blank" @click.stop class="text-blue-500 hover:underline ml-1 text-xs" title="Open on store">↗</a>
+                            </span>
+                          </template>
+                          <template x-if="!['title','data_source','store'].includes(col)">
+                            <span :class="col === 'description' ? 'text-gray-500 dark:text-gray-400' : ''"
+                              x-text="editDisplay(row, col) || (editIsEditable(col) ? '—' : '')"></span>
+                          </template>
+                        </span>
+                      </template>
+                    </td>
+                  </template>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+        <!-- Pagination -->
+        <div class="flex-none flex items-center justify-center gap-2 py-3 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800">
+          <button @click="loadEditProducts(editData.page - 1)" :disabled="editData.page <= 1"
+            class="px-3 py-1.5 rounded border border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm disabled:opacity-40 hover:bg-gray-100 dark:hover:bg-gray-700">← Prev</button>
+          <span class="text-sm text-gray-700 dark:text-gray-300" x-text="'Page ' + editData.page + ' of ' + editData.pages"></span>
+          <button @click="loadEditProducts(editData.page + 1)" :disabled="editData.page >= editData.pages"
+            class="px-3 py-1.5 rounded border border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm disabled:opacity-40 hover:bg-gray-100 dark:hover:bg-gray-700">Next →</button>
+        </div>
+      </div>
+
+      <!-- ===== REVIEW & PUSH MODAL ===== -->
+      <div x-show="editReview.open" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" @click.self="editCloseReview()">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl max-h-[85vh] flex flex-col">
+          <!-- Header -->
+          <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200 dark:border-gray-700">
+            <div>
+              <h3 class="text-lg font-bold">Review changes</h3>
+              <p class="text-xs text-gray-500 dark:text-gray-400">These changes will be written to the live Shopify stores. Review before pushing — there is no undo.</p>
+            </div>
+            <button @click="editCloseReview()" class="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
+          </div>
+
+          <!-- Summary counts -->
+          <div class="px-5 py-3 border-b border-gray-100 dark:border-gray-700 flex flex-wrap items-center gap-3 text-sm">
+            <span x-show="editReview.loading" class="text-orange-500">Building review…</span>
+            <template x-if="!editReview.loading">
+              <span class="flex flex-wrap items-center gap-3">
+                <span class="font-medium" x-text="editReview.total + ' change' + (editReview.total === 1 ? '' : 's')"></span>
+                <span class="text-green-600 dark:text-green-400" x-text="editReview.pushable + ' pushable'"></span>
+                <span x-show="editReview.blocked > 0" class="text-gray-500" x-text="editReview.blocked + ' blocked'"></span>
+                <span x-show="(editReview.risk_counts.HIGH||0) > 0" class="px-2 py-0.5 rounded-full text-xs bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300" x-text="(editReview.risk_counts.HIGH||0) + ' high-risk'"></span>
+                <span x-show="(editReview.risk_counts.MEDIUM||0) > 0" class="px-2 py-0.5 rounded-full text-xs bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300" x-text="(editReview.risk_counts.MEDIUM||0) + ' medium'"></span>
+              </span>
+            </template>
+          </div>
+
+          <!-- Change list -->
+          <div class="overflow-auto flex-1 px-5 py-3">
+            <table class="w-full text-xs">
+              <thead>
+                <tr class="text-left text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
+                  <th class="py-1.5 pr-3">Store</th>
+                  <th class="py-1.5 pr-3">Field</th>
+                  <th class="py-1.5 pr-3">Was</th>
+                  <th class="py-1.5 pr-3">→ Now</th>
+                  <th class="py-1.5 pr-3">Risk</th>
+                  <th class="py-1.5">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template x-for="it in editReview.items" :key="it.change_id">
+                  <tr class="border-b border-gray-100 dark:border-gray-700/60" :class="!it.pushable ? 'opacity-60' : ''">
+                    <td class="py-1.5 pr-3 whitespace-nowrap" x-text="editStoreShort(it.store)"></td>
+                    <td class="py-1.5 pr-3 whitespace-nowrap font-medium" x-text="(editColLabels[it.field] || it.field) + (it.scope === 'product' ? ' (product)' : '')"></td>
+                    <td class="py-1.5 pr-3 text-gray-500 max-w-[180px] truncate" :title="editFmt(it.old)" x-text="editFmt(it.old)"></td>
+                    <td class="py-1.5 pr-3 text-gray-900 dark:text-gray-100 font-medium max-w-[180px] truncate" :title="editFmt(it.new)" x-text="editFmt(it.new)"></td>
+                    <td class="py-1.5 pr-3"><span class="px-1.5 py-0.5 rounded-full" :class="editRiskClass(it.risk)" x-text="it.risk"></span></td>
+                    <td class="py-1.5">
+                      <template x-if="editReview.results && editReview.results[it.change_id]">
+                        <span :class="{'text-green-600 dark:text-green-400': editReview.results[it.change_id].status === 'ok', 'text-red-600 dark:text-red-400': editReview.results[it.change_id].status === 'error', 'text-gray-400': editReview.results[it.change_id].status === 'skipped'}"
+                          :title="editReview.results[it.change_id].error || ''"
+                          x-text="editReview.results[it.change_id].status === 'ok' ? '✓ pushed' : (editReview.results[it.change_id].status === 'skipped' ? 'skipped' : '✕ ' + (editReview.results[it.change_id].error || 'error'))"></span>
+                      </template>
+                      <template x-if="!(editReview.results && editReview.results[it.change_id])">
+                        <span class="text-gray-400" x-text="it.pushable ? 'ready' : it.reason"></span>
+                      </template>
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Footer -->
+          <div class="px-5 py-4 border-t border-gray-200 dark:border-gray-700 flex items-center gap-3">
+            <span x-show="editReview.blocked > 0" class="text-xs text-gray-500">Blocked changes (stores without a recent scan) are skipped.</span>
+            <button @click="editCloseReview()" class="ml-auto px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm hover:bg-gray-50 dark:hover:bg-gray-700" x-text="editReview.results ? 'Close' : 'Cancel'"></button>
+            <button x-show="!editReview.results" @click="editExecutePush()" :disabled="editReview.executing || editReview.pushable === 0"
+              class="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white text-sm font-medium disabled:opacity-40"
+              x-text="editReview.executing ? ('Pushing… ' + editReview.progress.done + '/' + editReview.progress.total) : ('Push ' + editReview.pushable + ' change' + (editReview.pushable === 1 ? '' : 's') + ' to Shopify')"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ===== LIVE SYNC VIEW ===== -->
     <div x-show="currentView === 'live-sync'" class="p-6" x-cloak>
       <div class="mb-4 flex items-start justify-between">
@@ -1370,8 +1679,12 @@
           </div>
         </div>
 
-        <!-- Apply bar (top) — mirrors the purple Apply button at the bottom of the page -->
-        <div class="flex items-center justify-end">
+        <!-- Apply bar (top) — mirrors the Back to set up + purple Apply buttons at the bottom of the page -->
+        <div class="flex items-center justify-end gap-3">
+          <button @click="liveSyncStep = 'configure'; liveSyncTransactions = []"
+            class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm font-medium px-4 py-2 rounded-xl hover:bg-gray-200 transition">
+            ← Back to set up
+          </button>
           <button @click="runLiveExecute()"
             :disabled="liveSyncApprovedCount() === 0 || liveSyncExecuting"
             :title="'Write the ' + liveSyncApprovedCount() + ' approved change(s) to ' + liveSyncDest + ' via the Shopify Admin API'"
@@ -1406,8 +1719,8 @@
               <div class="flex items-center gap-2 p-3">
                 <button @click="liveSyncToggleGroup(grp.name)"
                   class="flex-shrink-0 w-6 h-6 flex items-center justify-center text-indigo-500 hover:text-indigo-700 text-xs"
-                  :title="liveSyncCollapsedGroups[grp.name] ? 'Expand' : 'Collapse'">
-                  <span x-text="liveSyncCollapsedGroups[grp.name] ? '▶' : '▼'"></span>
+                  :title="liveSyncExpandedGroups[grp.name] ? 'Collapse' : 'Expand'">
+                  <span x-text="liveSyncExpandedGroups[grp.name] ? '▼' : '▶'"></span>
                 </button>
                 <span class="text-lg leading-none">📁</span>
                 <span class="text-xs font-semibold text-indigo-700 dark:text-indigo-300 uppercase tracking-wide flex-shrink-0">New collection</span>
@@ -1422,8 +1735,8 @@
                 <button @click.stop="liveSyncGroupSet(grp, false)"
                   class="flex-shrink-0 bg-gray-200 dark:bg-gray-700 hover:bg-red-100 text-gray-600 dark:text-gray-300 hover:text-red-600 text-xs font-medium px-2 py-1 rounded transition">✗ all</button>
               </div>
-              <!-- Group members -->
-              <div x-show="!liveSyncCollapsedGroups[grp.name]" class="px-3 pb-3 space-y-1.5">
+              <!-- Group members (collapsed by default) -->
+              <div x-show="liveSyncExpandedGroups[grp.name]" class="px-3 pb-3 space-y-1.5">
                 <template x-for="txn in grp.txns" :key="txn.id">
                   <div class="flex items-center gap-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-2"
                     :class="txn.approved === true ? 'opacity-100' : txn.approved === false ? 'opacity-50' : ''">
@@ -1521,7 +1834,26 @@
         <div class="text-5xl mb-4">⚡</div>
         <p class="text-lg font-semibold mb-2">Executing transactions…</p>
         <p class="text-sm text-gray-500">Writing approved changes to <span x-text="liveSyncDest"></span> via the Shopify Admin API.</p>
-        <p class="text-xs text-gray-400 mt-1">Do not close this page.</p>
+
+        <!-- Progress bar (updates live over the WebSocket) -->
+        <div class="w-full max-w-md mt-6">
+          <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
+            <span><span class="font-semibold text-gray-700 dark:text-gray-200" x-text="liveSyncProgress.done"></span> / <span x-text="liveSyncProgress.total"></span> changes</span>
+            <span>
+              <span class="text-green-600" x-text="liveSyncProgress.ok + ' ok'"></span>
+              <span class="text-gray-300 mx-1">·</span>
+              <span :class="liveSyncProgress.errors ? 'text-red-500' : 'text-gray-400'" x-text="liveSyncProgress.errors + ' errors'"></span>
+            </span>
+          </div>
+          <div class="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div class="h-full bg-indigo-500 transition-all duration-300"
+              :style="'width: ' + (liveSyncProgress.total ? Math.round(liveSyncProgress.done / liveSyncProgress.total * 100) : 0) + '%'"></div>
+          </div>
+          <p x-show="liveSyncProgress.total > 200" class="text-xs text-gray-400 mt-2">
+            Large batches are paced to respect Shopify's API rate limit — this can take several minutes.
+          </p>
+        </div>
+        <p class="text-xs text-gray-400 mt-4">You can leave this page — the sync keeps running on the server.</p>
       </div>
 
       <!-- ── STEP 5: Done ── -->
@@ -3197,6 +3529,51 @@
   </div>
 </div>
 
-<script src="/static/js/app.js?v=20260701-livesync"></script>
+<!-- Live Sync: recent-scan prompt (reuse a saved scan or run fresh) -->
+<div x-show="liveSyncScanPrompt" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" @click.self="liveSyncScanPrompt = null" x-cloak>
+  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-6">
+    <div class="flex items-start gap-3 mb-4">
+      <div class="text-3xl leading-none">🕒</div>
+      <div>
+        <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100">Recent scan found</h3>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          A saved catalog scan for
+          <span class="font-mono font-medium text-gray-700 dark:text-gray-200" x-text="liveSyncScanPrompt?.domain"></span>
+          already exists.
+        </p>
+      </div>
+    </div>
+    <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 text-sm space-y-1 mb-4">
+      <div class="flex justify-between gap-4">
+        <span class="text-gray-500">Last scanned</span>
+        <span class="font-medium text-gray-800 dark:text-gray-100 text-right" x-text="fmtDate(liveSyncScanPrompt?.info?.scanned_at)"></span>
+      </div>
+      <div class="flex justify-between gap-4">
+        <span class="text-gray-500">Age</span>
+        <span class="font-medium text-gray-800 dark:text-gray-100 text-right" x-text="liveSyncScanAgeText(liveSyncScanPrompt?.info)"></span>
+      </div>
+      <div class="flex justify-between gap-4">
+        <span class="text-gray-500">Products</span>
+        <span class="font-medium text-gray-800 dark:text-gray-100 text-right" x-text="(liveSyncScanPrompt?.info?.product_count ?? '—') + ''"></span>
+      </div>
+    </div>
+    <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">
+      Saved scans are kept for <span x-text="liveSyncScanPrompt?.info?.max_age_days || 5"></span> days.
+      Reuse the existing scan to save time, or run a fresh one to pick up the latest changes.
+    </p>
+    <div class="flex gap-3">
+      <button @click="liveSyncUseExistingScan()"
+        class="flex-1 bg-indigo-500 hover:bg-indigo-600 text-white font-medium px-4 py-2.5 rounded-xl text-sm transition">
+        Use existing scan
+      </button>
+      <button @click="liveSyncFreshScan()"
+        class="flex-1 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 text-gray-700 dark:text-gray-200 font-medium px-4 py-2.5 rounded-xl text-sm transition">
+        Run fresh scan
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="/static/js/app.js?v=20260701-bgexec"></script>
 </body>
 </html>

@@ -24,6 +24,7 @@ function app() {
       { id: 'scans',        icon: '🔍', label: 'Scans',             badge: 0 },
       { id: 'duplicates',   icon: '🔁', label: 'Duplicates',        badge: 0 },
       { id: 'store-compare',   icon: '🔀', label: 'Store Compare',      badge: 0 },
+      { id: 'edit-products',   icon: '✏️', label: 'Edit Products',      badge: 0 },
       { id: 'shopify-sync',     icon: '🛍️', label: 'Shopify Sync',        badge: 0 },
       { id: 'live-sync',        icon: '⚡', label: 'Live Sync',           badge: 0 },
       { id: 'sync',         icon: '🔄', label: 'Source Sync',        badge: 0 },
@@ -69,6 +70,61 @@ function app() {
     storeCompExpanded: {},
     storeCompSaving: {},
 
+    // Edit Products (one row per variant from the most recent store scan)
+    editStores: [],                 // [{domain, data_source, product_count, age_days, ...}]
+    editStoreSel: {},               // {domain: bool} — which stores are selected
+    editData: { rows: [], columns: [], total: 0, page: 1, pages: 1, per_page: 50, facets: {}, stores_meta: [] },
+    editFacets: { vendors: [], product_types: [], statuses: [], collections: [], tags: [] },
+    editLoading: false,
+    editRowSel: {},                 // {row_id: rowObject} — selected rows (persists across pages)
+    editBulkField: '',              // field chosen in the bulk-edit bar
+    editBulkValue: '',              // value to apply across the selection
+    editShowFilters: false,         // advanced attribute filters expander
+
+    // Inline editing (Phase 2). Row objects are never mutated; edits are held as
+    // overlays and applied on top for display. Product-level fields are shared
+    // by all variant rows of a product, so they're keyed by store|product_id and
+    // propagate to siblings; variant-level fields are keyed by row_id.
+    editEdits: {},                  // {row_id: {field: value}}          variant-level
+    editProductEdits: {},           // {'store|product_id': {field: value}} product-level
+    // Registries of the row object behind each edit, so Review can build the
+    // change list even for edits made on pages no longer loaded.
+    editEditRows: {},               // {row_id: rowObject}
+    editProductRows: {},            // {'store|product_id': rowObject}
+    editReview: { open: false, loading: false, executing: false, items: [], total: 0, pushable: 0, blocked: 0, risk_counts: {}, results: null, progress: { done: 0, total: 0 } },
+    editActiveCell: null,           // 'row_id::col' currently being edited
+    editDraft: '',                  // in-progress input value
+    _suppressBlur: false,           // discard the blur that follows Escape
+    // Which columns are editable + how to render/parse them.
+    editColType: {
+      title: 'text', vendor: 'text', product_type: 'text', status: 'select', tags: 'tags',
+      sku: 'text', barcode: 'text', price: 'number', compare_at_price: 'number',
+      weight: 'number', weight_unit: 'select',
+    },
+    editColScope: {
+      title: 'product', vendor: 'product', product_type: 'product', status: 'product', tags: 'product',
+      sku: 'variant', barcode: 'variant', price: 'variant', compare_at_price: 'variant',
+      weight: 'variant', weight_unit: 'variant',
+    },
+    editStatusOptions: ['active', 'draft', 'archived'],
+    editWeightUnitOptions: ['kg', 'g', 'lb', 'oz'],
+    editFilters: {
+      search: '', title: '', sku: '', vendor: '', product_type: '', status: '',
+      tag: '', collection: '', min_price: '', max_price: '',
+      min_weight: '', max_weight: '', has_image: '',
+      sort_by: 'title', sort_order: 'asc', per_page: 50,
+    },
+    // Human labels for the grid columns (order comes from the API `columns`).
+    editColLabels: {
+      store: 'Store', data_source: 'Src', status: 'Status', title: 'Title',
+      vendor: 'Vendor', product_type: 'Type', sku: 'SKU', barcode: 'Barcode',
+      price: 'Price', compare_at_price: 'Compare $', weight: 'Weight',
+      weight_unit: 'Wt Unit', inventory_quantity: 'Qty', variant_title: 'Variant',
+      option1: 'Option 1', option2: 'Option 2', option3: 'Option 3',
+      tags: 'Tags', collections: 'Collections', image_count: 'Photos',
+      country_of_origin: 'Country', description: 'Description', handle: 'Handle',
+    },
+
     // Shopify Live Sync (API-based)
     liveSyncStep: 'configure',   // 'configure' | 'scanning' | 'review' | 'executing' | 'done'
     liveSyncSource: '',
@@ -97,7 +153,10 @@ function app() {
     liveSyncResults: null,
     liveSyncShowDisableWarning: false,
     liveSyncChangeLog: [],        // applied changes: {time, domain, status, text, error}
-    liveSyncCollapsedGroups: {},  // collection group name -> collapsed?
+    liveSyncExpandedGroups: {},   // collection group name -> expanded? (default: collapsed)
+    liveSyncScanPrompt: null,     // {domain, info} when a recent saved scan exists
+    liveSyncProgress: { done: 0, total: 0, ok: 0, errors: 0 },  // background execute progress
+    _liveExecPollTimer: null,     // WS-drop fallback poll
 
     // Shopify Sync (CSV export — existing)
     shopifySyncConfig: { attribute_groups: [], source_sites: [] },
@@ -910,6 +969,426 @@ function app() {
       } catch {}
     },
 
+    // -----------------------------------------------------------------------
+    // Edit Products — bulk product editor over the most recent store scan.
+    // -----------------------------------------------------------------------
+    // Called when the view is first opened: load the store list, default-select
+    // the scanned stores, then load the grid.
+    async initEditProducts() {
+      if (this._editInit) return;
+      this._editInit = true;
+      try {
+        const r = await this.api('/api/edit-products/stores') || { stores: [] };
+        this.editStores = r.stores;
+        // Default: select stores that have a real scan snapshot (the page's
+        // reason for being). If none are scanned, select everything.
+        const scanned = this.editStores.filter(s => s.data_source === 'scan');
+        const pick = (scanned.length ? scanned : this.editStores);
+        const sel = {};
+        pick.forEach(s => { sel[s.domain] = true; });
+        this.editStoreSel = sel;
+      } catch (e) { this.toast('Failed to load stores: ' + e.message, 'error'); }
+      await this.loadEditProducts(1);
+    },
+
+    editSelectedStores() {
+      return this.editStores.filter(s => this.editStoreSel[s.domain]).map(s => s.domain);
+    },
+
+    editStoreShort(domain) { return (domain || '').split('.')[0]; },
+
+    async loadEditProducts(page = 1) {
+      const stores = this.editSelectedStores();
+      if (!stores.length) {
+        this.editData = { rows: [], columns: this.editData.columns || [], total: 0, page: 1, pages: 1, per_page: this.editFilters.per_page, facets: {}, stores_meta: [] };
+        return;
+      }
+      this.editLoading = true;
+      try {
+        const f = this.editFilters;
+        const params = new URLSearchParams({ page, per_page: f.per_page });
+        params.set('stores', stores.join(','));
+        if (f.search)        params.set('search', f.search);
+        if (f.title)         params.set('title', f.title);
+        if (f.sku)           params.set('sku', f.sku);
+        if (f.vendor)        params.set('vendor', f.vendor);
+        if (f.product_type)  params.set('product_type', f.product_type);
+        if (f.status)        params.set('status', f.status);
+        if (f.tag)           params.set('tag', f.tag);
+        if (f.collection)    params.set('collection', f.collection);
+        if (f.min_price !== '')  params.set('min_price', f.min_price);
+        if (f.max_price !== '')  params.set('max_price', f.max_price);
+        if (f.min_weight !== '') params.set('min_weight', f.min_weight);
+        if (f.max_weight !== '') params.set('max_weight', f.max_weight);
+        if (f.has_image !== '')  params.set('has_image', f.has_image);
+        params.set('sort_by', f.sort_by);
+        params.set('sort_order', f.sort_order);
+        const data = await this.api(`/api/edit-products?${params}`);
+        if (data) {
+          this.editData = data;
+          this.editFacets = data.facets || this.editFacets;
+          this._wireEditGrid();
+        }
+      } catch (e) { this.toast('Failed to load products: ' + e.message, 'error'); }
+      finally { this.editLoading = false; }
+    },
+
+    // The grid is a single static <table> whose ~23 data columns are filled in
+    // by x-for AFTER load. _initColumnResize's MutationObserver only re-wires on
+    // added <table> nodes, so it wired this table at page load with just the two
+    // static columns (checkbox, Img). Once the real columns exist, drop the
+    // stale wiring and re-wire so every data column gets a resize grip. The
+    // column set is stable across reloads, so this runs once.
+    _wireEditGrid() {
+      if (this._editGridWired) return;
+      this._editGridWired = true;
+      this.$nextTick(() => {
+        const t = document.querySelector('[x-show*="edit-products"] table');
+        if (!t) { this._editGridWired = false; return; }
+        t.__colResizeWired = false;
+        t.__pinned = false;
+        t.querySelectorAll('.col-resize-grip').forEach(g => g.remove());
+        this._wireTableResize(t);
+      });
+    },
+
+    // Toggle a store checkbox and reload.
+    editToggleStore(domain) {
+      this.editStoreSel = { ...this.editStoreSel, [domain]: !this.editStoreSel[domain] };
+      this.loadEditProducts(1);
+    },
+    editSelectAllStores(on) {
+      const sel = {};
+      this.editStores.forEach(s => { sel[s.domain] = on; });
+      this.editStoreSel = sel;
+      this.loadEditProducts(1);
+    },
+
+    // Click a column header to sort by it (toggles direction on the active col).
+    editSort(col) {
+      const f = this.editFilters;
+      if (f.sort_by === col) {
+        f.sort_order = f.sort_order === 'asc' ? 'desc' : 'asc';
+      } else {
+        f.sort_by = col;
+        f.sort_order = 'asc';
+      }
+      this.loadEditProducts(1);
+    },
+
+    editHasActiveFilters() {
+      const f = this.editFilters;
+      return f.search || f.title || f.sku || f.vendor || f.product_type || f.status ||
+             f.tag || f.collection || f.min_price !== '' || f.max_price !== '' ||
+             f.min_weight !== '' || f.max_weight !== '' || f.has_image !== '';
+    },
+
+    editClearFilters() {
+      this.editFilters = {
+        search: '', title: '', sku: '', vendor: '', product_type: '', status: '',
+        tag: '', collection: '', min_price: '', max_price: '',
+        min_weight: '', max_weight: '', has_image: '',
+        sort_by: 'title', sort_order: 'asc', per_page: this.editFilters.per_page,
+      };
+      this.loadEditProducts(1);
+    },
+
+    // Render a cell value for display (arrays → comma list, null → blank).
+    editCell(row, col) {
+      const v = row[col];
+      if (v === null || v === undefined || v === '') return '';
+      if (Array.isArray(v)) return v.join(', ');
+      if (col === 'price' || col === 'compare_at_price') return '$' + Number(v).toFixed(2);
+      return v;
+    },
+
+    editNumericCol(col) {
+      return ['price', 'compare_at_price', 'weight', 'inventory_quantity', 'image_count'].includes(col);
+    },
+
+    // Row selection. We store the whole row object (not just a boolean) so bulk
+    // edits can reach rows selected on other pages, which are no longer loaded.
+    editIsRowSelected(rowId) { return !!this.editRowSel[rowId]; },
+    editSelectedCount() { return Object.keys(this.editRowSel).length; },
+    editToggleRow(row) {
+      const next = { ...this.editRowSel };
+      if (next[row.row_id]) delete next[row.row_id]; else next[row.row_id] = row;
+      this.editRowSel = next;
+    },
+    editAllOnPageSelected() {
+      const rows = this.editData.rows || [];
+      return rows.length > 0 && rows.every(r => this.editRowSel[r.row_id]);
+    },
+    editToggleAllOnPage(on) {
+      const next = { ...this.editRowSel };
+      (this.editData.rows || []).forEach(r => { if (on) next[r.row_id] = r; else delete next[r.row_id]; });
+      this.editRowSel = next;
+    },
+    editClearSelection() { this.editRowSel = {}; },
+
+    // -------------------------------------------------------------------
+    // Inline editing (Phase 2) — staged locally, nothing sent to Shopify.
+    // -------------------------------------------------------------------
+    editIsEditable(col) { return Object.prototype.hasOwnProperty.call(this.editColType, col); },
+    editPKey(row) { return row.store + '|' + row.product_id; },
+    editCellKey(row, col) { return row.row_id + '::' + col; },
+
+    // The overlay map + whether it carries an override for this field.
+    _editOverride(row, col) {
+      const scope = this.editColScope[col] || 'variant';
+      const m = scope === 'product'
+        ? this.editProductEdits[this.editPKey(row)]
+        : this.editEdits[row.row_id];
+      const has = !!m && Object.prototype.hasOwnProperty.call(m, col);
+      return { has, value: has ? m[col] : row[col] };
+    },
+    editEffective(row, col) { return this._editOverride(row, col).value; },
+    editIsDirty(row, col) { return this._editOverride(row, col).has; },
+
+    // Effective value formatted for display (arrays → list, prices → $).
+    editDisplay(row, col) {
+      const v = this.editEffective(row, col);
+      if (v === null || v === undefined || v === '') return '';
+      if (Array.isArray(v)) return v.join(', ');
+      if (col === 'price' || col === 'compare_at_price') return '$' + Number(v).toFixed(2);
+      return v;
+    },
+
+    editSelectOptions(col) {
+      return col === 'status' ? this.editStatusOptions : this.editWeightUnitOptions;
+    },
+
+    editStartCell(row, col) {
+      if (!this.editIsEditable(col)) return;
+      this.editActiveCell = this.editCellKey(row, col);
+      const v = this.editEffective(row, col);
+      if (this.editColType[col] === 'tags') this.editDraft = Array.isArray(v) ? v.join(', ') : (v || '');
+      else this.editDraft = (v === null || v === undefined) ? '' : String(v);
+      this.$nextTick(() => {
+        const el = document.getElementById('editcell-input');
+        if (el) { el.focus(); if (el.select) el.select(); }
+      });
+    },
+
+    _editEqual(a, b, type) {
+      if (type === 'tags') {
+        a = Array.isArray(a) ? a : [];
+        b = Array.isArray(b) ? b : [];
+        return a.join('') === b.join('');
+      }
+      if (type === 'number') {
+        const na = (a === null || a === undefined || a === '') ? null : Number(a);
+        const nb = (b === null || b === undefined || b === '') ? null : Number(b);
+        return na === nb;
+      }
+      const sa = (a === null || a === undefined) ? '' : String(a);
+      const sb = (b === null || b === undefined) ? '' : String(b);
+      return sa === sb;
+    },
+
+    // Store (or clear, if reverted to original) an override for one field.
+    _editSet(row, col, parsed) {
+      const same = this._editEqual(row[col], parsed, this.editColType[col]);
+      const scope = this.editColScope[col] || 'variant';
+      if (scope === 'product') {
+        const k = this.editPKey(row);
+        const m = { ...(this.editProductEdits[k] || {}) };
+        if (same) delete m[col]; else m[col] = parsed;
+        const next = { ...this.editProductEdits };
+        if (Object.keys(m).length) { next[k] = m; this.editProductRows[k] = row; } else delete next[k];
+        this.editProductEdits = next;
+      } else {
+        const k = row.row_id;
+        const m = { ...(this.editEdits[k] || {}) };
+        if (same) delete m[col]; else m[col] = parsed;
+        const next = { ...this.editEdits };
+        if (Object.keys(m).length) { next[k] = m; this.editEditRows[k] = row; } else delete next[k];
+        this.editEdits = next;
+      }
+    },
+
+    // Parse a raw string input into the stored value for a field's type.
+    editParseValue(col, raw) {
+      const type = this.editColType[col];
+      if (type === 'number') {
+        const p = (raw === '' || raw === null || raw === undefined) ? null : parseFloat(raw);
+        return (p !== null && isNaN(p)) ? null : p;
+      }
+      if (type === 'tags') {
+        return String(raw || '').split(',').map(s => s.trim()).filter(Boolean);
+      }
+      return String(raw ?? '');
+    },
+
+    editCommitCell(row, col) {
+      if (this._suppressBlur) { this._suppressBlur = false; return; }
+      this._editSet(row, col, this.editParseValue(col, this.editDraft));
+      this.editActiveCell = null;
+    },
+
+    // -------------------------------------------------------------------
+    // Bulk edit (Phase 3) — set one field across every selected row.
+    // -------------------------------------------------------------------
+    editBulkFields() {
+      return (this.editData.columns || []).filter(c => this.editIsEditable(c));
+    },
+    // When the field changes, seed a sensible default value (first option for
+    // selects, empty otherwise).
+    editBulkFieldChanged() {
+      this.editBulkValue = (this.editColType[this.editBulkField] === 'select')
+        ? this.editSelectOptions(this.editBulkField)[0] : '';
+    },
+    editBulkApply() {
+      if (!this.editBulkField) return;
+      const parsed = this.editParseValue(this.editBulkField, this.editBulkValue);
+      const rows = Object.values(this.editRowSel);
+      rows.forEach(row => this._editSet(row, this.editBulkField, parsed));
+      const label = this.editColLabels[this.editBulkField] || this.editBulkField;
+      this.toast(`Set ${label} on ${rows.length} row${rows.length === 1 ? '' : 's'}`, 'success');
+    },
+
+    editCancelCell() { this._suppressBlur = true; this.editActiveCell = null; },
+    editRevertCell(row, col) { this._editSet(row, col, row[col]); },
+
+    editPendingCount() {
+      let n = 0;
+      for (const k in this.editProductEdits) n += Object.keys(this.editProductEdits[k]).length;
+      for (const k in this.editEdits) n += Object.keys(this.editEdits[k]).length;
+      return n;
+    },
+    editRevertAll() {
+      this.editEdits = {}; this.editProductEdits = {};
+      this.editEditRows = {}; this.editProductRows = {};
+      this.editActiveCell = null;
+    },
+
+    // -------------------------------------------------------------------
+    // Review & push to Shopify (Phase 4).
+    // -------------------------------------------------------------------
+    // Flatten the staged overlays into a change list the backend can turn into
+    // Shopify transactions. Uses the row registries for context + original value.
+    editBuildChanges() {
+      const changes = [];
+      const push = (row, field, scope, newVal) => changes.push({
+        change_id: [row.store, row.product_id, row.variant_id, scope, field].join('|'),
+        store: row.store, data_source: row.data_source,
+        product_id: row.product_id, variant_id: row.variant_id, handle: row.handle,
+        field, scope, old: row[field], new: newVal,
+      });
+      for (const k in this.editProductEdits) {
+        const row = this.editProductRows[k]; if (!row) continue;
+        const m = this.editProductEdits[k];
+        for (const f in m) push(row, f, 'product', m[f]);
+      }
+      for (const k in this.editEdits) {
+        const row = this.editEditRows[k]; if (!row) continue;
+        const m = this.editEdits[k];
+        for (const f in m) push(row, f, 'variant', m[f]);
+      }
+      return changes;
+    },
+
+    async editOpenReview() {
+      if (this.editPendingCount() === 0) return;
+      this.editReview = { ...this.editReview, open: true, loading: true, results: null };
+      try {
+        const r = await this.api('/api/edit-products/review', {
+          method: 'POST', body: JSON.stringify({ changes: this.editBuildChanges() }),
+        });
+        this.editReview = { ...this.editReview, ...r, open: true, loading: false, executing: false, results: null };
+      } catch (e) {
+        this.editReview.loading = false;
+        this.toast('Review failed: ' + e.message, 'error');
+      }
+    },
+
+    editCloseReview() { this.editReview = { ...this.editReview, open: false }; },
+
+    editRiskClass(risk) {
+      if (risk === 'HIGH') return 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300';
+      if (risk === 'MEDIUM') return 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300';
+      return 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300';
+    },
+
+    editFmt(v) {
+      if (v === null || v === undefined || v === '') return '—';
+      if (Array.isArray(v)) return v.length ? v.join(', ') : '—';
+      return v;
+    },
+
+    // Push runs in the background on the server (bulk pushes take minutes under
+    // Shopify's rate limit). Start it, then poll for progress + final results.
+    async editExecutePush() {
+      if (this.editReview.pushable === 0) { this.toast('Nothing pushable to Shopify.', 'warning'); return; }
+      this.editReview.executing = true;
+      this.editReview.progress = { done: 0, total: this.editReview.pushable };
+      try {
+        const start = await this.api('/api/edit-products/execute', {
+          method: 'POST', body: JSON.stringify({ changes: this.editBuildChanges() }),
+        });
+        if (start.status === 'already_running') {
+          this.toast('A push is already running.', 'warning');
+          this.editReview.executing = false;
+          return;
+        }
+        if (start.status === 'nothing_to_push') {
+          this._editApplyResults(start.results || {});
+          return;
+        }
+        this.editReview.progress = { done: 0, total: start.total };
+        this._editPoll();
+      } catch (e) {
+        this.editReview.executing = false;
+        this.toast('Push failed: ' + e.message, 'error');
+      }
+    },
+
+    async _editPoll() {
+      try {
+        const s = await this.api('/api/edit-products/execute-status');
+        if (!s) return;
+        this.editReview.progress = { done: s.done, total: s.total };
+        if (s.finished) { this._editApplyResults(s.results || {}); return; }
+      } catch (e) { /* transient — keep polling */ }
+      this._editPollTimer2 = setTimeout(() => this._editPoll(), 1200);
+    },
+
+    _editApplyResults(results) {
+      this.editReview = { ...this.editReview, executing: false, results };
+      let ok = 0, errors = 0, skipped = 0;
+      for (const cid in results) {
+        const st = results[cid].status;
+        if (st === 'ok') { ok++; this._editClearChangeById(cid); }
+        else if (st === 'error') errors++;
+        else if (st === 'skipped') skipped++;
+      }
+      const msg = `Pushed ${ok} change${ok === 1 ? '' : 's'}` +
+        (errors ? `, ${errors} failed` : '') + (skipped ? `, ${skipped} skipped` : '');
+      this.toast(msg, errors ? 'warning' : 'success');
+    },
+
+    // change_id = store|product_id|variant_id|scope|field
+    _editClearChangeById(cid) {
+      const [store, product_id, variant_id, scope, field] = cid.split('|');
+      if (scope === 'product') {
+        const k = store + '|' + product_id;
+        if (this.editProductEdits[k]) {
+          const m = { ...this.editProductEdits[k] }; delete m[field];
+          const next = { ...this.editProductEdits };
+          if (Object.keys(m).length) next[k] = m; else delete next[k];
+          this.editProductEdits = next;
+        }
+      } else {
+        const k = [store, product_id, variant_id].join('|');
+        if (this.editEdits[k]) {
+          const m = { ...this.editEdits[k] }; delete m[field];
+          const next = { ...this.editEdits };
+          if (Object.keys(m).length) next[k] = m; else delete next[k];
+          this.editEdits = next;
+        }
+      }
+    },
+
     async adoptSourceValue(productId, field, value) {
       const payload = { [field]: value };
       this.storeCompSaving = { ...this.storeCompSaving, [productId]: true };
@@ -945,8 +1424,19 @@ function app() {
       } catch {}
     },
 
-    async runLiveScan(domain) {
+    async runLiveScan(domain, force = false) {
       if (!domain) return;
+      // If a saved scan for this domain is still fresh (< MAX_AGE_DAYS), ask the
+      // user whether to reuse it or run a fresh scan — showing when it was taken.
+      if (!force) {
+        try {
+          const info = await this.api('/api/shopify-live/scan-info/' + encodeURIComponent(domain));
+          if (info && info.cached) {
+            this.liveSyncScanPrompt = { domain, info };
+            return;
+          }
+        } catch {}
+      }
       this.liveSyncScanProgress = { ...this.liveSyncScanProgress, [domain]: 'Scanning…' };
       try {
         const result = await this.api('/api/shopify-live/scan', { method: 'POST', body: JSON.stringify({ domain }) });
@@ -959,6 +1449,44 @@ function app() {
         this.liveSyncScanProgress = { ...this.liveSyncScanProgress, [domain]: `✗ ${e.message}` };
         this.toast('Scan failed: ' + e.message, 'error');
       }
+    },
+
+    // "Use existing scan" from the recent-scan prompt: keep the saved snapshot
+    // (the diff will load it from the cache) and just reflect its counts.
+    liveSyncUseExistingScan() {
+      const p = this.liveSyncScanPrompt;
+      if (!p) return;
+      const { domain, info } = p;
+      this.liveSyncScanStatus = {
+        ...this.liveSyncScanStatus,
+        [domain]: { product_count: info.product_count, shop_name: info.shop_name },
+      };
+      this.liveSyncScanProgress = {
+        ...this.liveSyncScanProgress,
+        [domain]: `✓ ${info.product_count} products (saved ${this.fmtDate(info.scanned_at)})`,
+      };
+      this.liveSyncScanPrompt = null;
+    },
+
+    // "Run fresh scan" from the recent-scan prompt.
+    liveSyncFreshScan() {
+      const p = this.liveSyncScanPrompt;
+      if (!p) return;
+      const domain = p.domain;
+      this.liveSyncScanPrompt = null;
+      this.runLiveScan(domain, true);
+    },
+
+    liveSyncScanAgeText(info) {
+      if (!info) return '—';
+      const s = Math.max(0, Math.floor(info.age_seconds || 0));
+      const days = Math.floor(s / 86400);
+      const hours = Math.floor((s % 86400) / 3600);
+      const mins = Math.floor((s % 3600) / 60);
+      if (days >= 1) return `${days} day${days > 1 ? 's' : ''}${hours ? `, ${hours} hr` : ''} ago`;
+      if (hours >= 1) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+      if (mins >= 1) return `${mins} minute${mins > 1 ? 's' : ''} ago`;
+      return 'just now';
     },
 
     async runLiveDiff() {
@@ -1075,8 +1603,12 @@ function app() {
       if (approvedCount === 0) { this.toast('No transactions approved.', 'error'); return; }
       if (!confirm(`Execute ${approvedCount} approved transaction(s) against ${this.liveSyncDest}? This will make real changes to the destination store.`)) return;
       this.liveSyncExecuting = true;
+      this.liveSyncProgress = { done: 0, total: approvedCount, ok: 0, errors: 0 };
       this.liveSyncStep = 'executing';
       try {
+        // The execute now runs in the BACKGROUND — a large catalog can take
+        // several minutes under Shopify's rate limit. This call returns right
+        // away; progress + completion arrive over the WebSocket.
         const result = await this.api('/api/shopify-live/execute', {
           method: 'POST',
           body: JSON.stringify({
@@ -1084,15 +1616,50 @@ function app() {
             transactions: this.liveSyncTransactions,
           }),
         });
-        this.liveSyncResults = result;
-        this._liveSyncLogRun(result);
-        this.liveSyncStep = 'done';
+        if (!result || result.status === 'nothing_to_do') {
+          this.liveSyncExecuting = false;
+          this.liveSyncStep = 'review';
+          this.toast('Nothing to execute.', 'info');
+          return;
+        }
+        if (result.status === 'already_running') {
+          this.liveSyncProgress = { done: result.done || 0, total: result.total || approvedCount, ok: 0, errors: 0 };
+          this.toast('A sync is already running — showing its progress.', 'info');
+        }
+        this._startLiveExecutePoll();  // WS-drop fallback
       } catch (e) {
+        this.liveSyncExecuting = false;
         this.liveSyncStep = 'review';
         this.toast('Execution failed: ' + e.message, 'error');
-      } finally {
-        this.liveSyncExecuting = false;
       }
+    },
+
+    // Poll the server for progress in case the WebSocket drops during a long run.
+    _startLiveExecutePoll() {
+      clearInterval(this._liveExecPollTimer);
+      this._liveExecPollTimer = setInterval(async () => {
+        if (this.liveSyncStep !== 'executing') { clearInterval(this._liveExecPollTimer); return; }
+        try {
+          const s = await this.api('/api/shopify-live/execute-status');
+          if (!s) return;
+          if (s.running) {
+            this.liveSyncProgress = { done: s.done, total: s.total, ok: s.ok, errors: s.errors };
+          } else if (s.last_result) {
+            this._finishLiveExecute(s.last_result);
+          }
+        } catch {}
+      }, 4000);
+    },
+
+    // Finalize the execute (called by the WS 'live_sync_complete' event or the poll).
+    _finishLiveExecute(payload) {
+      clearInterval(this._liveExecPollTimer);
+      if (this.liveSyncStep !== 'executing') return;  // already finalized
+      this.liveSyncResults = payload;
+      this._liveSyncLogRun(payload);
+      this.liveSyncExecuting = false;
+      this.liveSyncStep = 'done';
+      if (payload.status === 'error') this.toast('Execution failed: ' + (payload.error || 'unknown'), 'error');
     },
 
     liveSyncRiskClass(risk) {
@@ -1140,7 +1707,7 @@ function app() {
     },
 
     liveSyncToggleGroup(name) {
-      this.liveSyncCollapsedGroups = { ...this.liveSyncCollapsedGroups, [name]: !this.liveSyncCollapsedGroups[name] };
+      this.liveSyncExpandedGroups = { ...this.liveSyncExpandedGroups, [name]: !this.liveSyncExpandedGroups[name] };
     },
 
     liveSyncGroupSet(grp, approve) {
@@ -1160,9 +1727,9 @@ function app() {
           t.meta = { ...(t.meta || {}), collection_title: newName };
         }
       }
-      if (oldName in this.liveSyncCollapsedGroups) {
-        this.liveSyncCollapsedGroups[newName] = this.liveSyncCollapsedGroups[oldName];
-        delete this.liveSyncCollapsedGroups[oldName];
+      if (oldName in this.liveSyncExpandedGroups) {
+        this.liveSyncExpandedGroups[newName] = this.liveSyncExpandedGroups[oldName];
+        delete this.liveSyncExpandedGroups[oldName];
       }
       this.liveSyncTransactions = [...this.liveSyncTransactions];
       this.toast(`Collection will be created as "${newName}"`, 'success', 2500);
@@ -1698,6 +2265,13 @@ function app() {
         case 'parallel_scan_complete':
           this.parallelScanRunning = false;
           this.loadCycleStatus();
+          break;
+        case 'live_sync_progress':
+          if (this.liveSyncStep === 'executing')
+            this.liveSyncProgress = { done: msg.done, total: msg.total, ok: msg.ok, errors: msg.errors };
+          break;
+        case 'live_sync_complete':
+          this._finishLiveExecute(msg);
           break;
       }
     },

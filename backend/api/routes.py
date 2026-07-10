@@ -42,6 +42,7 @@ from sqlalchemy import func, or_, text
 from sqlalchemy.orm import Session, joinedload
 
 from backend.config import config
+from backend.shopify import scan_cache
 from backend.database.db import get_db_session, db_health_check, session_scope
 from backend.database.models import (
     AppSetting,
@@ -626,6 +627,194 @@ def get_store_comparison_summary(db: Session = Depends(get_db_session)):
         "sor_site": SOR_SITE,
         "missing_from_sor": total - present.get(SOR_SITE, 0),
         "stores": stores,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Edit Products page — one row per variant from the most recent store scan.
+# ---------------------------------------------------------------------------
+@router.get("/api/edit-products/stores")
+def edit_products_stores(db: Session = Depends(get_db_session)):
+    """Every known store with its data source (scan/db), row count, scan age."""
+    from backend.shopify import edit_products
+    return {"stores": edit_products.list_stores(db)}
+
+
+@router.get("/api/edit-products")
+def edit_products_query(
+    stores: Optional[str] = None,
+    search: Optional[str] = None,
+    title: Optional[str] = None,
+    sku: Optional[str] = None,
+    vendor: Optional[str] = None,
+    product_type: Optional[str] = None,
+    status: Optional[str] = None,
+    tag: Optional[str] = None,
+    collection: Optional[str] = None,
+    min_price: Optional[float] = None,
+    max_price: Optional[float] = None,
+    min_weight: Optional[float] = None,
+    max_weight: Optional[float] = None,
+    has_image: Optional[bool] = None,
+    sort_by: str = "title",
+    sort_order: str = "asc",
+    page: int = 1,
+    per_page: int = 50,
+    db: Session = Depends(get_db_session),
+):
+    """Search/filter/sort/paginate variant rows across the selected stores.
+
+    ``stores`` is a comma-separated list of domains; empty means all stores.
+    """
+    from backend.shopify import edit_products
+
+    if stores:
+        selected = [s.strip() for s in stores.split(",") if s.strip()]
+    else:
+        selected = [s["domain"] for s in edit_products.list_stores(db)]
+
+    filters = {
+        "title": title,
+        "sku": sku,
+        "vendor": vendor,
+        "product_type": product_type,
+        "status": status,
+        "tag": tag,
+        "collection": collection,
+        "min_price": min_price,
+        "max_price": max_price,
+        "min_weight": min_weight,
+        "max_weight": max_weight,
+        "has_image": has_image,
+    }
+    return edit_products.query(
+        db,
+        stores=selected,
+        search=search or "",
+        filters=filters,
+        sort_by=sort_by,
+        sort_order=sort_order,
+        page=page,
+        per_page=per_page,
+    )
+
+
+class EditChangesRequest(BaseModel):
+    changes: List[Dict[str, Any]]   # [{store, data_source, product_id, variant_id, field, scope, old, new}]
+
+
+@router.post("/api/edit-products/review")
+def edit_products_review(req: EditChangesRequest):
+    """Turn staged edits into a review list with risk levels (no Shopify calls)."""
+    from backend.shopify import edit_products
+    items = edit_products.build_edit_transactions(req.changes)
+    risk_counts = {"LOW": 0, "MEDIUM": 0, "HIGH": 0}
+    for it in items:
+        risk_counts[it["risk"]] = risk_counts.get(it["risk"], 0) + 1
+    return {
+        "items": [{k: v for k, v in it.items() if k != "txn"} for it in items],
+        "total": len(items),
+        "pushable": sum(1 for it in items if it["pushable"]),
+        "blocked": sum(1 for it in items if not it["pushable"]),
+        "risk_counts": risk_counts,
+    }
+
+
+# Edit-Products push runs in the background: a bulk edit can be hundreds of
+# changes, and each variant/tags change is a GET+PUT under Shopify's 2 req/s
+# limit — minutes of work. The client starts it, then polls /execute-status.
+_edit_execute_state: Dict[str, Any] = {
+    "running": False, "finished": False, "done": 0, "total": 0,
+    "ok": 0, "errors": 0, "skipped": 0, "results": {},
+}
+
+
+@router.post("/api/edit-products/execute")
+async def edit_products_execute(req: EditChangesRequest):
+    """Start pushing staged edits to Shopify, grouped per store, in the background.
+
+    Non-pushable changes (DB-sourced) are recorded as skipped up front. A
+    per-store credential failure fails only that store's changes. Returns
+    immediately; progress + per-change results are read via
+    ``/api/edit-products/execute-status`` (results keyed by change_id).
+    """
+    from collections import defaultdict
+    from backend.shopify import edit_products
+    from backend.shopify import executor as executor_mod
+
+    if _edit_execute_state["running"]:
+        return {"status": "already_running", "done": _edit_execute_state["done"],
+                "total": _edit_execute_state["total"]}
+
+    items = edit_products.build_edit_transactions(req.changes)
+    results: Dict[str, Dict[str, Any]] = {}
+    by_store: Dict[str, List[Dict]] = defaultdict(list)
+    for it in items:
+        if not it["pushable"]:
+            results[it["change_id"]] = {"status": "skipped", "error": it["reason"]}
+        else:
+            by_store[it["store"]].append(it["txn"])
+
+    total = sum(len(v) for v in by_store.values())
+    if total == 0:
+        _edit_execute_state.update(running=False, finished=True, done=0, total=0,
+                                   ok=0, errors=0, skipped=len(results), results=results)
+        return {"status": "nothing_to_push", "skipped": len(results)}
+
+    _edit_execute_state.update(running=True, finished=False, done=0, total=total,
+                               ok=0, errors=0, skipped=len(results), results=dict(results))
+
+    async def _progress(update):
+        _edit_execute_state["done"] += 1
+        if update.get("status") == "ok":
+            _edit_execute_state["ok"] += 1
+        elif update.get("status") == "error":
+            _edit_execute_state["errors"] += 1
+
+    async def _fail_store(txns, msg):
+        for t in txns:
+            _edit_execute_state["results"][t["id"]] = {"status": "error", "error": msg}
+            _edit_execute_state["done"] += 1
+            _edit_execute_state["errors"] += 1
+
+    async def _job():
+        try:
+            for store, txns in by_store.items():
+                try:
+                    store_url, token = await _get_site_credentials(store)
+                except HTTPException as exc:
+                    await _fail_store(txns, str(exc.detail))
+                    continue
+                except Exception as exc:
+                    await _fail_store(txns, str(exc))
+                    continue
+                try:
+                    res = await executor_mod.execute_transactions(
+                        store_url, token, txns, progress_cb=_progress)
+                    for r in res:
+                        _edit_execute_state["results"][r["id"]] = {
+                            "status": r["status"], "error": r.get("error")}
+                except Exception as exc:
+                    logger.exception("edit_products_execute: store %s failed", store)
+                    for t in txns:
+                        _edit_execute_state["results"][t["id"]] = {"status": "error", "error": str(exc)}
+        finally:
+            _edit_execute_state["running"] = False
+            _edit_execute_state["finished"] = True
+
+    asyncio.create_task(_job())
+    return {"status": "started", "total": total, "skipped": len(results)}
+
+
+@router.get("/api/edit-products/execute-status")
+def edit_products_execute_status():
+    """Poll the background push; ``results`` is populated only once finished."""
+    s = _edit_execute_state
+    return {
+        "running": s["running"], "finished": s["finished"],
+        "done": s["done"], "total": s["total"], "ok": s["ok"],
+        "errors": s["errors"], "skipped": s["skipped"],
+        "results": s["results"] if s["finished"] else None,
     }
 
 
@@ -2445,8 +2634,10 @@ async def shopify_live_scan(req: LiveScanRequest):
     except Exception as exc:
         raise HTTPException(status_code=502, detail=f"Scan failed: {exc}")
 
-    # Cache snapshot (strip large HTML bodies to save memory)
+    # Cache snapshot in memory for this session and persist it (with a
+    # timestamp) so it can be reused for up to scan_cache.MAX_AGE_DAYS days.
     _scan_cache[req.domain] = snapshot
+    scan_cache.save_scan(req.domain, snapshot)
 
     return {
         "domain": req.domain,
@@ -2460,14 +2651,32 @@ async def shopify_live_scan(req: LiveScanRequest):
 
 @router.get("/api/shopify-live/scan-status")
 def shopify_scan_status():
-    """Return which domains have a cached scan snapshot."""
-    return {
-        domain: {
+    """Return which domains have a cached scan snapshot (memory + disk)."""
+    status: Dict[str, Any] = {}
+    # Persisted scans (survive restarts) — include when each was taken.
+    for domain, info in scan_cache.all_info().items():
+        status[domain] = {
+            "product_count": info["product_count"],
+            "shop_name": info["shop_name"],
+            "scanned_at": info["scanned_at"],
+        }
+    # Overlay in-memory session scans (freshest for this process).
+    for domain, snap in _scan_cache.items():
+        status[domain] = {
             "product_count": len(snap["products"]),
             "shop_name": snap["shop"].get("name", ""),
+            "scanned_at": status.get(domain, {}).get("scanned_at"),
         }
-        for domain, snap in _scan_cache.items()
-    }
+    return status
+
+
+@router.get("/api/shopify-live/scan-info/{domain}")
+def shopify_scan_info(domain: str):
+    """Whether a reusable (< MAX_AGE_DAYS) saved scan exists for this domain."""
+    info = scan_cache.scan_info(domain)
+    if info:
+        return {"cached": True, **info}
+    return {"cached": False, "domain": domain, "max_age_days": scan_cache.MAX_AGE_DAYS}
 
 
 @router.post("/api/shopify-live/diff")
@@ -2476,15 +2685,21 @@ async def shopify_live_diff(req: LiveDiffRequest):
     Diff source domain snapshot against destination domain snapshot.
     Both must have been scanned first (or will be scanned on demand).
     """
-    # Ensure both snapshots exist — scan on demand if missing
+    # Ensure both snapshots exist — reuse a fresh saved scan, else scan on demand
     for domain in (req.source_domain, req.dest_domain):
         if domain not in _scan_cache:
+            cached = scan_cache.load_snapshot(domain)
+            if cached is not None:
+                _scan_cache[domain] = cached
+                continue
             store_url, token = await _get_site_credentials(domain)
             from backend.shopify.scanner import scan_store
             try:
-                _scan_cache[domain] = await scan_store(store_url, token)
+                snap = await scan_store(store_url, token)
             except Exception as exc:
                 raise HTTPException(status_code=502, detail=f"Scan of {domain} failed: {exc}")
+            _scan_cache[domain] = snap
+            scan_cache.save_scan(domain, snap)
 
     from backend.shopify.differ import diff_stores
     transactions = diff_stores(
@@ -2522,29 +2737,83 @@ async def shopify_live_diff(req: LiveDiffRequest):
     }
 
 
+# Live Sync execute runs in the background (a large catalog can take many
+# minutes under Shopify's rate limit). Progress + completion are pushed over the
+# WebSocket; this dict also lets the client poll /execute-status if the WS drops.
+_live_execute_state: Dict[str, Any] = {
+    "running": False, "domain": None, "done": 0, "total": 0,
+    "ok": 0, "errors": 0, "last_result": None,
+}
+
+
 @router.post("/api/shopify-live/execute")
 async def shopify_live_execute(req: LiveExecuteRequest):
-    """Execute approved transactions against the destination store."""
-    store_url, token = await _get_site_credentials(req.dest_domain)
-    from backend.shopify.executor import execute_transactions
+    """Start executing approved transactions against the destination store.
+
+    Returns immediately; progress is broadcast over the WebSocket as
+    ``live_sync_progress`` events and finishes with ``live_sync_complete``.
+    """
+    if _live_execute_state["running"]:
+        return {"status": "already_running", "done": _live_execute_state["done"],
+                "total": _live_execute_state["total"], "domain": _live_execute_state["domain"]}
 
     approved_count = sum(1 for t in req.transactions if t.get("approved") is True)
     if approved_count == 0:
         return {"status": "nothing_to_do", "results": []}
 
-    results = await execute_transactions(store_url, token, req.transactions)
+    store_url, token = await _get_site_credentials(req.dest_domain)
+    from backend.shopify.executor import execute_transactions
 
-    ok = sum(1 for r in results if r["status"] == "ok")
-    errors = [r for r in results if r["status"] == "error"]
+    _live_execute_state.update(running=True, domain=req.dest_domain, done=0,
+                               total=approved_count, ok=0, errors=0, last_result=None)
 
-    return {
-        "status": "complete",
-        "approved": approved_count,
-        "ok": ok,
-        "errors": len(errors),
-        "error_details": errors[:20],
-        "results": results,
-    }
+    async def _progress(update: dict):
+        _live_execute_state["done"] += 1
+        st = update.get("status")
+        if st == "ok":
+            _live_execute_state["ok"] += 1
+        elif st == "error":
+            _live_execute_state["errors"] += 1
+        done = _live_execute_state["done"]
+        # Throttle: broadcast every 10 transactions and on the final one.
+        if done % 10 == 0 or done == approved_count:
+            await manager.broadcast({
+                "event": "live_sync_progress", "domain": req.dest_domain,
+                "done": done, "total": approved_count,
+                "ok": _live_execute_state["ok"], "errors": _live_execute_state["errors"],
+            })
+
+    async def _job():
+        try:
+            results = await execute_transactions(store_url, token, req.transactions, progress_cb=_progress)
+            ok = sum(1 for r in results if r["status"] == "ok")
+            errors = [r for r in results if r["status"] == "error"]
+            payload = {
+                "event": "live_sync_complete", "domain": req.dest_domain,
+                "status": "complete", "approved": approved_count, "ok": ok,
+                "errors": len(errors), "error_details": errors[:20], "results": results,
+            }
+        except Exception as exc:
+            logger.exception("shopify_live_execute: background job failed")
+            payload = {
+                "event": "live_sync_complete", "domain": req.dest_domain,
+                "status": "error", "error": str(exc),
+                "ok": _live_execute_state["ok"], "errors": _live_execute_state["errors"],
+                "results": [],
+            }
+        finally:
+            _live_execute_state["running"] = False
+        _live_execute_state["last_result"] = {k: v for k, v in payload.items() if k != "event"}
+        await manager.broadcast(payload)
+
+    asyncio.create_task(_job())
+    return {"status": "started", "domain": req.dest_domain, "total": approved_count}
+
+
+@router.get("/api/shopify-live/execute-status")
+def shopify_live_execute_status():
+    """Poll fallback for the background execute (in case the WebSocket drops)."""
+    return dict(_live_execute_state)
 
 
 # ---------------------------------------------------------------------------
