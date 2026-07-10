@@ -1,5 +1,54 @@
 # Session Notes
 
+## 2026-07-10 — Edit Products page (new feature)
+
+Branch: `feature/edit-products` (off `main`). **Pushed** to remote `domainsync`
+(`git@github.com:evweath/domainSync.git`); tracking set. 2 commits: `49c604f`
+(page + phases 1–4), `6a7e81e` (v3.0, taxonomy editing, column chooser, layout).
+Full test suite green (58). See `.claude/investigations/edit-products.md` for the
+detailed design + gotchas — read it first tomorrow.
+
+### Done this session
+- **New "Edit Products" page** — pulls every product from the most recent store
+  scan, one row per variant (~5,500 across the 2 scanned stores). Snapshot-
+  preferred, DB fallback. `backend/shopify/edit_products.py` (projection, query,
+  facets, taxonomy_pools, build_edit_transactions) + routes in `routes.py`
+  (`/api/edit-products`, `/stores`, `/taxonomy`, `/review`, `/execute` [backgrounded]
+  + `/execute-status`). Frontend: nav entry + view in `index.html` + `app.js`.
+- **Search/filter/sort** across all attributes; store multi-select; horizontal
+  resizable/sortable grid with always-visible scrollbars (fixed-height viewport).
+- **Inline + bulk editing**, product vs variant edit-scope, dirty highlighting,
+  revert; bulk Add/Remove/Set for list fields; free-form OR select-from-existing
+  picker; column show/hide chooser (persisted); Description capped ~30 chars.
+- **Stage → Review → Push** to live Shopify via the existing executor. Pushes:
+  title/vendor/product_type/status (product_field), price/sku/etc (variant_field),
+  tags, and collections (new executor `collections` handler: add=create/attach,
+  remove=detach custom collections).
+- Also: Platform label → v3.0; removed Country of Origin column; added Category +
+  relabeled Type→Product Type.
+
+### Open / next-time TODOs
+- **Live push is UNVERIFIED against a real store** — deliberately never clicked
+  "Push to Shopify" (all 5 stores have real creds; a successful push mutates the
+  live store, no undo). Per `.claude/investigations/shopify-sync.md`, write scopes
+  may still block it. Test with ONE low-risk change first.
+- **Category can't push** — Shopify taxonomy Category isn't in the scans and has
+  no REST write field; it's staged and marked "not pushed" in the review. To make
+  it real: scanner change to capture the taxonomy node + GraphQL
+  `productUpdate(category:)` + a taxonomy picker.
+- **Scans are stale (7–9 days, past the 5-day TTL)** — the page intentionally
+  loads the latest scan regardless of age (shows a ⚠ age badge). A fresh rescan
+  would refresh data and could capture the taxonomy Category.
+- **Repo has large files in history** (`data/donut_intel.db.bak-*`, ~59 MB each) —
+  GitHub warned on push. Consider gitignoring backups + Git LFS / history purge.
+- Git commits use an auto-derived author (`evw@evws-MacBook-Pro.local`); set
+  `git config user.name/user.email` + amend if a proper author is wanted.
+- Uncommitted, unrelated pre-existing changes left in tree on purpose:
+  `.gitignore`, `backend/shopify/client.py`, `start.bat`.
+- Server run: `.venv/bin/python -m uvicorn backend.app:app --host 127.0.0.1
+  --port 8801 --ssl-certfile certs/cert.pem --ssl-keyfile certs/key.pem` (8743/8744
+  are used by another project). `logs/server-8801.out` is untracked scratch.
+
 ## 2026-06-23 — SoR variant consolidation, Stages 1 & 2
 
 Branch: `sor-variant-consolidation` (off `dedup-price-store-compare-2026-06-23`).
