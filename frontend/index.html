@@ -1251,7 +1251,20 @@
             <template x-for="opt in editSelectOptions(editBulkField)" :key="opt"><option :value="opt" x-text="opt"></option></template>
           </select>
         </template>
-        <template x-if="editBulkField && editColType[editBulkField] !== 'select'">
+        <template x-if="editBulkField && editColType[editBulkField] === 'category'">
+          <select x-model="editBulkValue" class="border rounded-lg px-2 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
+            <option value="">— none —</option>
+            <template x-for="grp in editCategoryGroups()" :key="grp.group">
+              <optgroup :label="grp.group">
+                <option :value="grp.group" x-text="grp.group + ' (general)'"></option>
+                <template x-for="opt in grp.options" :key="opt.name">
+                  <option :value="opt.name" x-text="opt.name"></option>
+                </template>
+              </optgroup>
+            </template>
+          </select>
+        </template>
+        <template x-if="editBulkField && !['select','category'].includes(editColType[editBulkField])">
           <input x-model="editBulkValue" :type="editColType[editBulkField] === 'number' ? 'number' : 'text'" step="0.01" :list="editListId(editBulkField)"
             :placeholder="editColType[editBulkField] === 'tags' ? 'type free-form (comma-separated)…' : 'type free-form…'"
             class="border rounded-lg px-2 py-1.5 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
@@ -1285,9 +1298,9 @@
         <button @click="editClearSelection()" class="text-sm text-blue-500 hover:underline ml-auto">Clear selection</button>
       </div>
 
-      <!-- Suggestion pools (existing values from the DB + all scans) for datalists -->
+      <!-- Suggestion pools (existing values from the DB + all scans) for datalists.
+           category has none — it's a fixed select from category_tree, not free text. -->
       <datalist id="edit-pool-types"><template x-for="v in editPools.product_types" :key="v"><option :value="v"></option></template></datalist>
-      <datalist id="edit-pool-categories"><template x-for="v in editPools.categories" :key="v"><option :value="v"></option></template></datalist>
       <datalist id="edit-pool-collections"><template x-for="v in editPools.collections" :key="v"><option :value="v"></option></template></datalist>
 
       <!-- Empty state -->
@@ -1350,7 +1363,53 @@
                               <template x-for="opt in editSelectOptions(col)" :key="opt"><option :value="opt" x-text="opt"></option></template>
                             </select>
                           </template>
-                          <template x-if="editColType[col] !== 'select'">
+                          <!-- Category: fixed pick from Shopify's real, curated
+                               taxonomy (see category_taxonomy.py) — NOT free
+                               text like product_type, one value per product. -->
+                          <template x-if="editColType[col] === 'category'">
+                            <select id="editcell-input" x-model="editDraft"
+                              @change="editCommitCell(row,col)" @blur="editCommitCell(row,col)" @keydown.escape.stop="editCancelCell()"
+                              class="w-full border border-orange-400 rounded px-1 py-0.5 text-xs dark:bg-gray-700 focus:outline-none">
+                              <option value="">— none —</option>
+                              <template x-for="grp in editCategoryGroups()" :key="grp.group">
+                                <optgroup :label="grp.group">
+                                  <option :value="grp.group" x-text="grp.group + ' (general)'"></option>
+                                  <template x-for="opt in grp.options" :key="opt.name">
+                                    <option :value="opt.name" x-text="opt.name"></option>
+                                  </template>
+                                </optgroup>
+                              </template>
+                            </select>
+                          </template>
+                          <!-- Tags/Collections: free-form comma-separated text
+                               (typing a brand-new value) OR pick one-to-many
+                               existing values via checkboxes. -->
+                          <template x-if="editColType[col] === 'tags'">
+                            <div class="flex items-center gap-1">
+                              <input id="editcell-input" type="text" x-model="editDraft" :list="editListId(col)" placeholder="comma-separated…"
+                                @keydown.enter.prevent="editCommitCell(row,col)" @blur="editCommitCell(row,col)" @keydown.escape.stop="editCancelCell()"
+                                class="w-full min-w-[70px] border border-orange-400 rounded px-1 py-0.5 text-xs dark:bg-gray-700 focus:outline-none" />
+                              <div class="relative flex-shrink-0" @click.outside="editCellPickerOpen = false">
+                                <button type="button" @mousedown.prevent @click="editCellPickerOpen = !editCellPickerOpen"
+                                  class="text-xs px-1 py-0.5 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-600">▾</button>
+                                <div x-show="editCellPickerOpen" x-cloak @mousedown.prevent
+                                  class="absolute z-30 mt-1 right-0 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-xl p-2">
+                                  <input x-model="editCellPickerSearch" type="text" placeholder="Filter…"
+                                    class="w-full border rounded px-2 py-1 text-xs mb-1 dark:bg-gray-700 dark:border-gray-600 focus:outline-none" />
+                                  <div class="max-h-56 overflow-auto">
+                                    <template x-for="v in editCellPickerFiltered(col)" :key="v">
+                                      <label class="flex items-center gap-2 px-1 py-1 text-sm rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                                        <input type="checkbox" :checked="editCellIsPicked(v)" @change="editCellTogglePick(v)" class="w-4 h-4 accent-orange-500" />
+                                        <span class="truncate" x-text="v"></span>
+                                      </label>
+                                    </template>
+                                    <div x-show="editCellPickerFiltered(col).length === 0" class="text-xs text-gray-400 px-1 py-2">No matches</div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </template>
+                          <template x-if="!['select','category','tags'].includes(editColType[col])">
                             <input id="editcell-input" :type="editColType[col] === 'number' ? 'number' : 'text'" step="0.01" x-model="editDraft" :list="editListId(col)"
                               @keydown.enter.prevent="editCommitCell(row,col)" @blur="editCommitCell(row,col)" @keydown.escape.stop="editCancelCell()"
                               class="w-full min-w-[70px] border border-orange-400 rounded px-1 py-0.5 text-xs dark:bg-gray-700 focus:outline-none" />

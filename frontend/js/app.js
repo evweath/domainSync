@@ -96,9 +96,11 @@ function app() {
     editActiveCell: null,           // 'row_id::col' currently being edited
     editDraft: '',                  // in-progress input value
     _suppressBlur: false,           // discard the blur that follows Escape
-    // Which columns are editable + how to render/parse them.
+    // Which columns are editable + how to render/parse them. `category` is its
+    // own type (NOT 'text' like product_type) — it's a one-per-product pick
+    // from Shopify's real taxonomy, not a free-form field; see category_tree.
     editColType: {
-      title: 'text', vendor: 'text', product_type: 'text', category: 'text',
+      title: 'text', vendor: 'text', product_type: 'text', category: 'category',
       status: 'select', tags: 'tags', collections: 'tags',
       sku: 'text', barcode: 'text', price: 'number', compare_at_price: 'number',
       weight: 'number',
@@ -110,14 +112,20 @@ function app() {
       weight: 'variant',
     },
     editStatusOptions: ['active', 'draft', 'archived'],
-    // Existing values pulled from the DB + all scans, for datalist suggestions.
-    editPools: { product_types: [], categories: [], collections: [] },
+    // Existing values pulled from the DB + all scans, for datalist suggestions
+    // (product_type/collections are free text — Shopify has no fixed list for
+    // either). category_tree is NOT a suggestion pool — it's the fixed,
+    // curated subset of Shopify's real taxonomy the category picker offers.
+    editPools: { product_types: [], collections: [], category_tree: [] },
     // Column show/hide (persisted). Missing key = visible.
     editColVisible: {},
     editColChooserOpen: false,
     // "Select from existing" picker in the bulk bar (alternative to typing).
     editBulkPickerOpen: false,
     editBulkPickerSearch: '',
+    // Same picker, but for the inline per-cell editor (tags/collections only).
+    editCellPickerOpen: false,
+    editCellPickerSearch: '',
     // Every column defaults to a ~30-character width (drag a column's resize
     // grip to widen it past the default cap).
     editFilters: {
@@ -1053,12 +1061,20 @@ function app() {
     },
 
     // Which datalist (of existing values) backs a given editable column, if any.
+    // category has no datalist — it's a fixed select from category_tree, not
+    // free text with suggestions.
     editListId(col) {
       if (col === 'product_type') return 'edit-pool-types';
-      if (col === 'category') return 'edit-pool-categories';
       if (col === 'collections') return 'edit-pool-collections';
       return '';
     },
+
+    // Shopify's real, curated taxonomy groups for the Category picker
+    // (<optgroup> per group; each group is itself a selectable coarse
+    // fallback alongside its more specific child options — see
+    // backend/shopify/category_taxonomy.py for why these are the only
+    // options offered).
+    editCategoryGroups() { return this.editPools.category_tree || []; },
 
     // ---- Column show/hide -------------------------------------------------
     editVisibleColumns() {
@@ -1071,15 +1087,17 @@ function app() {
       this._editGridWired = false;
       this._wireEditGrid();
     },
-    // ---- Bulk "select from existing" picker ------------------------------
-    editBulkPool() {
-      const f = this.editBulkField;
-      if (f === 'product_type') return this.editPools.product_types;
-      if (f === 'category') return this.editPools.categories;
-      if (f === 'collections') return this.editPools.collections;
-      if (f === 'tags') return this.editFacets.tags || [];
+    // ---- "Select from existing" picker (free-form-OR-pick fields only —
+    // product_type/collections/tags; category has its own dedicated select,
+    // not this picker, since its options are fixed rather than a pool of
+    // whatever's already in the DB) ------------------------------------
+    editPoolFor(col) {
+      if (col === 'product_type') return this.editPools.product_types;
+      if (col === 'collections') return this.editPools.collections;
+      if (col === 'tags') return this.editFacets.tags || [];
       return [];
     },
+    editBulkPool() { return this.editPoolFor(this.editBulkField); },
     editBulkHasPicker() { return this.editBulkPool().length > 0; },
     editBulkPickerFiltered() {
       const q = this.editBulkPickerSearch.trim().toLowerCase();
@@ -1101,6 +1119,26 @@ function app() {
         this.editBulkValue = v;
         this.editBulkPickerOpen = false;
       }
+    },
+
+    // ---- Same picker, inline per-cell (tags/collections only) ------------
+    // Mirrors the bulk picker above but reads/writes editDraft for the single
+    // active cell instead of editBulkValue across many rows.
+    _draftTokens() {
+      return String(this.editDraft || '').split(',').map(s => s.trim()).filter(Boolean);
+    },
+    editCellPool(col) { return this.editPoolFor(col); },
+    editCellPickerFiltered(col) {
+      const q = this.editCellPickerSearch.trim().toLowerCase();
+      const pool = this.editCellPool(col);
+      return q ? pool.filter(v => v.toLowerCase().includes(q)) : pool;
+    },
+    editCellIsPicked(v) { return this._draftTokens().includes(v); },
+    editCellTogglePick(v) {
+      const toks = this._draftTokens();
+      const i = toks.indexOf(v);
+      if (i >= 0) toks.splice(i, 1); else toks.push(v);
+      this.editDraft = toks.join(', ');
     },
 
     editSelectedStores() {
@@ -1276,6 +1314,8 @@ function app() {
     editStartCell(row, col) {
       if (!this.editIsEditable(col)) return;
       this.editActiveCell = this.editCellKey(row, col);
+      this.editCellPickerOpen = false;
+      this.editCellPickerSearch = '';
       const v = this.editEffective(row, col);
       if (this.editColType[col] === 'tags') this.editDraft = Array.isArray(v) ? v.join(', ') : (v || '');
       else this.editDraft = (v === null || v === undefined) ? '' : String(v);

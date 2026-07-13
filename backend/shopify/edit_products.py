@@ -30,6 +30,7 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from backend.config import config
 from backend.shopify import scan_cache
+from backend.shopify.category_taxonomy import CATEGORY_TAXONOMY, category_options
 
 logger = logging.getLogger(__name__)
 
@@ -482,26 +483,29 @@ def _snapshot_pools(domain: str) -> Dict[str, Any]:
     return pools
 
 
-def taxonomy_pools(db) -> Dict[str, List[str]]:
-    """Comprehensive suggestion pools for the editor's datalists.
+def taxonomy_pools(db) -> Dict[str, Any]:
+    """Comprehensive suggestion pools for the editor's datalists/pickers.
 
-    Pulls every existing product type, category, and collection from the DB and
-    from all on-disk scan snapshots so the user can pick an existing value or
-    type a brand-new one.
+    product_types/collections: pulled from every existing DB record and on-disk
+    scan snapshot, so the user can pick an existing value or type a brand-new
+    one (free text — Shopify has no fixed list for either of these fields).
+
+    categories: NOT derived from `Product.category` — those values are AI-
+    guessed/scraped free text (often literally identical to product_type; see
+    `.claude/investigations/edit-products.md`), not real Shopify taxonomy.
+    Category is a curated, verified subset of Shopify's actual published
+    taxonomy instead (`category_taxonomy.py`) — a fixed list, not a pool of
+    whatever happens to already be in the DB.
     """
-    from backend.database.models import Product, ProductSource
+    from backend.database.models import ProductSource
 
     product_types: set = set()
-    categories: set = set()
     collections: set = set()
 
-    # DB: product types (scraped source_category) + canonical categories.
+    # DB: product types (scraped source_category).
     for (v,) in db.query(ProductSource.source_category).distinct().all():
         if v:
             product_types.add(v)
-    for (v,) in db.query(Product.category).distinct().all():
-        if v:
-            categories.add(v)
 
     # Snapshots: real Shopify product types + collection titles across all scans.
     if scan_cache._CACHE_DIR.exists():
@@ -519,7 +523,8 @@ def taxonomy_pools(db) -> Dict[str, List[str]]:
 
     return {
         "product_types": sorted(product_types),
-        "categories": sorted(categories),
+        "category_tree": CATEGORY_TAXONOMY,
+        "categories": category_options(),
         "collections": sorted(collections),
     }
 

@@ -94,18 +94,21 @@ resizable/sortable grid. Designed for mass/bulk edits across one or many stores.
 
 ## Taxonomy editing (Product Type / Category / Collections)
 
-- **Columns:** `product_type` (labelled "Product Type") and new `category` column.
+- **Columns:** `product_type` (labelled "Product Type") and `category` column.
   Category is blank on scan rows — Shopify's taxonomy Category is NOT in the
   snapshots (confirmed: product objects have no `category` key) and isn't a REST
   writable field. DB-fallback rows get category from `Product.category`.
-- **Suggestion pools:** `edit_products.taxonomy_pools(db)` (route
-  `GET /api/edit-products/taxonomy`) returns existing product types (DB
-  `source_category` + all snapshot `product_type`s), categories (DB
-  `Product.category`), and collections (all snapshot collection titles). Wired to
-  `<datalist>`s so inline + bulk edits autocomplete existing values OR accept a
-  brand-new one.
-- **Editable + scope:** product_type/category = product-scope text; collections =
-  product-scope list (comma, like tags).
+- **product_type/collections are free text** — `edit_products.taxonomy_pools(db)`
+  (route `GET /api/edit-products/taxonomy`) returns existing product types (DB
+  `source_category` + all snapshot `product_type`s) and collections (all
+  snapshot collection titles) as suggestion pools, wired to `<datalist>`s so
+  edits autocomplete existing values OR accept a brand-new one.
+- **category is NOT free text — a fixed pick from a curated, verified subset of
+  Shopify's real taxonomy** (2026-07-13, see "Category taxonomy" below). It is
+  its own `editColType` (`'category'`), distinct from `product_type`'s `'text'`
+  — the two fields intentionally do NOT share the same options or UI.
+- **Editable + scope:** product_type/category = product-scope, one value per
+  product; collections = product-scope list (comma, like tags).
 - **Bulk modes for list fields:** collections/tags support **Add / Remove / Set**
   (`editBulkMode`) — Add/Remove merge into each row's OWN current list; Set
   replaces. Other fields just set.
@@ -118,22 +121,93 @@ resizable/sortable grid. Designed for mass/bulk edits across one or many stores.
   - category → **pushable=false**, reason "Shopify Category needs a rescan +
     GraphQL write — staged, not pushed." (No REST field; would need a scanner
     change to capture the taxonomy node + a GraphQL `productUpdate(category:)`
-    write + a taxonomy picker. Follow-up.)
+    write. Follow-up — the picker now stores the exact gid needed for this, see
+    below, but the write path itself is still not built.)
+
+## Category taxonomy (2026-07-13)
+
+User's ask evolved through three rounds: (1) "categories should come from
+Shopify's real taxonomy, multi-tiered" → (2) "limit it to donut/bakery
+equipment & supplies" → (3) **hard requirement:** "must be correct, can't be
+guessed — this will sync with Shopify." That last constraint ruled out
+inventing plausible-sounding category names.
+
+- **Source of truth:** downloaded Shopify's actual published taxonomy
+  (`github.com/Shopify/product-taxonomy`, `dist/en/categories.txt`, ~14,600
+  real category lines) and grepped it directly — did NOT rely on model
+  knowledge or a summarizing fetch tool for this, since correctness was the
+  explicit requirement.
+- **Critical finding, surfaced to the user before writing any code:** Shopify's
+  real taxonomy has **no branch for commercial/wholesale bakery or food-service
+  equipment** — zero matches for "proofer", "donut robot", "commercial mixer",
+  "commercial fryer", "restaurant equipment". "Bakery" only exists under
+  `Food, Beverages & Tobacco > Food Items > Bakery` (edible goods, not
+  equipment) — irrelevant here (this catalog is 100% equipment/supplies, not
+  finished baked goods for sale). `Business & Industrial > Food Service` exists
+  but is only disposables/consumables (bakery boxes, cutlery, vending
+  machines), not fryers/mixers/ovens. This business sells B2B food-service
+  equipment; Shopify's public taxonomy is a B2C retail taxonomy. This is a real
+  gap, not a bug in this app.
+- **User's resolution (asked via AskUserQuestion, picked "coarse-but-real
+  fallback"):** only offer categories that genuinely exist in Shopify's
+  taxonomy. For equipment with no precise real match, fall back to the closest
+  real PARENT node that does exist (e.g. generic "Kitchen Appliances"), rather
+  than inventing a specific one or leaving it blank.
+- **`backend/shopify/category_taxonomy.py`** — `CATEGORY_TAXONOMY`: 9 real
+  Shopify parent groups (Kitchen Appliances, Kitchen Appliance Accessories,
+  Kitchen Tools & Utensils, Cookware & Bakeware, Food Storage, Food Service,
+  Retail, Industrial Storage, Carts & Islands), each with real gid + full path,
+  and a curated set of real child leaf nodes relevant to this catalog (~68
+  total, e.g. Deep Fryers, Commercial Refrigerators, Stand Mixers, **Donut
+  Makers** — a genuinely real node at
+  `hg-11-7-46-2` under Toasters & Grills). Every gid/path was verified against
+  the downloaded taxonomy file (tests assert well-formed `gid://shopify/...`
+  prefixes + uniqueness — `test_category_taxonomy_gids_are_well_formed_and_unique`).
+  Each group is ALSO itself a selectable option (the coarse fallback) alongside
+  its more specific children.
+- **`taxonomy_pools()` no longer derives `categories` from `Product.category`**
+  — those DB values are AI-guessed/scraped free text, frequently identical to
+  `product_type` (confirmed: querying both pools returned near-identical
+  ~259-value lists full of typos/casing variants/non-product junk like
+  "Consulting", "shipping charge"). Category options now come exclusively from
+  `CATEGORY_TAXONOMY` (`category_tree` in the API response) —
+  `test_taxonomy_pools_exposes_curated_category_tree_not_db_values` guards this.
+- **Frontend:** `editColType.category = 'category'` (new type). Both the inline
+  cell editor and the bulk-bar field render a `<select>` with one `<optgroup>`
+  per real Shopify group (`editCategoryGroups()`), each group offering itself
+  (`"<Group> (general)"`) plus its specific real children. No datalist, no
+  free-text fallback — the point is that only real, verified values are
+  selectable. Stored value is the plain leaf/group name string (e.g. "Deep
+  Fryers"); a future GraphQL push would resolve the gid by looking the name
+  back up in `CATEGORY_TAXONOMY`.
 
 ## Editor UX (columns, pickers, widths)
 
-- **Free-form OR select:** every taxonomy field can be typed free-form (datalist
-  autocomplete inline; text box in the bulk bar) OR chosen from a "Select
-  existing" checkbox picker in the bulk bar (`editBulkPool`/`editBulkTogglePick`)
-  — multi-select for list fields (collections/tags), single-select for
-  type/category.
+- **product_type/collections/tags: free-form OR select existing.** Typed
+  free-form (datalist autocomplete inline; text box in the bulk bar) OR chosen
+  from a "Select existing" checkbox picker — multi-select for list fields
+  (collections/tags), single-select for product_type. This picker is now
+  available **inline per-cell**, not just in the bulk bar (2026-07-13):
+  `editCellPickerOpen`/`editCellPickerFiltered(col)`/`editCellTogglePick(v)`
+  mirror the bulk-bar equivalents (`editPoolFor(col)` is the shared pool
+  lookup both use) but read/write `editDraft` for the single active cell
+  instead of `editBulkValue` across many rows. The picker button uses
+  `@mousedown.prevent` (not on the checkboxes themselves) so opening it or
+  checking a box doesn't blur the adjacent free-text input and prematurely
+  commit/close the cell — checkbox toggling itself happens on `click`, which
+  mousedown.prevent doesn't block, only the focus-shift/blur does.
+- **category: fixed select with `<optgroup>`, no picker.** Deliberately NOT
+  part of the free-form-or-pick flow above (`editPoolFor` has no `category`
+  branch) — see "Category taxonomy" above for why.
 - **Column show/hide:** "Columns" chooser (`editColVisible`, persisted to
   localStorage; grid loops over `editVisibleColumns()`). Toggling re-wires the
   resizable grid (`_wireEditGrid` resets table-layout + pinned widths so grip
   indices realign).
-- **Long-column default width:** `editLongCols` (currently `['description']`)
-  render inside `.edit-col-long` (`max-width: 30ch` + ellipsis, full text in the
-  `title` tooltip) — ~30-character default. Title is intentionally NOT capped.
+- **Column default width:** every column (including Title, as of 2026-07-13)
+  renders inside `.edit-col-long` (~30-character default, ellipsis, full text
+  in the `title` tooltip) — see the two later dated entries below for the full
+  history (`editLongCols` was removed; the cap-lift-on-resize is now
+  per-column, not per-table).
 
 ## Gotchas / notes
 

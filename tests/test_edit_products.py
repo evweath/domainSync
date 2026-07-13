@@ -270,6 +270,61 @@ def test_build_edit_transactions_category_not_pushed():
     assert "category" in item["reason"].lower()
 
 
+# ---------------------------------------------------------------------------
+# Category taxonomy: must stay a curated, verified subset of Shopify's real
+# taxonomy (see backend/shopify/category_taxonomy.py) — no invented names/gids.
+# ---------------------------------------------------------------------------
+def test_category_taxonomy_gids_are_well_formed_and_unique():
+    from backend.shopify.category_taxonomy import CATEGORY_TAXONOMY
+
+    seen_gids = set()
+    seen_names = set()
+    for grp in CATEGORY_TAXONOMY:
+        for gid in (grp["gid"], *[o["gid"] for o in grp["options"]]):
+            assert gid.startswith("gid://shopify/TaxonomyCategory/")
+            assert gid not in seen_gids, f"duplicate gid: {gid}"
+            seen_gids.add(gid)
+        # Leaf option names must be unique across the whole tree (frontend
+        # <select> stores just the name, not the gid) and each option's path
+        # must actually end with its own name and start with the group's path.
+        for opt in grp["options"]:
+            assert opt["name"] not in seen_names, f"duplicate category name: {opt['name']}"
+            seen_names.add(opt["name"])
+            assert opt["path"].startswith(grp["path"] + " > ")
+            assert opt["path"].endswith(opt["name"])
+
+
+def test_category_options_flattens_groups_and_leaves():
+    from backend.shopify.category_taxonomy import CATEGORY_TAXONOMY, category_options
+
+    flat = category_options()
+    total_leaves = sum(len(g["options"]) for g in CATEGORY_TAXONOMY)
+    # One entry per group header (itself selectable) + one per leaf option.
+    assert len(flat) == len(CATEGORY_TAXONOMY) + total_leaves
+    assert flat[0] == {"name": "Kitchen Appliances",
+                        "gid": "gid://shopify/TaxonomyCategory/hg-11-7",
+                        "path": "Home & Garden > Kitchen & Dining > Kitchen Appliances",
+                        "group": "Kitchen Appliances"}
+
+
+def test_taxonomy_pools_exposes_curated_category_tree_not_db_values(db_session):
+    from backend.database.db import session_scope
+    from backend.database.models import Product
+
+    # A junky, AI-guessed/free-text category value already in the DB — this
+    # must NOT leak into the category picker; the picker is the fixed curated
+    # tree, not "whatever's already in Product.category".
+    with session_scope() as db:
+        db.add(Product(canonical_title="Junk", category="Totally Made Up Category"))
+
+    from backend.shopify.category_taxonomy import CATEGORY_TAXONOMY
+
+    pools = ep.taxonomy_pools(db_session)
+    assert pools["category_tree"] == CATEGORY_TAXONOMY
+    all_names = {c["name"] for c in pools["categories"]}
+    assert "Totally Made Up Category" not in all_names
+
+
 @pytest.fixture
 def client(tmp_path, monkeypatch):
     from fastapi import FastAPI
