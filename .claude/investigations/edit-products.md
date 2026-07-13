@@ -341,3 +341,39 @@ effect, no separate "Apply" step).
   narrowed 5,582 variants → 10 matching a specific tag; toggling a tag via the
   new bulk quick-editor on a selected row correctly appended it to that row's
   effective tags and marked the row dirty.
+
+## 2026-07-13 (yet later) — Tags/Collections consolidated to ONE control each + top-level Save
+
+Follow-up refinement: the previous entry's two separate mechanisms (a filter
+dropdown in Attribute filters, a quick-edit dropdown in the bulk bar) were
+consolidated per the user's explicit spec: "2 checkboxes above tags and 2
+checkboxes above collections... filter and edit... mutually exclusive but the
+default will be both checkboxes blank."
+
+- **ONE dropdown per field now**, not two. `editTagsMode`/`editCollectionsMode`
+  (`null | 'filter' | 'edit'`, default `null`) sit above the "Tags ▾"/
+  "Collections ▾" button as two checkboxes labeled Filter/Edit.
+  `editSetTagsMode(mode)` toggles: clicking the already-active mode's checkbox
+  turns it back to `null` (so "blank" is a reachable, valid state, not just
+  the unvisited default) — this is what makes them mutually exclusive AND
+  default-blank at once, rather than a plain two-state toggle.
+  - Dropdown button is `:disabled="!editTagsMode"` — no mode picked yet =
+    nothing to click into.
+  - `editTagsChecked(v)`/`editTagsToggle(v)` dispatch on the current mode:
+    `'filter'` → same `editFilters.tags` array + reload as before; `'edit'` →
+    delegates to `editBulkListChecked`/`editBulkListToggle('tags', v)` (added
+    last entry) against whatever rows are currently selected in the grid. If
+    edit mode is on but nothing is selected, toggling shows a toast ("Select
+    rows first...") instead of silently no-op'ing.
+  - Removed the bulk bar's dedicated Tags/Collections quick buttons from the
+    prior entry (`editBulkTagsOpen` etc.) — fully superseded by Edit mode on
+    the top control. The generic bulk field/mode/value flow still exists
+    separately for `tags`/`collections`' "Set (replace)" case, which the
+    checkbox toggle (Add/Remove one at a time) doesn't cover.
+- **Top-of-page Save button** (header row, next to the "Edit Products" title):
+  calls the SAME `editOpenReview()` as the existing "Review & push →" button in
+  the summary bar — confirmed with the user first, since Save triggers a live,
+  unreversible Shopify write and the push path is still unverified against a
+  real store (see Phase 4 notes above). No new push mechanism, just a second,
+  more prominent entry point to the existing review/confirm modal. Disabled
+  when `editPendingCount() === 0`, shows the pending count as a badge.

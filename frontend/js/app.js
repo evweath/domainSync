@@ -126,13 +126,16 @@ function app() {
     // Same picker, but for the inline per-cell editor (tags/collections only).
     editCellPickerOpen: false,
     editCellPickerSearch: '',
-    // Quick Tags/Collections editor for the bulk bar — checkbox dropdown with
-    // immediate Add/Remove per checkbox on every selected row (no separate
-    // "Apply" step), same interaction as the Columns chooser.
-    editBulkTagsOpen: false,
-    editBulkTagsSearch: '',
-    editBulkCollectionsOpen: false,
-    editBulkCollectionsSearch: '',
+    // Tags/Collections: ONE control each (top of page), mode picked by two
+    // mutually-exclusive checkboxes above it — 'filter' (narrow the grid) or
+    // 'edit' (Add/Remove across selected rows). null = neither checked (the
+    // default) — dropdown stays disabled until a mode is picked.
+    editTagsMode: null,
+    editTagsOpen: false,
+    editTagsSearch: '',
+    editCollectionsMode: null,
+    editCollectionsOpen: false,
+    editCollectionsSearch: '',
     // Every column defaults to a ~30-character width (drag a column's resize
     // grip to widen it past the default cap).
     editFilters: {
@@ -1258,27 +1261,46 @@ function app() {
       this.loadEditProducts(1);
     },
 
-    // ---- Top-of-page Tags/Collections filter dropdowns (checkbox
-    // multi-select, immediate effect — same pattern as the Columns chooser).
-    editTagFilterFiltered() {
-      const q = this.editTagFilterSearch.trim().toLowerCase();
-      const pool = this.editFacets.tags || [];
-      return q ? pool.filter(v => v.toLowerCase().includes(q)) : pool;
+    // ---- Top-of-page Tags/Collections controls — ONE dropdown per field,
+    // shared between filtering and editing; which one a checkbox click does
+    // depends on the mutually-exclusive mode picked above the dropdown.
+    editSetTagsMode(mode) {
+      // Clicking the already-active checkbox turns it back off (mutually
+      // exclusive, and neither-checked is a valid/default state).
+      this.editTagsMode = (this.editTagsMode === mode) ? null : mode;
     },
-    editCollectionFilterFiltered() {
-      const q = this.editCollectionFilterSearch.trim().toLowerCase();
-      const pool = this.editPools.collections || [];
-      return q ? pool.filter(v => v.toLowerCase().includes(q)) : pool;
+    editSetCollectionsMode(mode) {
+      this.editCollectionsMode = (this.editCollectionsMode === mode) ? null : mode;
     },
-    editToggleTagFilter(v) {
-      const i = this.editFilters.tags.indexOf(v);
-      if (i >= 0) this.editFilters.tags.splice(i, 1); else this.editFilters.tags.push(v);
-      this.loadEditProducts(1);
+    editTagsChecked(v) {
+      if (this.editTagsMode === 'filter') return this.editFilters.tags.includes(v);
+      if (this.editTagsMode === 'edit') return this.editBulkListChecked('tags', v);
+      return false;
     },
-    editToggleCollectionFilter(v) {
-      const i = this.editFilters.collections.indexOf(v);
-      if (i >= 0) this.editFilters.collections.splice(i, 1); else this.editFilters.collections.push(v);
-      this.loadEditProducts(1);
+    editTagsToggle(v) {
+      if (this.editTagsMode === 'filter') {
+        const i = this.editFilters.tags.indexOf(v);
+        if (i >= 0) this.editFilters.tags.splice(i, 1); else this.editFilters.tags.push(v);
+        this.loadEditProducts(1);
+      } else if (this.editTagsMode === 'edit') {
+        if (!this.editSelectedCount()) { this.toast('Select rows first to edit tags', 'info'); return; }
+        this.editBulkListToggle('tags', v);
+      }
+    },
+    editCollectionsChecked(v) {
+      if (this.editCollectionsMode === 'filter') return this.editFilters.collections.includes(v);
+      if (this.editCollectionsMode === 'edit') return this.editBulkListChecked('collections', v);
+      return false;
+    },
+    editCollectionsToggle(v) {
+      if (this.editCollectionsMode === 'filter') {
+        const i = this.editFilters.collections.indexOf(v);
+        if (i >= 0) this.editFilters.collections.splice(i, 1); else this.editFilters.collections.push(v);
+        this.loadEditProducts(1);
+      } else if (this.editCollectionsMode === 'edit') {
+        if (!this.editSelectedCount()) { this.toast('Select rows first to edit collections', 'info'); return; }
+        this.editBulkListToggle('collections', v);
+      }
     },
 
     // Render a cell value for display (arrays → comma list, null → blank).
