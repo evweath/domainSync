@@ -101,16 +101,15 @@ function app() {
       title: 'text', vendor: 'text', product_type: 'text', category: 'text',
       status: 'select', tags: 'tags', collections: 'tags',
       sku: 'text', barcode: 'text', price: 'number', compare_at_price: 'number',
-      weight: 'number', weight_unit: 'select',
+      weight: 'number',
     },
     editColScope: {
       title: 'product', vendor: 'product', product_type: 'product', category: 'product',
       status: 'product', tags: 'product', collections: 'product',
       sku: 'variant', barcode: 'variant', price: 'variant', compare_at_price: 'variant',
-      weight: 'variant', weight_unit: 'variant',
+      weight: 'variant',
     },
     editStatusOptions: ['active', 'draft', 'archived'],
-    editWeightUnitOptions: ['kg', 'g', 'lb', 'oz'],
     // Existing values pulled from the DB + all scans, for datalist suggestions.
     editPools: { product_types: [], categories: [], collections: [] },
     // Column show/hide (persisted). Missing key = visible.
@@ -119,8 +118,8 @@ function app() {
     // "Select from existing" picker in the bulk bar (alternative to typing).
     editBulkPickerOpen: false,
     editBulkPickerSearch: '',
-    // Columns capped to a ~30-character default width (long, non-essential text).
-    editLongCols: ['description'],
+    // Every column defaults to a ~30-character width (drag a column's resize
+    // grip to widen it past the default cap).
     editFilters: {
       search: '', title: '', sku: '', vendor: '', product_type: '', status: '',
       tag: '', collection: '', min_price: '', max_price: '',
@@ -132,7 +131,7 @@ function app() {
       store: 'Store', data_source: 'Src', status: 'Status', title: 'Title',
       vendor: 'Vendor', product_type: 'Product Type', category: 'Category', sku: 'SKU', barcode: 'Barcode',
       price: 'Price', compare_at_price: 'Compare $', weight: 'Weight',
-      weight_unit: 'Wt Unit', inventory_quantity: 'Qty', variant_title: 'Variant',
+      variant_title: 'Variant',
       option1: 'Option 1', option2: 'Option 2', option3: 'Option 3',
       tags: 'Tags', collections: 'Collections', image_count: 'Photos',
       description: 'Description', handle: 'Handle',
@@ -1027,8 +1026,6 @@ function app() {
       this._editGridWired = false;
       this._wireEditGrid();
     },
-    editIsLongCol(col) { return this.editLongCols.includes(col); },
-
     // ---- Bulk "select from existing" picker ------------------------------
     editBulkPool() {
       const f = this.editBulkField;
@@ -1176,7 +1173,7 @@ function app() {
     },
 
     editNumericCol(col) {
-      return ['price', 'compare_at_price', 'weight', 'inventory_quantity', 'image_count'].includes(col);
+      return ['price', 'compare_at_price', 'weight', 'image_count'].includes(col);
     },
 
     // Row selection. We store the whole row object (not just a boolean) so bulk
@@ -1228,7 +1225,7 @@ function app() {
     },
 
     editSelectOptions(col) {
-      return col === 'status' ? this.editStatusOptions : this.editWeightUnitOptions;
+      return this.editStatusOptions;
     },
 
     editStartCell(row, col) {

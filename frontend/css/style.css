@@ -183,16 +183,31 @@ table.price-matrix .overflow-x-auto::-webkit-scrollbar { height: 4px; }
   background: #6b7280; border-color: #374151;
 }
 
-/* Edit Products — long columns (e.g. Description) default to ~30 characters
-   wide and clip with an ellipsis; the full text is in the cell's title tooltip. */
+/* Edit Products — every column defaults to ~30 characters wide and clips with
+   an ellipsis; the full text is in the cell's title tooltip. Once the user
+   drags a column wider (table gains .col-resize-active, see _wireTableResize
+   in app.js), the artificial cap lifts so a widened column can show more text
+   instead of just padding out with blank space. */
 .edit-col-long {
-  display: inline-block;
+  display: block;
   max-width: 30ch;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  vertical-align: bottom;
 }
+table.col-resize-active .edit-col-long {
+  max-width: 100%;
+}
+
+/* z-index utilities missing from the purged Tailwind build (grep
+   frontend/vendor/tailwind.min.css before assuming a z-* class exists — only
+   .z-40/.z-50 survive purge). Without these, the Edit Products "Columns" and
+   bulk-edit "Select existing" dropdowns (z-30) fell back to z-index:auto and
+   were painted UNDER the grid's sticky table header (z-10, later in the DOM),
+   showing the header's border line on top of the open dropdown. */
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-30 { z-index: 30; }
 
 /* Edit Products — inline-edit affordances. The purged Tailwind build ships no
    amber/ring utilities, so the dirty-cell highlight is defined here directly. */

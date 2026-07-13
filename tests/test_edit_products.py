@@ -69,7 +69,6 @@ def test_project_snapshot_one_row_per_variant():
     assert a_small["price"] == 10.0            # coerced from string
     assert a_small["compare_at_price"] == 12.0
     assert a_small["weight"] == 1.5
-    assert a_small["inventory_quantity"] == 5
     assert a_small["image_count"] == 2
     assert a_small["primary_image"] == "http://img/1.png"
     assert a_small["tags"] == ["Free Shipping", "Popular"]

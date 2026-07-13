@@ -1369,13 +1369,13 @@
                           <template x-if="col === 'store'"><span x-text="editStoreShort(row.store)"></span></template>
                           <template x-if="col === 'title'">
                             <span>
-                              <span :class="editIsDirty(row,col) ? 'font-medium' : ''" x-text="editDisplay(row, col) || '—'"></span>
+                              <span class="edit-col-long" :class="editIsDirty(row,col) ? 'font-medium' : ''" :title="editDisplay(row, col) || ''" x-text="editDisplay(row, col) || '—'"></span>
                               <a :href="row.url" target="_blank" @click.stop class="text-blue-500 hover:underline ml-1 text-xs" title="Open on store">↗</a>
                             </span>
                           </template>
                           <template x-if="!['title','data_source','store'].includes(col)">
-                            <span :class="[col === 'description' ? 'text-gray-500 dark:text-gray-400' : '', editIsLongCol(col) ? 'edit-col-long' : '']"
-                              :title="editIsLongCol(col) ? editDisplay(row, col) : ''"
+                            <span class="edit-col-long" :class="col === 'description' ? 'text-gray-500 dark:text-gray-400' : ''"
+                              :title="editDisplay(row, col) || ''"
                               x-text="editDisplay(row, col) || (editIsEditable(col) ? '—' : '')"></span>
                           </template>
                         </span>

@@ -160,3 +160,33 @@ resizable/sortable grid. Designed for mass/bulk edits across one or many stores.
   ms-playwright cache) — no node/playwright package needed; drive it over the
   DevTools websocket with the `websockets` lib. Reload with
   `Network.setCacheDisabled` because assets are versioned (`?v=...`) and cached.
+
+## 2026-07-13 — Removed Wt Unit/Qty columns, fixed dropdown z-index bug, capped all column widths
+
+- **Removed `weight_unit` ("Wt Unit") and `inventory_quantity` ("Qty") columns**
+  entirely (backend `COLUMNS`, `_NUMERIC_COLS`, both projections, `_VARIANT_FIELD_KEYS`;
+  frontend `editColType`/`editColScope`/`editColLabels`/`editNumericCol`).
+  `editWeightUnitOptions` and `editSelectOptions`'s fallback branch removed too —
+  `status` was the only remaining `select`-type column.
+- **Root-caused the "Columns" dropdown rendering under the grid's header line":**
+  confirmed via CDP that `getComputedStyle(dropdown).zIndex === "auto"` despite
+  the `z-30` class — the purged `tailwind.min.css` only ships `.z-40`/`.z-50`
+  (grepped: no `.z-10`/`.z-20`/`.z-30`). Both the dropdown (`z-30`) and the
+  sticky grid `<thead>` (`z-10`) silently fell back to `z-index: auto`, so plain
+  DOM order decided paint order — the `<thead>` (later in the DOM) painted over
+  the dropdown (earlier in the DOM). Fixed by adding real `.z-10`/`.z-20`/`.z-30`
+  rules to `style.css`, same pattern as the existing indigo/amber utilities.
+  Verified post-fix: dropdown computes `z-index: 30`, thead stays `auto` → no
+  more overlap (screenshot confirmed).
+- **All columns now default to ~30 characters**, not just Description.
+  `editIsLongCol`/`editLongCols` removed (was an opt-in allow-list of one);
+  `.edit-col-long` is now applied to every column's display span, Title
+  included. To let a manually-widened column actually show more text (rather
+  than padding blank space), `.edit-col-long` switched from `inline-block` to
+  `display:block` with a `table.col-resize-active .edit-col-long { max-width: 100%; }`
+  override — `col-resize-active` is the class `_wireTableResize`'s `pinTable()`
+  already adds to the table on first resize, so no new JS hook was needed.
+  Verified: default header widths cap at 244px (~30ch at text-xs) for
+  long-text columns (Title/Tags/Collections/Description/Handle), shorter
+  columns (Vendor, SKU, etc.) size naturally under that; the CSS override
+  flips `max-width` from `30ch` to `100%` once `col-resize-active` is present.

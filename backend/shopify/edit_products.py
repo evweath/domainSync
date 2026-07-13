@@ -41,14 +41,14 @@ _ANY_AGE_DAYS = 10_000_000
 # projection guarantees every row carries every key (never KeyError in the UI).
 COLUMNS: List[str] = [
     "store", "data_source", "status", "title", "vendor", "product_type", "category",
-    "sku", "barcode", "price", "compare_at_price", "weight", "weight_unit",
-    "inventory_quantity", "variant_title", "option1", "option2", "option3",
+    "sku", "barcode", "price", "compare_at_price", "weight",
+    "variant_title", "option1", "option2", "option3",
     "tags", "collections", "image_count",
     "description", "handle",
 ]
 
 # Which columns sort numerically rather than lexically.
-_NUMERIC_COLS = {"price", "compare_at_price", "weight", "inventory_quantity", "image_count"}
+_NUMERIC_COLS = {"price", "compare_at_price", "weight", "image_count"}
 
 _TAG_RE = re.compile(r"<[^>]+>")
 _WS_RE = re.compile(r"\s+")
@@ -141,8 +141,6 @@ def _project_snapshot(domain: str, snap: Dict[str, Any]) -> List[Dict[str, Any]]
                 "price": _f(v.get("price")),
                 "compare_at_price": _f(v.get("compare_at_price")),
                 "weight": _f(v.get("weight")),
-                "weight_unit": v.get("weight_unit") or "",
-                "inventory_quantity": v.get("inventory_quantity"),
                 "option1": opt("option1"),
                 "option2": opt("option2"),
                 "option3": opt("option3"),
@@ -235,8 +233,6 @@ def _project_db(db, domain: str) -> List[Dict[str, Any]]:
             "primary_image": primary_image,
             "barcode": "",
             "weight": (p.weight if p else None),
-            "weight_unit": "",
-            "inventory_quantity": None,
             "url": s.source_url or "",
         }
         opts = opts_by.get(s.product_id, [])
@@ -587,7 +583,7 @@ _PRODUCT_FIELD_KEYS = {
 # Our column names → Shopify variant-level field keys (executor variant_field).
 _VARIANT_FIELD_KEYS = {
     "sku": "sku", "barcode": "barcode", "price": "price",
-    "compare_at_price": "compare_at_price", "weight": "weight", "weight_unit": "weight_unit",
+    "compare_at_price": "compare_at_price", "weight": "weight",
 }
 
 
