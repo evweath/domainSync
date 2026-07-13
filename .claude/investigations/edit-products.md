@@ -190,3 +190,45 @@ resizable/sortable grid. Designed for mass/bulk edits across one or many stores.
   long-text columns (Title/Tags/Collections/Description/Handle), shorter
   columns (Vendor, SKU, etc.) size naturally under that; the CSS override
   flips `max-width` from `30ch` to `100%` once `col-resize-active` is present.
+
+## 2026-07-13 (later) — Column-width cap survived a false-fix; two real bugs found
+
+User reported "column width does not default to 30" after the fix above shipped.
+This is the escalation case (bug survived one fix attempt) — traced properly
+instead of guessing again. Found TWO distinct bugs in the previous fix, both now
+corrected:
+
+1. **The cap-lift was scoped to the whole TABLE, not the resized COLUMN.**
+   `pinTable()` adds `.col-resize-active` to the table as soon as ANY column has
+   a saved width (even from a single previously-resized column, or literally on
+   every page load if `hasSaved`). The CSS rule
+   `table.col-resize-active .edit-col-long { max-width: 100% }` matched on that
+   table-wide class, so ONE resized column silently lifted the cap for EVERY
+   column. Fixed by replacing the class-based rule with `_syncLongColCaps()` in
+   `app.js`, which injects a `<style id="colcap-...">` rule scoped per column via
+   `:nth-child()` — only for column indices actually present in the saved-widths
+   map, keyed to the table via a `data-resize-key` attribute.
+2. **Saved widths were keyed by raw array position (`saved[i]`), not by column
+   identity.** `_wireEditGrid` (fired on every "Columns" chooser show/hide
+   toggle) fully re-wires resize state and re-reads `localStorage` against the
+   CURRENTLY VISIBLE `ths` — so hiding/showing any column, or adding/removing a
+   column (like Wt Unit/Qty removal earlier this session), shifts every later
+   column's index and silently reattaches an old saved width to a DIFFERENT
+   column now sitting at that slot. This was pre-existing/latent (triggered by
+   the "Columns" chooser feature itself, not just this session's changes) and is
+   the more likely full explanation for "every column" being affected. Fixed by
+   keying persisted widths (and the cap-lift map) by each column's header LABEL
+   text (`_colId(th, i)` — first `<span>` in the header, falling back to
+   `textContent`, then a positional placeholder for label-less headers like the
+   checkbox column) instead of position. Old numeric-indexed localStorage
+   entries from before this fix simply don't match any label now, so they're
+   harmlessly ignored rather than misapplied — no migration needed.
+   `_syncLongColCaps` takes `colIds` (name → current position) to build the
+   `:nth-child()` selector, since CSS selectors are inherently positional even
+   though storage keys are now name-based.
+- Verified via CDP: (a) seeding stale numeric-indexed `localStorage` (simulating
+  pre-fix data at old Wt-Unit/Qty-era indices) — every column still correctly
+  defaulted to content-width-capped-at-30ch, none spuriously widened; (b)
+  seeding a name-keyed `{"Description": 500}` and toggling the Barcode column's
+  visibility off/on — Description stayed pinned at 500px, every other column
+  stayed correctly capped, across the toggle.

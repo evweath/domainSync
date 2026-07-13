@@ -183,20 +183,21 @@ table.price-matrix .overflow-x-auto::-webkit-scrollbar { height: 4px; }
   background: #6b7280; border-color: #374151;
 }
 
-/* Edit Products — every column defaults to ~30 characters wide and clips with
-   an ellipsis; the full text is in the cell's title tooltip. Once the user
-   drags a column wider (table gains .col-resize-active, see _wireTableResize
-   in app.js), the artificial cap lifts so a widened column can show more text
-   instead of just padding out with blank space. */
+/* Edit Products — every column defaults to ~30 characters wide (or narrower,
+   if its longest value is shorter than that) and clips with an ellipsis; the
+   full text is in the cell's title tooltip. The cap must lift per COLUMN, not
+   per table: _wireTableResize/_syncLongColCaps in app.js injects a scoped
+   override rule (by column index, via :nth-child) for exactly the columns the
+   user has actually dragged wider, into a <style id="colcap-...">. A
+   table-wide toggle would be wrong — pinning the table (which happens for ANY
+   saved column width, even from a single previously-resized column) would
+   otherwise lift the cap for every column at once. */
 .edit-col-long {
   display: block;
   max-width: 30ch;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-table.col-resize-active .edit-col-long {
-  max-width: 100%;
 }
 
 /* z-index utilities missing from the purged Tailwind build (grep

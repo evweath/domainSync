@@ -312,6 +312,43 @@ function app() {
       return `colw:${view}:${idx >= 0 ? idx : 0}`;
     },
 
+    // A column's stable identity for persisted state (resize widths + the
+    // long-col cap below) is its header LABEL, not its DOM position. Position
+    // shifts every time a column is hidden/shown (the "Columns" chooser) or
+    // added/removed — a positional index would silently reattach an old
+    // saved width (or cap-lift) to whatever different column now sits at that
+    // slot. The label is the first <span> in the header (Edit Products'
+    // sortable headers put the label span before a conditional sort-arrow
+    // span); falls back to the th's own text, then a positional placeholder
+    // for label-less headers (e.g. the checkbox column) so keys stay unique.
+    _colId(th, i) {
+      const label = (th.querySelector(':scope > span') || th).textContent.trim();
+      return label || `__col${i}`;
+    },
+
+    // The ~30-char default cap (`.edit-col-long` in style.css) must lift only
+    // for columns the user actually dragged wider — never for the whole table
+    // just because *some* column has a saved width (pinning is table-wide,
+    // the cap is per-column). Injects one CSS rule per saved column, scoped to
+    // this table via `data-resize-key` + `:nth-child` (colIds maps each saved
+    // column name to its CURRENT position), so it survives Alpine re-rendering
+    // rows/columns without needing per-cell JS bookkeeping.
+    _syncLongColCaps(table, key, saved, colIds) {
+      table.dataset.resizeKey = key;
+      const id = 'colcap-' + key.replace(/[^a-zA-Z0-9_-]/g, '_');
+      let styleEl = document.getElementById(id);
+      if (!styleEl) {
+        styleEl = document.createElement('style');
+        styleEl.id = id;
+        document.head.appendChild(styleEl);
+      }
+      styleEl.textContent = Object.keys(saved).map(name => {
+        const i = colIds.indexOf(name);
+        if (i < 0) return '';  // column currently hidden/absent — nothing to style
+        return `table[data-resize-key="${key}"] :is(th,td):nth-child(${i + 1}) .edit-col-long { max-width: 100%; }`;
+      }).filter(Boolean).join('\n');
+    },
+
     _wireTableResize(table) {
       if (table.__colResizeWired) return;
       const ths = table.querySelectorAll(':scope > thead > tr > th');
@@ -319,9 +356,14 @@ function app() {
       table.__colResizeWired = true;
 
       const key = this._tableKey(table);
+      const colIds = Array.from(ths).map((th, i) => this._colId(th, i));
       let saved = {};
       try { saved = JSON.parse(localStorage.getItem(key) || '{}'); } catch {}
       const hasSaved = Object.keys(saved).length > 0;
+      // Lift the cap for previously-resized columns BEFORE any width is
+      // measured/pinned below, so their offsetWidth reflects the uncapped
+      // content, not the still-capped 30ch default.
+      this._syncLongColCaps(table, key, saved, colIds);
 
       // Pin the table to fixed layout (using either saved widths or each
       // column's current natural width). Called once, before the first
@@ -329,7 +371,7 @@ function app() {
       const pinTable = () => {
         if (table.__pinned) return;
         ths.forEach((th, i) => {
-          const w = saved[i] || th.offsetWidth;
+          const w = saved[colIds[i]] || th.offsetWidth;
           if (w > 0) {
             th.style.width = w + 'px';
             th.style.minWidth = w + 'px';
@@ -349,6 +391,7 @@ function app() {
         grip.className = 'col-resize-grip';
         grip.title = 'Drag to resize · double-click to reset';
         th.appendChild(grip);
+        const colId = colIds[i];
 
         let startX = 0, startW = 0;
         const onMove = e => {
@@ -364,8 +407,9 @@ function app() {
           document.body.classList.remove('col-resizing');
           try {
             const cur = JSON.parse(localStorage.getItem(key) || '{}');
-            cur[i] = Math.round(th.offsetWidth);
+            cur[colId] = Math.round(th.offsetWidth);
             localStorage.setItem(key, JSON.stringify(cur));
+            this._syncLongColCaps(table, key, cur, colIds);
           } catch {}
         };
         grip.addEventListener('mousedown', e => {
@@ -386,8 +430,9 @@ function app() {
           th.style.minWidth = '';
           try {
             const cur = JSON.parse(localStorage.getItem(key) || '{}');
-            delete cur[i];
+            delete cur[colId];
             localStorage.setItem(key, JSON.stringify(cur));
+            this._syncLongColCaps(table, key, cur, colIds);
           } catch {}
         });
       });
