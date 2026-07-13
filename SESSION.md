@@ -1,5 +1,60 @@
 # Session Notes
 
+## 2026-07-13 — Edit Products: column-width bugs, real Category taxonomy, Tags/Collections editing UX
+
+Branch: `feature/edit-products`, **pushed** through commit `2704ef5` (Category
+taxonomy). The last 3 commits this session — `28ee7d0`, `3e6f14d`, `26f4dbd`
+(Tags/Collections filter/edit iterations, landing on the column pop-up) — are
+committed locally but **not yet pushed** — push them first thing tomorrow if
+still wanted.
+Full test suite green (62). `.claude/investigations/edit-products.md` has the
+detailed blow-by-blow (six dated entries added today) — read it before
+touching this page again, especially the Category taxonomy section.
+
+### Done this session
+- **Removed Wt Unit/Qty columns**, fixed a real CSS bug (purged Tailwind ships
+  no `.z-10`/`.z-20`/`.z-30`, so the Columns dropdown was rendering under the
+  grid header — added real rules), capped every column's default width to
+  ~30 chars.
+- **Found and fixed a real width-cap bug** (survived one bad fix, escalated
+  per CLAUDE.md protocol): the cap-lift-on-resize was scoped to the whole
+  table instead of per-column, AND saved widths were keyed by array position
+  instead of column identity — either bug alone could make every column
+  ignore the 30-char default. Now keyed by header label text; verified with
+  stale/adversarial localStorage states.
+- **Category taxonomy is now real, not guessed.** User's hard requirement:
+  "must be correct... this will sync with Shopify." Downloaded Shopify's
+  actual published taxonomy and grepped it directly (not from model memory).
+  Finding: Shopify's real taxonomy has **no branch for commercial/wholesale
+  food-service equipment** — confirmed and surfaced to the user before writing
+  code. Built `backend/shopify/category_taxonomy.py`: 9 real Shopify parent
+  groups + ~68 real child leaves relevant to this catalog, every gid verified.
+  Unmatched equipment falls back to the closest real parent (user's explicit
+  choice). Category is its own picker type now, distinct from Product Type.
+- **Tags/Collections editing**, iterated three times based on feedback, landed
+  on: a "▤" icon in the Tags/Collections column headers opens a pop-up
+  listing every value with a checkbox, pre-checked to whatever the
+  currently-selected row(s) already have; toggling Adds/Removes across
+  selected rows immediately. (Earlier attempts — inline per-cell picker,
+  then top-of-page Filter/Edit mode checkboxes — were superseded, not kept
+  alongside this.)
+- **Top-of-page Save button** — same Review & Push confirmation modal as
+  before, just a second, more prominent entry point. Confirmed with the user
+  first since it triggers a live Shopify write.
+
+### Open / next-time TODOs
+- **Push the last commit** (`26f4dbd`) if not already done.
+- **Live push still UNVERIFIED against a real store** (unchanged from last
+  session — see below). This session added more editing surface (tags/
+  collections pop-up, category picker) but did not touch the push path itself.
+- **Category still can't push** — picker now stores real values/gids, but no
+  GraphQL client exists in this codebase yet (everything is REST) and the
+  scanner doesn't capture each product's real taxonomy gid. Follow-up.
+- **`editFilters.tags`/`.collections` + backend tag/collection filtering
+  exist but have no UI** — removed the UI this session (replaced by the
+  editing pop-up), left the backend/state as-is since it's tested and
+  harmless. If a filter UI is wanted again, the backend is already there.
+
 ## 2026-07-10 — Edit Products page (new feature)
 
 Branch: `feature/edit-products` (off `main`). **Pushed** to remote `domainsync`
