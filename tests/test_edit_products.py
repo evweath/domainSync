@@ -126,8 +126,15 @@ def test_query_has_image_filter(synthetic_query):
 
 
 def test_query_collection_filter(synthetic_query):
-    assert ep.query(None, stores=["shop.example"], filters={"collection": "fillers"})["total"] == 2
-    assert ep.query(None, stores=["shop.example"], filters={"collection": "nope"})["total"] == 0
+    # Checkbox multi-select: exact (not substring) match, OR'd across the list.
+    assert ep.query(None, stores=["shop.example"], filters={"collections": ["Fillers"]})["total"] == 2
+    assert ep.query(None, stores=["shop.example"], filters={"collections": ["nope"]})["total"] == 0
+    assert ep.query(None, stores=["shop.example"], filters={"collections": ["nope", "Fillers"]})["total"] == 2
+
+
+def test_query_tags_filter(synthetic_query):
+    assert ep.query(None, stores=["shop.example"], filters={"tags": ["Popular"]})["total"] == 2
+    assert ep.query(None, stores=["shop.example"], filters={"tags": ["nope"]})["total"] == 0
 
 
 def test_query_facets_and_pagination(synthetic_query):

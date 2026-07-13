@@ -126,14 +126,26 @@ function app() {
     // Same picker, but for the inline per-cell editor (tags/collections only).
     editCellPickerOpen: false,
     editCellPickerSearch: '',
+    // Quick Tags/Collections editor for the bulk bar — checkbox dropdown with
+    // immediate Add/Remove per checkbox on every selected row (no separate
+    // "Apply" step), same interaction as the Columns chooser.
+    editBulkTagsOpen: false,
+    editBulkTagsSearch: '',
+    editBulkCollectionsOpen: false,
+    editBulkCollectionsSearch: '',
     // Every column defaults to a ~30-character width (drag a column's resize
     // grip to widen it past the default cap).
     editFilters: {
       search: '', title: '', sku: '', vendor: '', product_type: '', status: '',
-      tag: '', collection: '', min_price: '', max_price: '',
+      tags: [], collections: [], min_price: '', max_price: '',
       min_weight: '', max_weight: '', has_image: '',
       sort_by: 'title', sort_order: 'asc', per_page: 50,
     },
+    // Top-of-page filter dropdowns (checkbox multi-select, like Columns).
+    editTagFilterOpen: false,
+    editTagFilterSearch: '',
+    editCollectionFilterOpen: false,
+    editCollectionFilterSearch: '',
     // Human labels for the grid columns (order comes from the API `columns`).
     editColLabels: {
       store: 'Store', data_source: 'Src', status: 'Status', title: 'Title',
@@ -1164,8 +1176,8 @@ function app() {
         if (f.vendor)        params.set('vendor', f.vendor);
         if (f.product_type)  params.set('product_type', f.product_type);
         if (f.status)        params.set('status', f.status);
-        if (f.tag)           params.set('tag', f.tag);
-        if (f.collection)    params.set('collection', f.collection);
+        if (f.tags.length)        params.set('tags', f.tags.join(','));
+        if (f.collections.length) params.set('collections', f.collections.join(','));
         if (f.min_price !== '')  params.set('min_price', f.min_price);
         if (f.max_price !== '')  params.set('max_price', f.max_price);
         if (f.min_weight !== '') params.set('min_weight', f.min_weight);
@@ -1232,17 +1244,40 @@ function app() {
     editHasActiveFilters() {
       const f = this.editFilters;
       return f.search || f.title || f.sku || f.vendor || f.product_type || f.status ||
-             f.tag || f.collection || f.min_price !== '' || f.max_price !== '' ||
+             f.tags.length || f.collections.length || f.min_price !== '' || f.max_price !== '' ||
              f.min_weight !== '' || f.max_weight !== '' || f.has_image !== '';
     },
 
     editClearFilters() {
       this.editFilters = {
         search: '', title: '', sku: '', vendor: '', product_type: '', status: '',
-        tag: '', collection: '', min_price: '', max_price: '',
+        tags: [], collections: [], min_price: '', max_price: '',
         min_weight: '', max_weight: '', has_image: '',
         sort_by: 'title', sort_order: 'asc', per_page: this.editFilters.per_page,
       };
+      this.loadEditProducts(1);
+    },
+
+    // ---- Top-of-page Tags/Collections filter dropdowns (checkbox
+    // multi-select, immediate effect — same pattern as the Columns chooser).
+    editTagFilterFiltered() {
+      const q = this.editTagFilterSearch.trim().toLowerCase();
+      const pool = this.editFacets.tags || [];
+      return q ? pool.filter(v => v.toLowerCase().includes(q)) : pool;
+    },
+    editCollectionFilterFiltered() {
+      const q = this.editCollectionFilterSearch.trim().toLowerCase();
+      const pool = this.editPools.collections || [];
+      return q ? pool.filter(v => v.toLowerCase().includes(q)) : pool;
+    },
+    editToggleTagFilter(v) {
+      const i = this.editFilters.tags.indexOf(v);
+      if (i >= 0) this.editFilters.tags.splice(i, 1); else this.editFilters.tags.push(v);
+      this.loadEditProducts(1);
+    },
+    editToggleCollectionFilter(v) {
+      const i = this.editFilters.collections.indexOf(v);
+      if (i >= 0) this.editFilters.collections.splice(i, 1); else this.editFilters.collections.push(v);
       this.loadEditProducts(1);
     },
 
@@ -1417,6 +1452,31 @@ function app() {
         rows.forEach(row => this._editSet(row, field, parsed));
         this.toast(`Set ${label} on ${rows.length} row${rows.length === 1 ? '' : 's'}`, 'success');
       }
+    },
+
+    // Quick Tags/Collections editor — each checkbox toggles that one value
+    // on/off across every selected row immediately (Add if any selected row
+    // is missing it, Remove if every selected row already has it), instead of
+    // the generic field→mode→value flow above. Same immediate-effect feel as
+    // the Columns chooser.
+    editBulkListChecked(field, v) {
+      const rows = Object.values(this.editRowSel);
+      return rows.length > 0 && rows.every(row => (this.editEffective(row, field) || []).includes(v));
+    },
+    editBulkListToggle(field, v) {
+      const rows = Object.values(this.editRowSel);
+      if (!rows.length) return;
+      const allHave = this.editBulkListChecked(field, v);
+      rows.forEach(row => {
+        const cur = (this.editEffective(row, field) || []).slice();
+        const next = allHave ? cur.filter(x => x !== v) : (cur.includes(v) ? cur : cur.concat([v]));
+        this._editSet(row, field, next);
+      });
+    },
+    editBulkListFiltered(field, search) {
+      const q = search.trim().toLowerCase();
+      const pool = this.editPoolFor(field);
+      return q ? pool.filter(v => v.toLowerCase().includes(q)) : pool;
     },
 
     editCancelCell() { this._suppressBlur = true; this.editActiveCell = null; },

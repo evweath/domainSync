@@ -306,3 +306,38 @@ corrected:
   seeding a name-keyed `{"Description": 500}` and toggling the Barcode column's
   visibility off/on — Description stayed pinned at 500px, every other column
   stayed correctly capped, across the toggle.
+
+## 2026-07-13 (later still) — Tags/Collections: top-of-page filter dropdowns + quick bulk toggle
+
+User's ask: Tags/Collections "should be drop downs with checkboxes... displayed
+at the top of the page like the column selection drop down." Clarified via
+AskUserQuestion this meant **both** filtering and editing (two distinct
+mechanisms, same visual pattern as Columns — persistent, immediate per-checkbox
+effect, no separate "Apply" step).
+
+- **Filtering (new):** the old "Tag contains…"/"Collection contains…" free-text
+  substring inputs in Attribute filters are replaced with "Tags ▾"/
+  "Collections ▾" checkbox-dropdown buttons, sourced from `editFacets.tags` /
+  `editPools.collections` (the full, pre-filter option lists). Multi-select,
+  OR'd within each facet (row matches if it has ANY selected tag AND ANY
+  selected collection, when both are set). `editFilters.tag`/`.collection`
+  (scalar strings) → `editFilters.tags`/`.collections` (arrays);
+  `editToggleTagFilter`/`editToggleCollectionFilter` mutate the array and
+  reload immediately, exactly like `editToggleColumn`.
+  - Backend: `_matches()` in `edit_products.py` does exact (not substring) set
+    intersection now — `f["tags"]`/`f["collections"]` are lists. Route params
+    renamed `tag`→`tags`, `collection`→`collections` (comma-separated,
+    parsed to a list in `routes.py`).
+- **Editing (new, additive):** the bulk edit bar gained dedicated "Tags ▾"/
+  "Collections ▾" buttons *before* the generic field/mode/value flow — each
+  checkbox toggles that one value across every selected row immediately
+  (`editBulkListToggle(field, v)`: Add if any selected row is missing it,
+  Remove once every selected row already has it — checked state via
+  `editBulkListChecked`). This doesn't replace the generic bulk flow (still
+  useful for "Set (replace)" mode, wholesale-replacing a row's list) — it's a
+  faster path for the common "add/remove one value" case. Both share
+  `editPoolFor(field)` for the option list.
+- Verified via CDP: toggling a tag in the new filter dropdown correctly
+  narrowed 5,582 variants → 10 matching a specific tag; toggling a tag via the
+  new bulk quick-editor on a selected row correctly appended it to that row's
+  effective tags and marked the row dirty.

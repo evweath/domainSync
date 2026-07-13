@@ -395,13 +395,17 @@ def _matches(r: Dict[str, Any], search: str, f: Dict[str, Any]) -> bool:
         return False
     if f.get("status") and (r.get("status") or "") != f["status"]:
         return False
-    if f.get("tag"):
-        want = f["tag"].lower()
-        if not any(want in t.lower() for t in (r.get("tags") or [])):
+    # Multi-select checkbox filters (picked from the full facet list, not
+    # typed) — a row matches if it has AT LEAST ONE of the selected tags, and
+    # (independently) at least one of the selected collections. Empty
+    # selection = no filter for that facet.
+    if f.get("tags"):
+        want = {t.lower() for t in f["tags"]}
+        if not want & {t.lower() for t in (r.get("tags") or [])}:
             return False
-    if f.get("collection"):
-        want = f["collection"].lower()
-        if not any(want in c.lower() for c in (r.get("collections") or [])):
+    if f.get("collections"):
+        want = {c.lower() for c in f["collections"]}
+        if not want & {c.lower() for c in (r.get("collections") or [])}:
             return False
     price = r.get("price")
     if f.get("min_price") is not None and (price is None or price < f["min_price"]):
