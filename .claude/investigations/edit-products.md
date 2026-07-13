@@ -377,3 +377,46 @@ default will be both checkboxes blank."
   real store (see Phase 4 notes above). No new push mechanism, just a second,
   more prominent entry point to the existing review/confirm modal. Disabled
   when `editPendingCount() === 0`, shows the pending count as a badge.
+
+## 2026-07-13 (final round) — Filter/Edit checkboxes removed; per-column pop-up instead
+
+Immediate follow-up: the Filter/Edit mode checkboxes (previous entry) are gone
+again — replaced with a pop-up modal triggered from the Tags/Collections
+column headers themselves, which the user judged a cleaner mechanism for
+*editing* specifically (bulk filtering by tag/collection has no UI now; the
+backend/`editFilters.tags`/`.collections` capability from two entries up is
+left in place, untouched, in case a filter UI returns later — nothing calls it
+today, but it's tested and harmless to keep).
+
+- **Removed:** the whole Attribute-filters block with the Filter/Edit
+  checkboxes + Tags/Collections dropdown, and its supporting JS
+  (`editTagsMode`/`editCollectionsMode`/`editSetTagsMode`/`editSetCollectionsMode`/
+  `editTagsChecked`/`editTagsToggle`/`editCollectionsChecked`/`editCollectionsToggle`,
+  `editTagsOpen`/`Search`, `editCollectionsOpen`/`Search`) — all dead once the
+  UI that drove them was deleted.
+- **Added: per-column pop-up editor.** A small "▤" button appears in the grid
+  header — `x-show="col === 'tags' || col === 'collections'"` — only visible
+  on those two columns (it exists in the DOM for every column via the shared
+  header template, per Alpine's `x-show`; only CSS-hidden elsewhere, confirmed
+  via `getComputedStyle(...).display` during verification — a plain
+  `.textContent` check on the header is misleading since hidden elements'
+  text still concatenates in). `@click.stop` keeps it from also triggering
+  `editSort(col)` on the same click.
+  - Clicking it with **no rows selected** shows a toast ("Select one or more
+    rows first") instead of opening — editing without a target is meaningless.
+  - With rows selected, opens `editColPopup` ('tags' | 'collections'): a modal
+    (same visual pattern as the Review & Push modal) listing every pool value
+    with a checkbox to its left, `editColPopupSearch` filter box, scrollable.
+  - **Pre-checks whatever the selected row(s) already have** —
+    `editColPopupChecked(v)` delegates to `editBulkListChecked(field, v)`
+    (checked only if ALL selected rows already carry it; a partially-shared
+    value across a multi-row selection reads as unchecked, same convention as
+    the earlier bulk quick-toggle — not a new rule).
+  - Toggling a checkbox calls `editBulkListToggle(field, v)` immediately
+    (Add/Remove across every selected row) — same underlying mechanism as
+    before, just triggered from the column header instead of a top-of-page
+    control. Nothing pushes to Shopify here; still staged locally until Save.
+- Verified via CDP: selected a row with tags `["Donut Nozzles", "Edhard Filler
+  Accessories", "Free Shipping"]`, opened the Tags pop-up — modal listed all
+  748 pool tags and pre-checked exactly those 3; toggling a new tag correctly
+  appended it to the row's effective tags.

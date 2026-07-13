@@ -1198,75 +1198,6 @@
             <option value="">All Statuses</option>
             <template x-for="s in editFacets.statuses" :key="s"><option :value="s" x-text="s"></option></template>
           </select>
-          <!-- Tags: ONE control, mode picked by two mutually-exclusive checkboxes
-               above it (default: neither, dropdown disabled). Filter mode narrows
-               the grid to rows with ANY checked tag; Edit mode Add/Removes a
-               checked tag across every currently-selected row immediately. -->
-          <div>
-            <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mb-1">
-              <label class="flex items-center gap-1 cursor-pointer">
-                <input type="checkbox" :checked="editTagsMode === 'filter'" @change="editSetTagsMode('filter')" class="w-3.5 h-3.5 accent-orange-500" /> Filter
-              </label>
-              <label class="flex items-center gap-1 cursor-pointer">
-                <input type="checkbox" :checked="editTagsMode === 'edit'" @change="editSetTagsMode('edit')" class="w-3.5 h-3.5 accent-orange-500" /> Edit
-              </label>
-            </div>
-            <div class="relative" @click.outside="editTagsOpen = false">
-              <button @click="editTagsOpen = !editTagsOpen" type="button" :disabled="!editTagsMode"
-                class="w-full border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 flex items-center justify-center gap-1 disabled:opacity-40 disabled:cursor-not-allowed">
-                <span>Tags</span>
-                <span class="text-xs text-gray-400" x-text="editTagsMode === 'filter' && editFilters.tags.length ? '(' + editFilters.tags.length + ')' : ''"></span>
-                <span class="text-xs">▾</span>
-              </button>
-              <div x-show="editTagsOpen && editTagsMode" x-cloak
-                class="absolute z-30 mt-1 left-0 w-64 max-h-80 overflow-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-xl p-2">
-                <input x-model="editTagsSearch" type="text" placeholder="Filter…"
-                  class="w-full border rounded px-2 py-1 text-xs mb-1 dark:bg-gray-700 dark:border-gray-600 focus:outline-none" />
-                <div class="max-h-56 overflow-auto">
-                  <template x-for="v in editBulkListFiltered('tags', editTagsSearch)" :key="v">
-                    <label class="flex items-center gap-2 px-1 py-1 text-sm rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                      <input type="checkbox" :checked="editTagsChecked(v)" @change="editTagsToggle(v)" class="w-4 h-4 accent-orange-500" />
-                      <span class="truncate" x-text="v"></span>
-                    </label>
-                  </template>
-                  <div x-show="editBulkListFiltered('tags', editTagsSearch).length === 0" class="text-xs text-gray-400 px-1 py-2">No matches</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Collections: same pattern. -->
-          <div>
-            <div class="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mb-1">
-              <label class="flex items-center gap-1 cursor-pointer">
-                <input type="checkbox" :checked="editCollectionsMode === 'filter'" @change="editSetCollectionsMode('filter')" class="w-3.5 h-3.5 accent-orange-500" /> Filter
-              </label>
-              <label class="flex items-center gap-1 cursor-pointer">
-                <input type="checkbox" :checked="editCollectionsMode === 'edit'" @change="editSetCollectionsMode('edit')" class="w-3.5 h-3.5 accent-orange-500" /> Edit
-              </label>
-            </div>
-            <div class="relative" @click.outside="editCollectionsOpen = false">
-              <button @click="editCollectionsOpen = !editCollectionsOpen" type="button" :disabled="!editCollectionsMode"
-                class="w-full border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 flex items-center justify-center gap-1 disabled:opacity-40 disabled:cursor-not-allowed">
-                <span>Collections</span>
-                <span class="text-xs text-gray-400" x-text="editCollectionsMode === 'filter' && editFilters.collections.length ? '(' + editFilters.collections.length + ')' : ''"></span>
-                <span class="text-xs">▾</span>
-              </button>
-              <div x-show="editCollectionsOpen && editCollectionsMode" x-cloak
-                class="absolute z-30 mt-1 left-0 w-64 max-h-80 overflow-auto bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-xl p-2">
-                <input x-model="editCollectionsSearch" type="text" placeholder="Filter…"
-                  class="w-full border rounded px-2 py-1 text-xs mb-1 dark:bg-gray-700 dark:border-gray-600 focus:outline-none" />
-                <div class="max-h-56 overflow-auto">
-                  <template x-for="v in editBulkListFiltered('collections', editCollectionsSearch)" :key="v">
-                    <label class="flex items-center gap-2 px-1 py-1 text-sm rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-                      <input type="checkbox" :checked="editCollectionsChecked(v)" @change="editCollectionsToggle(v)" class="w-4 h-4 accent-orange-500" />
-                      <span class="truncate" x-text="v"></span>
-                    </label>
-                  </template>
-                  <div x-show="editBulkListFiltered('collections', editCollectionsSearch).length === 0" class="text-xs text-gray-400 px-1 py-2">No matches</div>
-                </div>
-              </div>
-            </div>
-          </div>
           <select x-model="editFilters.has_image" @change="loadEditProducts(1)" class="border rounded-lg px-3 py-2 text-sm dark:bg-gray-700 dark:border-gray-600 focus:outline-none">
             <option value="">Any photos</option>
             <option value="true">Has photos</option>
@@ -1404,6 +1335,13 @@
                     class="px-2 py-2 text-left font-semibold text-gray-600 dark:text-gray-200 whitespace-nowrap cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 bg-gray-100 dark:bg-gray-700 select-none">
                     <span x-text="editColLabels[col] || col"></span>
                     <span x-show="editFilters.sort_by === col" class="text-orange-500" x-text="editFilters.sort_order === 'asc' ? ' ↑' : ' ↓'"></span>
+                    <!-- Tags/Collections: pop-up assign/remove editor for the
+                         currently-selected rows (pre-checks whatever they
+                         already have). @click.stop keeps this from also
+                         triggering the header's sort click. -->
+                    <button x-show="col === 'tags' || col === 'collections'" x-cloak
+                      @click.stop="editOpenColPopup(col)" type="button" title="Assign/remove"
+                      class="ml-1 text-gray-400 hover:text-orange-500">▤</button>
                   </th>
                 </template>
               </tr>
@@ -1530,6 +1468,33 @@
           <span class="text-sm text-gray-700 dark:text-gray-300" x-text="'Page ' + editData.page + ' of ' + editData.pages"></span>
           <button @click="loadEditProducts(editData.page + 1)" :disabled="editData.page >= editData.pages"
             class="px-3 py-1.5 rounded border border-gray-400 dark:border-gray-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm disabled:opacity-40 hover:bg-gray-100 dark:hover:bg-gray-700">Next →</button>
+        </div>
+      </div>
+
+      <!-- ===== TAGS/COLLECTIONS ASSIGN POP-UP ===== -->
+      <div x-show="editColPopup" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" @click.self="editCloseColPopup()">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md max-h-[80vh] flex flex-col">
+          <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+            <h3 class="font-semibold" x-text="(editColPopup === 'tags' ? 'Tags' : 'Collections') + ' — ' + editSelectedCount() + ' row' + (editSelectedCount() === 1 ? '' : 's') + ' selected'"></h3>
+            <button @click="editCloseColPopup()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-xl leading-none">✕</button>
+          </div>
+          <div class="p-4 flex-1 min-h-0 flex flex-col">
+            <input x-model="editColPopupSearch" type="text" placeholder="Filter…" autofocus
+              class="w-full border rounded-lg px-3 py-2 text-sm mb-2 dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400" />
+            <div class="flex-1 min-h-0 overflow-auto space-y-0.5">
+              <template x-for="v in editColPopupFiltered()" :key="v">
+                <label class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
+                  <input type="checkbox" :checked="editColPopupChecked(v)" @change="editColPopupToggle(v)" class="w-4 h-4 accent-orange-500 flex-shrink-0" />
+                  <span x-text="v"></span>
+                </label>
+              </template>
+              <div x-show="editColPopupFiltered().length === 0" class="text-sm text-gray-400 py-6 text-center">No matches</div>
+            </div>
+          </div>
+          <div class="px-4 py-3 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between">
+            <span class="text-xs text-gray-400">Changes are staged locally — Save to push to Shopify</span>
+            <button @click="editCloseColPopup()" class="px-4 py-2 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-medium">Done</button>
+          </div>
         </div>
       </div>
 
