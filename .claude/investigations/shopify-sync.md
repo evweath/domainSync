@@ -96,6 +96,123 @@ source stores (2"-wide box, polls every 3s while Settings is open).
 - **Root cause:** `start.sh` ran uvicorn with the **default `--timeout-keep-alive 5`**. After ~5s idle the server closes the keep-alive socket, but the browser reuses it for the next request → dead socket → fetch() rejects with TypeError "Load failed". Also made successful saves look failed (the post-save `loadSettings()` refresh hit the dead socket inside the same try/catch).
 - **Fix:** (1) `start.sh` now passes `--timeout-keep-alive 75` on both uvicorn invocations; (2) `app.js api()` retries once (200ms) on a network-level fetch rejection before surfacing it. Unrelated to the earlier post-`kill -9` "load failed", which was a one-off severed socket on restart.
 
+### Live push attempt (2026-07-14) — still blocked, no token saved for any store
+- User asked to "do the live push" (Edit Products → Review & Push, first real test
+  against a real store). Before touching anything, checked `config/settings.yaml`:
+  **every site's `shopify_access_token` is empty** — including `donut-equipment.com`
+  (equipmentplus), which the 2026-06-22 entries identified as the furthest-along
+  candidate (in-admin custom app, `read_products`+`write_products` created). That
+  token was apparently generated in Shopify admin but **never pasted into Settings**
+  → saved config still has no working write credential anywhere.
+- **Net effect: right now, attempting Review & Push would fail at auth, not
+  actually mutate a live store** — confirmed safe-but-useless, not confirmed
+  working.
+- Did not proceed; user chose to hold off on live push rather than generate/paste
+  a token this session. **Next time this comes up:** get an Admin API access
+  token from the equipmentplus in-admin custom app (Shopify Admin → Settings →
+  Develop apps → that app → reveal token, one-time-only) into Settings → that
+  store → Access Token → Save, *then* attempt one low-risk single-field push.
+
+**CORRECTION (2026-07-14, same day, later):** the above was WRONG — it only
+checked `shopify_access_token`, not whether the existing `client_id`/`client_secret`
+(client_credentials) path had started working. User pushed back ("this connection
+information is already in the app"); re-tested live via
+`POST /api/source-sites/{domain}/test-connection` against the running server
+(not a memory/notes lookup) and found:
+- **`donut-equipment.com`, `donut-equipment.myshopify.com` (New DE2), `DE3`
+  (`0pbnif-9w`), `bakerywholesalers.com`** — all `{"ok": true, "products_ok": true}`.
+  Connection Log (`GET /api/shopify/connection-log`) confirms the granted scope
+  string includes **`write_products`** for all four (client_credentials token,
+  not a static admin token — so nothing needed to be pasted into Settings after
+  all; whatever blocked OAuth install in June has since been resolved on
+  Shopify's side, unprompted, or the org config changed).
+- **`donut-supplies.com`** — now fails at a *different* step:
+  `400 Oauth error application_cannot_be_found` at the token-exchange stage
+  itself (not a scope 403 like before). Worse than the June "connects but no
+  read_products" state — the app registration this store used ("dsm") appears
+  gone/renamed. Not yet root-caused; treat as its own investigation if pursued.
+- **Net effect: write access is live and working on 4 of 5 stores right now.**
+  The only missing piece for a real Review & Push test is picking a store +
+  one low-risk field/product, not fixing credentials. Lesson for next time:
+  **test `test-connection` live before concluding anything is blocked** —
+  config-file inspection alone (empty `shopify_access_token`) does not capture
+  the client_credentials path, which is the one actually in use for these 4 stores.
+
+### Live push VERIFIED end-to-end for the first time (2026-07-14)
+- With write access confirmed live (previous entry), ran a real test push via
+  Edit Products' pipeline: `POST /api/edit-products/review` →
+  `POST /api/edit-products/execute` → poll `/execute-status`, against
+  `donut-equipment.com`, product `9685982904550` (SKU F-3081), field `tags`
+  (LOW risk, additive) — added `zz-test-donutintel-2026-07-14`.
+  `execute-status` reported `{"status": "ok"}`.
+- **Independently verified against Shopify directly** (not just trusting our
+  own executor's "ok"): fetched `GET /admin/api/2024-01/products/9685982904550.json`
+  with the same credentials — the tag was really there. Then pushed the
+  reverse change (remove the test tag) through the same pipeline and
+  re-verified directly — back to the original 3 tags.
+- **This is the first confirmed-working live push in this project's history.**
+  The `tags` resource_type path (`build_edit_transactions` → executor
+  `resource_type: "tags"`) works correctly for add/remove on a real store.
+  Other resource types (`product_field`, `variant_field`, `collections`) share
+  the same executor and credential path but have NOT individually been
+  live-tested yet — reasonable to expect they work too, but don't assume
+  without testing if it matters (e.g. before a bulk push of price/status
+  changes, which are MEDIUM/HIGH risk).
+
+### `product_field` resource type VERIFIED (2026-07-14, same day)
+- Same product (`9685982904550`, F-3081), field `vendor` (`Edhard` →
+  `Edhard-TEST-DONUTINTEL` → back to `Edhard`). Same pattern: review → execute
+  → poll → independently confirmed against Shopify's Admin API directly →
+  reverted → re-confirmed. `execute-status` "ok" matched reality both times.
+- Note for next time: `vendor` (and other `product_field` values) **can be
+  customer-visible on the storefront** during the brief window before revert,
+  unlike `tags` — picked an obviously-fake test value and reverted immediately
+  to minimize exposure. Still untested: `variant_field` (e.g. barcode/sku/
+  weight/price) and `collections` resource types.
+
+### `collections` resource type VERIFIED (2026-07-14, same day)
+- Same product (`9685982904550`, F-3081). Pushed an add of a not-yet-existing
+  collection `ZZ Test DonutIntel 2026-07-14` via the collections field —
+  confirmed `executor.py`'s `_resolve_collection` really does
+  create-then-attach for a title that doesn't exist yet (not just theory from
+  reading the code). Verified directly: `GET /custom_collections.json?title=…`
+  found it (id `500976943334`), `GET /collects.json?collection_id=…` showed
+  the product attached. **New collections come back `published_scope: "web"`,
+  `published_at` set — i.e. live/published by default**, not draft. Not linked
+  in nav so practically undiscoverable, but technically reachable by direct
+  URL/sitemap while it exists — keep test collection names obviously fake and
+  the window short.
+- Pushed the remove (same title dropped from the list) — confirmed via
+  `/collects.json` that the product↔collection link was gone. **Important
+  gap confirmed by testing, not just reading code:** the app's own "remove"
+  path (`executor.py` `UPDATE`/`collections` → finds the collect and deletes
+  it) only detaches the product — it does **not** delete the now-empty
+  collection. Had to `DELETE /admin/api/2024-01/custom_collections/{id}.json`
+  directly (outside the app) to fully clean up; confirmed gone with a
+  follow-up `GET`.
+- Only `variant_field` remained untested at this point — see next entry.
+
+### `variant_field` resource type VERIFIED (2026-07-14, same day) — ALL FOUR DONE
+- Same variant (`47514526744806`, F-3081), field `barcode` (empty → `TEST-
+  DONUTINTEL-0714` → back to empty/`null`). Same pattern: review → execute →
+  poll → confirmed directly against Shopify (`GET /variants/{id}.json`) →
+  reverted → re-confirmed.
+- **All four resource types the Edit Products push pipeline supports are now
+  individually live-verified against a real store**: `tags`, `product_field`
+  (vendor), `collections`, `variant_field` (barcode). Every test used product
+  `9685982904550` (SKU F-3081) on `donut-equipment.com`, pushed via the real
+  review→execute API (not a direct Shopify call bypassing the app), and
+  independently confirmed by reading straight from Shopify's Admin API rather
+  than trusting the executor's own "ok" status. The store was returned to its
+  exact original state after every test; the only artifact of this whole
+  exercise was a collection that got created and then fully deleted again
+  (see previous entry).
+- **This closes the long-standing "live push is UNVERIFIED" TODO** from
+  SESSION.md (present since 2026-07-10). The push path works. Remaining real
+  gaps are the `collections`-create-doesn't-clean-up-after-remove behavior
+  (previous entry) and Category still having no push path at all (separate,
+  pre-existing TODO — Shopify's taxonomy Category has no REST write field).
+
 ## Known Failure Modes
 
 - **Shopify API rate limits:** Shopify enforces 2 req/s for REST API. Bulk sync can hit this. The sync pipeline should throttle — verify it does before adding more products to sync batch.
