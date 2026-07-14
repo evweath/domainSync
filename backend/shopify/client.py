@@ -326,6 +326,29 @@ class ShopifyClient:
         })
         return result.get("custom_collection", {})
 
+    async def find_custom_collection_by_title(self, title: str) -> Optional[Dict]:
+        """Live lookup of a custom collection by exact title (case-insensitive).
+
+        Queries the store directly (does not use any cached snapshot) so callers
+        can tell whether a collection already exists before creating a duplicate.
+        """
+        target = (title or "").strip().lower()
+        if not target:
+            return None
+        resp = await self._get("/custom_collections.json", params={"title": title, "limit": 250})
+        for col in resp.json().get("custom_collections", []):
+            if (col.get("title") or "").strip().lower() == target:
+                return col
+        return None
+
+    async def find_product_by_handle(self, handle: str) -> Optional[Dict]:
+        """Live lookup of a product by its handle (does not use any cached data)."""
+        if not handle:
+            return None
+        resp = await self._get("/products.json", params={"handle": handle, "limit": 1})
+        products = resp.json().get("products", [])
+        return products[0] if products else None
+
     # -----------------------------------------------------------------------
     # Metafields
     # -----------------------------------------------------------------------
