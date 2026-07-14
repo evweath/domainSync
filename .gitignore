@@ -18,6 +18,9 @@ data/*.bak-*
 logs/*.log
 exports/
 
+# Persisted store scan snapshots (runtime cache, 5-day TTL)
+data/scan_cache/
+
 # macOS
 .DS_Store
 
