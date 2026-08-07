@@ -93,7 +93,14 @@ async def _is_shopify_store(base_url: str) -> bool:
 async def scrape_shopify_store(
     base_url: str, domain: str, request_delay_ms: int = 0
 ) -> tuple[List[ScrapedProduct], bool]:
-    """Paginate through Shopify's /products.json. Returns (products, rate_limited)."""
+    """Paginate through Shopify's /products.json. Returns (products, rate_limited).
+
+    A 429 is retried with backoff (honouring Retry-After) up to
+    _MAX_429_RETRIES times per page. rate_limited=True means the catalog is
+    TRUNCATED — callers must not treat it as the full product list (in
+    particular, they must not archive everything else).
+    """
+    _MAX_429_RETRIES = 5
     products: List[ScrapedProduct] = []
     rate_limited = False
     page = 1
@@ -102,19 +109,37 @@ async def scrape_shopify_store(
     async with httpx.AsyncClient(timeout=30, follow_redirects=True) as client:
         while True:
             url = f"{base}/products.json?limit=250&page={page}"
-            try:
-                r = await client.get(url)
-                if r.status_code == 429:
-                    logger.warning("Shopify %s: rate limited (429) on page %d", domain, page)
-                    rate_limited = True
-                    break
-                r.raise_for_status()
-                batch = r.json().get("products", [])
-            except httpx.HTTPStatusError as exc:
-                logger.warning("Shopify products.json page %d failed: %s", page, exc)
+            batch = None
+            for attempt in range(_MAX_429_RETRIES + 1):
+                try:
+                    r = await client.get(url)
+                    if r.status_code == 429:
+                        if attempt >= _MAX_429_RETRIES:
+                            logger.warning(
+                                "Shopify %s: rate limited (429) on page %d — giving up after %d retries",
+                                domain, page, _MAX_429_RETRIES,
+                            )
+                            rate_limited = True
+                            break
+                        try:
+                            retry_after = float(r.headers.get("Retry-After", 0))
+                        except ValueError:
+                            retry_after = 0.0
+                        wait = max(retry_after, 2.0 * (attempt + 1))
+                        logger.info(
+                            "Shopify %s: 429 on page %d — waiting %.0fs (attempt %d/%d)",
+                            domain, page, wait, attempt + 1, _MAX_429_RETRIES,
+                        )
+                        await asyncio.sleep(wait)
+                        continue
+                    r.raise_for_status()
+                    batch = r.json().get("products", [])
+                except httpx.HTTPStatusError as exc:
+                    logger.warning("Shopify products.json page %d failed: %s", page, exc)
+                except Exception as exc:
+                    logger.warning("Shopify products.json page %d failed: %s", page, exc)
                 break
-            except Exception as exc:
-                logger.warning("Shopify products.json page %d failed: %s", page, exc)
+            if rate_limited or batch is None:
                 break
             if not batch:
                 break
@@ -124,6 +149,7 @@ async def scrape_shopify_store(
             if len(batch) < 250:
                 break
             page += 1
-            if delay > 0:
-                await asyncio.sleep(delay)
+            # Be polite: a short pause between pages keeps us under Shopify's
+            # storefront rate limit (leaky bucket ≈ 2 req/s).
+            await asyncio.sleep(max(delay, 1.0))
     return products, rate_limited
