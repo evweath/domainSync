@@ -11,11 +11,13 @@ products to avoid merging into an arbitrary sibling variant).
 """
 import json
 import logging
+import threading
 from collections import Counter
 from datetime import datetime
 from typing import Callable, Optional
 
 from rapidfuzz import fuzz, process as fuzz_process
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, joinedload
 
 from backend.database.db import session_scope
@@ -25,6 +27,14 @@ from backend.dedup.engine import DeduplicationEngine
 logger = logging.getLogger(__name__)
 
 _engine = DeduplicationEngine()
+
+# Scans for different sites can finish at the same time and each one kicks off
+# a force-merge. Two concurrent runs would both pass the "does this
+# DuplicateCandidate exist?" check and then insert the same
+# (primary, secondary) pair — the second dies on the UNIQUE constraint.
+# Serialize force-merges process-wide; they are idempotent so a queued run
+# simply finds everything already merged.
+_FORCE_MERGE_LOCK = threading.Lock()
 
 # Every store other than the system of record. The SoR (donut-equipment.com) is
 # always the primary that stays active; every other store merges into it.
@@ -114,6 +124,18 @@ def force_merge_source_sites(
     """
     if secondary_sites is None:
         secondary_sites = DEFAULT_SECONDARY_SITES
+
+    with _FORCE_MERGE_LOCK:
+        return _force_merge_locked(primary_site, secondary_sites, title_threshold, progress)
+
+
+def _force_merge_locked(
+    primary_site: str,
+    secondary_sites: list[str],
+    title_threshold: float,
+    progress: Optional[Callable[[str], None]],
+) -> dict:
+    """See force_merge_source_sites — runs under the process-wide lock."""
 
     def _log(msg: str):
         logger.info(msg)
@@ -224,7 +246,30 @@ def force_merge_source_sites(
                         status='pending',
                     )
                     db.add(existing)
-                    db.flush()
+                    try:
+                        db.flush()
+                    except IntegrityError:
+                        # Another server process inserted the same pair between
+                        # our check and our insert. Roll back just this statement
+                        # and re-read the row it created.
+                        db.rollback()
+                        existing = (
+                            db.query(DuplicateCandidate)
+                            .filter(
+                                DuplicateCandidate.primary_product_id == pair[0],
+                                DuplicateCandidate.secondary_product_id == pair[1],
+                            )
+                            .first()
+                        )
+                        if existing is None:
+                            raise
+                        if existing.status == 'merged':
+                            summary['already_linked'] += 1
+                            continue
+                        primary = primary_by_id.get(best_primary_id) or db.get(Product, best_primary_id)
+                        if primary is None or not primary.is_active:
+                            continue
+                        sec = db.get(Product, sec.id)
                 else:
                     existing.confidence_score = confidence
                     existing.match_reasons_json = json.dumps({'reason': match_reason})
