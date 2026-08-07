@@ -203,7 +203,7 @@ HTML = """<!DOCTYPE html>
   <ol>
     <li><a href="#s1">Welcome — What Is Donut Intel?</a></li>
     <li><a href="#s2">What You Need Before Starting</a></li>
-    <li><a href="#s3">Step 1 — Install Python</a></li>
+    <li><a href="#s3">Step 1 — Install Everything (setup.bat does it for you)</a></li>
     <li><a href="#s4">Step 2 — Get the App Files</a></li>
     <li><a href="#s5">Step 3 — Run First-Time Setup</a></li>
     <li><a href="#s6">Step 4 — Configure Your Settings</a></li>
@@ -299,79 +299,64 @@ HTML = """<!DOCTYPE html>
 <!-- ======================================================== SECTION 3 -->
 <div class="page-break"></div>
 <div class="section-label">Section 3</div>
-<h1 id="s3">Step 1 — Install Python</h1>
+<h1 id="s3">Step 1 — Install Everything (setup.bat does it for you)</h1>
 
 <p>
-  <strong>Python</strong> is the programming language that Donut Intel is built with.
-  Think of it as the "engine" that makes the app run.
-  You need to install it before anything else.
+  <strong>Python</strong> is the programming language that Donut Intel is built with —
+  think of it as the "engine" that makes the app run.
+  <strong>You do not need to install Python yourself.</strong>
+  The app's setup program (<code>setup.bat</code>) checks your computer, and if Python
+  is missing it downloads it, installs it, and adds it to the Windows
+  <strong>PATH</strong> system setting automatically. It also installs everything else
+  the app needs and puts a <strong>Donut Intel</strong> shortcut on your Desktop.
 </p>
 
-<h2>Download Python</h2>
-
 <div class="step-box">
-  <div class="box-title">🌐 Download Python Here:</div>
-  <p class="url">https://www.python.org/downloads/windows/</p>
-  <p>Look for the most recent version of <strong>Python 3.11</strong> or <strong>Python 3.12</strong>.
-  Click the link that says <strong>"Windows installer (64-bit)"</strong>.</p>
+  <div class="box-title">✅ All you need is:</div>
+  A 64-bit Windows 10 or Windows 11 computer with an internet connection.
+  No other software needs to be installed first.
 </div>
 
-<h2>Install Python — Step by Step</h2>
+<h2>Run the Setup</h2>
 
 <div class="num-step">
   <div class="num">1</div>
   <div class="num-content">
-    Find the file you just downloaded. It will be in your <strong>Downloads</strong> folder.
-    Its name will look like <code>python-3.12.x-amd64.exe</code>.
-    Double-click it to start the installer.
+    Extract the ZIP file to <code>C:\</code> first (covered in Step 2 below),
+    so the app files are at <code>C:\DonutIntel\</code>.
   </div>
 </div>
 <div class="num-step">
   <div class="num">2</div>
   <div class="num-content">
-    <strong>Very important:</strong> At the bottom of the first screen, check the box that says
-    <strong>"Add python.exe to PATH"</strong>. This step is critical — if you skip it, nothing will work.
-    <br><br>
-    <div class="warning-box" style="margin:0">
-      <div class="box-title">⚠️ Check This Box Before Clicking Install!</div>
-      "Add python.exe to PATH" is at the <em>bottom</em> of the installer window.
-      It is easy to miss. If you forget, uninstall Python and start over.
-    </div>
+    Open the <code>C:\DonutIntel</code> folder and <strong>double-click
+    <code>setup.bat</code></strong>. Windows may show a blue
+    "Windows protected your PC" message — click <strong>More info</strong>,
+    then <strong>Run anyway</strong>.
   </div>
 </div>
 <div class="num-step">
   <div class="num">3</div>
   <div class="num-content">
-    Click <strong>"Install Now"</strong> (the big blue button at the top).
-    Windows may ask permission — click <strong>Yes</strong>.
-  </div>
-</div>
-<div class="num-step">
-  <div class="num">4</div>
-  <div class="num-content">
-    Wait for the installation to finish. It usually takes 1–3 minutes.
-    When done, you will see a screen that says <strong>"Setup was successful."</strong>
-    Click <strong>Close</strong>.
-  </div>
-</div>
-<div class="num-step">
-  <div class="num">5</div>
-  <div class="num-content">
-    <strong>Verify the installation:</strong> Press the <strong>Windows key</strong> on your keyboard,
-    type <code>cmd</code>, and press <strong>Enter</strong>. A black window called
-    <strong>Command Prompt</strong> will open.
-    Type the following and press Enter:
-    <pre><code>python --version</code></pre>
-    You should see something like <code>Python 3.12.3</code>.
-    If you see that, Python is installed correctly! Close this window.
+    Wait. On a brand-new computer this takes <strong>10–20 minutes</strong>,
+    because it downloads Python, the app's software packages, and two
+    browser engines from the internet. Do not close the window.
+    When you see <strong>"Setup finished!"</strong>, you are done — a
+    <strong>Donut Intel</strong> shortcut will be on your Desktop.
   </div>
 </div>
 
 <div class="tip-box">
-  <div class="box-title">💡 What Is Command Prompt?</div>
-  Command Prompt is a special window where you type instructions to the computer.
-  Instead of clicking buttons, you type commands. It looks like a black screen with white text.
-  You will use it a few times to set up and manage this app.
+  <div class="box-title">💡 If Something Goes Wrong</div>
+  It is always safe to double-click <code>setup.bat</code> again — it skips
+  whatever is already done and retries the rest. If it says the download
+  failed, check the internet connection and run it once more.
+</div>
+
+<div class="tip-box">
+  <div class="box-title">💡 Python Already Installed?</div>
+  If the computer already has Python 3.11 or newer, <code>setup.bat</code>
+  finds it and uses it — nothing is downloaded or reinstalled.
 </div>
 
 <!-- ======================================================== SECTION 4 -->
@@ -450,13 +435,15 @@ HTML = """<!DOCTYPE html>
 <h1 id="s5">Step 3 — Run First-Time Setup</h1>
 
 <p>
-  The setup script does four things automatically:
+  The setup program (<code>setup.bat</code>) does all of this automatically:
 </p>
 <ol>
+  <li>Finds Python — or downloads and installs it, and adds it to the PATH system setting</li>
   <li>Creates a private Python <strong>environment</strong> (a separate space for the app's software)</li>
   <li>Downloads and installs all the extra software the app needs</li>
   <li>Downloads the <strong>Chromium</strong> and <strong>Firefox</strong> browser engines (used for web scraping)</li>
   <li>Creates the security <strong>certificates</strong> so the app can use a secure HTTPS connection</li>
+  <li>Puts a <strong>Donut Intel</strong> shortcut on your Desktop</li>
 </ol>
 
 <h2>Open Command Prompt and Go to the App Folder</h2>
@@ -509,10 +496,10 @@ HTML = """<!DOCTYPE html>
 
 <div class="tip-box">
   <div class="box-title">💡 Something Went Wrong?</div>
-  If you see a red error message that says <strong>"python is not recognized"</strong>,
-  Python was not installed correctly — specifically, the "Add Python to PATH" box was not checked.
-  Uninstall Python from <strong>Control Panel → Programs</strong> and reinstall it,
-  making sure to check that box.
+  Read the message in the window, then simply double-click <code>setup.bat</code>
+  again — it is safe to run as many times as needed, and it will pick up
+  where it left off. If it cannot download Python or packages, check the
+  internet connection first.
 </div>
 
 <div class="tip-box">
@@ -1208,8 +1195,8 @@ and either merge them automatically (high confidence) or flag them for your revi
   <tr><th>Problem</th><th>Most Likely Cause</th><th>Solution</th></tr>
   <tr>
     <td><strong>"python is not recognized"</strong> error in Command Prompt</td>
-    <td>Python is not installed, or "Add to PATH" was not checked</td>
-    <td>Uninstall Python and reinstall it. On the first screen of the installer, check "Add python.exe to PATH" before clicking Install.</td>
+    <td>Python is not installed on the PATH yet</td>
+    <td>You don't need to fix this by hand — just double-click <code>setup.bat</code>. It finds Python or installs it for you and adds it to the PATH automatically. (If you installed Python yourself, close and re-open Command Prompt so the PATH refreshes.)</td>
   </tr>
   <tr>
     <td>Browser shows "This site can't be reached" at <code>https://localhost:8800</code></td>
@@ -1347,48 +1334,76 @@ and either merge them automatically (high confidence) or flag them for your revi
 """
 
 # ---------------------------------------------------------------------------
-# Sanitized settings.yaml for the ZIP
+# Windows-ready settings.yaml for the ZIP
 # ---------------------------------------------------------------------------
 
-# Any config key whose name contains one of these substrings is a secret and is
-# redacted before the config goes into the shared ZIP. Recursive + name-based so
-# a NEW secret field can never silently leak (the old hard-coded list missed
-# anthropic_api_key, auth.password, and smtp_password).
-_SECRET_KEY_MARKERS = (
-    'api_key', 'apikey', 'access_token', 'secret', 'token',
-    'password', 'passwd', 'client_id', 'client_secret', 'credential', 'private_key',
-)
-
-
-def _redact_secrets(obj):
-    """Recursively replace any secret-named field's value with a placeholder."""
-    if isinstance(obj, dict):
-        for k, v in obj.items():
-            if isinstance(v, (dict, list)):
-                _redact_secrets(v)
-            elif isinstance(k, str) and any(m in k.lower() for m in _SECRET_KEY_MARKERS):
-                if 'password' in k.lower() or 'passwd' in k.lower():
-                    obj[k] = 'CHANGE_ME'
-                elif k.lower() == 'secret_key':
-                    obj[k] = 'CHANGE_ME_REPLACE_WITH_RANDOM_32_CHARACTER_STRING'
-                else:
-                    obj[k] = f'YOUR_{k.upper()}_HERE'
-    elif isinstance(obj, list):
-        for item in obj:
-            _redact_secrets(item)
-    return obj
-
-
-def _sanitized_config() -> str:
+def _windows_config() -> str:
+    """Real config (so the deployed app is fully working out of the box),
+    with the browser profile pinned to chrome_windows so it never depends
+    on the macOS profiles. NOTE: contains live API credentials — treat the
+    ZIP as sensitive."""
     config_path = ROOT / 'config' / 'settings.yaml'
     cfg = yaml.safe_load(config_path.read_text(encoding='utf-8'))
-    _redact_secrets(cfg)
+    cfg.setdefault('browser', {})['default_profile'] = 'chrome_windows'
     return yaml.dump(cfg, default_flow_style=False, allow_unicode=True, sort_keys=False)
+
+
+# ---------------------------------------------------------------------------
+# Database export (live-safe copy)
+# ---------------------------------------------------------------------------
+
+def _export_db(dest_dir: Path) -> Path:
+    """Copy the live SQLite database using the online backup API.
+
+    Safe even while the app server is running: checkpoints the WAL and
+    produces a single self-contained .db file (no -wal/-shm sidecars).
+    """
+    import sqlite3
+    from backend.config import config as _cfg
+
+    src_path = _cfg.db_path()
+    dest = dest_dir / 'donut_intel.db'
+    src = sqlite3.connect(f'file:{src_path}?mode=ro', uri=True)
+    dst = sqlite3.connect(str(dest))
+    try:
+        src.backup(dst)
+    finally:
+        dst.close()
+        src.close()
+    print(f'Database exported: {dest.stat().st_size // (1024 * 1024)} MB')
+    return dest
 
 
 # ---------------------------------------------------------------------------
 # PDF generation via Playwright
 # ---------------------------------------------------------------------------
+
+def _launch_chromium(p):
+    """Launch any available Chromium-based browser: Playwright's managed
+    build first, then system Chrome/Edge/Brave as fallbacks (useful when the
+    Playwright CDN is unreachable)."""
+    try:
+        return p.chromium.launch()
+    except Exception:
+        pass
+    for channel in ('chrome', 'msedge'):
+        try:
+            return p.chromium.launch(channel=channel)
+        except Exception:
+            pass
+    import glob
+    for pattern in (
+        '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
+        '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+        '/Applications/Chromium.app/Contents/MacOS/Chromium',
+    ):
+        for exe in glob.glob(pattern):
+            try:
+                return p.chromium.launch(executable_path=exe)
+            except Exception:
+                pass
+    raise RuntimeError('No Chromium-based browser found to render the PDF guide')
+
 
 def generate_pdf() -> Path:
     html_path = ROOT / '_guide_tmp.html'
@@ -1399,7 +1414,7 @@ def generate_pdf() -> Path:
     try:
         from playwright.sync_api import sync_playwright
         with sync_playwright() as p:
-            browser = p.chromium.launch()
+            browser = _launch_chromium(p)
             page = browser.new_page()
             page.goto(html_path.as_uri())
             page.wait_for_load_state('networkidle')
@@ -1424,15 +1439,18 @@ def generate_pdf() -> Path:
 
 _EXCLUDE_DIRS  = {
     '.venv', '__pycache__', '.git', '.pytest_cache', '.mypy_cache',
-    'node_modules', '.claude',
+    'node_modules', '.claude', 'scan_cache',
 }
-_EXCLUDE_EXTS  = {'.pyc', '.pyo', '.db', '.db-shm', '.db-wal', '.log', '.enc', '.jsonl'}
+_EXCLUDE_EXTS  = {'.pyc', '.pyo', '.db', '.db-shm', '.db-wal', '.log', '.enc',
+                  '.jsonl', '.zip', '.odt', '.out'}
 _EXCLUDE_FILES = {
     'create_windows_package.py',
     '_guide_tmp.html',
     'com.donutintel.app.plist',   # macOS LaunchAgent — not needed on Windows
     'setup_macos.sh',              # macOS-only setup
+    'start.sh', 'stop.sh',         # macOS/Linux shell scripts
     'uvicorn.out',
+    '.~lock.Untitled 1.odt#',
 }
 _EXCLUDE_NAMES_ANY = {'.DS_Store', 'Thumbs.db'}
 
@@ -1449,54 +1467,76 @@ def _should_exclude(src: Path) -> bool:
     # Catch .bak, .bak-TIMESTAMP, .bak-anything
     if '.bak' in src.name:
         return True
+    # Scratch notes / prompt logs — not part of the app
+    if src.name.startswith('prompts_'):
+        return True
     return False
 
 
+def _as_crlf(data: bytes) -> bytes:
+    """Batch files MUST use CRLF line endings or cmd.exe misbehaves
+    (especially around labels and multi-line blocks)."""
+    text = data.decode('utf-8')
+    text = text.replace('\r\n', '\n').replace('\n', '\r\n')
+    return text.encode('utf-8')
+
+
 def create_zip(pdf_path: Path) -> Path:
+    import tempfile
+
     zip_path = ROOT / 'DonutIntel-Windows.zip'
-    sanitized = _sanitized_config()
+    win_config = _windows_config()
     inner = 'DonutIntel'   # folder name inside the ZIP → extracts to C:\DonutIntel
 
-    with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
+    # Live-safe copy of the database (single file, WAL checkpointed)
+    with tempfile.TemporaryDirectory() as tmp:
+        db_copy = _export_db(Path(tmp))
 
-        # Walk all project files
-        for src in sorted(ROOT.rglob('*')):
-            if _should_exclude(src):
-                continue
-            # Skip the zip file itself and the PDF (added separately below)
-            if src == zip_path or src == pdf_path:
-                continue
+        with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
 
-            rel = src.relative_to(ROOT)
-            arc = f'{inner}/{rel.as_posix()}'
+            # Walk all project files
+            for src in sorted(ROOT.rglob('*')):
+                if _should_exclude(src):
+                    continue
+                # Skip the zip file itself and the PDF (added separately below)
+                if src == zip_path or src == pdf_path:
+                    continue
 
-            if src.is_file():
-                if str(rel) == 'config/settings.yaml':
-                    zf.writestr(arc, sanitized)
-                else:
-                    zf.write(src, arc)
-            # Directories are created implicitly; add .gitkeep for empty ones
-            elif src.is_dir() and not any(src.rglob('*')):
-                zf.writestr(f'{arc}/.gitkeep', '')
+                rel = src.relative_to(ROOT)
+                arc = f'{inner}/{rel.as_posix()}'
 
-        # Ensure required empty directories exist in ZIP
-        for d in ('data', 'logs', 'exports', 'certs'):
-            placeholder = f'{inner}/{d}/.gitkeep'
-            names = zf.namelist()
-            if not any(n.startswith(f'{inner}/{d}/') for n in names):
-                zf.writestr(placeholder, '')
+                if src.is_file():
+                    if str(rel) == 'config/settings.yaml':
+                        zf.writestr(arc, win_config)
+                    elif src.suffix.lower() == '.bat':
+                        zf.writestr(arc, _as_crlf(src.read_bytes()))
+                    else:
+                        zf.write(src, arc)
+                # Directories are created implicitly; add .gitkeep for empty ones
+                elif src.is_dir() and not any(src.rglob('*')):
+                    zf.writestr(f'{arc}/.gitkeep', '')
 
-        # Add the PDF guide
-        if pdf_path.exists():
-            zf.write(pdf_path, f'{inner}/WINDOWS-SETUP-GUIDE.pdf')
+            # The product database
+            zf.write(db_copy, f'{inner}/data/donut_intel.db')
+
+            # Ensure required empty directories exist in ZIP
+            for d in ('logs', 'exports', 'certs'):
+                placeholder = f'{inner}/{d}/.gitkeep'
+                names = zf.namelist()
+                if not any(n.startswith(f'{inner}/{d}/') for n in names):
+                    zf.writestr(placeholder, '')
+
+            # Add the PDF guide
+            if pdf_path.exists():
+                zf.write(pdf_path, f'{inner}/WINDOWS-SETUP-GUIDE.pdf')
 
     size_mb = zip_path.stat().st_size / (1024 * 1024)
     print(f'ZIP created: {zip_path.name}  ({size_mb:.1f} MB)')
     print(f'\nTo deploy on Windows:')
-    print(f'  1. Email or copy DonutIntel-Windows.zip to the Windows machine')
+    print(f'  1. Copy DonutIntel-Windows.zip to the Windows machine')
     print(f'  2. Right-click the ZIP → "Extract All…" → destination: C:\\')
     print(f'  3. The app will be at C:\\DonutIntel\\')
-    print(f'  4. Follow WINDOWS-SETUP-GUIDE.pdf inside the ZIP')
+    print(f'  4. Double-click setup.bat — it installs everything automatically')
     return zip_path
 
 
